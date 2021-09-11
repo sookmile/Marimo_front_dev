@@ -1,0 +1,6 @@
+module Pods_Marimo_MarimoTests {
+  umbrella header "Pods-Marimo-MarimoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,245 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.marimo"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:4:5-67
+11-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:5:5-65
+12-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:5:22-62
+13    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+13-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:6:5-79
+13-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:6:22-77
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:7:5-80
+14-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:7:22-78
+15    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+15-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:8:5-71
+15-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:8:22-68
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:9:5-79
+16-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:9:22-76
+17    <uses-permission android:name="android.permission.INTERNET" />
+17-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:4:5-67
+17-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:4:22-64
+18    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+18-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:11:5-77
+18-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:11:22-75
+19\   
+20    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+20-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:12:5-79
+20-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:12:22-77
+21
+22    <uses-feature
+22-->[:react-native-camera] /Users/woojin/Marimo_front/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalRelease/AndroidManifest.xml:11:5-13:36
+23        android:name="android.hardware.camera"
+23-->[:react-native-camera] /Users/woojin/Marimo_front/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalRelease/AndroidManifest.xml:12:9-47
+24        android:required="false" />
+24-->[:react-native-camera] /Users/woojin/Marimo_front/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalRelease/AndroidManifest.xml:13:9-33
+25    <uses-feature
+25-->[:react-native-camera] /Users/woojin/Marimo_front/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalRelease/AndroidManifest.xml:14:5-16:36
+26        android:name="android.hardware.camera.autofocus"
+26-->[:react-native-camera] /Users/woojin/Marimo_front/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalRelease/AndroidManifest.xml:15:9-57
+27        android:required="false" />
+27-->[:react-native-camera] /Users/woojin/Marimo_front/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalRelease/AndroidManifest.xml:16:9-33
+28
+29    <application
+29-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:13:5-33:19
+30        android:name="com.marimo.MainApplication"
+30-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:15:7-38
+31        android:allowBackup="false"
+31-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:19:7-34
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/1a3234669c33f9f4072a7bfc84af0390/core-1.2.0/AndroidManifest.xml:24:18-86
+33        android:icon="@mipmap/ic_launcher"
+33-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:17:7-41
+34        android:label="@string/app_name"
+34-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:16:7-39
+35        android:requestLegacyExternalStorage="true"
+35-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:14:7-50
+36        android:roundIcon="@mipmap/ic_launcher_round"
+36-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:18:7-52
+37        android:testOnly="true"
+38        android:theme="@style/AppTheme" >
+38-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:20:7-38
+39        <activity
+39-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:21:7-31:18
+40            android:name="com.marimo.MainActivity"
+40-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:22:9-37
+41            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+41-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:24:9-86
+42            android:label="@string/app_name"
+42-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:23:9-41
+43            android:launchMode="singleTask"
+43-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:25:9-40
+44            android:windowSoftInputMode="adjustResize" >
+44-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:26:9-51
+45            <intent-filter>
+45-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:27:9-30:25
+46                <action android:name="android.intent.action.MAIN" />
+46-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:28:13-65
+46-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:28:21-62
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:29:13-73
+48-->/Users/woojin/Marimo_front/android/app/src/main/AndroidManifest.xml:29:23-70
+49            </intent-filter>
+50        </activity>
+51        <activity
+51-->[:react-native-seoul-naver-login] /Users/woojin/Marimo_front/node_modules/@react-native-seoul/naver-login/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:9-18:52
+52            android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
+52-->[:react-native-seoul-naver-login] /Users/woojin/Marimo_front/node_modules/@react-native-seoul/naver-login/android/build/intermediates/library_manifest/release/AndroidManifest.xml:16:13-88
+53            android:configChanges="orientation|screenSize"
+53-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:22:13-59
+54            android:label="OAuth2.0 In-app"
+54-->[:react-native-seoul-naver-login] /Users/woojin/Marimo_front/node_modules/@react-native-seoul/naver-login/android/build/intermediates/library_manifest/release/AndroidManifest.xml:17:13-44
+55            android:screenOrientation="portrait" />
+55-->[:react-native-seoul-naver-login] /Users/woojin/Marimo_front/node_modules/@react-native-seoul/naver-login/android/build/intermediates/library_manifest/release/AndroidManifest.xml:18:13-49
+56        <activity
+56-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:17:9-19:67
+57            android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
+57-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:18:13-76
+58            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+58-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:19:13-64
+59        <activity
+59-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:24:9-40:20
+60            android:name="com.nhn.android.naverlogin.ui.OAuthCustomTabActivity"
+60-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:25:13-80
+61            android:configChanges="orientation|screenSize"
+61-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:26:13-59
+62            android:launchMode="singleTask"
+62-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:27:13-44
+63            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+63-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:28:13-72
+64            <intent-filter>
+64-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:29:13-39:29
+65                <action android:name="android.intent.action.VIEW" />
+65-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:30:17-69
+65-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:30:25-66
+66
+67                <category android:name="android.intent.category.DEFAULT" />
+67-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:32:17-76
+67-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:32:27-73
+68                <category android:name="android.intent.category.BROWSABLE" />
+68-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:33:17-78
+68-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:33:27-75
+69                <!-- Intent URL 에서 로그인 액티비티를 실행하기 위해 설정 -->
+70                <data
+70-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:35:17-38:59
+71                    android:host="authorize"
+71-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:36:21-45
+72                    android:path="/"
+72-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:37:21-37
+73                    android:scheme="naver3rdpartylogin" />
+73-->[com.naver.nid:naveridlogin-android-sdk:4.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/3503aca1ee0fbb47776e87a4678b3a10/jetified-naveridlogin-android-sdk-4.2.6/AndroidManifest.xml:38:21-56
+74            </intent-filter>
+75        </activity>
+76
+77        <service
+77-->[com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f7ff6eb63aa1e3ea073666c14b514859/jetified-play-services-mlkit-barcode-scanning-16.2.0/AndroidManifest.xml:9:9-15:19
+78            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+78-->[com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f7ff6eb63aa1e3ea073666c14b514859/jetified-play-services-mlkit-barcode-scanning-16.2.0/AndroidManifest.xml:10:13-91
+79            android:directBootAware="true"
+79-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:17:13-43
+80            android:exported="false" >
+80-->[com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f7ff6eb63aa1e3ea073666c14b514859/jetified-play-services-mlkit-barcode-scanning-16.2.0/AndroidManifest.xml:11:13-37
+81            <meta-data
+81-->[com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f7ff6eb63aa1e3ea073666c14b514859/jetified-play-services-mlkit-barcode-scanning-16.2.0/AndroidManifest.xml:12:13-14:85
+82                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+82-->[com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f7ff6eb63aa1e3ea073666c14b514859/jetified-play-services-mlkit-barcode-scanning-16.2.0/AndroidManifest.xml:13:17-120
+83                android:value="com.google.firebase.components.ComponentRegistrar" />
+83-->[com.google.android.gms:play-services-mlkit-barcode-scanning:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f7ff6eb63aa1e3ea073666c14b514859/jetified-play-services-mlkit-barcode-scanning-16.2.0/AndroidManifest.xml:14:17-82
+84            <meta-data
+84-->[com.google.android.gms:play-services-mlkit-face-detection:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f39df081e10057909138456416ab1dab/jetified-play-services-mlkit-face-detection-16.2.0/AndroidManifest.xml:12:13-14:85
+85                android:name="com.google.firebase.components:com.google.mlkit.vision.face.internal.FaceRegistrar"
+85-->[com.google.android.gms:play-services-mlkit-face-detection:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f39df081e10057909138456416ab1dab/jetified-play-services-mlkit-face-detection-16.2.0/AndroidManifest.xml:13:17-114
+86                android:value="com.google.firebase.components.ComponentRegistrar" />
+86-->[com.google.android.gms:play-services-mlkit-face-detection:16.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/f39df081e10057909138456416ab1dab/jetified-play-services-mlkit-face-detection-16.2.0/AndroidManifest.xml:14:17-82
+87            <meta-data
+87-->[com.google.android.gms:play-services-mlkit-text-recognition:16.3.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/8a88aae300aa83d5c14da36774d8b531/jetified-play-services-mlkit-text-recognition-16.3.0/AndroidManifest.xml:12:13-14:85
+88                android:name="com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar"
+88-->[com.google.android.gms:play-services-mlkit-text-recognition:16.3.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/8a88aae300aa83d5c14da36774d8b531/jetified-play-services-mlkit-text-recognition-16.3.0/AndroidManifest.xml:13:17-114
+89                android:value="com.google.firebase.components.ComponentRegistrar" />
+89-->[com.google.android.gms:play-services-mlkit-text-recognition:16.3.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/8a88aae300aa83d5c14da36774d8b531/jetified-play-services-mlkit-text-recognition-16.3.0/AndroidManifest.xml:14:17-82
+90            <meta-data
+90-->[com.google.mlkit:vision-common:16.5.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/aba78458a93c9ceecd48b55ba2824cd6/jetified-vision-common-16.5.0/AndroidManifest.xml:12:13-14:85
+91                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+91-->[com.google.mlkit:vision-common:16.5.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/aba78458a93c9ceecd48b55ba2824cd6/jetified-vision-common-16.5.0/AndroidManifest.xml:13:17-124
+92                android:value="com.google.firebase.components.ComponentRegistrar" />
+92-->[com.google.mlkit:vision-common:16.5.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/aba78458a93c9ceecd48b55ba2824cd6/jetified-vision-common-16.5.0/AndroidManifest.xml:14:17-82
+93            <meta-data
+93-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:20:13-22:85
+94                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+94-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:21:17-120
+95                android:value="com.google.firebase.components.ComponentRegistrar" />
+95-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:22:17-82
+96        </service>
+97
+98        <provider
+98-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:9:9-13:38
+99            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+99-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:10:13-78
+100            android:authorities="com.marimo.mlkitinitprovider"
+100-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:11:13-69
+101            android:exported="false"
+101-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:12:13-37
+102            android:initOrder="99" />
+102-->[com.google.mlkit:common:17.2.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/bf5e10dabc875cb66e2e82010209511a/jetified-common-17.2.0/AndroidManifest.xml:13:13-35
+103
+104        <service
+104-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/woojin/.gradle/caches/transforms-2/files-2.1/06cbf82235ff7888b1bd00b365b37ed7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+105            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+105-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/woojin/.gradle/caches/transforms-2/files-2.1/06cbf82235ff7888b1bd00b365b37ed7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+106            android:exported="false" >
+106-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/woojin/.gradle/caches/transforms-2/files-2.1/06cbf82235ff7888b1bd00b365b37ed7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+107            <meta-data
+107-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/woojin/.gradle/caches/transforms-2/files-2.1/06cbf82235ff7888b1bd00b365b37ed7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+108                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+108-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/woojin/.gradle/caches/transforms-2/files-2.1/06cbf82235ff7888b1bd00b365b37ed7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+109                android:value="cct" />
+109-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/woojin/.gradle/caches/transforms-2/files-2.1/06cbf82235ff7888b1bd00b365b37ed7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+110        </service>
+111        <service
+111-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:26:9-30:19
+112            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+112-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:27:13-117
+113            android:exported="false"
+113-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:28:13-37
+114            android:permission="android.permission.BIND_JOB_SERVICE" >
+114-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:29:13-69
+115        </service>
+116
+117        <receiver
+117-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:32:9-34:40
+118            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+118-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:33:13-132
+119            android:exported="false" />
+119-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/woojin/.gradle/caches/transforms-2/files-2.1/87ab190c9cd170b303c55045ac8519f5/jetified-transport-runtime-2.2.6/AndroidManifest.xml:34:13-37
+120
+121        <activity
+121-->[com.google.android.gms:play-services-base:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/7d64a1cd2514583b2a458dd887234110/jetified-play-services-base-17.6.0/AndroidManifest.xml:23:9-26:75
+122            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+122-->[com.google.android.gms:play-services-base:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/7d64a1cd2514583b2a458dd887234110/jetified-play-services-base-17.6.0/AndroidManifest.xml:24:13-79
+123            android:exported="false"
+123-->[com.google.android.gms:play-services-base:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/7d64a1cd2514583b2a458dd887234110/jetified-play-services-base-17.6.0/AndroidManifest.xml:25:13-37
+124            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+124-->[com.google.android.gms:play-services-base:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/7d64a1cd2514583b2a458dd887234110/jetified-play-services-base-17.6.0/AndroidManifest.xml:26:13-72
+125
+126        <meta-data
+126-->[com.google.android.gms:play-services-basement:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/b30aa8f2c38872540ef1352302c9199c/jetified-play-services-basement-17.6.0/AndroidManifest.xml:23:9-25:69
+127            android:name="com.google.android.gms.version"
+127-->[com.google.android.gms:play-services-basement:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/b30aa8f2c38872540ef1352302c9199c/jetified-play-services-basement-17.6.0/AndroidManifest.xml:24:13-58
+128            android:value="@integer/google_play_services_version" />
+128-->[com.google.android.gms:play-services-basement:17.6.0] /Users/woojin/.gradle/caches/transforms-2/files-2.1/b30aa8f2c38872540ef1352302c9199c/jetified-play-services-basement-17.6.0/AndroidManifest.xml:25:13-66
+129    </application>
+130
+131</manifest>

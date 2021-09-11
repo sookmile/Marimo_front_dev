@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Marimo.iml" filepath="$PROJECT_DIR$/.idea/modules/Marimo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-645231234/Marimo.@react-native-community_cameraroll.iml" filepath="$PROJECT_DIR$/.idea/modules/-645231234/Marimo.@react-native-community_cameraroll.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Marimo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Marimo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1982578495/Marimo.react-native-camera.iml" filepath="$PROJECT_DIR$/.idea/modules/1982578495/Marimo.react-native-camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-645231234/Marimo.react-native-community_cameraroll.iml" filepath="$PROJECT_DIR$/.idea/modules/-645231234/Marimo.react-native-community_cameraroll.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-318440565/Marimo.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-318440565/Marimo.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-964436052/Marimo.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-964436052/Marimo.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1969660656/Marimo.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/1969660656/Marimo.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1541258517/Marimo.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/1541258517/Marimo.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1439071379/Marimo.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-1439071379/Marimo.react-native-screens.iml" />
+    </modules>
+  </component>
+</project>

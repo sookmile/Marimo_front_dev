@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-Marimo/Pods-Marimo-frameworks.sh
+${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL
