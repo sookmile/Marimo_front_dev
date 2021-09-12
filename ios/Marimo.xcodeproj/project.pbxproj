@@ -11,13 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		26B66A8CFF3F4380A489EBED /* NanumSquareRoundOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */; };
+		493B414C3F5B49FFA192D898 /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */; };
 		7F763B38E4BCFDD6166B0743 /* libPods-Marimo-MarimoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B33C9858E2573954F31D6B1 /* libPods-Marimo-MarimoTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F88BE95F1B2015216674CCEB /* libPods-Marimo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */; };
-		493B414C3F5B49FFA192D898 /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */; };
 		990A3551CFFD470AA3903CCA /* NanumSquareRoundB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */; };
-		26B66A8CFF3F4380A489EBED /* NanumSquareRoundOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */; };
 		C5358F90B64C481DA2F6E661 /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */; };
+		F88BE95F1B2015216674CCEB /* libPods-Marimo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +35,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MarimoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarimoTests.m; sourceTree = "<group>"; };
 		0361654725D16B3EBB35EB87 /* Pods-Marimo-MarimoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.debug.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundOTFB.otf; path = ../src/assets/fonts/NanumSquareRoundOTFB.otf; sourceTree = "<group>"; };
+		0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundB.ttf; path = ../src/assets/fonts/NanumSquareRoundB.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Marimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Marimo/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Marimo/AppDelegate.m; sourceTree = "<group>"; };
@@ -45,13 +47,11 @@
 		6B33C9858E2573954F31D6B1 /* libPods-Marimo-MarimoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo-MarimoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Marimo/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84CAFBD2F54393B180F86A3C /* Pods-Marimo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.debug.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.debug.xcconfig"; sourceTree = "<group>"; };
+		859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Cafe24Ssurround.ttf; path = ../src/assets/fonts/Cafe24Ssurround.ttf; sourceTree = "<group>"; };
 		D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansCJKkr-Regular.otf"; path = "../src/assets/fonts/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F859AD47F708DCF4FBD70E38 /* Pods-Marimo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.release.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.release.xcconfig"; sourceTree = "<group>"; };
-		859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; name = "Cafe24Ssurround.ttf"; path = "../src/assets/fonts/Cafe24Ssurround.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; name = "NanumSquareRoundB.ttf"; path = "../src/assets/fonts/NanumSquareRoundB.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */ = {isa = PBXFileReference; name = "NanumSquareRoundOTFB.otf"; path = "../src/assets/fonts/NanumSquareRoundOTFB.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; name = "NotoSansCJKkr-Regular.otf"; path = "../src/assets/fonts/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +114,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2ED09F4C1AAE4ADFB462F63D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */,
+				0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */,
+				07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */,
+				D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		77A0AEFF502B85E3CC8E30C5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,18 +168,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		2ED09F4C1AAE4ADFB462F63D /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */,
-				0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */,
-				07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */,
-				D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
