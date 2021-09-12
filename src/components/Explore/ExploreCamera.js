@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -12,10 +12,11 @@ import {
 import { RNCamera } from "react-native-camera";
 import CameraRoll from "@react-native-community/cameraroll";
 import LinearGradient from "react-native-linear-gradient";
-import preURL from "../preURL/preURL";
+import preURL from "../../preURL/preURL";
 import { PERMISSIONS, RESULTS, request } from "react-native-permissions";
 import axios from "axios";
-import Loader from "../components/Loader";
+import Loader from "../Loader/Loader";
+import { icons } from "../../constants";
 
 const ExploreCamera = ({ navigation }) => {
   // for data to  send api
@@ -26,6 +27,17 @@ const ExploreCamera = ({ navigation }) => {
   const [description, setdescription] = useState("");
   const [processingImage, setprocessingImage] = useState(false);
   const cameraRef = React.useRef(null);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitleAlign: "left",
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image source={icons.marimo_logo} />
+        </TouchableOpacity>
+      ),
+    });
+  });
 
   const onOpenCamera = () => {
     // start camera
@@ -115,58 +127,61 @@ const ExploreCamera = ({ navigation }) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <RNCamera
-          ref={cameraRef}
-          style={styles.preview}
-          captureAudio={false}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.off}
-          androidCameraPermissionOptions={{
-            title: "Permission to use camera",
-            message: "We need your permission to use your camera",
-            buttonPositive: "Ok",
-            buttonNegative: "Cancel",
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: "Permission to use audio recording",
-            message: "We need your permission to use your audio",
-            buttonPositive: "Ok",
-            buttonNegative: "Cancel",
-          }}
-        />
-        <View style={{ position: "absolute", bottom: 15 }}>
-          <TouchableOpacity
-            onPress={async () => {
-              await takePhoto();
-              if (url) postImage();
-              // post api
-              if (response) {
-                setprocessingImage(false);
-                navigation.navigate("Detail", {
-                  image: url,
-                  description: description,
-                });
-              } else {
-                alert("이미지를 받아오지 못했습니다!");
-              }
-              console.log("hello");
-            }}
-          >
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              colors={[
-                "rgba(255, 113, 113, 0.45)",
-                "rgba(177, 108, 246, 0.45)",
-              ]}
-              style={{
-                width: 55,
-                height: 55,
-                borderRadius: 55,
+        <Loader loading={processingImage} />
+        {onOpenCamera && (
+          <>
+            <RNCamera
+              ref={cameraRef}
+              style={styles.preview}
+              captureAudio={false}
+              type={RNCamera.Constants.Type.back}
+              flashMode={RNCamera.Constants.FlashMode.off}
+              androidCameraPermissionOptions={{
+                title: "Permission to use camera",
+                message: "We need your permission to use your camera",
+                buttonPositive: "Ok",
+                buttonNegative: "Cancel",
+              }}
+              androidRecordAudioPermissionOptions={{
+                title: "Permission to use audio recording",
+                message: "We need your permission to use your audio",
+                buttonPositive: "Ok",
+                buttonNegative: "Cancel",
               }}
             />
-          </TouchableOpacity>
-        </View>
+            <View style={{ position: "absolute", bottom: 15 }}>
+              <TouchableOpacity
+                onPress={async () => {
+                  await takePhoto();
+                  if (url) postImage();
+                  // post api
+                  if (description) {
+                    setprocessingImage(false);
+                    navigation.navigate("Detail", {
+                      image: url,
+                      description: description,
+                    });
+                  } else {
+                    alert("이미지를 받아오지 못했습니다!");
+                  }
+                  console.log("hello");
+                }}
+              >
+                <View style={styles.snapButton}>
+                  <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }}
+                    colors={[
+                      "rgba(255, 113, 113, 0.45)",
+                      "rgba(177, 108, 246, 0.45)",
+                    ]}
+                    style={styles.innerSnapButton}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
       </SafeAreaView>
     </>
   );
