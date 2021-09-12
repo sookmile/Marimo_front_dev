@@ -4,6 +4,7 @@ export const game_ic = require("../assets/icons/Game.png");
 export const explore_ic = require("../assets/icons/Explore.png");
 export const Settings_ic = require("../assets/icons/Settings.png");
 export const camera_ic = require("../assets/icons/Camera.png");
+export const userIcon = require("../assets/icons/userIcon.png");
 
 export default {
   marimo_logo,
@@ -12,4 +13,5 @@ export default {
   explore_ic,
   Settings_ic,
   camera_ic,
+  userIcon,
 };

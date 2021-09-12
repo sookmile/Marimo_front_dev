@@ -1,12 +1,12 @@
-import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../components/Story/StoryMain';
-import {icons, COLORS} from '../constants/index';
-import Settings from './Settings';
-import Explore from './ExploreScreen';
-import Game from './GameScreen';
-import Story from './StoryScreen';
+import React from "react";
+import { StyleSheet, View, Text, Image } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "../components/Story/StoryMain";
+import { icons, COLORS } from "../constants/index";
+import Settings from "./Settings";
+import Explore from "./ExploreScreen";
+import Game from "./GameScreen";
+import Story from "./StoryScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,18 +22,20 @@ const NavTabs = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
         tabBarStyle: {
-          height: '10%',
+          height: "10%",
           backgroundColor: COLORS.bgPurple,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         },
-      }}>
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Story}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
                 source={icons.home_ic}
@@ -43,8 +45,9 @@ const NavTabs = () => {
               <Text
                 style={{
                   color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? 'bold' : 'normal',
-                }}>
+                  fontWeight: focused ? "bold" : "normal",
+                }}
+              >
                 동화
               </Text>
             </View>
@@ -55,7 +58,7 @@ const NavTabs = () => {
         name="Game"
         component={Game}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
                 source={icons.game_ic}
@@ -65,8 +68,9 @@ const NavTabs = () => {
               <Text
                 style={{
                   color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? 'bold' : 'normal',
-                }}>
+                  fontWeight: focused ? "bold" : "normal",
+                }}
+              >
                 게임
               </Text>
             </View>
@@ -77,7 +81,7 @@ const NavTabs = () => {
         name="Explore"
         component={Explore}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
                 source={icons.explore_ic}
@@ -87,8 +91,9 @@ const NavTabs = () => {
               <Text
                 style={{
                   color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? 'bold' : 'normal',
-                }}>
+                  fontWeight: focused ? "bold" : "normal",
+                }}
+              >
                 탐험하기
               </Text>
             </View>
@@ -99,7 +104,7 @@ const NavTabs = () => {
         name="Settings"
         component={Settings}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
                 source={icons.Settings_ic}
@@ -109,8 +114,9 @@ const NavTabs = () => {
               <Text
                 style={{
                   color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? 'bold' : 'normal',
-                }}>
+                  fontWeight: focused ? "bold" : "normal",
+                }}
+              >
                 설정
               </Text>
             </View>
@@ -123,8 +129,8 @@ const NavTabs = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   icons: {
     width: 50,
