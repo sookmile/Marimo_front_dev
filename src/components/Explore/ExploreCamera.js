@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   View,
-  Text,
+  Image,
   TouchableOpacity,
   StatusBar,
   StyleSheet,
@@ -32,12 +32,16 @@ const ExploreCamera = ({ navigation }) => {
     navigation.setOptions({
       headerTitleAlign: "left",
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={icons.marimo_logo} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("Main");
+          }}
+        >
+          <Image source={icons.marimo_logo} style={{ paddingLeft: 10 }} />
         </TouchableOpacity>
       ),
     });
-  });
+  }, []);
 
   const onOpenCamera = () => {
     // start camera
@@ -77,7 +81,7 @@ const ExploreCamera = ({ navigation }) => {
       console.log("data", data.uri);
 
       if (data) {
-        setUrl(await CameraRoll.save(data.uri));
+        setUrl(data.uri);
         setprocessingImage(true);
         console.log("result", url);
       }
@@ -101,6 +105,7 @@ const ExploreCamera = ({ navigation }) => {
         const response = res.data;
         console.log(response);
         setdescription(response);
+        console.log("설명", description);
       })
       .catch((err) => {
         console.log("에러  발생 ");
@@ -115,11 +120,10 @@ const ExploreCamera = ({ navigation }) => {
         first: 1,
         assetType: "Photos",
       });
-      await setImage(edges[0].node.image.uri);
+      await setUrl(edges[0].node.image.uri);
     } catch (error) {
       console.log("getPhoto", error);
     }
-    navigation.navigate("Detail", { image: url });
   };
 
   /* 카메라 페이지 */
@@ -162,7 +166,8 @@ const ExploreCamera = ({ navigation }) => {
                       description: description,
                     });
                   } else {
-                    alert("이미지를 받아오지 못했습니다!");
+                    setprocessingImage(false);
+                    alert("이미지 설명 받아오지 못했습니다!");
                   }
                   console.log("hello");
                 }}
@@ -178,6 +183,26 @@ const ExploreCamera = ({ navigation }) => {
                     style={styles.innerSnapButton}
                   />
                 </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={async () => {
+                  await getPhotos();
+                  if (url) postImage();
+                  // post api
+                  if (description) {
+                    setprocessingImage(false);
+                    navigation.navigate("Detail", {
+                      image: url,
+                      description: description,
+                    });
+                  } else {
+                    setprocessingImage(false);
+                    alert("이미지를 받아오지 못했습니다!");
+                  }
+                  console.log("hello");
+                }}
+              >
+                <Image source={icons.userIcon} />
               </TouchableOpacity>
             </View>
           </>

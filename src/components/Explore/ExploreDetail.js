@@ -20,7 +20,7 @@ const ExploreDetail = ({ navigation, route }) => {
           <Image
             source={icons.marimo_logo}
             resizeMode="contain"
-            style={{ width: 30, height: 30 }}
+            style={{ width: 50, height: 50 }}
           />
         </TouchableOpacity>
 
@@ -63,7 +63,7 @@ const ExploreDetail = ({ navigation, route }) => {
 
   const renderButtons = () => {
     return (
-      <View style={container_button}>
+      <View style={styles.container_button}>
         <CustomButton
           buttonText="이름 불러보기"
           onPress={() => console.log("이름 불러보기")}
