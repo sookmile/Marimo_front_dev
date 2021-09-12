@@ -1,9 +1,0 @@
-com/marimo/BuildConfig.java
- com.marimo.BuildConfig
-com/marimo/MainActivity.java
- com.marimo.MainActivity
-com/facebook/react/PackageList.java
- com.facebook.react.PackageList
-com/marimo/MainApplication.java
- com.marimo.MainApplication
- com.marimo.MainApplication$1
