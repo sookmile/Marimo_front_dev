@@ -199,9 +199,9 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   userNameText: {
-    fontFamily: "Cafe24Ssurround",
+    fontFamily: "NanumSquareRoundB",
     color: COLORS.black,
-    fontSize: 25,
+    fontSize: 24,
   },
   container_button: {
     height: "10%",
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   buttonText: {
-    fontFamily: "Cafe24Ssurround",
+    fontFamily: "NanumSquareRoundB",
     color: COLORS.black,
     fontSize: 18,
     textAlign: "center",

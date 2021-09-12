@@ -14,6 +14,10 @@
 		7F763B38E4BCFDD6166B0743 /* libPods-Marimo-MarimoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B33C9858E2573954F31D6B1 /* libPods-Marimo-MarimoTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F88BE95F1B2015216674CCEB /* libPods-Marimo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */; };
+		493B414C3F5B49FFA192D898 /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */; };
+		990A3551CFFD470AA3903CCA /* NanumSquareRoundB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */; };
+		26B66A8CFF3F4380A489EBED /* NanumSquareRoundOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */; };
+		C5358F90B64C481DA2F6E661 /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F859AD47F708DCF4FBD70E38 /* Pods-Marimo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.release.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.release.xcconfig"; sourceTree = "<group>"; };
+		859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; name = "Cafe24Ssurround.ttf"; path = "../src/assets/fonts/Cafe24Ssurround.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; name = "NanumSquareRoundB.ttf"; path = "../src/assets/fonts/NanumSquareRoundB.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */ = {isa = PBXFileReference; name = "NanumSquareRoundOTFB.otf"; path = "../src/assets/fonts/NanumSquareRoundOTFB.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; name = "NotoSansCJKkr-Regular.otf"; path = "../src/assets/fonts/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +141,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				77A0AEFF502B85E3CC8E30C5 /* Pods */,
+				2ED09F4C1AAE4ADFB462F63D /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +156,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		2ED09F4C1AAE4ADFB462F63D /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */,
+				0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */,
+				07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */,
+				D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +265,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				493B414C3F5B49FFA192D898 /* Cafe24Ssurround.ttf in Resources */,
+				990A3551CFFD470AA3903CCA /* NanumSquareRoundB.ttf in Resources */,
+				26B66A8CFF3F4380A489EBED /* NanumSquareRoundOTFB.otf in Resources */,
+				C5358F90B64C481DA2F6E661 /* NotoSansCJKkr-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
