@@ -111,6 +111,16 @@ const ExploreCamera = ({ navigation }) => {
         console.log("에러  발생 ");
         console.log(err);
       });
+    if (description) {
+      setprocessingImage(false);
+      navigation.navigate("Detail", {
+        image: url,
+        description: description,
+      });
+    } else {
+      setprocessingImage(false);
+      alert("이미지 설명 받아오지 못했습니다!");
+    }
   };
 
   const getPhotos = async () => {
@@ -159,16 +169,6 @@ const ExploreCamera = ({ navigation }) => {
                   await takePhoto();
                   if (url) postImage();
                   // post api
-                  if (description) {
-                    setprocessingImage(false);
-                    navigation.navigate("Detail", {
-                      image: url,
-                      description: description,
-                    });
-                  } else {
-                    setprocessingImage(false);
-                    alert("이미지 설명 받아오지 못했습니다!");
-                  }
                   console.log("hello");
                 }}
               >
