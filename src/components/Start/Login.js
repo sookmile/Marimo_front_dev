@@ -86,6 +86,10 @@ const Login = ({ navigation, userName }) => {
         </TouchableOpacity>
         <VoiceText>{voiceLabel}</VoiceText>
         <Text>{text ? `${text}` : "단어 없음.."}</Text>
+
+        <TouchableOpacity onPress={() => navigation.navigate("NavTab")}>
+          <Text>Move</Text>
+        </TouchableOpacity>
       </Cntr>
     </Container>
   );
