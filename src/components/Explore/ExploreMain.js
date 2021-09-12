@@ -1,245 +1,256 @@
-import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import {
-  View,
-  Text,
-  Image,
-  SafeAreaView,
-  TouchableOpacity,
-  FlatList,
   StyleSheet,
-} from "react-native";
+  Text,
+  View,
+  SectionList,
+  SafeAreaView,
+  Image,
+  FlatList,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import {
-  FONTS,
-  COLORS,
-  SIZES,
-  icons,
-  images,
-  dummyData,
-} from "../../constants";
-
-const ExploreMain = ({ navigation }) => {
-  const renderHeader = () => {
-    return (
-      <View style={styles.container_header}>
-        {/* Images */}
-        <TouchableOpacity>
-          <Image source={icons.marimo_logo} />
-        </TouchableOpacity>
-        {/* Text */}
-        <View style={styles.container_headerText}>
-          <Text style={styles.titleText}>마리모와 말의 세계</Text>
-        </View>
-      </View>
-    );
-  };
-
-  const renderUserInfo = () => {
-    return (
-      <View style={styles.container_userInfo}>
-        {/* Icon */}
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Image source={icons.userIcon} style={{ width: 40, height: 40 }} />
-        </View>
-
-        {/* Text */}
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={styles.userNameText}>서영</Text>
-        </View>
-        <View
-          style={{
-            marginHorizontal: SIZES.padding,
-          }}
-        />
-      </View>
-    );
-  };
-
-  const renderButtons = () => {
-    return (
-      <View style={styles.container_button}>
-        <TouchableOpacity
-          onPress={() => console.log("나의 가록들")}
-          style={styles.button1}
-        >
-          <Text style={styles.buttonText}>나의 기록들</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => console.log("나의 가록들")}
-          style={styles.button2}
-        >
-          <Text style={styles.buttonText}>친구 등록하기</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
-  const renderExploreCamera = () => {
-    return (
-      <View
-        style={{ marginTop: SIZES.padding, marginHorizontal: SIZES.padding }}
-      >
-        <Text style={styles.titleText}>찰칵, 카메라를 눌러서 찾아봐요!</Text>
-
-        <View
-          style={{
-            marginTop: SIZES.padding,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
-            <View style={styles.container_cameraButton}>
-              <Image
-                source={icons.camera_ic}
-                style={{ width: 120, height: 120 }}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
-  const renderMyMemories = () => {
-    return (
-      <View
-        style={{ marginTop: SIZES.padding, marginHorizontal: SIZES.padding }}
-      >
-        <Text style={styles.titleText}>나의 추억창고</Text>
-
-        <FlatList
-          data={dummyData.myMemories}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={({ item, index }) => {
-            return (
-              <View
-                style={{
-                  marginLeft: SIZES.padding,
-                  marginVertical: SIZES.padding,
-                }}
-              >
-                <TouchableOpacity>
-                  <Image
-                    source={item.image}
-                    resizeMode="contain"
-                    style={{ width: 180, height: 110 }}
-                  />
-                </TouchableOpacity>
-                <View style={{ marginTop: 5 }}>
-                  <Text style={{ textAlign: "center", ...FONTS.body3 }}>
-                    {item.name}
-                  </Text>
-                </View>
-              </View>
-            );
-          }}
-        />
-      </View>
-    );
-  };
-
+const ListItem = ({ item }) => {
+  const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      {/* Header */}
-      {renderHeader()}
-      {renderUserInfo()}
-      {renderButtons()}
-      {/* Camera Icon */}
-      {renderExploreCamera()}
-      {/* Memory list */}
-      {renderMyMemories()}
-    </SafeAreaView>
+    <TouchableOpacity onPress={() => navigation.navigate(item.route)}>
+    <View style={styles.item}>
+      <Image
+        source={{
+          uri: item.uri,
+        }}
+        style={styles.itemPhoto}
+        resizeMode="cover"
+      />
+      <Text style={styles.itemText}>{item.text}</Text>
+    </View>
+    </TouchableOpacity>
   );
 };
 
-export default ExploreMain;
+const StoryMain = ({navigation}) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Image
+          style={styles.mainLogo}
+          source={require('../../assets/icons/MainLogo.png')}
+        />
+        <Text>마리모와 말의 세계</Text>
+      </View>
+      <View>
+        <View style={styles.name}>
+          <Image
+            style={styles.logo}
+            source={require('../../assets/icons/Logo.png')}
+          />
+          <Text style={styles.userName}>송이</Text>
+        </View>
+        <View style={styles.records}>
+          <TouchableOpacity style={styles.rButton1}>
+            <Text>나의 기록들</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.rButton2}>
+            <Text>친구 등록하기</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View>
+        <View style={styles.title}>
+          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <TouchableOpacity>
+            <Text>+</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.cameraBlock}>
+          <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+          <Image
+            style={styles.camera}
+            source={require('../../assets/camera.png')}
+          />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View>
+        <View style={styles.title}>
+          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <TouchableOpacity>
+            <Text>+</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.storyBlock}>
+          <SafeAreaView style={{ flex: 1 }}>
+        <SectionList
+          contentContainerStyle={{ paddingHorizontal: 10 }}
+          stickySectionHeadersEnabled={false}
+          sections={SECTIONS}
+          renderSectionHeader={({ section }) => (
+            <>
+              {section.horizontal ? (
+                <FlatList
+                  horizontal
+                  data={section.data}
+                  renderItem={({ item }) => <ListItem item={item} />}
+                  showsHorizontalScrollIndicator={false}
+                />
+              ) : null}
+            </>
+          )}
+          renderItem={({ item, section }) => {
+            if (section.horizontal) {
+              return null;
+            }
+            return <ListItem item={item} />;
+          }}
+        />
+      </SafeAreaView>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default StoryMain;
+
+
+const SECTIONS = [
+  {
+    title: 'Made for you',
+    horizontal: true,
+    data: [
+      {
+        key: '1',
+        text: '해바라기',
+        uri: 'https://picsum.photos/id/1/200',
+        route: 'StoryLoading'
+      },
+      {
+        key: '2',
+        text: '사슴',
+        uri: 'https://picsum.photos/id/10/200',
+        route: 'StoryLoading'
+      },
+
+      {
+        key: '3',
+        text: 'Item text 3',
+        uri: 'https://picsum.photos/id/1002/200',
+        route: 'StoryLoading'
+      },
+    ],
+  },
+  
+];
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    zIndex: -1,
+    display: 'flex',
+    padding: 10
   },
-  container_header: {
-    flexDirection: "row",
-    marginTop: SIZES.padding,
-    alignItems: "center",
-    paddingLeft: SIZES.padding,
-    height: 20,
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 5,
+    height: 50,
   },
-  container_headerText: {
-    flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 14,
+  mainLogo: {
+    width: 35,
+    height: 35,
+    marginLeft: 5,
+    marginRight: 10,
   },
-  titleText: {
-    color: COLORS.darkGray,
-    ...FONTS.h3,
+  logo: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#A098FD',
+    borderRadius: 45,
+    marginLeft: 5,
   },
-  container_userInfo: {
-    flexDirection: "row",
-    marginTop: SIZES.padding,
-    marginHorizontal: SIZES.padding,
-    borderRadius: 20,
-    backgroundColor: COLORS.bgPurple,
-    borderColor: COLORS.purple,
+  camera: {
+    width: 208,
+    height: 143,
+    backgroundColor: '#F66C6C',
+    borderRadius: 45,
+    marginLeft: 5,
+  },
+  name: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#F1DFFF',
+    borderRadius: 45,
     borderWidth: 3,
+    borderColor: '#C5A1F3',
+    marginLeft: 5,
+    marginRight: 5,
   },
-  userNameText: {
-    fontFamily: "NanumSquareRoundB",
-    color: COLORS.black,
-    fontSize: 24,
+  userName: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 300,
   },
-  container_button: {
-    height: "10%",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginHorizontal: 25,
+  records: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 5,
   },
-  button1: {
-    width: "40%",
-    height: "65%",
-    borderRadius: 20,
-    marginTop: SIZES.radius,
-    justifyContent: "center",
-    marginHorizontal: 10,
-    backgroundColor: "#FF8C73",
+  rButton1: {
+    width: 114,
+    height: 36,
+    borderRadius: 40,
+    backgroundColor: '#FF8C73',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  button2: {
-    width: "40%",
-    height: "65%",
-    borderRadius: 20,
-    marginTop: SIZES.radius,
-    backgroundColor: "#FEBB61",
-    justifyContent: "center",
-    marginHorizontal: 10,
+  rButton2: {
+    width: 114,
+    height: 36,
+    borderRadius: 40,
+    backgroundColor: '#FEBB61',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  buttonText: {
-    fontFamily: "NanumSquareRoundB",
-    color: COLORS.black,
-    fontSize: 18,
-    textAlign: "center",
-    lineHeight: 22,
+  title: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    margin: 10
   },
-  container_cameraButton: {
-    backgroundColor: "#F66C6C",
-    width: 200,
-    height: 120,
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
+  cameraBlock: {
+    width: 370,
+    height: 145,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  storyBlock: {
+    width: 370,
+    height: 145,
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginLeft: 10,
+  },
+  item: {
+    marginRight: 10,
+    width: 204,
+    height: 145,
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  itemPhoto: {
+    width: 195,
+    height: 104,
+    borderRadius: 20
+  },
+  itemText: {
+    color: 'gray',
+    marginTop: 5,
   },
 });
