@@ -1,16 +1,44 @@
-import * as React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import {
+  Text,
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+  Button,
+  Platform,
+} from "react-native";
+import { useEffect } from "react/cjs/react.production.min";
+import Styled from "styled-components/native";
 
-/* 회원가입 페이지 */
-const SignUp = ({navigation}) => {
+export const SignUp = ({ navigation }) => {
+  const [naverToken, setNaverToken] = React.useState(null);
+  const [name, setName] = useState("");
+
   return (
-    <TouchableOpacity
-    onPress={() => navigation.navigate('Character')}>
-    <Text>
-      Login
-    </Text>
-    </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <Cntr>
+        <Text>안녕..</Text>
+        <Text>{name}</Text>
+      </Cntr>
+      <Button
+        title="prev"
+        onPress={() => navigation.navigate("Login")}
+      ></Button>
+    </SafeAreaView>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+});
+
 export default SignUp;
+const Cntr = Styled.View`
+width:100%;
+align-items:center;
+justify-content:center;
+`;
