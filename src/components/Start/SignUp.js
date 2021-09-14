@@ -10,7 +10,7 @@ import {
 import { useEffect } from "react/cjs/react.production.min";
 import Styled from "styled-components/native";
 
-export const SignUp = ({ navigation }) => {
+export const SignUp = ({ navigation, route }) => {
   const [naverToken, setNaverToken] = React.useState(null);
   const [name, setName] = useState("");
 
@@ -18,7 +18,7 @@ export const SignUp = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <Cntr>
         <Text>안녕..</Text>
-        <Text>{name}</Text>
+        <Text>{route.params.name}</Text>
       </Cntr>
       <Button
         title="prev"

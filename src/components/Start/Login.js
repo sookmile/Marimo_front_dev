@@ -48,7 +48,7 @@ const Login = ({ navigation, userName }) => {
     if (text.length !== 0) {
       Voice.stop();
       userName = text;
-      navigation.navigate("SignUp");
+      navigation.navigate("SignUp", { name: userName });
     }
   }, [text]);
 
@@ -86,6 +86,9 @@ const Login = ({ navigation, userName }) => {
         </TouchableOpacity>
         <VoiceText>{voiceLabel}</VoiceText>
         <Text>{text ? `${text}` : "단어 없음.."}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("NavTab")}>
+          <Text>Move</Text>
+        </TouchableOpacity>
       </Cntr>
     </Container>
   );
