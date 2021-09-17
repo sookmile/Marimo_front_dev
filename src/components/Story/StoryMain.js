@@ -14,7 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(item.route)}>
+    //<TouchableOpacity onPress={() => navigation.navigate(item.route)}>
+    <TouchableOpacity onPress={() => navigation.navigate("StoryLoading")}>
       <View style={styles.item}>
         <Image
           source={{

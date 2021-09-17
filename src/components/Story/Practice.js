@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, View, Text, StyleSheet } from "react-native";
 
 const Practice = () => {
   return (
@@ -11,9 +11,27 @@ const Practice = () => {
           height: "100%",
         }}
         resizeMode="cover"
-      ></ImageBackground>
+      >
+        <View style={styles.word}>
+          <Text>장미꽃</Text>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 
 export default Practice;
+
+const styles = StyleSheet.create({
+  word: {
+    width: 70,
+    height: 35,
+    top: "10%",
+    left: "43%",
+    backgroundColor: "#FACE34",
+    borderRadius: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
