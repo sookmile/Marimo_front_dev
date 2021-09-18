@@ -13,6 +13,10 @@ target 'Marimo' do
   )
 
 
+  pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
+
+  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+
   target 'MarimoTests' do
     inherit! :complete
     # Pods for testing
@@ -22,9 +26,5 @@ target 'Marimo' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
 
-  post_install do |installer|
-    react_native_post_install(installer)
-  end
 end

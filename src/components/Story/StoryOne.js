@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   textBox2: {
     width: 180,
     height: 78,
-    left: "145%",
+    left: "165%",
     top: "0%",
     backgroundColor: "#E8E8ED",
     borderBottomRightRadius: 20,

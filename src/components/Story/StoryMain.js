@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import {
   StyleSheet,
@@ -10,11 +10,12 @@ import {
   FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Orientation from "react-native-orientation";
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
+
   return (
-    //<TouchableOpacity onPress={() => navigation.navigate(item.route)}>
     <TouchableOpacity onPress={() => navigation.navigate("StoryLoading")}>
       <View style={styles.item}>
         <Image
@@ -31,6 +32,22 @@ const ListItem = ({ item }) => {
 };
 
 const StoryMain = () => {
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return (
+      () => {
+        Orientation.unlockAllOrientations(),
+          Orientation.removeOrientationListener(onOrientaionChange);
+      },
+      []
+    );
+  });
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>

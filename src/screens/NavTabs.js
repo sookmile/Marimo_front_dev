@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../components/Story/StoryMain";
 import { icons, COLORS } from "../constants/index";
 import Settings from "./Settings";
 import Explore from "./ExploreScreen";

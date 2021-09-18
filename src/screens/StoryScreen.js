@@ -18,17 +18,17 @@ const Story = () => {
       <StoryStack.Screen
         name="StoryLoading"
         component={StoryLoading}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarVisible: false }}
       />
       <StoryStack.Screen
         name="Story1"
         component={StoryOne}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarVisible: false }}
       />
       <StoryStack.Screen
         name="Practice"
         component={Practice}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarVisible: false }}
       />
     </StoryStack.Navigator>
   );

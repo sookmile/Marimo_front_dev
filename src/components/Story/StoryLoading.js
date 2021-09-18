@@ -1,9 +1,25 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, View, Text, StyleSheet, Image } from "react-native";
-import { useState } from "react/cjs/react.production.min";
+import Orientation from "react-native-orientation";
 
 const StoryLoading = ({ navigation }) => {
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return (
+      () => {
+        Orientation.unlockAllOrientations(),
+          Orientation.removeOrientationListener(onOrientaionChange);
+      },
+      []
+    );
+  });
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>앗, 도와줘! 우당탕탕 왕국 모험</Text>
