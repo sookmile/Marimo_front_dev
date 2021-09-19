@@ -7038,11 +7038,6 @@
   "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
   "version" "2.5.6"
 
-"react-native-naver-font@^1.0.0":
-  "integrity" "sha512-SUs62FESo/MClHzpwibiRkac4ettBXx879bto6LPqjQ8Wtup5mhNqytA8XY5W4arAft4WxcnvZ4UKC21QnCsgg=="
-  "resolved" "https://registry.npmjs.org/react-native-naver-font/-/react-native-naver-font-1.0.0.tgz"
-  "version" "1.0.0"
-
 "react-native-reanimated@^2.2.0":
   "integrity" "sha512-lOJDd+5w1gY6DHGXG2jD1dsjzQmXQ2699HUc3IztvI2WP4zUT+UAA+zSG+5JiBS5DUnTL8YhhkmUQmr1KNGO5w=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.0.tgz"

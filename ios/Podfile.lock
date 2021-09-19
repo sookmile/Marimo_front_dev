@@ -372,6 +372,8 @@ PODS:
   - RNScreens (3.5.0):
     - React-Core
     - React-RCTImage
+  - TextToSpeech (4.1.0):
+    - React
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -435,6 +437,7 @@ DEPENDENCIES:
   - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -528,6 +531,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  TextToSpeech:
+    :path: "../node_modules/react-native-tts"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -581,9 +586,10 @@ SPEC CHECKSUMS:
   RNNaverLogin: 2dcf003d4f52f8d5c15c3a5fadaa20b52352f4fe
   RNReanimated: 9c13c86454bfd54dab7505c1a054470bfecd2563
   RNScreens: 01ab149b5dd5c27f5ff26741b1d2bdf2cee1af35
+  TextToSpeech: b3aa777ff5585705f179c0a2436bfd0926d1716e
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 96eeb5f212ab86579337109d9f05b4c3f168ee03
+PODFILE CHECKSUM: 82bc62e80c3c5e1533e85750706460dcbf48c77e
 
 COCOAPODS: 1.10.1
