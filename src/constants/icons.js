@@ -1,4 +1,4 @@
-export const marimo_logo = require("../assets/icons/logo.png");
+export const marimo_logo = require("../assets/icons/Logo.png");
 export const home_ic = require("../assets/icons/Home.png");
 export const game_ic = require("../assets/icons/Game.png");
 export const explore_ic = require("../assets/icons/Explore.png");

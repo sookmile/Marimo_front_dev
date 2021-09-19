@@ -10,7 +10,7 @@ import {
 import { useEffect } from "react/cjs/react.production.min";
 import Styled from "styled-components/native";
 
-export const SignUp = ({ navigation }) => {
+export const SignUp = ({  navigation }) => {
   const [naverToken, setNaverToken] = React.useState(null);
   const [name, setName] = useState("");
 

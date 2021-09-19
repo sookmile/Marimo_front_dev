@@ -11,6 +11,9 @@ import {
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
+import axios from "axios";
+// post 성공시 User id 저장
+// user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
   kConsumerKey: "VC5CPfjRigclJV_TFACU",
@@ -26,20 +29,37 @@ const androidKeys = {
 };
 
 const initials = Platform.OS === "ios" ? iosKeys : androidKeys;
+
+// post user info
+const postUserInfo = async (body) => {
+  console.log(body);
+  try {
+    const { data } = await axios({
+      url: "http://222.232.92.123:8080/marimo/login",
+      method: "post",
+      data: body,
+    });
+    console.log("post 성공");
+    console.log("[SUCCESS] POST USER INFO", data);
+    return data;
+  } catch (e) {
+    console.log("[FAIL] POST USER INFO", e);
+    return e;
+  }
+};
+
 const StartMain = ({ navigation }) => {
   const [naverToken, setNaverToken] = React.useState(null);
 
   const naverLogin = (props) => {
-    return new Promise((resolve, reject) => {
-      NaverLogin.login(props, (err, token) => {
-        console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
-        setNaverToken(token);
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(token);
-      });
+    NaverLogin.login(props, (err, token) => {
+      console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
+      setNaverToken(token);
+      if (err) {
+        return err;
+      }
+      console.log("pass token");
+      return token;
     });
   };
   useEffect(() => {
@@ -47,8 +67,7 @@ const StartMain = ({ navigation }) => {
   }, [naverToken]);
   const Login = async (props) => {
     console.log(2);
-    const id = await naverLogin(props);
-    console.log(id);
+    await naverLogin(props);
   };
   const naverLogout = () => {
     NaverLogin.logout();
@@ -60,9 +79,21 @@ const StartMain = ({ navigation }) => {
     if (profileResult.resultcode === "024") {
       Alert.alert("로그인 실패", profileResult.message);
       return;
+    } else {
+      const userName = profileResult.response.name.replace(" ", "");
+      const userEmail = profileResult.response.email;
+      console.log(userName);
+      console.log(userEmail);
+      console.log(userName.length);
+      const id = await postUserInfo({
+        username: userName,
+        email: userEmail,
+      });
+      console.log("성공했나요?");
+      console.log(id);
+      console.log("profileResult", profileResult);
+      navigation.navigate("Character", { name: userName });
     }
-    console.log("profileResult", profileResult);
-    navigation.navigate("Login");
   };
 
   const { width, height } = Dimensions.get("window");
@@ -103,7 +134,9 @@ const StartMain = ({ navigation }) => {
             </Btn>
             <Btn
               style={{ marginTop: height * 0.025 }}
-              onPress={() => navigation.navigate("Login")}
+              onPress={async () => {
+                navigation.navigate("Login");
+              }}
             >
               <BtnText>이어하기</BtnText>
             </Btn>
