@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import {
   StyleSheet,
@@ -8,36 +8,96 @@ import {
   SafeAreaView,
   Image,
   FlatList,
+  StatusBar,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { preURL } from "../../preURL/preURL";
+import Loader from "../Loader/Loader";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { COLORS, SIZES } from "../../constants";
+import {
+  fontPercentage,
+  heightPercentage,
+  widthPercentage,
+} from "../../constants/responsive";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import Tts from "react-native-tts";
+
+// tts 설정
+Tts.setDefaultLanguage("ko-KR");
+Tts.addEventListener("tts-start", (event) => console.log("start", event));
+Tts.addEventListener("tts-finish", (event) => console.log("finish", event));
+Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
+
+const _onPressSpeech = (word) => {
+  Tts.stop();
+  Tts.speak(word);
+};
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(item.route)}>
+    <TouchableOpacity onPress={() => _onPressSpeech(item.word)}>
       <View style={styles.item}>
         <Image
           source={{
-            uri: item.uri,
+            uri: item.link,
           }}
           style={styles.itemPhoto}
           resizeMode="cover"
         />
-        <Text style={styles.itemText}>{item.text}</Text>
+        <Text style={styles.itemText}>{item.word}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
 const StoryMain = ({ navigation }) => {
+  const [userId, setuserId] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    getUserData();
+  }, []);
+
+  const getUserData = async () => {
+    try {
+      const response = await fetch(preURL + "/image/show", {
+        method: "POST",
+        body: JSON.stringify({ userId: 1 }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const responseJson = await response.json();
+        setUserData(responseJson);
+        setLoading(false);
+      } else {
+        setLoading(false);
+        alert("unable to get UserData");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Loader loading={loading} />
       <View style={styles.header}>
         <Image
           style={styles.mainLogo}
           source={require("../../assets/icons/MainLogo.png")}
         />
-        <Text>마리모와 말의 세계</Text>
+        <Text style={styles.headerText}>마리모와 말의 세계</Text>
       </View>
       <View>
         <View style={styles.name}>
@@ -45,20 +105,29 @@ const StoryMain = ({ navigation }) => {
             style={styles.logo}
             source={require("../../assets/icons/Logo.png")}
           />
-          <Text style={styles.userName}>송이</Text>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+              marginRight: widthPercentage(45),
+            }}
+          >
+            <Text style={styles.userName}>강알쥐알쥐</Text>
+          </View>
         </View>
         <View style={styles.records}>
           <TouchableOpacity style={styles.rButton1}>
-            <Text>나의 기록들</Text>
+            <Text style={styles.buttonText}>나의 기록들</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rButton2}>
-            <Text>친구 등록하기</Text>
+            <Text style={styles.buttonText}>친구 등록하기</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View>
         <View style={styles.title}>
-          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <Text style={styles.titleText}>찰칵, 카메라를 눌러서 찾아봐요!</Text>
           <TouchableOpacity>
             <Text>+</Text>
           </TouchableOpacity>
@@ -74,7 +143,7 @@ const StoryMain = ({ navigation }) => {
       </View>
       <View>
         <View style={styles.title}>
-          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <Text style={styles.titleText}>내가 찾은 추억창고</Text>
           <TouchableOpacity>
             <Text>+</Text>
           </TouchableOpacity>
@@ -90,8 +159,9 @@ const StoryMain = ({ navigation }) => {
                   {section.horizontal ? (
                     <FlatList
                       horizontal
-                      data={section.data}
+                      data={userData.length ? userData : section.data}
                       renderItem={({ item }) => <ListItem item={item} />}
+                      keyExtractor={(item) => `${item.id}`}
                       showsHorizontalScrollIndicator={false}
                     />
                   ) : null}
@@ -107,7 +177,7 @@ const StoryMain = ({ navigation }) => {
           </SafeAreaView>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -119,20 +189,20 @@ const SECTIONS = [
     horizontal: true,
     data: [
       {
-        key: "1",
-        text: "해바라기",
+        id: 1,
+        word: "데이터를 불러올 수 없습니다.",
         uri: "https://picsum.photos/id/1/200",
         route: "StoryLoading",
       },
       {
-        key: "2",
-        text: "사슴",
+        id: 2,
+        word: "데이터를 불러올 수 없습니다.",
         uri: "https://picsum.photos/id/10/200",
         route: "StoryLoading",
       },
 
       {
-        key: "3",
+        id: 3,
         text: "Item text 3",
         uri: "https://picsum.photos/id/1002/200",
         route: "StoryLoading",
@@ -144,95 +214,119 @@ const SECTIONS = [
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    zIndex: -1,
-    display: "flex",
-    padding: 10,
+    zIndex: 1,
+    // display: "flex",
+    // padding: 10,
   },
   header: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 5,
-    height: 50,
+    marginHorizontal: SIZES.padding,
+    marginVertical:
+      Platform.OS === "android" ? StatusBar.currentHeight + hp(1) : hp(2),
   },
   mainLogo: {
-    width: 35,
-    height: 35,
+    width: widthPercentage(35),
+    height: heightPercentage(35),
     marginLeft: 5,
     marginRight: 10,
   },
   logo: {
-    width: 50,
-    height: 50,
+    width: widthPercentage(45),
+    height: heightPercentage(45),
     backgroundColor: "#A098FD",
     borderRadius: 45,
-    marginLeft: 5,
+  },
+  headerText: {
+    paddingLeft: widthPercentage(14),
+    color: "#464D46",
+    fontSize: fontPercentage(18),
+    fontFamily: "Cafe24Ssurround",
   },
   camera: {
-    width: 208,
-    height: 143,
+    width: wp(45),
+    height: hp(15),
     backgroundColor: "#F66C6C",
-    borderRadius: 45,
+    borderRadius: 20,
     marginLeft: 5,
   },
   name: {
-    display: "flex",
     flexDirection: "row",
     backgroundColor: "#F1DFFF",
     borderRadius: 45,
     borderWidth: 3,
     borderColor: "#C5A1F3",
-    marginLeft: 5,
-    marginRight: 5,
+    marginHorizontal: SIZES.padding,
   },
   userName: {
     textAlign: "center",
     textAlignVertical: "center",
-    width: 300,
+    fontFamily: "NanumSquareRoundB",
+    fontSize: hp(2),
+    lineHeight: 22,
   },
   records: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 5,
+    justifyContent: "space-evenly",
+    marginTop: hp(2),
+    marginHorizontal: SIZES.padding,
   },
   rButton1: {
-    width: 114,
-    height: 36,
+    width: wp(33),
+    height: hp(5),
     borderRadius: 40,
     backgroundColor: "#FF8C73",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: hp(3),
   },
   rButton2: {
-    width: 114,
-    height: 36,
+    width: wp(33),
+    height: hp(5),
     borderRadius: 40,
     backgroundColor: "#FEBB61",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: hp(3),
+  },
+  buttonText: {
+    fontFamily: "NanumSquareRoundB",
+    color: "black",
+    fontSize: hp(2),
+    textAlign: "center",
   },
   title: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 10,
+    marginHorizontal: SIZES.padding,
+  },
+  titleText: {
+    color: COLORS.darkGray,
+    fontFamily: "Cafe24Ssurround",
+    fontSize: fontPercentage(20),
   },
   cameraBlock: {
-    width: 370,
-    height: 145,
+    paddingVertical: SIZES.padding,
+    width: wp(100),
+    height: hp(20),
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: SIZES.padding,
+    marginVertical: hp(2),
   },
   storyBlock: {
-    width: 370,
-    height: 145,
+    paddingVertical: SIZES.padding,
+    width: wp(100),
+    height: hp(30),
     display: "flex",
     justifyContent: "space-around",
-    marginLeft: 10,
+    marginVertical: hp(2),
   },
   item: {
     marginRight: 10,
@@ -249,6 +343,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: "gray",
-    marginTop: 5,
+    marginVertical: hp(1),
+    fontSize: hp(1.5),
   },
 });

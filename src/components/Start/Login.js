@@ -109,6 +109,7 @@ const Login = ({ navigation }) => {
   }, []);
 
   return (
+<<<<<<< HEAD
     <>
       {pageNum === 0 ? (
         <Container style={{ marginTop: cntrMargin }}>
@@ -227,6 +228,36 @@ const Login = ({ navigation }) => {
         <></>
       )}
     </>
+=======
+    <Container style={{ marginTop: cntrMargin }}>
+      <BackCntr onPress={() => navigation.navigate("StartMain")}>
+        <BackIcon>뒤로 가기</BackIcon>
+      </BackCntr>
+      <IntroText>
+        안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
+      </IntroText>
+      <Cntr>
+        <TouchableOpacity
+          style={{
+            borderRadius: 125,
+            width: 250,
+            height: 250,
+          }}
+          onPress={_onRecordVoice}
+        >
+          <Image
+            style={{ width: 250, height: 250 }}
+            source={require("../../assets/MikeIcon.png")}
+          />
+        </TouchableOpacity>
+        <VoiceText>{voiceLabel}</VoiceText>
+        <Text>{text ? `${text}` : "단어 없음.."}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("NavTab")}>
+          <Text>Move</Text>
+        </TouchableOpacity>
+      </Cntr>
+    </Container>
+>>>>>>> 4c9e0d1c9508bbd461d14695cefe9367b7198c7d
   );
 };
 
