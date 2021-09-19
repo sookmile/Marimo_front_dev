@@ -11,7 +11,7 @@ PODS:
     - RCTTypeSafety (= 0.64.2)
     - React-Core (= 0.64.2)
     - React-jsi (= 0.64.2)
-    - ReactCommon/turbomodule/core (= 0.64.2)
+    - ReactCommon/turbomodule/core (= 0.64.2)z
   - Flipper (0.75.1):
     - Flipper-Folly (~> 2.5)
     - Flipper-RSocket (~> 1.3)
@@ -560,7 +560,7 @@ SPEC CHECKSUMS:
   React-jsi: 67747b9722f6dab2ffe15b011bcf6b3f2c3f1427
   React-jsiexecutor: 80c46bd381fd06e418e0d4f53672dc1d1945c4c3
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
-  react-native-camera: 11166fe7e3a673493c152f52966e8ab1c5cdcacc
+  react-native-camera: 85210eb59b028e9430d29fa33b0252c56113beff
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
   react-native-voice: 9829ac5dc9300687c5f215bddf6c9645e82923fc
@@ -584,6 +584,6 @@ SPEC CHECKSUMS:
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 680823391fa97d6bdbaf6c0267e065489073b96f
+PODFILE CHECKSUM: 96eeb5f212ab86579337109d9f05b4c3f168ee03
 
-COCOAPODS: 1.11.0
+COCOAPODS: 1.10.1
