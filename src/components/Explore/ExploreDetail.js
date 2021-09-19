@@ -10,8 +10,30 @@ import {
 } from "react-native";
 import CustomButton from "../CustomButton/CustomButton";
 import { FONTS, COLORS, SIZES, icons } from "../../constants";
+import { preURL } from "../../preURL/preURL";
+import { save } from "@react-native-community/cameraroll";
 
 const ExploreDetail = ({ navigation, route }) => {
+  // 나의 추억창고 저장하기
+  const saveMyMemories = (userId) => {
+    let dataToSend = {
+      userId: userId,
+      link: route.params.imageData.link,
+      word: route.params.imageData.word,
+    };
+    // fetch가 아니라 axios로 수정. 아니면 blobinit의 success 가져오기
+    fetch(preURL + "/image/save", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
+  };
+
   const renderHeader = () => {
     return (
       <View style={styles.container_header}>
@@ -47,14 +69,16 @@ const ExploreDetail = ({ navigation, route }) => {
           {/* Image */}
           <View style={styles.container_imgShadow}>
             <Image
-              source={{ uri: route.params.image }}
+              source={{ uri: route.params.imageData.link }}
               style={styles.img}
               resizeMode="cover"
             />
           </View>
           {/* Text */}
           <View style={{ paddingTop: 20 }}>
-            <Text style={styles.description}>{route.params.description}</Text>
+            <Text style={styles.description}>
+              {route.params.imageData.word}
+            </Text>
           </View>
         </View>
       </View>
@@ -70,7 +94,7 @@ const ExploreDetail = ({ navigation, route }) => {
         />
         <CustomButton
           buttonText="내 추억창고에 저장하기"
-          onPress={() => console.log("내 추억창고에 저장하기")}
+          onPress={() => saveMyMemories(1)}
         />
         <CustomButton
           buttonText="다른 사진 찍기"
@@ -106,6 +130,7 @@ const styles = StyleSheet.create({
   container_header: {
     flexDirection: "row",
     height: 50,
+    marginTop: 25,
   },
   container_headerIcon: {
     width: 55,
