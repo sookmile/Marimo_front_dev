@@ -13,7 +13,6 @@ import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
 import axios from "axios";
 // post 성공시 User id 저장
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
@@ -136,9 +135,7 @@ const StartMain = ({ navigation }) => {
             <Btn
               style={{ marginTop: height * 0.025 }}
               onPress={async () => {
-                navigation.navigate("Login", {
-                  name: "우진",
-                });
+                navigation.navigate("Login");
               }}
             >
               <BtnText>이어하기</BtnText>
