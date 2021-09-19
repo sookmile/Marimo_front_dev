@@ -13,9 +13,7 @@ target 'Marimo' do
   )
 
 
-  pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
-  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
 
   target 'MarimoTests' do
     inherit! :complete
