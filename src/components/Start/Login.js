@@ -9,6 +9,9 @@ import {
   Dimensions,
   TextInput,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
 
 const ButtonRecord = Styled.Button``;
 
@@ -32,6 +35,12 @@ const Login = ({ navigation }) => {
       ? "이름을 인식하고 있습니다\n 잠시만 기다려주세요.."
       : text
     : "마이크 버튼을 누르고 말해주세요!";
+
+  useEffect(async () => {
+    console.log("변했니");
+    console.log(await AsyncStorage.getItem("userId"));
+    const id = await AsyncStorage.getItem("userId");
+  }, []);
 
   // 음성인식 과정
   const _onSpeechStart = () => {
@@ -58,7 +67,22 @@ const Login = ({ navigation }) => {
       Voice.start("ko-KR");
     }
   };
-  useEffect(() => {
+  const postSpeechUserName = async (body) => {
+    console.log(body);
+    await axios
+      .post(preURL.preURL + "/marimo/nickname", body)
+      .then(async (res) => {
+        const response = res.data;
+        console.log(response);
+        console.log("설명", response);
+      })
+      .catch((err) => {
+        console.log("에러  발생 ");
+        console.log(err);
+      });
+  };
+
+  useEffect(async () => {
     if (pageNum === 0 && text.length !== 0) {
       console.log(text);
       Voice.stop();
@@ -66,6 +90,7 @@ const Login = ({ navigation }) => {
       setPageNum(1);
     }
   }, [text]);
+
   useEffect(() => {
     if (pageNum === 0 || pageNum === 2) {
       setText("");
@@ -141,11 +166,19 @@ const Login = ({ navigation }) => {
             </Box>
             <BtnCntr>
               <Btn
-                onPress={() =>
+                onPress={async () => {
+                  const userId = await AsyncStorage.getItem("userId");
+                  console.log(userId);
+                  const postData = {
+                    id: userId === null ? 3 : userId,
+                    nickname: text,
+                  };
+                  console.log(postData);
+                  await postSpeechUserName(postData);
                   navigation.navigate("Character", {
                     name: text,
-                  })
-                }
+                  });
+                }}
               >
                 <BtnText>네, 맞아요!</BtnText>
               </Btn>
