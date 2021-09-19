@@ -6,7 +6,9 @@ import Character2 from "../../assets/icons/Character/Character2.png";
 import Character3 from "../../assets/icons/Character/Character3.png";
 import Character4 from "../../assets/icons/Character/Character4.png";
 import { FlatList } from "react-native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
 const character = [
   { value: 0, src: Character1, label: "모모" },
   { value: 1, src: Character2, label: "말랑이" },
@@ -22,14 +24,32 @@ const ConfirmCh = ({ route, navigation }) => {
   const [chrNum, setChrNum] = useState(0);
   const { name, characterNum } = route.params;
 
-  useEffect(() => {
+  useEffect(async () => {
+    console.log("hello");
+    const value = await AsyncStorage.getItem("@storage_Key");
+    console.log(value);
     setChrNum(characterNum);
     console.log(characterNum);
     console.log(name);
     console.log(character[characterNum]);
-  });
+  }, []);
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 70) : (cntrMargin = 20);
+
+  const postCharacter = async (body) => {
+    console.log(body);
+    await axios
+      .post(preURL.preURL + "/marimo/character", body)
+      .then(async (res) => {
+        const response = res.data;
+        console.log(response);
+        console.log("설명", response);
+      })
+      .catch((err) => {
+        console.log("에러  발생 ");
+        console.log(err);
+      });
+  };
 
   let chMargin = 0;
   Platform.OS === "ios" ? (chMargin = 60) : (chMargin = 40);
@@ -62,8 +82,20 @@ const ConfirmCh = ({ route, navigation }) => {
             </BoxText>
           </Box>
         </View>
-        <BtnCntr style={{ marginTop: 1.2* chMargin }}>
-          <Btn onPress={() => navigation.navigate("NavTab")}>
+        <BtnCntr style={{ marginTop: 1.2 * chMargin }}>
+          <Btn
+            onPress={async () => {
+              const userId = await AsyncStorage.getItem("userId");
+              console.log(userId);
+              const postData = {
+                userId: userId === null ? 3 : userId,
+                character: chrNum,
+              };
+              console.log(postData);
+              await postCharacter(postData);
+              navigation.navigate("NavTab");
+            }}
+          >
             <BtnText>네! 준비됐어요!</BtnText>
           </Btn>
         </BtnCntr>
