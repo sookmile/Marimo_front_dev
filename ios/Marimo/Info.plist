@@ -10,8 +10,10 @@
 	<string>마이크 사용 권한이 필요합니다.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>recognize speech</string>
+	<key></key>
+	<string></string>
 	<key>LSApplicationCategoryType</key>
-	<string/>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -46,7 +48,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

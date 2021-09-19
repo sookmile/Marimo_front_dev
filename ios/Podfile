@@ -13,6 +13,8 @@ target 'Marimo' do
   )
 
 
+  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+
   target 'MarimoTests' do
     inherit! :complete
     # Pods for testing
