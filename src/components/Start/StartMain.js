@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   View,
@@ -13,6 +13,9 @@ import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
 import axios from "axios";
 // post 성공시 User id 저장
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import preURL from "../../preURL/preURL";
+
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
@@ -31,25 +34,10 @@ const androidKeys = {
 const initials = Platform.OS === "ios" ? iosKeys : androidKeys;
 
 // post user info
-const postUserInfo = async (body) => {
-  console.log(body);
-  try {
-    const { data } = await axios({
-      url: "http://222.232.92.123:8080/marimo/login",
-      method: "post",
-      data: body,
-    });
-    console.log("post 성공");
-    console.log("[SUCCESS] POST USER INFO", data);
-    return data;
-  } catch (e) {
-    console.log("[FAIL] POST USER INFO", e);
-    return e;
-  }
-};
 
 const StartMain = ({ navigation }) => {
   const [naverToken, setNaverToken] = React.useState(null);
+  const [userId, setUserId] = useState(-1);
 
   const naverLogin = (props) => {
     NaverLogin.login(props, (err, token) => {
@@ -74,6 +62,29 @@ const StartMain = ({ navigation }) => {
     setNaverToken("");
   };
 
+  const postUserInfo = async (body) => {
+    console.log(body);
+    await axios
+      .post(preURL.preURL + "/marimo/login", body)
+      .then(async (res) => {
+        const response = res.data.id;
+        console.log(response);
+        await setUserId(response);
+        console.log("설명", response);
+      })
+      .catch((err) => {
+        console.log("에러 발생 ");
+        console.log(err);
+      });
+    console.log(userId);
+    console.log(userId !== -1);
+    if (userId !== -1) {
+      console.log("값");
+      console.log(JSON.stringify(userId));
+      await AsyncStorage.setItem("userId", JSON.stringify(userId));
+    }
+  };
+
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
     if (profileResult.resultcode === "024") {
@@ -92,7 +103,7 @@ const StartMain = ({ navigation }) => {
       console.log("성공했나요?");
       console.log(id);
       console.log("profileResult", profileResult);
-      navigation.navigate("Character", { name: userName });
+      navigation.navigate("Login", { name: userName });
     }
   };
 
@@ -135,6 +146,8 @@ const StartMain = ({ navigation }) => {
             <Btn
               style={{ marginTop: height * 0.025 }}
               onPress={async () => {
+                await AsyncStorage.setItem("@storage_Key", "저장");
+
                 navigation.navigate("Login");
               }}
             >
