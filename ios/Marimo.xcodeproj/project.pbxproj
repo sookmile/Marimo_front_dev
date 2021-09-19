@@ -11,13 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		24101A1CE302A5C96B0EA42E /* libPods-Marimo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A222F4C6AA70EB584E91E6AB /* libPods-Marimo.a */; };
 		26B66A8CFF3F4380A489EBED /* NanumSquareRoundOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */; };
 		493B414C3F5B49FFA192D898 /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */; };
-		7F763B38E4BCFDD6166B0743 /* libPods-Marimo-MarimoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B33C9858E2573954F31D6B1 /* libPods-Marimo-MarimoTests.a */; };
+		6535E3185948F90C3905984E /* libPods-Marimo-MarimoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FC8562097A6E5CE233FBD3 /* libPods-Marimo-MarimoTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		990A3551CFFD470AA3903CCA /* NanumSquareRoundB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */; };
 		C5358F90B64C481DA2F6E661 /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */; };
-		F88BE95F1B2015216674CCEB /* libPods-Marimo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,6 @@
 		00E356EE1AD99517003FC87E /* MarimoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarimoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MarimoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarimoTests.m; sourceTree = "<group>"; };
-		0361654725D16B3EBB35EB87 /* Pods-Marimo-MarimoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.debug.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundOTFB.otf; path = ../src/assets/fonts/NanumSquareRoundOTFB.otf; sourceTree = "<group>"; };
 		0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundB.ttf; path = ../src/assets/fonts/NanumSquareRoundB.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Marimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,15 +42,16 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Marimo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Marimo/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Marimo/main.m; sourceTree = "<group>"; };
-		267C91DB600CC6196152B51E /* Pods-Marimo-MarimoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.release.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.release.xcconfig"; sourceTree = "<group>"; };
-		6B33C9858E2573954F31D6B1 /* libPods-Marimo-MarimoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo-MarimoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19FC8562097A6E5CE233FBD3 /* libPods-Marimo-MarimoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo-MarimoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AA2DF726560F491A636C57C /* Pods-Marimo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.release.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.release.xcconfig"; sourceTree = "<group>"; };
+		5A2365FEB8F1A4A3B8A3980B /* Pods-Marimo-MarimoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.debug.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Marimo/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		84CAFBD2F54393B180F86A3C /* Pods-Marimo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.debug.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.debug.xcconfig"; sourceTree = "<group>"; };
 		859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Cafe24Ssurround.ttf; path = ../src/assets/fonts/Cafe24Ssurround.ttf; sourceTree = "<group>"; };
-		D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		995A31483AD125707577B378 /* Pods-Marimo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.debug.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.debug.xcconfig"; sourceTree = "<group>"; };
+		A222F4C6AA70EB584E91E6AB /* libPods-Marimo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4F27E1C0DB5861A2A380725 /* Pods-Marimo-MarimoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.release.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.release.xcconfig"; sourceTree = "<group>"; };
 		D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansCJKkr-Regular.otf"; path = "../src/assets/fonts/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F859AD47F708DCF4FBD70E38 /* Pods-Marimo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.release.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F763B38E4BCFDD6166B0743 /* libPods-Marimo-MarimoTests.a in Frameworks */,
+				6535E3185948F90C3905984E /* libPods-Marimo-MarimoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F88BE95F1B2015216674CCEB /* libPods-Marimo.a in Frameworks */,
+				24101A1CE302A5C96B0EA42E /* libPods-Marimo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,8 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */,
-				6B33C9858E2573954F31D6B1 /* libPods-Marimo-MarimoTests.a */,
+				A222F4C6AA70EB584E91E6AB /* libPods-Marimo.a */,
+				19FC8562097A6E5CE233FBD3 /* libPods-Marimo-MarimoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,10 +129,10 @@
 		77A0AEFF502B85E3CC8E30C5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				84CAFBD2F54393B180F86A3C /* Pods-Marimo.debug.xcconfig */,
-				F859AD47F708DCF4FBD70E38 /* Pods-Marimo.release.xcconfig */,
-				0361654725D16B3EBB35EB87 /* Pods-Marimo-MarimoTests.debug.xcconfig */,
-				267C91DB600CC6196152B51E /* Pods-Marimo-MarimoTests.release.xcconfig */,
+				995A31483AD125707577B378 /* Pods-Marimo.debug.xcconfig */,
+				3AA2DF726560F491A636C57C /* Pods-Marimo.release.xcconfig */,
+				5A2365FEB8F1A4A3B8A3980B /* Pods-Marimo-MarimoTests.debug.xcconfig */,
+				A4F27E1C0DB5861A2A380725 /* Pods-Marimo-MarimoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -176,12 +176,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MarimoTests" */;
 			buildPhases = (
-				977CB2FFAB90E585BF3A8B72 /* [CP] Check Pods Manifest.lock */,
+				CA461D1F79D2EF507492B9B3 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C166431154837DB2B8E96E57 /* [CP] Embed Pods Frameworks */,
-				B0EC172354568C1BC08CD97B /* [CP] Copy Pods Resources */,
+				320F434ABDFE8D02A161CE8D /* [CP] Embed Pods Frameworks */,
+				D981E26D1C3A7EC64A14CB5E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,14 +197,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Marimo" */;
 			buildPhases = (
-				B09F118E64434D6B384B8452 /* [CP] Check Pods Manifest.lock */,
+				BB13FF8E304A8EE88A568D10 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				45A06196FE6E741BA6426AC7 /* [CP] Embed Pods Frameworks */,
-				2837701CB1D7403F102E65C0 /* [CP] Copy Pods Resources */,
+				6DFE8DFBC05F5DAA3A3456F8 /* [CP] Embed Pods Frameworks */,
+				1E2A61D02F5FB57120C38BB7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -289,7 +289,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		2837701CB1D7403F102E65C0 /* [CP] Copy Pods Resources */ = {
+		1E2A61D02F5FB57120C38BB7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,7 +306,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Marimo/Pods-Marimo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		45A06196FE6E741BA6426AC7 /* [CP] Embed Pods Frameworks */ = {
+		320F434ABDFE8D02A161CE8D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DFE8DFBC05F5DAA3A3456F8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,29 +340,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Marimo/Pods-Marimo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		977CB2FFAB90E585BF3A8B72 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Marimo-MarimoTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B09F118E64434D6B384B8452 /* [CP] Check Pods Manifest.lock */ = {
+		BB13FF8E304A8EE88A568D10 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -367,7 +362,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B0EC172354568C1BC08CD97B /* [CP] Copy Pods Resources */ = {
+		CA461D1F79D2EF507492B9B3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Marimo-MarimoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D981E26D1C3A7EC64A14CB5E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -382,23 +399,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C166431154837DB2B8E96E57 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -453,7 +453,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0361654725D16B3EBB35EB87 /* Pods-Marimo-MarimoTests.debug.xcconfig */;
+			baseConfigurationReference = 5A2365FEB8F1A4A3B8A3980B /* Pods-Marimo-MarimoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -480,7 +480,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 267C91DB600CC6196152B51E /* Pods-Marimo-MarimoTests.release.xcconfig */;
+			baseConfigurationReference = A4F27E1C0DB5861A2A380725 /* Pods-Marimo-MarimoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -504,7 +504,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84CAFBD2F54393B180F86A3C /* Pods-Marimo.debug.xcconfig */;
+			baseConfigurationReference = 995A31483AD125707577B378 /* Pods-Marimo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -531,7 +531,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F859AD47F708DCF4FBD70E38 /* Pods-Marimo.release.xcconfig */;
+			baseConfigurationReference = 3AA2DF726560F491A636C57C /* Pods-Marimo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
