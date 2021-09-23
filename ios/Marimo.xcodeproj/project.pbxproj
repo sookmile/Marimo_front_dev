@@ -36,6 +36,8 @@
 		00E356F21AD99517003FC87E /* MarimoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarimoTests.m; sourceTree = "<group>"; };
 		07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundOTFB.otf; path = ../src/assets/fonts/NanumSquareRoundOTFB.otf; sourceTree = "<group>"; };
 		0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundB.ttf; path = ../src/assets/fonts/NanumSquareRoundB.ttf; sourceTree = "<group>"; };
+		0361654725D16B3EBB35EB87 /* Pods-Marimo-MarimoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.debug.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareRoundB.ttf; path = ../src/assets/fonts/NanumSquareRoundB.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Marimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Marimo/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Marimo/AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +53,10 @@
 		A222F4C6AA70EB584E91E6AB /* libPods-Marimo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4F27E1C0DB5861A2A380725 /* Pods-Marimo-MarimoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo-MarimoTests.release.xcconfig"; path = "Target Support Files/Pods-Marimo-MarimoTests/Pods-Marimo-MarimoTests.release.xcconfig"; sourceTree = "<group>"; };
 		D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansCJKkr-Regular.otf"; path = "../src/assets/fonts/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
+		84CAFBD2F54393B180F86A3C /* Pods-Marimo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marimo.debug.xcconfig"; path = "Target Support Files/Pods-Marimo/Pods-Marimo.debug.xcconfig"; sourceTree = "<group>"; };
+		859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Cafe24Ssurround.ttf; path = ../src/assets/fonts/Cafe24Ssurround.ttf; sourceTree = "<group>"; };
+		D050F2387CA623FB24FD88E2 /* libPods-Marimo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Marimo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansCJKkr-Regular.otf"; path = "../src/assets/fonts/NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -119,11 +125,9 @@
 			children = (
 				859E17FFF031485CACC20878 /* Cafe24Ssurround.ttf */,
 				0D6A340CDA68449CBC4606E7 /* NanumSquareRoundB.ttf */,
-				07D9F2DFAED34639BA8D26F6 /* NanumSquareRoundOTFB.otf */,
 				D98AC9E512484620BCF80165 /* NotoSansCJKkr-Regular.otf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		77A0AEFF502B85E3CC8E30C5 /* Pods */ = {
@@ -267,7 +271,6 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				493B414C3F5B49FFA192D898 /* Cafe24Ssurround.ttf in Resources */,
 				990A3551CFFD470AA3903CCA /* NanumSquareRoundB.ttf in Resources */,
-				26B66A8CFF3F4380A489EBED /* NanumSquareRoundOTFB.otf in Resources */,
 				C5358F90B64C481DA2F6E661 /* NotoSansCJKkr-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

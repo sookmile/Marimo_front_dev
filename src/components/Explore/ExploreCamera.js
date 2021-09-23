@@ -22,9 +22,9 @@ const ExploreCamera = ({ navigation }) => {
   // for data to  send api
   const [image, setImage] = useState("");
   // for picture address
-  const [url, setUrl] = useState("");
-  // for image description
-  const [description, setdescription] = useState("");
+  const [url, seturl] = useState("");
+  // for image data
+  const [imageData, setImageData] = useState([]);
   const [processingImage, setprocessingImage] = useState(false);
   const cameraRef = React.useRef(null);
 
@@ -81,10 +81,45 @@ const ExploreCamera = ({ navigation }) => {
       console.log("data", data.uri);
 
       if (data) {
-        setUrl(data.uri);
+        seturl(data.uri);
         setprocessingImage(true);
         console.log("result", url);
       }
+    }
+  };
+
+  const postImage2 = async () => {
+    const fd = new FormData();
+    fd.append("image", {
+      name: "picture.jpg",
+      type: "image/jpeg",
+      uri: url,
+    });
+    const response = await fetch(preURL.preURL + "/image/name", {
+      method: "POST",
+      body: fd,
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setprocessingImage(false);
+        setImageData(responseJson);
+        console.log("ImageData: ", imageData);
+      })
+      .catch((error) => {
+        setprocessingImage(false);
+        console.error(error);
+      });
+    if (imageData) {
+      setprocessingImage(false);
+      navigation.navigate("Detail", {
+        imageData,
+      });
+    } else {
+      setprocessingImage(false);
+      alert("이미지 설명 받아오지 못했습니다!");
     }
   };
 
@@ -130,7 +165,8 @@ const ExploreCamera = ({ navigation }) => {
         first: 1,
         assetType: "Photos",
       });
-      await setUrl(edges[0].node.image.uri);
+      await seturl(edges[0].node.image.uri);
+      console.log("url", url);
     } catch (error) {
       console.log("getPhoto", error);
     }
@@ -167,7 +203,7 @@ const ExploreCamera = ({ navigation }) => {
               <TouchableOpacity
                 onPress={async () => {
                   await takePhoto();
-                  if (url) postImage();
+                  if (url) postImage2();
                   // post api
                   console.log("hello");
                 }}
@@ -187,7 +223,7 @@ const ExploreCamera = ({ navigation }) => {
               <TouchableOpacity
                 onPress={async () => {
                   await getPhotos();
-                  if (url) postImage();
+                  if (url) postImage2();
                   // post api
                   if (description) {
                     setprocessingImage(false);
