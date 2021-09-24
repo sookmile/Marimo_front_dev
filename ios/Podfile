@@ -15,6 +15,8 @@ target 'Marimo' do
 
 
 
+  pod 'react-native-video-cache', :path => '../node_modules/react-native-video-cache'
+
   target 'MarimoTests' do
     inherit! :complete
     # Pods for testing
