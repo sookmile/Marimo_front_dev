@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { RNCamera } from "react-native-camera";
 import { ENDPOINT } from "./Config";
+import CameraRoll from "@react-native-community/cameraroll";
 
 export default class RecordVideo extends Component {
   constructor() {
@@ -109,8 +110,14 @@ export default class RecordVideo extends Component {
       type,
       uri,
     });
-    console.log(data);
-    console.log(data._parts);
+    const URI = data._parts[0][1].uri;
+    console.log(URI);
+
+    const result = await CameraRoll.save(URI, {
+      type: "video",
+      album: "Marimo",
+    });
+    console.log("result", result);
 
     try {
       const res = await fetch(ENDPOINT, {
