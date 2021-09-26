@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Image,
 } from "react-native";
 import { RNCamera } from "react-native-camera";
 import { ENDPOINT } from "./Config";
@@ -65,8 +66,6 @@ export default class RecordVideo extends Component {
           <View style={styles.word}>
             <Text>장미꽃</Text>
           </View>
-
-          <View></View>
           <View style={styles.cameraContainer}>
             <View style={styles.container}>
               <RNCamera
@@ -137,6 +136,17 @@ export default class RecordVideo extends Component {
 }
 
 const styles = StyleSheet.create({
+  word: {
+    display: "flex",
+    alignItems: "center",
+    width: 50,
+    top: 35,
+    left: 375,
+    padding: 5,
+    margin: 5,
+    backgroundColor: "#face34",
+    borderRadius: 15,
+  },
   container: {
     width: 300,
     height: 300,

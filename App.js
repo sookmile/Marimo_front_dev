@@ -30,11 +30,11 @@ const App = () => {
           headerShown: false,
         }}
       >
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name="Start"
           component={Start}
           options={{ headerShown: false }}
-        />
+        /> */}
         <MainStack.Screen
           name="NavTab"
           component={NavTab}
