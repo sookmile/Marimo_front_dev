@@ -32,6 +32,8 @@ const ListItem = ({ item }) => {
 };
 
 const StoryMain = () => {
+  const navigation = useNavigation();
+
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -66,7 +68,10 @@ const StoryMain = () => {
           <Text style={styles.userName}>송이</Text>
         </View>
         <View style={styles.records}>
-          <TouchableOpacity style={styles.rButton1}>
+          <TouchableOpacity
+            style={styles.rButton1}
+            onPress={() => navigation.navigate("LearnRecord")}
+          >
             <Text>나의 기록들</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rButton2}>
