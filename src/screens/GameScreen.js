@@ -4,11 +4,8 @@ import SpellingGame from "../components/Game/SpellingGame";
 import SpellingGameResult from "../components/Game/SpellingGameResult";
 import SpellingGameRanking from "../components/Game/SpellingGameRanking";
 import GameMain from "../components/Game/GameMain";
-<<<<<<< HEAD
 import LearnRecord from "../components/Mypage/LearnRecord";
-=======
 import SpellingGameContainer from "../components/Game/SpellingGameContainer";
->>>>>>> c5005f689e198cc126104bea12fc7dbb5b33b127
 const GameStack = createStackNavigator();
 
 const Game = () => {
