@@ -5,15 +5,22 @@ import {
   Text,
   Button,
   Image,
+  View,
   TouchableOpacity,
   Dimensions,
   TextInput,
+  StyleSheet,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-
+import Icon from "react-native-vector-icons/Entypo";
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import { Svg, Path } from "react-native-svg";
 const ButtonRecord = Styled.Button``;
+import Logo from "../../assets/icons/Logo.png";
+import Icon2 from "react-native-vector-icons/Ionicons";
+import { login, logo } from "../../assets/icons/Character/Logo";
 
 const Login = ({ navigation }) => {
   let cntrMargin = 0;
@@ -25,7 +32,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
 
   // for ui design
   const { width, height } = Dimensions.get("window");
@@ -38,6 +45,7 @@ const Login = ({ navigation }) => {
 
   useEffect(async () => {
     console.log("변했니");
+    console.log(await AsyncStorage.getItem("isLogin"));
     console.log(await AsyncStorage.getItem("userId"));
     const id = await AsyncStorage.getItem("userId");
   }, []);
@@ -113,7 +121,18 @@ const Login = ({ navigation }) => {
       {pageNum === 0 ? (
         <Container style={{ marginTop: cntrMargin }}>
           <BackCntr onPress={() => navigation.navigate("StartMain")}>
+            <Icon2
+              name="chevron-back"
+              style={{ marginRight: 10 }}
+              size={23}
+              color={"#555555"}
+            ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Character", { name: "우진" })}
+            >
+              <Text>이동</Text>
+            </TouchableOpacity>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
@@ -133,14 +152,60 @@ const Login = ({ navigation }) => {
                 source={require("../../assets/MikeIcon.png")}
               />
             </TouchableOpacity>
-            <VoiceText>{voiceLabel}</VoiceText>
-
-            <TouchableOpacity onPress={() => setPageNum(2)}>
+            <View style={[styles.item, styles.itemIn]}>
+              <Image
+                style={{
+                  position: "relative",
+                  bottom: -20,
+                  marginRight: 5,
+                  width: 60,
+                  height: 45,
+                }}
+                source={Logo}
+              />
+              <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
+                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                  {voiceLabel}
+                </Text>
+                <View
+                  style={[styles.arrowContainer, styles.arrowLeftContainer]}
+                >
+                  <Svg
+                    style={styles.arrowLeft}
+                    width={moderateScale(15.5, 0.6)}
+                    height={moderateScale(17.5, 0.6)}
+                    viewBox="32.484 17.5 15.515 17.5"
+                    enable-background="new 32.485 17.5 15.515 17.5"
+                  >
+                    <Path
+                      d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                      fill="#ACDBFD"
+                      x="0"
+                      y="0"
+                    />
+                  </Svg>
+                </View>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                verticalAlign: "space-between",
+              }}
+              onPress={() => setPageNum(2)}
+            >
+              <View
+                style={{
+                  width: "15%",
+                  textAlign: "center",
+                  verticalAlign: "center",
+                }}
+              >
+                <Icon name="keyboard" size={23} color={"#555555"} />
+              </View>
               <KeyText>자판으로 입력할게요</KeyText>
-            </TouchableOpacity>
-            <Text>{text ? `${text}` : "단어 없음.."}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("NavTab")}>
-              <Text>Move</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
@@ -148,22 +213,68 @@ const Login = ({ navigation }) => {
                   name: "우진",
                 })
               }
-            >
-              <Text>캐릭터 선택</Text>
-            </TouchableOpacity>
+            ></TouchableOpacity>
           </Cntr>
         </Container>
       ) : pageNum === 1 ? (
         <Container style={{ marginTop: cntrMargin }}>
           <BackCntr onPress={() => setPageNum(0)}>
+            <Icon2
+              name="chevron-back"
+              style={{ marginRight: 10 }}
+              size={23}
+              color={"#555555"}
+            ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Character", { name: "우진" })}
+            >
+              <Text>이동</Text>
+            </TouchableOpacity>
           </BackCntr>
-          <Cntr>
+          <Cntr style={{ flex: 1 }}>
             <Box>
               <ConfirmText>친구의 이름은</ConfirmText>
               <ConfirmNameText>{text}</ConfirmNameText>
               <ConfirmText>가 맞나요?</ConfirmText>
             </Box>
+            <Svg
+              style={styles.arrowLeft2}
+              width={moderateScale(15.5, 0.6)}
+              height={moderateScale(17.5, 0.6)}
+              viewBox="32.484 17.5 15.515 17.5"
+              enable-background="new 32.485 17.5 15.515 17.5"
+            >
+              <Path
+                d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                fill="#FFEB81"
+                x="0"
+                y="0"
+              />
+            </Svg>
+            <ImageCntr>
+              <Image
+                style={{
+                  position: "relative",
+                  bottom: -20,
+                  marginRight: 5,
+                  width: 79,
+                  height: 59,
+                }}
+                source={logo[0]}
+              />
+              <Image
+                style={{
+                  position: "relative",
+                  bottom: -20,
+                  marginRight: 5,
+                  width: 79,
+                  height: 59,
+                }}
+                source={logo[1]}
+              />
+            </ImageCntr>
+            <Wrapper />
             <BtnCntr>
               <Btn
                 onPress={async () => {
@@ -189,7 +300,24 @@ const Login = ({ navigation }) => {
                 <BtnText>아니요. 다시 말할래요</BtnText>
               </Btn>
             </BtnCntr>
-            <TouchableOpacity onPress={() => setPageNum(2)}>
+            <TouchableOpacity
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "50%",
+                verticalAlign: "space-between",
+              }}
+              onPress={() => setPageNum(2)}
+            >
+              <View
+                style={{
+                  width: "15%",
+                  textAlign: "center",
+                  verticalAlign: "center",
+                }}
+              >
+                <Icon name="keyboard" size={23} color={"#555555"} />
+              </View>
               <KeyText>자판으로 입력할게요</KeyText>
             </TouchableOpacity>
           </Cntr>
@@ -197,8 +325,19 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum == 2 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => navigation.navigate("StartMain")}>
+           <BackCntr onPress={() => navigation.navigate("StartMain")}>
+            <Icon2
+              name="chevron-back"
+              style={{ marginRight: 10 }}
+              size={23}
+              color={"#555555"}
+            ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Character", { name: "우진" })}
+            >
+              <Text>이동</Text>
+            </TouchableOpacity>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
@@ -234,23 +373,40 @@ export default Login;
 
 const Cntr = Styled.View`
 width:100%;
+display:flex;
 height:80%;
 align-items:center;
 justify-content:center;
+
 `;
 const BackCntr = Styled.TouchableOpacity`
-align-items:flex-start;
-justify-content:center;
+width: 100%;
+text-align: left;
+display: flex;
+flex-direction: row;
 `;
 
+const ImageCntr = Styled.View`
+display:flex;
+flex-direction:row;
+width:82%;
+justify-content:space-between;
+
+`;
+const Wrapper = Styled.View`
+  height: 70px;
+`;
 const BackIcon = Styled.Text`
 width:120px;
 font-size:18px;
+
 `;
 const Container = Styled.View`
   flex: 1;
-margin-left:10px;
-margin-top:10px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:10px;
+  
 `;
 
 const IntroText = Styled.Text`
@@ -266,11 +422,15 @@ const VoiceText = Styled.Text`
   line-height:29.6px;
 `;
 const KeyText = Styled.Text`
-  color:#E86565
-  font-size:18px;
-  line-height:27px;
-  border-bottom-width:1
-  border-bottom-color:#E86565
+  width:85%;
+  text-align:center;
+  font-family: Noto Sans CJK KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  color: #191919;
 
   `;
 const AppName = Styled.Text`
@@ -279,23 +439,31 @@ const AppName = Styled.Text`
 `;
 
 const Box = Styled.View`
-width:237px;
-height:243px;
-border-radius:1;
-border-width:2;
-border-color:#E86565;
+width:290px;
+height:205px;
+border-radius:10;
+margin-top:30px;
+border-width:1.5;
+box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
+border-color:black;
+background-color:#FFEB81
+z-index:3;
 align-items:center;
 justify-content:center;
+
 `;
 
 const ConfirmText = Styled.Text`
-color:#999999;
-font-size:20px;
+font-family: "NanumSquareRoundB";
+
+color:#191919;
+font-size:22px;
 line-height: 30px;
 `;
 
 const ConfirmNameText = Styled.Text`
-color:#E86565;
+color:#F66C6C;
+font-family: "Cafe24Ssurround";
 font-size:36px;
 line-height: 53.28px;
 font-weight:700;
@@ -303,6 +471,7 @@ font-weight:700;
 
 const BtnCntr = Styled.View`
     margin-top:20px;
+    margin-bottom:40px;
 `;
 
 const Btn = Styled.TouchableOpacity`
@@ -327,3 +496,57 @@ border-width:1
 padding:10px
 margin-top:-200;
 `;
+
+// 분리
+const styles = StyleSheet.create({
+  item: {
+    width: "100%",
+    marginVertical: moderateScale(7, 2),
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  itemIn: {
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  itemOut: {
+    alignSelf: "flex-end",
+    marginRight: 20,
+  },
+  balloon: {
+    maxWidth: moderateScale(253, 2),
+    paddingHorizontal: moderateScale(10, 2),
+    paddingTop: moderateScale(5, 2),
+    paddingBottom: moderateScale(7, 2),
+    borderRadius: 20,
+  },
+  arrowContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+    flex: 1,
+  },
+  arrowLeftContainer: {
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+  },
+
+  arrowRightContainer: {
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+
+  arrowLeft: {
+    left: moderateScale(-6, 0.5),
+  },
+  arrowLeft2: {
+    right: moderateScale(85, 1),
+    bottom: moderateScale(5, 0.5),
+  },
+  arrowRight: {
+    right: moderateScale(-6, 0.5),
+  },
+});
