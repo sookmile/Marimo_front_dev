@@ -17,20 +17,24 @@ import {
 
 import { icons, images } from "../../constants";
 
-import Box from "./Box";
-
 import hangul from "hangul-js";
 import Voice from "@react-native-community/voice";
 import { SIZES, dummyData, COLORS } from "../../constants";
 import CustomButton from "../CustomButton/CustomButton";
-import AwesomeButton from "react-native-really-awesome-button";
 import Tts from "react-native-tts";
-import SpellingGameResult from "./SpellingGameResult";
 import axios from "axios";
 import { preURL } from "../../preURL/preURL";
+import Sound from "react-native-sound";
 
-function SpellingGame({ navigation, route }) {
-  const { userId, userNickname } = route.params;
+const correctSound = require("../../assets/sfx/mixkit-unlock-game-notification-253.wav");
+let music = new Sound(correctSound, (error) => {
+  if (error) {
+    console.log("play failed", error);
+  }
+});
+
+function SpellingGame({ route, navigation }) {
+  const { userId = 1, userNickname = "유진" } = route.params ?? {};
   // game states
   const [questions, setquestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -39,11 +43,10 @@ function SpellingGame({ navigation, route }) {
   const [successWord, setsuccessWord] = useState([]);
   const [failedWord, setfailedWord] = useState([]);
   const [score, setScore] = useState(0);
-  const [showNextButton, setShowNextButton] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
 
   let userAnswer = "";
-  const slideInAnim = useRef(new Animated.Value(0)).current;
 
   // record
   const [isRecord, setisRecord] = useState(false);
@@ -126,6 +129,7 @@ function SpellingGame({ navigation, route }) {
 
   // game
 
+  // 퀴즈 다시 시작
   const restartQuiz = () => {
     setText("");
     setShowScoreModal(false);
@@ -135,17 +139,15 @@ function SpellingGame({ navigation, route }) {
     setScore(0);
 
     setCorrectAnswer(null);
-    setShowNextButton(false);
+    setModalVisible(false);
   };
 
+  // 무작위
   function shuffleArray(array) {
     let curId = array.length;
-    // There remain elements to shuffle
     while (0 !== curId) {
-      // Pick a remaining element
       let randId = Math.floor(Math.random() * curId);
       curId -= 1;
-      // Swap it with the current element.
       let tmp = array[curId];
       array[curId] = array[randId];
       array[randId] = tmp;
@@ -153,6 +155,23 @@ function SpellingGame({ navigation, route }) {
     return array;
   }
 
+  // 초성 분리
+  const diassembleWords = (text) => {
+    let diassemble = hangul.disassemble(text, true);
+
+    let cho = "";
+    if (diassemble && _onSpeechEnd) {
+      console.log(diassemble);
+      for (let i = 0, l = diassemble.length; i < l; i++) {
+        cho += diassemble[i][0];
+      }
+    }
+    userAnswer = cho;
+    console.log("사용자 정답: ", userAnswer);
+    return cho;
+  };
+
+  // 정답 체크
   const validateAnswer = (userAnswer) => {
     console.log("ValidateAnswer 실행");
     let correct_answer = questions[currentQuestionIndex]?.word;
@@ -161,20 +180,34 @@ function SpellingGame({ navigation, route }) {
     setCorrectAnswer(correct_answer);
     if (userAnswer === correct_answer) {
       // Set Score
+      showModal();
+      music.play((success) => {
+        if (success) {
+          console.log("successfully finished playing");
+        } else {
+          console.log("playback failed due to audio decoding errors");
+        }
+      });
       setScore(score + 30);
       console.log("점수", score);
-      setShowNextButton(true);
     }
     // Show Next Button
-    handleNext();
+    setTimeout(handleNext, 2000);
   };
 
+  // 다음 문제로 이동
   const handleNext = () => {
     console.log("handleNext 실행");
-    setShowNextButton(false);
+    setModalVisible(false);
     if (currentQuestionIndex == questions.length - 1) {
       // Last Question
       // Show Score Modal
+      // navigation.navigate("SpellingGameResult", {
+      //   userNickname: userNickname,
+      //   userId: userId ? userId : 1,
+      //   score: score,
+      //   length: questions.length,
+      // });
       setShowScoreModal(true);
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -182,7 +215,7 @@ function SpellingGame({ navigation, route }) {
       setText(" ");
       setCurrentAnswer(null);
       setCorrectAnswer(null);
-      setShowNextButton(false);
+      setModalVisible(false);
     }
   };
 
@@ -194,35 +227,9 @@ function SpellingGame({ navigation, route }) {
         }}
       >
         {/* Question Counter */}
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              justifyContent: "center",
-              backgroundColor: COLORS.bgPurple,
-              width: "20%",
-              borderRadius: 15,
-              marginHorizontal: SIZES.padding,
-            }}
-          >
-            <Text
-              style={{
-                color: COLORS.darkGray,
-                fontSize: 20,
-                opacity: 0.6,
-                marginRight: 2,
-                fontFamily: "NanumSquareRoundB",
-              }}
-            >
+        <View style={styles.game_quesstionContainer}>
+          <View style={styles.game_questionCounter}>
+            <Text style={styles.game_currentIndex}>
               {currentQuestionIndex + 1}
             </Text>
             <Text style={{ color: COLORS.black, fontSize: 18, opacity: 0.6 }}>
@@ -276,35 +283,32 @@ function SpellingGame({ navigation, route }) {
     );
   };
 
-  const renderHeader = () => {
+  const renderRecordButton = () => {
     return (
       <View style={{ flex: 1 }}>
-        <Text
-          style={{
-            marginTop: SIZES.radius,
-            paddingVertical: SIZES.padding,
-            paddingHorizontal: SIZES.padding,
-            fontFamily: "NanumSquareRoundB",
-            textAlign: "center",
-          }}
-        >
-          {voiceLabel}
-        </Text>
+        <Text style={styles.voiceLabel}>{voiceLabel}</Text>
         <CustomButton buttonText={buttonLabel} onPress={_onRecordVoice} />
       </View>
     );
   };
 
+  const showModal = () => {
+    setModalVisible(true);
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 1000);
+  };
+
   const renderAnswerModal = () => {
-    if (showNextButton) {
+    if (modalVisible) {
       return (
         <Modal
           transparent={true}
           animationType={"slide"}
-          visible={showNextButton}
+          visible={modalVisible}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
-            setModalVisible(!showNextButton);
+            setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.modal_background}>
@@ -315,22 +319,6 @@ function SpellingGame({ navigation, route }) {
     } else {
       return null;
     }
-  };
-
-  const diassembleWords = (text) => {
-    console.log("showModal", showScoreModal);
-    let diassemble = hangul.disassemble(text, true);
-
-    let cho = "";
-    if (diassemble && _onSpeechEnd) {
-      console.log(diassemble);
-      for (let i = 0, l = diassemble.length; i < l; i++) {
-        cho += diassemble[i][0];
-      }
-    }
-    userAnswer = cho;
-    console.log("사용자 정답: ", userAnswer);
-    return cho;
   };
 
   return (
@@ -354,54 +342,17 @@ function SpellingGame({ navigation, route }) {
           transparent={true}
           visible={showScoreModal}
         >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: COLORS.primary,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: COLORS.white,
-                width: "90%",
-                borderRadius: 20,
-                padding: 20,
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: hp(2),
-                  fontFamily: "NanumSquareRoundB",
-                  color: "#E86565",
-                  marginBottom: hp(1),
-                }}
-              >
+          <View style={styles.resultModal_background}>
+            <View style={styles.resultModal_Container}>
+              <Text style={styles.resultModal_congratText}>
                 우와, 대단해요!
               </Text>
-              <View
-                style={{
-                  backgroundColor: COLORS.bgPurple,
-                  width: "90%",
-                  borderRadius: 20,
-                  padding: 20,
-                  alignItems: "center",
-                }}
-              >
+              <View style={styles.resultModal_innerContainer}>
                 <Text style={{ fontSize: 25, fontFamily: "NanumSquareRoundB" }}>
                   {userNickname ? userNickname : "송이"}의 최종 점수는
                 </Text>
 
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    marginVertical: 20,
-                  }}
-                >
+                <View style={styles.resultModal_scoreContainer}>
                   <Text
                     style={{
                       fontSize: 30,
@@ -415,14 +366,7 @@ function SpellingGame({ navigation, route }) {
               {/* Retry Quiz button */}
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 15,
-                    backgroundColor: COLORS.primary,
-                    marginTop: SIZES.radius,
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
-                    marginHorizontal: wp(1),
-                  }}
+                  style={styles.resultModal_goHomeBtn}
                   onPress={() =>
                     postGameResult() && navigation.navigate("GameMain")
                   }
@@ -432,35 +376,25 @@ function SpellingGame({ navigation, route }) {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 15,
-                    backgroundColor: "#9CCDFA",
-                    marginTop: SIZES.radius,
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
-                  }}
+                  style={styles.resultModal_restartGameBtn}
                   onPress={restartQuiz}
                 >
-                  <Text>다시 하기</Text>
+                  <Text style={{ textAlign: "center" }}>다시 하기</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 15,
-                    backgroundColor: "#FA9C9C",
-                    marginTop: SIZES.radius,
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
-                  }}
+                  style={styles.resultModal_showRankingBtn}
                   onPress={() => navigation.navigate("GameRank")}
                 >
-                  <Text>랭킹 확인하기</Text>
+                  <Text style={{ textAlign: "center" }}>랭킹 확인하기</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </Modal>
 
-        <View style={{ width: "100%", height: "25%" }}>{renderHeader()}</View>
+        <View style={{ width: "100%", height: "25%" }}>
+          {renderRecordButton()}
+        </View>
       </ImageBackground>
     </View>
   );
@@ -481,7 +415,29 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "70%",
   },
-  game_quesstionContainer: {},
+  game_quesstionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  game_questionCounter: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    justifyContent: "center",
+    backgroundColor: COLORS.bgPurple,
+    width: "20%",
+    borderRadius: 15,
+    marginHorizontal: SIZES.padding,
+  },
+  game_currentIndex: {
+    color: COLORS.darkGray,
+    fontSize: 20,
+    opacity: 0.6,
+    marginRight: 2,
+    fontFamily: "NanumSquareRoundB",
+  },
   game_question: {
     color: COLORS.black,
     fontSize: 30,
@@ -493,9 +449,73 @@ const styles = StyleSheet.create({
     fontSize: wp(4),
     fontFamily: "Cafe24Ssurround",
   },
+  voiceLabel: {
+    marginTop: SIZES.radius,
+    paddingVertical: SIZES.padding,
+    paddingHorizontal: SIZES.padding,
+    fontFamily: "NanumSquareRoundB",
+    textAlign: "center",
+  },
   modal_background: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  resultModal_background: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  resultModal_Container: {
+    backgroundColor: COLORS.white,
+    width: "90%",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+  },
+  resultModal_congratText: {
+    fontSize: hp(2),
+    fontFamily: "NanumSquareRoundB",
+    color: "#E86565",
+    marginBottom: hp(1),
+  },
+  resultModal_innerContainer: {
+    backgroundColor: COLORS.bgPurple,
+    width: "90%",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+  },
+  resultModal_scoreContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  resultModal_goHomeBtn: {
+    borderRadius: 15,
+    backgroundColor: COLORS.primary,
+    marginTop: SIZES.radius,
+    width: wp(25),
+    height: hp(4),
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
+  resultModal_restartGameBtn: {
+    borderRadius: 15,
+    backgroundColor: "#9CCDFA",
+    marginTop: SIZES.radius,
+    width: wp(20),
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
+  resultModal_showRankingBtn: {
+    borderRadius: 15,
+    backgroundColor: "#FA9C9C",
+    marginTop: SIZES.radius,
+    width: wp(23),
+    justifyContent: "center",
+    marginHorizontal: 5,
   },
 });
