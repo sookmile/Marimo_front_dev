@@ -26,6 +26,11 @@ const Game = () => {
         options={{ headerShown: true, title: "동물 친구들의 초성 게임" }}
       />
       <GameStack.Screen
+        name="SpellingGameResult"
+        component={SpellingGameResult}
+        options={{ headerShown: false }}
+      />
+      <GameStack.Screen
         name="GameRank"
         component={SpellingGameRanking}
         options={{ headerShown: false }}
