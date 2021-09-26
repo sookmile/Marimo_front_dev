@@ -20,15 +20,12 @@ const myMemories = [
 
 const wordList = [
   {
-    id: 1,
     word: "ㅅㄱ",
   },
   {
-    id: 2,
     word: "ㅌㄲ",
   },
   {
-    id: 3,
     word: "ㅇㅇ",
   },
 ];
