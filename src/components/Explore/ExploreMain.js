@@ -157,7 +157,10 @@ const StoryMain = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.records}>
-          <TouchableOpacity style={styles.rButton1}>
+          <TouchableOpacity
+            style={styles.rButton1}
+            onPress={() => navigation.navigate("LearnRecord")}
+          >
             <Text style={styles.buttonText}>나의 기록들</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rButton2}>

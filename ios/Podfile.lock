@@ -344,40 +344,16 @@ PODS:
   - RNNaverLogin (2.1.1):
     - naveridlogin-sdk-ios (~> 4.1)
     - React
-  - RNReanimated (2.2.2):
-    - DoubleConversion
-    - FBLazyVector
-    - FBReactNativeSpec
-    - glog
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React
-    - React-callinvoker
-    - React-Core
-    - React-Core/DevSupport
-    - React-Core/RCTWebSocket
-    - React-CoreModules
-    - React-cxxreact
-    - React-jsi
-    - React-jsiexecutor
-    - React-jsinspector
-    - React-RCTActionSheet
-    - React-RCTAnimation
-    - React-RCTBlob
-    - React-RCTImage
-    - React-RCTLinking
-    - React-RCTNetwork
-    - React-RCTSettings
-    - React-RCTText
-    - React-RCTVibration
-    - ReactCommon/turbomodule/core
-    - Yoga
   - RNScreens (3.5.0):
     - React-Core
     - React-RCTImage
   - RNSVG (12.1.1):
     - React
+  - RNSound (0.11.1):
+    - React-Core
+    - RNSound/Core (= 0.11.1)
+  - RNSound/Core (0.11.1):
+    - React-Core
   - RNVectorIcons (8.1.0):
     - React-Core
   - TextToSpeech (4.1.0):
@@ -445,9 +421,9 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
-  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -543,12 +519,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNNaverLogin:
     :path: "../node_modules/@react-native-seoul/naver-login"
-  RNReanimated:
-    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   TextToSpeech:
@@ -562,11 +538,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-<<<<<<< HEAD
   FBReactNativeSpec: 88754107f766ec1a26a6445a3f4eb143bc5e496a
-=======
-  FBReactNativeSpec: b7c08d2a51d353d977cfa7bb3e1d11c7fe7f09b1
->>>>>>> c5005f689e198cc126104bea12fc7dbb5b33b127
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -610,9 +582,9 @@ SPEC CHECKSUMS:
   RNCMaskedView: f127cd9652acfa31b91dcff613e07ba18b774db6
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNNaverLogin: 2dcf003d4f52f8d5c15c3a5fadaa20b52352f4fe
-  RNReanimated: 241c586663f44f19a53883c63375fdd041253960
   RNScreens: 01ab149b5dd5c27f5ff26741b1d2bdf2cee1af35
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+  RNSound: 27e8268bdb0a1f191f219a33267f7e0445e8d62f
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   TextToSpeech: b3aa777ff5585705f179c0a2436bfd0926d1716e
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
@@ -620,8 +592,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4e8cafdee1569fb46b6f2583c0c7430b433de335
 
-<<<<<<< HEAD
 COCOAPODS: 1.10.2
-=======
-COCOAPODS: 1.10.1
->>>>>>> c5005f689e198cc126104bea12fc7dbb5b33b127

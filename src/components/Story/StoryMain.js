@@ -39,16 +39,13 @@ const StoryMain = () => {
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
-    return (
-      () => {
-        Orientation.unlockAllOrientations(),
-          Orientation.removeOrientationListener(onOrientaionChange);
-      },
-      []
-    );
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
   });
   const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE") {
+    if (orientation === "PORTRAIT") {
       Orientation.lockToPortrait();
     }
   };

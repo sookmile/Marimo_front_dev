@@ -41,7 +41,7 @@ export default function SpellingGameContainer({ navigation }) {
     setuserID(userIdCheck);
     const userNickName = await getUserNickname(userIdCheck);
     const userNickNameCheck = userNickName ? userNickName : "송이";
-    setUserNickname(userNickName);
+    setUserNickname(userNickNameCheck);
     console.log("userID", userID);
     console.log("userNickname", userNickname);
   };
@@ -59,8 +59,8 @@ export default function SpellingGameContainer({ navigation }) {
           buttonText="게임 시작하기"
           onPress={() =>
             navigation.navigate("SpellingGame", {
-              userId: userID,
-              userNickname: userNickname,
+              userId: userID ? userID : 1,
+              userNickname: userNickname ? userNickname : "유진",
             })
           }
         ></CustomButton>

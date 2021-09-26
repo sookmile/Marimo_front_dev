@@ -16,9 +16,12 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
 
 import { images, icons, SIZES, COLORS } from "../constants";
 export const UserHeader = (props) => {
+  const navigation = useNavigation();
+
   const { userNickname } = props;
   return (
     <>
@@ -46,7 +49,10 @@ export const UserHeader = (props) => {
           </View>
         </View>
         <View style={styles.records}>
-          <TouchableOpacity style={styles.rButton1}>
+          <TouchableOpacity
+            style={styles.rButton1}
+            onPress={() => navigation.navigate("LearnRecord")}
+          >
             <Text style={styles.buttonText}>나의 기록들</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rButton2}>
