@@ -32,22 +32,24 @@ const ListItem = ({ item }) => {
 };
 
 const StoryMain = () => {
-  // useEffect(() => {
-  //   Orientation.lockToPortrait();
-  //   Orientation.addOrientationListener(onOrientaionChange);
-  //   return (
-  //     () => {
-  //       Orientation.unlockAllOrientations(),
-  //         Orientation.removeOrientationListener(onOrientaionChange);
-  //     },
-  //     []
-  //   );
-  // });
-  // const onOrientaionChange = (orientation) => {
-  //   if (orientation === "LANDSCAPE") {
-  //     Orientation.lockToPortrait();
-  //   }
-  // };
+  const navigation = useNavigation();
+
+//   useEffect(() => {
+//     Orientation.lockToPortrait();
+//     Orientation.addOrientationListener(onOrientaionChange);
+//     return (
+//       () => {
+//         Orientation.unlockAllOrientations(),
+//           Orientation.removeOrientationListener(onOrientaionChange);
+//       },
+//       []
+//     );
+//   });
+//   const onOrientaionChange = (orientation) => {
+//     if (orientation === "LANDSCAPE") {
+//       Orientation.lockToPortrait();
+//     }
+//   };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -66,7 +68,10 @@ const StoryMain = () => {
           <Text style={styles.userName}>송이</Text>
         </View>
         <View style={styles.records}>
-          <TouchableOpacity style={styles.rButton1}>
+          <TouchableOpacity
+            style={styles.rButton1}
+            onPress={() => navigation.navigate("LearnRecord")}
+          >
             <Text>나의 기록들</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rButton2}>

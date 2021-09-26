@@ -19,10 +19,10 @@ import preURL from "../../preURL/preURL";
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
-  kConsumerKey: "VC5CPfjRigclJV_TFACU",
-  kConsumerSecret: "f7tLFw0AHn",
+  kConsumerKey: "dBTCaf__PhKbM6UieQby",
+  kConsumerSecret: "zkTe9EErPl",
   kServiceAppName: "테스트앱(iOS)",
-  kServiceAppUrlScheme: "testapp", // only for iOS
+  kServiceAppUrlScheme: "marimologin",
 };
 
 const androidKeys = {
@@ -51,8 +51,11 @@ const StartMain = ({ navigation }) => {
     });
   };
   useEffect(() => {
-    naverToken !== null && getUserProfile();
+    if (naverToken !== null && AsyncStorage.getItem("isLogin") !== "true") {
+      getUserProfile();
+    }
   }, [naverToken]);
+  
   const Login = async (props) => {
     console.log(2);
     await naverLogin(props);
@@ -67,10 +70,11 @@ const StartMain = ({ navigation }) => {
     await axios
       .post(preURL.preURL + "/marimo/login", body)
       .then(async (res) => {
+        console.log(res.data);
         const response = res.data.id;
-        console.log(response);
         await setUserId(response);
-        console.log("설명", response);
+        console.log("userId", response);
+        console.log("성공");
       })
       .catch((err) => {
         console.log("에러 발생 ");
@@ -79,9 +83,27 @@ const StartMain = ({ navigation }) => {
     console.log(userId);
     console.log(userId !== -1);
     if (userId !== -1) {
-      console.log("값");
-      console.log(JSON.stringify(userId));
-      await AsyncStorage.setItem("userId", JSON.stringify(userId));
+      await setLogin();
+    }
+  };
+  const setLogin = async () => {
+    AsyncStorage.removeItem("userId");
+    await AsyncStorage.setItem("isLogin", "true");
+
+    console.log(JSON.stringify(userId));
+    await AsyncStorage.setItem("userId", JSON.stringify(userId));
+  };
+  const hanldeContinue = async () => {
+    const isLogin = await AsyncStorage.getItem("isLogin");
+    if (isLogin === "true") {
+      Alert.alert("환영합니다.");
+      navigation.navigate("NavTab");
+    } else {
+      Alert.alert("환영합니다.");
+      navigation.navigate("NavTab");
+      /*Alert.alert(
+        "사용자 정보가 없습니다.\n시작하기 버튼을 눌러 가입을 해주세요."
+      );*/
     }
   };
 
@@ -145,11 +167,7 @@ const StartMain = ({ navigation }) => {
             </Btn>
             <Btn
               style={{ marginTop: height * 0.025 }}
-              onPress={async () => {
-                await AsyncStorage.setItem("@storage_Key", "저장");
-
-                navigation.navigate("Login");
-              }}
+              onPress={() => hanldeContinue()}
             >
               <BtnText>이어하기</BtnText>
             </Btn>

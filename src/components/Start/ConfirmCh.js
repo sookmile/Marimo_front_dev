@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Text, Image, View, Dimensions, Settings } from "react-native";
+import { Button, Text, Image, View, Dimensions, Settings,TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import Character1 from "../../assets/icons/Character/Character1.png";
-import Character2 from "../../assets/icons/Character/Character2.png";
-import Character3 from "../../assets/icons/Character/Character3.png";
-import Character4 from "../../assets/icons/Character/Character4.png";
-import { FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-const character = [
-  { value: 0, src: Character1, label: "모모" },
-  { value: 1, src: Character2, label: "말랑이" },
-  { value: 2, src: Character3, label: "행복이" },
-  { value: 3, src: Character4, label: "기쁨이" },
-];
+import { character } from "../../assets/icons/Character/Character";
+import Icon2 from "react-native-vector-icons/Ionicons";
+
 /* 캐릭터 선택 페이지 */
 const ConfirmCh = ({ route, navigation }) => {
   const { width, height } = Dimensions.get("window");
@@ -26,8 +18,6 @@ const ConfirmCh = ({ route, navigation }) => {
 
   useEffect(async () => {
     console.log("hello");
-    const value = await AsyncStorage.getItem("@storage_Key");
-    console.log(value);
     setChrNum(characterNum);
     console.log(characterNum);
     console.log(name);
@@ -56,8 +46,20 @@ const ConfirmCh = ({ route, navigation }) => {
   return (
     <Container style={{ marginTop: cntrMargin }}>
       <BackCntr onPress={() => navigation.navigate("StartMain")}>
+        <Icon2
+          name="chevron-back"
+          style={{ marginRight: 10 }}
+          size={23}
+          color={"#555555"}
+        ></Icon2>
         <BackIcon>뒤로 가기</BackIcon>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Character", { name: "우진" })}
+        >
+          <Text>이동</Text>
+        </TouchableOpacity>
       </BackCntr>
+
       <IntroText>
         {character[chrNum].label}와 모험을 떠날 준비가 되었니?
         {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
@@ -135,8 +137,10 @@ const Cntr = styled.View`
   justify-content: center;
 `;
 const BackCntr = styled.TouchableOpacity`
-  align-items: flex-start;
-  justify-content: center;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
 `;
 
 const BackIcon = styled.Text`
