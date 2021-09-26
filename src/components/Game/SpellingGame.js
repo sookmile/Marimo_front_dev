@@ -27,11 +27,10 @@ import AwesomeButton from "react-native-really-awesome-button";
 import Tts from "react-native-tts";
 import SpellingGameResult from "./SpellingGameResult";
 import axios from "axios";
-import preURL from "../../preURL/preURL";
+import { preURL } from "../../preURL/preURL";
 
 function SpellingGame({ navigation, route }) {
-  const userNickname = route.params.userNickname ? userNickname : "송이";
-  const userId = route.params.userId ? userId : 1;
+  const { userId, userNickname } = route.params;
   // game states
   const [questions, setquestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -113,9 +112,8 @@ function SpellingGame({ navigation, route }) {
       score: score,
     };
     console.log("data", data);
-    const jsonData = JSON.stringify(jsonData);
     await axios
-      .post(preURL + "/marimo/game/save", jsonData)
+      .post(preURL + "/marimo/game/save", data)
       .then((res) => {
         const response = res.data;
         console.log("성공여부", response);
@@ -393,7 +391,7 @@ function SpellingGame({ navigation, route }) {
                 }}
               >
                 <Text style={{ fontSize: 25, fontFamily: "NanumSquareRoundB" }}>
-                  {userNickname}의 최종 점수는
+                  {userNickname ? userNickname : "송이"}의 최종 점수는
                 </Text>
 
                 <View
