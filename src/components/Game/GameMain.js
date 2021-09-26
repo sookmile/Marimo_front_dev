@@ -14,7 +14,9 @@ import { useNavigation } from "@react-navigation/native";
 const ListItem1 = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("SpellingGame")}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("SpellingGameContainer")}
+    >
       <View style={styles.item}>
         <Image
           source={{
