@@ -34,22 +34,22 @@ const ListItem = ({ item }) => {
 const StoryMain = () => {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    Orientation.lockToPortrait();
-    Orientation.addOrientationListener(onOrientaionChange);
-    return (
-      () => {
-        Orientation.unlockAllOrientations(),
-          Orientation.removeOrientationListener(onOrientaionChange);
-      },
-      []
-    );
-  });
-  const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE") {
-      Orientation.lockToPortrait();
-    }
-  };
+//   useEffect(() => {
+//     Orientation.lockToPortrait();
+//     Orientation.addOrientationListener(onOrientaionChange);
+//     return (
+//       () => {
+//         Orientation.unlockAllOrientations(),
+//           Orientation.removeOrientationListener(onOrientaionChange);
+//       },
+//       []
+//     );
+//   });
+//   const onOrientaionChange = (orientation) => {
+//     if (orientation === "LANDSCAPE") {
+//       Orientation.lockToPortrait();
+//     }
+//   };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
