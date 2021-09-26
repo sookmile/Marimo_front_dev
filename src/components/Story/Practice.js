@@ -1,102 +1,154 @@
-import React, { useRef } from "react";
+"use strict";
+import React, { Component } from "react";
 import {
-  ImageBackground,
-  View,
-  Text,
+  ActivityIndicator,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
+  ImageBackground,
 } from "react-native";
 import { RNCamera } from "react-native-camera";
+import { ENDPOINT } from "./Config";
 
-const Practice = () => {
-  //   const camera = useRef(null);
+export default class RecordVideo extends Component {
+  constructor() {
+    super();
 
-  //   const Submit = async () => {
-  //     if (camera) {
-  //       const { uri, codec = "mp4" } = await camera.current.recordAsync();
-  //       console.info(uri);
-  //     }
-  //   };
-  //   const Stop = () => {
-  //     camera.current.stopRecording();
-  //   };
+    this.state = {
+      recording: false,
+      processing: false,
+    };
+  }
+  render() {
+    const { recording, processing } = this.state;
 
-  //   const RNCam = () => {
-  //     return (
-  //       <>
-  //         <RNCamera
-  //           ref={(ref) => {
-  //             camera = ref;
-  //           }}
-  //           style={styles.preview}
-  //           type={RNCamera.Constants.Type.front}
-  //           flashMode={RNCamera.Constants.FlashMode.off}
-  //           androidCameraPermissionOptions={{
-  //             title: "Permission to use camera",
-  //             message: "We need your permission to use your camera",
-  //             buttonPositive: "Ok",
-  //             buttonNegative: "Cancel",
-  //           }}
-  //           androidRecordAudioPermissionOptions={{
-  //             title: "Permission to use audio recording",
-  //             message: "We need your permission to use your audio",
-  //             buttonPositive: "Ok",
-  //             buttonNegative: "Cancel",
-  //           }}
-  //         />
-  //       </>
-  //     );
-  //   };
-  return (
-    <View>
-      <ImageBackground
-        source={require("../../assets/images/story/practice.png")}
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-        resizeMode="cover"
+    let button = (
+      <TouchableOpacity
+        onPress={this.startRecording.bind(this)}
+        style={styles.capture}
       >
-        <View style={styles.word}>
-          <Text>장미꽃</Text>
-        </View>
+        <Text style={{ fontSize: 14 }}> RECORD </Text>
+      </TouchableOpacity>
+    );
 
-        <View></View>
-        <View style={styles.cameraContainer}>
-          {/* <TouchableOpacity onPress={RNCam}>
-            <Text>입모양 확인하기</Text>
-          </TouchableOpacity> */}
-        </View>
-      </ImageBackground>
-    </View>
-  );
-};
+    if (recording) {
+      button = (
+        <TouchableOpacity
+          onPress={this.stopRecording.bind(this)}
+          style={styles.capture}
+        >
+          <Text style={{ fontSize: 14 }}> STOP </Text>
+        </TouchableOpacity>
+      );
+    }
 
-export default Practice;
+    // if (processing) {
+    //   button = (
+    //     <View style={styles.capture}>
+    //       <ActivityIndicator animating size={18} />
+    //     </View>
+    //   );
+    // }
+
+    return (
+      <View>
+        <ImageBackground
+          source={require("../../assets/images/story/practice.png")}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          resizeMode="cover"
+        >
+          <View style={styles.word}>
+            <Text>장미꽃</Text>
+          </View>
+
+          <View></View>
+          <View style={styles.cameraContainer}>
+            <View style={styles.container}>
+              <RNCamera
+                ref={(ref) => {
+                  this.camera = ref;
+                }}
+                style={styles.preview}
+                type={RNCamera.Constants.Type.front}
+                flashMode={RNCamera.Constants.FlashMode.off}
+                permissionDialogTitle={"Permission to use camera"}
+                permissionDialogMessage={
+                  "We need your permission to use your camera phone"
+                }
+              />
+              <View
+                style={{
+                  flex: 0,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                {button}
+              </View>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  }
+
+  async startRecording() {
+    this.setState({ recording: true });
+    // default to mp4 for android as codec is not set
+    const { uri, codec = "mp4" } = await this.camera.recordAsync();
+    this.setState({ recording: false, processing: true });
+    const type = `video/${codec}`;
+
+    const data = new FormData();
+    data.append("video", {
+      name: "mobile-video-upload",
+      type,
+      uri,
+    });
+    console.log(data);
+    console.log(data._parts);
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "post",
+        body: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.setState({ processing: false });
+  }
+
+  stopRecording() {
+    this.camera.stopRecording();
+  }
+}
 
 const styles = StyleSheet.create({
-  word: {
-    width: 70,
-    height: 35,
-    top: "10%",
-    left: "43%",
-    backgroundColor: "#FACE34",
-    borderRadius: 20,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  container: {
+    width: 300,
+    height: 300,
+    top: 50,
+    left: 450,
+    flexDirection: "column",
   },
-
   preview: {
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    width: "100%",
-    height: 55,
   },
-  cameraContainer: {
-    zIndex: 2,
-    flex: 1,
-    flexDirection: "column",
+  capture: {
+    flex: 0,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    padding: 15,
+    paddingHorizontal: 20,
+    alignSelf: "center",
+    margin: 20,
   },
 });
