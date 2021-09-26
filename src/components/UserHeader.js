@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  Text,
+} from "react-native";
 import {
   widthPercentage,
   heightPercentage,
@@ -9,6 +16,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+
 import { images, icons, SIZES, COLORS } from "../constants";
 export const UserHeader = (props) => {
   const { userNickname } = props;
