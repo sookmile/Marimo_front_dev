@@ -589,19 +589,11 @@ SPEC CHECKSUMS:
   React-jsi: 67747b9722f6dab2ffe15b011bcf6b3f2c3f1427
   React-jsiexecutor: 80c46bd381fd06e418e0d4f53672dc1d1945c4c3
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
-<<<<<<< HEAD
-  react-native-camera: 210a872c84d3aa0982a9223047ef9e743ed694fa
-  react-native-cameraroll: 7c6c7ca84844f93b3dac9a87670bbad6541684ec
-  react-native-orientation: d4a97266b06ec8d45d74e626656a730ebbebbb6f
-  react-native-safe-area-context: 8465df05de8106c584b117f0e027e17174d6e02e
-  react-native-voice: 0253a5cde07d9c675463e36f7e668a76b0825de4
-=======
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
   react-native-voice: eb6b7c7f752310f72a6f4d64c2fba6ee724d6604
->>>>>>> c5005f689e198cc126104bea12fc7dbb5b33b127
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa
