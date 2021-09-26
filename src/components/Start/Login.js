@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components/native";
-import Voice from "react-native-voice";
+import Voice from "@react-native-community/voice";
 import {
   Text,
   Button,

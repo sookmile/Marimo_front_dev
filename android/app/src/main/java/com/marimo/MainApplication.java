@@ -4,10 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.horcrux.svg.SvgPackage;
+import com.wenkesj.voice.VoicePackage;
+import com.wenkesj.voice.VoicePackage;
+import com.wenkesj.voice.VoicePackage;
+import net.no_mad.tts.TextToSpeechPackage;
+import net.no_mad.tts.TextToSpeechPackage;
 import com.reactnative.videocache.VideoCachePackage;
-import net.no_mad.tts.TextToSpeechPackage;
-import net.no_mad.tts.TextToSpeechPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -18,7 +20,6 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
-
 
 public class MainApplication extends Application implements ReactApplication {
 
