@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { preURL } from "../../preURL/preURL";
+import preURL from "../../preURL/preURL";
 import Loader from "../Loader/Loader";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { COLORS, SIZES } from "../../constants";
@@ -26,6 +26,9 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import Tts from "react-native-tts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+preURL;
 
 // tts 설정
 Tts.setDefaultLanguage("ko-KR");
@@ -57,28 +60,43 @@ const ListItem = ({ item }) => {
 };
 
 const StoryMain = ({ navigation }) => {
-  const [userId, setuserId] = useState("");
+  const [userId, setuserId] = useState(0);
+  const [userNickname, setuserNickmame] = useState("");
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
 
-  useEffect(() => {
-    setLoading(true);
-    getUserData();
-  }, []);
+  //
+  const getUserId = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    return userId;
+  };
 
-  const getUserData = async () => {
+  const getUserData = async (userId) => {
+    await axios
+      .post(preURL + "marimo/getNickName", { userId: userId })
+      .then((res) => {
+        const response = res.data;
+        console.log("성공:", response);
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getUserMemory = async (userId) => {
     try {
       const response = await fetch(preURL + "/image/show", {
         method: "POST",
-        body: JSON.stringify({ userId: 1 }),
+        body: JSON.stringify({ userId: userId }),
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (response.status === 200) {
         const responseJson = await response.json();
-        setUserData(responseJson);
         setLoading(false);
+        return responseJson;
       } else {
         setLoading(false);
         alert("unable to get UserData");
@@ -89,9 +107,28 @@ const StoryMain = ({ navigation }) => {
     setLoading(false);
   };
 
+  const getMultiData = async () => {
+    const userId = await getUserId();
+    setuserId(userId ? userId : 1);
+    console.log(userId);
+    const userNickname = await getUserData(userId);
+    setuserNickmame(userNickname);
+    const userMemory = await getUserMemory(userId);
+    if (userMemory) {
+      setUserData(userMemory);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    console.log("useEffect 실행");
+    getMultiData();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <Loader loading={loading} />
+      {/* <Loader loading={loading} /> */}
       <View style={styles.header}>
         <Image
           style={styles.mainLogo}
