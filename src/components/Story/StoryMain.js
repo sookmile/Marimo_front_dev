@@ -9,8 +9,12 @@ import {
   Image,
   FlatList,
 } from "react-native";
+import { SIZES, COLORS } from "../../constants";
+import { fontPercentage } from "../../constants/responsive";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import Orientation from "react-native-orientation";
+import { UserHeader } from "../UserHeader";
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
@@ -48,9 +52,10 @@ const StoryMain = () => {
       Orientation.lockToPortrait();
     }
   };
+  const userNickname = "송이";
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <SafeAreaView style={styles.container}>
+      {/* <View style={styles.header}>
         <Image
           style={styles.mainLogo}
           source={require("../../assets/icons/MainLogo.png")}
@@ -73,10 +78,11 @@ const StoryMain = () => {
             <Text>친구 등록하기</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
+      <UserHeader userNickname={userNickname} />
       <View>
         <View style={styles.title}>
-          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <Text style={styles.titleText}>신나게 움직여요. 마리모 탐험대!</Text>
           <TouchableOpacity>
             <Text>+</Text>
           </TouchableOpacity>
@@ -111,7 +117,7 @@ const StoryMain = () => {
       </View>
       <View>
         <View style={styles.title}>
-          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <Text style={styles.titleText}>이야기 속으로, 신비한 동화나라!</Text>
           <TouchableOpacity>
             <Text>+</Text>
           </TouchableOpacity>
@@ -144,7 +150,7 @@ const StoryMain = () => {
           </SafeAreaView>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -276,7 +282,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 10,
+    marginHorizontal: SIZES.padding,
+    marginVertical: SIZES.padding,
+  },
+  titleText: {
+    color: COLORS.darkGray,
+    fontFamily: "Cafe24Ssurround",
+    fontSize: fontPercentage(20),
   },
   storyBlock: {
     width: 370,
@@ -300,7 +312,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   itemText: {
+    textAlign: "center",
+    paddingHorizontal: 5,
     color: "gray",
-    marginTop: 5,
+    marginTop: 10,
+    fontFamily: "NanumSquareRoundB",
+    fontSize: wp(3.5),
   },
 });

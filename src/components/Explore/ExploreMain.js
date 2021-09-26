@@ -344,6 +344,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: SIZES.padding,
+    marginVertical: SIZES.padding,
   },
   titleText: {
     color: COLORS.darkGray,
@@ -357,8 +358,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: SIZES.padding,
-    marginVertical: hp(2),
+    // paddingHorizontal: SIZES.padding,
+    // marginVertical: hp(2),
   },
   storyBlock: {
     paddingVertical: SIZES.padding,
