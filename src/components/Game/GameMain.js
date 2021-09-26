@@ -9,7 +9,14 @@ import {
   Image,
   FlatList,
 } from "react-native";
+import { fontPercentage } from "../../constants/responsive";
+import { SIZES, COLORS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
+import { UserHeader } from "../UserHeader";
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from "react-native-responsive-screen";
 
 const ListItem1 = ({ item }) => {
   const navigation = useNavigation();
@@ -51,9 +58,10 @@ const ListItem2 = ({ item }) => {
 
 const StoryMain = () => {
   const navigation = useNavigation();
+  const userNickname = "송이";
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <SafeAreaView style={styles.container}>
+      {/* <View style={styles.header}>
         <Image
           style={styles.mainLogo}
           source={require("../../assets/icons/MainLogo.png")}
@@ -79,10 +87,11 @@ const StoryMain = () => {
             <Text>친구 등록하기</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
+      <UserHeader userNickname={userNickname} />
       <View>
         <View style={styles.title}>
-          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <Text style={styles.titleText}>슝슝슝, 게임하면서 놀아요!</Text>
           <TouchableOpacity>
             <Text>+</Text>
           </TouchableOpacity>
@@ -117,7 +126,7 @@ const StoryMain = () => {
       </View>
       <View>
         <View style={styles.title}>
-          <Text>신나게 움직여요. 마리모 탐험대!</Text>
+          <Text style={styles.titleText}>나의 친구들</Text>
           <TouchableOpacity>
             <Text>+</Text>
           </TouchableOpacity>
@@ -150,7 +159,7 @@ const StoryMain = () => {
           </SafeAreaView>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -288,7 +297,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 10,
+    marginHorizontal: SIZES.padding,
+    marginVertical: SIZES.padding,
+  },
+  titleText: {
+    color: COLORS.darkGray,
+    fontFamily: "Cafe24Ssurround",
+    fontSize: fontPercentage(20),
   },
   storyBlock: {
     width: 370,
@@ -300,20 +315,33 @@ const styles = StyleSheet.create({
   item: {
     marginRight: 10,
     width: 140,
-    height: 195,
-    backgroundColor: "#FAEBFF",
+    height: heightPercentageToDP(35),
     display: "flex",
     alignItems: "center",
     borderRadius: 30,
+    backgroundColor: "#FAEBFF",
   },
+  // item: {
+  //   marginRight: 10,
+  //   width: 140,
+  //   height: 195,
+  //   backgroundColor: "#FAEBFF",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   borderRadius: 30,
+  // },
   itemPhoto: {
     width: 140,
     height: 135,
     borderRadius: 20,
   },
   itemText: {
+    textAlign: "center",
+    paddingHorizontal: 5,
     color: "gray",
-    marginTop: 5,
+    marginTop: 10,
+    fontFamily: "NanumSquareRoundB",
+    fontSize: widthPercentageToDP(3.5),
   },
   friend: {
     width: 85,

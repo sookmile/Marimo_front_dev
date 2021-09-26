@@ -12,16 +12,18 @@ import { preURL } from "../../preURL/preURL";
 
 export default function SpellingGameContainer({ navigation }) {
   const [userID, setuserID] = useState(0);
-  const [userNickname, setuserNickmame] = useState("");
+  const [userNickname, setUserNickname] = useState("");
 
   const getUserId = async () => {
     const userId = await AsyncStorage.getItem("userId");
     return userId;
   };
 
-  const getUserNickname = async (userId) => {
+  const getUserNickname = async (userID) => {
+    console.log("props로 들어온", userID);
+    const data = { userId: userID };
     await axios
-      .post(preURL + "marimo/getNickName", { userId: userId })
+      .post(preURL + "/marimo/getNickName", data)
       .then((res) => {
         const response = res.data;
         console.log("성공:", response);
@@ -34,12 +36,13 @@ export default function SpellingGameContainer({ navigation }) {
 
   const getMultiData = async () => {
     const userId = await getUserId();
-    const userIdCheck = userId != 0 ? userId : 1;
+    const userIdCheck = userId ? userId : 1;
+    console.log("userIdCheck", userIdCheck);
     setuserID(userIdCheck);
-    const userNickname = await getUserNickname(userId);
-    const userNicknameCheck = userNickname != undefined ? userNickname : "송이";
-    setuserNickmame(userNicknameCheck);
-    console.log("userId", userId);
+    const userNickName = await getUserNickname(userIdCheck);
+    const userNickNameCheck = userNickName ? userNickName : "송이";
+    setUserNickname(userNickName);
+    console.log("userID", userID);
     console.log("userNickname", userNickname);
   };
 
