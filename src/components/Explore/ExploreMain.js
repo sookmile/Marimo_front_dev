@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import preURL from "../../preURL/preURL";
+import { preURL } from "../../preURL/preURL";
 import Loader from "../Loader/Loader";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { COLORS, SIZES } from "../../constants";
@@ -109,11 +109,12 @@ const StoryMain = ({ navigation }) => {
 
   const getMultiData = async () => {
     const userId = await getUserId();
-    setuserId(userId ? userId : 1);
+    const userIdCheck = userId ? userId : 1;
+    setuserId(userIdCheck);
     console.log(userId);
-    const userNickname = await getUserData(userId);
+    const userNickname = await getUserData(userIdCheck);
     setuserNickmame(userNickname);
-    const userMemory = await getUserMemory(userId);
+    const userMemory = await getUserMemory(userIdCheck);
     if (userMemory) {
       setUserData(userMemory);
     }
@@ -150,7 +151,9 @@ const StoryMain = ({ navigation }) => {
               marginRight: widthPercentage(45),
             }}
           >
-            <Text style={styles.userName}>강알쥐알쥐</Text>
+            <Text style={styles.userName}>
+              {userNickname ? userNickname : "송이"}
+            </Text>
           </View>
         </View>
         <View style={styles.records}>
@@ -341,6 +344,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: SIZES.padding,
+    marginVertical: SIZES.padding,
   },
   titleText: {
     color: COLORS.darkGray,
@@ -354,8 +358,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: SIZES.padding,
-    marginVertical: hp(2),
+    // paddingHorizontal: SIZES.padding,
+    // marginVertical: hp(2),
   },
   storyBlock: {
     paddingVertical: SIZES.padding,
