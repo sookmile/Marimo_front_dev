@@ -32,7 +32,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
 
   // for ui design
   const { width, height } = Dimensions.get("window");

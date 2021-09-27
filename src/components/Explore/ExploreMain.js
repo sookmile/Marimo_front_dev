@@ -73,7 +73,7 @@ const StoryMain = ({ navigation }) => {
 
   const getUserData = async (userId) => {
     await axios
-      .post(preURL + "marimo/getNickName", { userId: userId })
+      .post(preURL + "marimo/getNickName", { userId: 1 })
       .then((res) => {
         const response = res.data;
         console.log("성공:", response);
