@@ -14,6 +14,10 @@ export const COLORS = {
   darkGray: "#464D46",
   black: "#000000",
   lightGray: "#F1F1F5",
+  //gameColor
+  plateColor: "#B7DCE8",
+  correct: "#48A8C8",
+  wrong: "#BFBFBF",
 };
 
 export const SIZES = {
