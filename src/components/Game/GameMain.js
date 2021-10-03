@@ -21,9 +21,7 @@ import {
 const ListItem1 = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("SpellingGameContainer")}
-    >
+    <TouchableOpacity onPress={() => navigation.navigate(item.route)}>
       <View style={styles.item}>
         <Image
           source={{
@@ -56,7 +54,7 @@ const ListItem2 = ({ item }) => {
   );
 };
 
-const StoryMain = () => {
+const GameMain = () => {
   const navigation = useNavigation();
   const userNickname = "송이";
   return (
@@ -163,7 +161,7 @@ const StoryMain = () => {
   );
 };
 
-export default StoryMain;
+export default GameMain;
 
 const SECTIONS1 = [
   {
@@ -172,7 +170,7 @@ const SECTIONS1 = [
     data: [
       {
         key: "1",
-        text: "누가누가 잘하나, 재미있는 끝말잇기",
+        text: "누가누가 잘하나, 재미있는 자음게임",
         uri: "https://picsum.photos/id/1/200",
         route: "",
       },
@@ -180,7 +178,7 @@ const SECTIONS1 = [
         key: "2",
         text: "동물 친구들의 초성 게임",
         uri: "https://picsum.photos/id/10/200",
-        route: "",
+        route: "SpellingGameContainer",
       },
 
       {

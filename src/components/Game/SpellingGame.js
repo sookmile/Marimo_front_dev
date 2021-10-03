@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, setTim } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Animated,
   View,
@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Modal,
+  FlatList,
 } from "react-native";
 
 import {
@@ -16,40 +17,111 @@ import {
 } from "react-native-responsive-screen";
 
 import { icons, images } from "../../constants";
-
-import Box from "./Box";
+import GameScore from "../CustomButton/GameScore";
 
 import hangul from "hangul-js";
 import Voice from "@react-native-community/voice";
 import { SIZES, dummyData, COLORS } from "../../constants";
 import CustomButton from "../CustomButton/CustomButton";
-import AwesomeButton from "react-native-really-awesome-button";
 import Tts from "react-native-tts";
-import SpellingGameResult from "./SpellingGameResult";
 import axios from "axios";
 import { preURL } from "../../preURL/preURL";
+import Sound from "react-native-sound";
+import BouncingComponent from "../CustomButton/BouncingComponent";
+import Svg from "react-native-svg";
 
-function SpellingGame({ navigation, route }) {
+const correctSound = require("../../assets/sounds/mixkit-unlock-game-notification-253.wav");
+const wrongSound = require("../../assets/sounds/mixkit-small-hit-in-a-game-2072.wav");
+const resultSound = require("../../assets/sounds/mixkit-game-experience-level-increased-2062.wav");
+
+function SpellingGame({ route, navigation }) {
   const { userId, userNickname } = route.params;
+  //user Id
+  const [userID, setUserID] = useState(0);
+  const [userNickName, setUserNickName] = useState("");
+
+  const id = userId ? userId : 0;
+  const nickname = userNickname ? userNickname : "송이";
+
   // game states
-  const [questions, setquestions] = useState([]);
+  const [questions, setQuestions] = useState("");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentAnswer, setCurrentAnswer] = useState(null);
-  const [correctAnswer, setCorrectAnswer] = useState(null);
-  const [successWord, setsuccessWord] = useState([]);
-  const [failedWord, setfailedWord] = useState([]);
+  const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
+  const [correctOption, setCorrectOption] = useState(null);
+  const [isOptionsDisabled, setIsOptionsDisabled] = useState(false);
   const [score, setScore] = useState(0);
-  const [showNextButton, setShowNextButton] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isFeedbackModalVisible, setisFeedbackModalVisible] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
-
-  let userAnswer = "";
-  const slideInAnim = useRef(new Animated.Value(0)).current;
-
+  const [userAnswerState, setuserAnswerState] = useState(false);
+  const [feedback, setFeedback] = useState("");
   // record
   const [isRecord, setisRecord] = useState(false);
   const [text, setText] = useState("");
-  const buttonLabel = isRecord ? "Stop" : "Start";
-  const voiceLabel = isRecord ? "말해주세요..." : "버튼을 눌러주세요!";
+
+  // animation
+  const animationVariable = useRef(new Animated.Value(0)).current;
+  const slideInLeft = useRef(new Animated.Value(0)).current;
+  const anim = useRef(new Animated.Value(1));
+
+  //game music
+  let correctMusic = new Sound(correctSound, (error) => {
+    if (error) {
+      console.log("play failed", error);
+    }
+  });
+  let wrongMusic = new Sound(wrongSound, (error) => {
+    if (error) {
+      console.log("play failed", error);
+    }
+  });
+  let resultMusic = new Sound(resultSound, (error) => {
+    if (error) {
+      console.log("play failed", error);
+    }
+  });
+
+  // 백으로부터 게임 정보 가져오기
+  const getGameData = async () => {
+    try {
+      const response = await axios.get(preURL + "/marimo/game/data");
+      if (response.data) {
+        const responseJson = response.data;
+        setQuestions(responseJson);
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("게임 데이터를 가져오지 못했습니다.");
+      setQuestions(dummyData.wordList);
+    }
+  };
+
+  // 백으로 피드백 받기
+  const getFeedback = async (userId) => {
+    const userSpeechData = {
+      userId: userId ? userId : 1,
+      word: questions[currentQuestionIndex]?.answer,
+      speakWord: text,
+    };
+    await axios
+      .post(preURL + "/marimo/game/feedback", userSpeechData)
+      .then((res) => {
+        const response = res.data;
+        console.log("성공:", response);
+        setFeedback(response);
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const buttonLabel = isRecord ? "그만하기" : "녹음하기";
+  const voiceLabel = text
+    ? text
+    : isRecord
+    ? "말해주세요..."
+    : "버튼을 눌러주세요!";
 
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
@@ -70,7 +142,9 @@ function SpellingGame({ navigation, route }) {
   const _onRecordVoice = () => {
     if (isRecord) {
       Voice.stop();
-      validateAnswer(userAnswer);
+      getFeedback(userId);
+      setModalVisible(false);
+      setisFeedbackModalVisible(true);
     } else {
       Voice.start("ko-KR");
     }
@@ -78,6 +152,10 @@ function SpellingGame({ navigation, route }) {
   };
 
   useEffect(() => {
+    const questionFrom = getGameData();
+    setQuestions(questionFrom);
+    setUserID(id);
+    setUserNickName(nickname);
     Voice.onSpeechStart = _onSpeechStart;
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
@@ -88,27 +166,73 @@ function SpellingGame({ navigation, route }) {
     };
   }, []);
 
-  useEffect(() => {
-    setquestions(shuffleArray(dummyData.wordList));
-  }, []);
+  // character animation
+  const _start = () => {
+    return Animated.parallel([
+      Animated.timing(animationVariable, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideInLeft, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
 
   //tts
   Tts.setDefaultLanguage("ko-KR");
-  Tts.addEventListener("tts-start", (event) => console.log("start", event));
-  Tts.addEventListener("tts-finish", (event) => console.log("finish", event));
-  Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
+  Tts.setDefaultRate(0.3);
+  Tts.addEventListener("tts-start", (event) => {
+    console.log("start", event);
+  });
+  Tts.addEventListener("tts-finish", (event) => {
+    console.log("finish", event);
+  });
+  Tts.addEventListener("tts-cancel", (event) => {
+    console.log("cancel", event);
+  });
 
-  const readUserAnswer = (userAnswer) => {
-    Tts.speak(userAnswer);
+  const readText = async (speakWord) => {
+    Tts.stop();
+    Tts.speak(speakWord);
   };
+
+  // 렌더링 시 글자 읽기
+  useEffect(() => {
+    _start();
+    setTimeout(() => {
+      readText(questions[currentQuestionIndex]?.answer);
+    }, 1000);
+    return () => {
+      Tts.removeAllListeners;
+    };
+  }, [currentQuestionIndex]);
+
+  // 캐릭터 애니메이션
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(anim.current, {
+          toValue: 1.1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(anim.current, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
 
   // post
   const postGameResult = async () => {
     const data = {
-      userId: 1,
-      success: ["사과"],
-      fail: ["토끼"],
-      category: 1,
+      userId: userID,
       score: score,
     };
     console.log("data", data);
@@ -126,189 +250,247 @@ function SpellingGame({ navigation, route }) {
 
   // game
 
+  // 퀴즈 다시 시작
   const restartQuiz = () => {
     setText("");
     setShowScoreModal(false);
-
-    setquestions(shuffleArray(dummyData.wordList));
     setCurrentQuestionIndex(0);
     setScore(0);
-
-    setCorrectAnswer(null);
-    setShowNextButton(false);
+    setModalVisible(false);
+    setIsOptionsDisabled(false);
+    setCurrentOptionSelected(false);
+    setCorrectOption(null);
+    setFeedback("");
   };
 
-  function shuffleArray(array) {
-    let curId = array.length;
-    // There remain elements to shuffle
-    while (0 !== curId) {
-      // Pick a remaining element
-      let randId = Math.floor(Math.random() * curId);
-      curId -= 1;
-      // Swap it with the current element.
-      let tmp = array[curId];
-      array[curId] = array[randId];
-      array[randId] = tmp;
-    }
-    return array;
-  }
-
-  const validateAnswer = (userAnswer) => {
+  // 정답 체크
+  const validateAnswer = (selectedOption) => {
     console.log("ValidateAnswer 실행");
-    let correct_answer = questions[currentQuestionIndex]?.word;
-    setCurrentAnswer(userAnswer);
-    console.log("userAnswer ", userAnswer);
-    setCorrectAnswer(correct_answer);
-    if (userAnswer === correct_answer) {
+    // let correct_answer = questions[currentQuestionIndex]?.vowel_answer;
+    let correct_answer = diassmebleVowel();
+    setCurrentOptionSelected(selectedOption);
+    setCorrectOption(correct_answer);
+    setIsOptionsDisabled(true);
+    if (selectedOption === correct_answer) {
+      // user answer state
+      setuserAnswerState(true);
       // Set Score
-      setScore(score + 30);
+      setScore(score + 20);
       console.log("점수", score);
-      setShowNextButton(true);
+      // music
+      correctMusic.play((success) => {
+        if (success) {
+          console.log("successfully finished playing");
+        } else {
+          console.log("playback failed due to audio decoding errors");
+        }
+      });
+    } else {
+      setuserAnswerState(false);
+      wrongMusic.play((success) => {
+        if (success) {
+          console.log("successfully finished playing");
+        } else {
+          console.log("playback failed due to audio decoding errors");
+        }
+      });
     }
-    // Show Next Button
-    handleNext();
+    // Show Modal
+    setModalVisible(true);
   };
 
+  // 다음 문제로 이동
   const handleNext = () => {
     console.log("handleNext 실행");
-    setShowNextButton(false);
     if (currentQuestionIndex == questions.length - 1) {
-      // Last Question
-      // Show Score Modal
+      setisFeedbackModalVisible(false);
       setShowScoreModal(true);
+      resultMusic.play((success) => {
+        if (success) {
+          console.log("successfully finished playing");
+        } else {
+          console.log("playback failed due to audio decoding errors");
+        }
+      });
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       console.log("넘어가기");
-      setText(" ");
-      setCurrentAnswer(null);
-      setCorrectAnswer(null);
-      setShowNextButton(false);
+      setText("");
+      setCurrentOptionSelected(false);
+      setCorrectOption(null);
+      setModalVisible(false);
+      setisFeedbackModalVisible(false);
+      setIsOptionsDisabled(false);
+      setFeedback("");
     }
   };
 
-  const renderQuestion = () => {
+  // 임시 vowel 분리
+  const diassmebleVowel = () => {
+    let answer = questions[currentQuestionIndex]?.answer;
+    let dWord = hangul.d(answer);
+    let len = dWord.length;
+    console.log("분리된 말", dWord[1] + dWord[len - 1]);
+    return dWord[1] + dWord[len - 1];
+  };
+
+  // 옵션 렌더링
+  const renderOptions = () => {
     return (
       <View
         style={{
+          flexDirection: "row",
           flex: 1,
+          justifyContent: "space-around",
         }}
       >
-        {/* Question Counter */}
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
+        {questions[currentQuestionIndex]?.vowel.map((option, index) => (
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              justifyContent: "center",
-              backgroundColor: COLORS.bgPurple,
-              width: "20%",
-              borderRadius: 15,
-              marginHorizontal: SIZES.padding,
+              flexDirection: "column",
             }}
           >
-            <Text
-              style={{
-                color: COLORS.darkGray,
-                fontSize: 20,
-                opacity: 0.6,
-                marginRight: 2,
-                fontFamily: "NanumSquareRoundB",
-              }}
-            >
-              {currentQuestionIndex + 1}
-            </Text>
-            <Text style={{ color: COLORS.black, fontSize: 18, opacity: 0.6 }}>
-              / {questions.length}
-            </Text>
+            <Animated.View style={{ flex: 1, opacity: animationVariable }}>
+              <TouchableOpacity
+                onPress={() => validateAnswer(option)}
+                disabled={isOptionsDisabled}
+                key={index}
+                style={{
+                  borderWidth: 3,
+                  borderColor:
+                    option == correctOption
+                      ? COLORS.correct
+                      : option == currentOptionSelected
+                      ? COLORS.red
+                      : COLORS.black,
+                  backgroundColor:
+                    option == correctOption
+                      ? COLORS.correct + "50"
+                      : option == currentOptionSelected
+                      ? COLORS.wrong + "50"
+                      : COLORS.plateColor,
+                  height: 150,
+                  borderRadius: 150 / 2,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingHorizontal: 20,
+                  width: 150,
+                }}
+              >
+                <View
+                  style={{
+                    borderWidth: 3,
+                    borderColor:
+                      option == correctOption
+                        ? COLORS.correct
+                        : option == currentOptionSelected
+                        ? COLORS.red
+                        : COLORS.black,
+                    width: 110,
+                    height: 110,
+                    borderRadius: 110 / 2,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: hp(3.5),
+                      color: COLORS.black,
+                      textAlign: "center",
+                      fontFamily: "Cafe24Ssurround",
+                    }}
+                  >
+                    {option}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </Animated.View>
+            {/* 발음 듣기 */}
+            <View>
+              <TouchableOpacity
+                onPress={() => readText(option)}
+                key={index}
+                style={{
+                  borderWidth: 3,
+                  backgroundColor: COLORS.bgPurple,
+                  height: hp(6),
+                  borderRadius: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingHorizontal: 20,
+                  marginVertical: 10,
+                }}
+              >
+                <Image
+                  source={images.listenWordButton}
+                  resizeMode="contain"
+                  style={{ width: wp(20) }}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View
-            style={{ marginHorizontal: SIZES.padding, backgroundColor: "" }}
-          >
-            <Text style={styles.scoreText}>score: {score}</Text>
-          </View>
-        </View>
-
-        {/* Question */}
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <ImageBackground
-            source={images.gameOb_wordContainer}
-            resizeMode="contain"
-            style={{
-              justifyContent: "center",
-              width: wp(40),
-              height: hp(10),
-            }}
-          >
-            <Text style={styles.game_question}>
-              {questions[currentQuestionIndex]?.word}
-            </Text>
-          </ImageBackground>
-        </View>
+        ))}
       </View>
     );
   };
 
-  const renderUserAnswer = () => {
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Text style={{ fontSize: hp(3), fontFamily: "NanumSquareRoundB" }}>
-            {_onSpeechEnd && text}
-          </Text>
-          <Text style={{ fontSize: hp(3), fontFamily: "NanumSquareRoundB" }}>
-            {text && _onSpeechEnd && diassembleWords(text)}
-          </Text>
-        </View>
-      </View>
-    );
-  };
+  const renderResultModal = () => {
+    if (modalVisible) {
+      const message = userAnswerState ? "참 잘했어요!" : "괜찮아요!";
 
-  const renderHeader = () => {
-    return (
-      <View style={{ flex: 1 }}>
-        <Text
-          style={{
-            marginTop: SIZES.radius,
-            paddingVertical: SIZES.padding,
-            paddingHorizontal: SIZES.padding,
-            fontFamily: "NanumSquareRoundB",
-            textAlign: "center",
-          }}
-        >
-          {voiceLabel}
-        </Text>
-        <CustomButton buttonText={buttonLabel} onPress={_onRecordVoice} />
-      </View>
-    );
-  };
-
-  const renderAnswerModal = () => {
-    if (showNextButton) {
       return (
         <Modal
           transparent={true}
           animationType={"slide"}
-          visible={showNextButton}
+          visible={modalVisible}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
-            setModalVisible(!showNextButton);
+            setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.modal_background}>
-            <Image source={icons.wellDoneIcon} />
+            <ImageBackground
+              source={images.gameResultModal}
+              resizeMode="contain"
+              style={{
+                height: hp(70),
+                width: wp(80),
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <BouncingComponent />
+              <Text
+                style={{
+                  marginVertical: hp(1),
+                  fontSize: wp(7),
+                  fontFamily: "Cafe24Ssurround",
+                  color: COLORS.primary,
+                }}
+              >
+                {message}
+              </Text>
+              <Text
+                style={{
+                  fontSize: wp(4),
+                  fontFamily: "NanumSquareRoundB",
+                }}
+              >
+                정답은 {correctOption}입니다!
+              </Text>
+              <Text
+                style={{
+                  marginTop: hp(1),
+                  fontSize: wp(4),
+                  fontFamily: "NanumSquareRoundB",
+                }}
+              >
+                그럼 함께 따라읽어 볼까요?
+              </Text>
+              <Text style={styles.voiceLabel}>{voiceLabel}</Text>
+              <CustomButton buttonText={buttonLabel} onPress={_onRecordVoice} />
+            </ImageBackground>
           </View>
         </Modal>
       );
@@ -317,91 +499,213 @@ function SpellingGame({ navigation, route }) {
     }
   };
 
-  const diassembleWords = (text) => {
-    console.log("showModal", showScoreModal);
-    let diassemble = hangul.disassemble(text, true);
-
-    let cho = "";
-    if (diassemble && _onSpeechEnd) {
-      console.log(diassemble);
-      for (let i = 0, l = diassemble.length; i < l; i++) {
-        cho += diassemble[i][0];
-      }
+  const renderFeedbackModal = () => {
+    const feedbackWord = feedback
+      ? feedback
+      : "연결 불안정의 문제로 현재는 피드백을 얻을 수 없어요!";
+    if (isFeedbackModalVisible) {
+      return (
+        <Modal
+          transparent={true}
+          animationType={"slide"}
+          visible={isFeedbackModalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setisFeedbackModalVisible(!isFeedbackModalVisible);
+          }}
+        >
+          <View style={styles.modal_background}>
+            <ImageBackground
+              source={images.gameResultModal}
+              resizeMode="contain"
+              style={{
+                height: hp(70),
+                width: wp(80),
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image source={images.feedbackImage} />
+              <Text
+                style={{
+                  fontFamily: "Cafe24Ssurround",
+                  fontSize: wp(8),
+                  marginVertical: hp(2),
+                  color: COLORS.red,
+                }}
+              >
+                피드백 시간!
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "NanumSquareRoundB",
+                  fontSize: wp(5),
+                  textAlign: "center",
+                }}
+              >
+                {feedbackWord}
+              </Text>
+              <CustomButton buttonText="다음 문제로!" onPress={handleNext} />
+            </ImageBackground>
+          </View>
+        </Modal>
+      );
+    } else {
+      return null;
     }
-    userAnswer = cho;
-    console.log("사용자 정답: ", userAnswer);
-    return cho;
+  };
+
+  const renderItem = () => <GameScore />;
+
+  const renderScore = () => {
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <FlatList
+          data={dummyData.score}
+          horizontal
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    );
   };
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={images.gameBackground}
+        source={images.spellingGameBackground}
         resizeMode="cover"
         style={styles.image}
       >
         {/* Question */}
-        {renderQuestion()}
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          {/* Question Counter */}
+          <View style={styles.game_quesstionContainer}>
+            <View style={styles.game_questionCounter}>
+              <Text style={styles.game_currentIndex}>
+                {currentQuestionIndex + 1}
+              </Text>
+              <Text style={{ color: COLORS.black, fontSize: 18, opacity: 0.6 }}>
+                / {questions.length}
+              </Text>
+            </View>
+            <View
+              style={{ marginHorizontal: SIZES.padding, backgroundColor: "" }}
+            >
+              <Text style={styles.scoreText}>score: {score}</Text>
+              {renderScore()}
+            </View>
+          </View>
 
+          {/* Question */}
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => readText(questions[currentQuestionIndex]?.answer)}
+            >
+              <Animated.View
+                style={{
+                  transform: [
+                    {
+                      translateY: slideInLeft.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-600, 0],
+                      }),
+                    },
+                  ],
+                }}
+              >
+                <ImageBackground
+                  source={images.gameWordBoard}
+                  resizeMode="contain"
+                  style={{
+                    justifyContent: "center",
+                    width: wp(40),
+                    height: hp(15),
+                  }}
+                >
+                  <Text style={styles.game_question}>
+                    {questions[currentQuestionIndex]?.initial}
+                  </Text>
+                </ImageBackground>
+              </Animated.View>
+            </TouchableOpacity>
+
+            <View
+              style={{
+                backgroundColor: "#0078fe",
+                padding: 10,
+                marginLeft: "10%",
+                borderRadius: 5,
+                marginTop: 5,
+                marginRight: "5%",
+                maxWidth: "50%",
+                alignSelf: "center",
+
+                borderRadius: 20,
+              }}
+            >
+              <Text style={{ fontSize: 16, color: "#fff" }}>
+                어떤 모음을 사용해야지 글자가 완성될까?
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={{
+            flex: 0.9,
+          }}
+        >
+          <Animated.View
+            style={{
+              transform: [{ scale: anim.current }],
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Svg style={{ width: 150, height: 560 / 449.75 }}>
+              <Image
+                width="100%"
+                height="100%"
+                source={images.marimoCharacter}
+              />
+            </Svg>
+            {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
+          </Animated.View>
+        </View>
         {/* userAnswer */}
-        {renderUserAnswer()}
+        {renderOptions()}
 
         {/* Answer Correct Modal */}
-        {renderAnswerModal()}
+        {renderResultModal()}
+        {renderFeedbackModal()}
 
+        {/* 점수 모달 */}
         <Modal
           animationType="slide"
           transparent={true}
           visible={showScoreModal}
         >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: COLORS.primary,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: COLORS.white,
-                width: "90%",
-                borderRadius: 20,
-                padding: 20,
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: hp(2),
-                  fontFamily: "NanumSquareRoundB",
-                  color: "#E86565",
-                  marginBottom: hp(1),
-                }}
-              >
+          <View style={styles.resultModal_background}>
+            <View style={styles.resultModal_Container}>
+              <Text style={styles.resultModal_congratText}>
                 우와, 대단해요!
               </Text>
-              <View
-                style={{
-                  backgroundColor: COLORS.bgPurple,
-                  width: "90%",
-                  borderRadius: 20,
-                  padding: 20,
-                  alignItems: "center",
-                }}
-              >
+              <View style={styles.resultModal_innerContainer}>
                 <Text style={{ fontSize: 25, fontFamily: "NanumSquareRoundB" }}>
-                  {userNickname ? userNickname : "송이"}의 최종 점수는
+                  {userNickname}이의 최종 점수는
                 </Text>
 
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    marginVertical: 20,
-                  }}
-                >
+                <View style={styles.resultModal_scoreContainer}>
                   <Text
                     style={{
                       fontSize: 30,
@@ -415,14 +719,7 @@ function SpellingGame({ navigation, route }) {
               {/* Retry Quiz button */}
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 15,
-                    backgroundColor: COLORS.primary,
-                    marginTop: SIZES.radius,
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
-                    marginHorizontal: wp(1),
-                  }}
+                  style={styles.resultModal_goHomeBtn}
                   onPress={() =>
                     postGameResult() && navigation.navigate("GameMain")
                   }
@@ -432,35 +729,21 @@ function SpellingGame({ navigation, route }) {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 15,
-                    backgroundColor: "#9CCDFA",
-                    marginTop: SIZES.radius,
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
-                  }}
+                  style={styles.resultModal_restartGameBtn}
                   onPress={restartQuiz}
                 >
-                  <Text>다시 하기</Text>
+                  <Text style={{ textAlign: "center" }}>다시 하기</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 15,
-                    backgroundColor: "#FA9C9C",
-                    marginTop: SIZES.radius,
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
-                  }}
+                  style={styles.resultModal_showRankingBtn}
                   onPress={() => navigation.navigate("GameRank")}
                 >
-                  <Text>랭킹 확인하기</Text>
+                  <Text style={{ textAlign: "center" }}>랭킹 확인하기</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </Modal>
-
-        <View style={{ width: "100%", height: "25%" }}>{renderHeader()}</View>
       </ImageBackground>
     </View>
   );
@@ -481,7 +764,29 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "70%",
   },
-  game_quesstionContainer: {},
+  game_quesstionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  game_questionCounter: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    justifyContent: "center",
+    backgroundColor: COLORS.bgPurple,
+    width: "20%",
+    borderRadius: 15,
+    marginHorizontal: SIZES.padding,
+  },
+  game_currentIndex: {
+    color: COLORS.darkGray,
+    fontSize: 20,
+    opacity: 0.6,
+    marginRight: 2,
+    fontFamily: "NanumSquareRoundB",
+  },
   game_question: {
     color: COLORS.black,
     fontSize: 30,
@@ -493,9 +798,81 @@ const styles = StyleSheet.create({
     fontSize: wp(4),
     fontFamily: "Cafe24Ssurround",
   },
+  voiceLabel: {
+    marginTop: SIZES.radius,
+    paddingVertical: SIZES.padding,
+    paddingHorizontal: SIZES.padding,
+    fontFamily: "NanumSquareRoundB",
+    textAlign: "center",
+  },
   modal_background: {
     flex: 1,
     alignItems: "center",
+    // flexDirection: "column",
     justifyContent: "center",
+    backgroundColor: "#00000040",
+  },
+  ultModal_background: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  resultModal_background: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  resultModal_Container: {
+    backgroundColor: COLORS.white,
+    width: "90%",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+  },
+  resultModal_congratText: {
+    fontSize: hp(2),
+    fontFamily: "NanumSquareRoundB",
+    color: "#E86565",
+    marginBottom: hp(1),
+  },
+  resultModal_innerContainer: {
+    backgroundColor: COLORS.bgPurple,
+    width: "90%",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+  },
+  resultModal_scoreContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  resultModal_goHomeBtn: {
+    borderRadius: 15,
+    backgroundColor: COLORS.primary,
+    marginTop: SIZES.radius,
+    width: wp(25),
+    height: hp(4),
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
+  resultModal_restartGameBtn: {
+    borderRadius: 15,
+    backgroundColor: "#9CCDFA",
+    marginTop: SIZES.radius,
+    width: wp(20),
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
+  resultModal_showRankingBtn: {
+    borderRadius: 15,
+    backgroundColor: "#FA9C9C",
+    marginTop: SIZES.radius,
+    width: wp(23),
+    justifyContent: "center",
+    marginHorizontal: 5,
   },
 });
