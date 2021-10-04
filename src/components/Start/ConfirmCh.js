@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Text, Image, View, Dimensions, Settings,TouchableOpacity } from "react-native";
+import {
+  Button,
+  Text,
+  Image,
+  View,
+  Dimensions,
+  Settings,
+  TouchableOpacity,
+} from "react-native";
 import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -18,7 +26,7 @@ const ConfirmCh = ({ route, navigation }) => {
 
   useEffect(async () => {
     console.log("hello");
-    setChrNum(characterNum);
+    await setChrNum(characterNum);
     console.log(characterNum);
     console.log(name);
     console.log(character[characterNum]);
@@ -95,6 +103,7 @@ const ConfirmCh = ({ route, navigation }) => {
               };
               console.log(postData);
               await postCharacter(postData);
+              await AsyncStorage.setItem("userNickname", name);
               navigation.navigate("NavTab");
             }}
           >

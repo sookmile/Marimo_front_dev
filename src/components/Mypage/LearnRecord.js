@@ -51,9 +51,12 @@ const LearnRecord = ({ navigation, route }) => {
   const [recordInfo, setRecordInfo] = useState([]);
   const [word, setWord] = useState({});
   const [joinNum, setJoinNum] = useState({});
+  const [userNickname, setUserNickName] = useState("");
 
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userId");
+    const nickname = await AsyncStorage.getItem("userNickname");
+    setUserNickName(nickname);
     setUserID(Number(id));
     await getRecord({
       userId: 1,
@@ -121,7 +124,7 @@ const LearnRecord = ({ navigation, route }) => {
               <ChImage style={{ width: 75, height: 75 }} source={item.src} />
             </ImgCntr>
             <Info>
-              <UserName>송이</UserName>
+              <UserName>{userNickname}</UserName>
               <UserRegister>가입일자: 2021 - 09 - 26</UserRegister>
               <ProgressBar
                 style={{
@@ -162,7 +165,7 @@ const LearnRecord = ({ navigation, route }) => {
             {getSelectionMode === 1 ? (
               <MainCntr isResult>
                 <ChartCntr>
-                  <ResultText>송이 의 전반적 성취도</ResultText>
+                  <ResultText>{userNickname} 의 전반적 성취도</ResultText>
                   <ProgressCntr>
                     <AnimatedCircularProgress
                       size={150}
@@ -184,11 +187,11 @@ const LearnRecord = ({ navigation, route }) => {
                     </AnimatedCircularProgress>
                   </ProgressCntr>
                   <ResultText isSmall>
-                    송이 (은)는 모음과 자음의 발음에 능숙합니다.{"\n"}아직
+                  {userNickname} (은)는 모음과 자음의 발음에 능숙합니다.{"\n"}아직
                     받침이 있는 단어의 발음과 된자음의 발음에 어려움을 겪습니다.
                   </ResultText>
                   <Wrapper style={{ height: 35 }} />
-                  <ResultText isMiddle>송이가 잘 발음하는 단어</ResultText>
+                  <ResultText isMiddle>{userNickname}가 잘 발음하는 단어</ResultText>
                   <Wrapper />
                   <ContnetSubCntr>
                     <ChImage
@@ -201,13 +204,13 @@ const LearnRecord = ({ navigation, route }) => {
                     />
                     <ContentTexts>
                       <ContentText isTitle>
-                        마리모 친구들의 얼음성 탐험{" "}
+                        장미
                       </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle>
-                    송이가 잘 발음하지 못하는 단어
+                  {userNickname}가 잘 발음하지 못하는 단어
                   </ResultText>
                   {diffWord.map((obj) => (
                     <>
@@ -233,7 +236,7 @@ const LearnRecord = ({ navigation, route }) => {
               <MainCntr>
                 <ContentCntr>
                   <ContentExp style={{ textAlign: "left" }}>
-                    송이가 가장 많이 플레이한 모험은{"\n"}'마리모 친구들의
+                  {userNickname} (이)가 가장 많이 플레이한 모험은{"\n"}'마리모 친구들의
                     얼음성 탐험' 이에요
                   </ContentExp>
                   <ContnetSubCntr>
@@ -257,7 +260,7 @@ const LearnRecord = ({ navigation, route }) => {
                 <Wrapper />
                 <ContentCntr>
                   <ContentExp style={{ textAlign: "right" }}>
-                    송이가 가장 많이 플레이한 동화는{"\n"}'호두까기 인형' 이에요
+                  {userNickname} (이)가 가장 많이 플레이한 동화는{"\n"}'호두까기 인형' 이에요
                   </ContentExp>
                   <ContnetSubCntr>
                     <ChImage
