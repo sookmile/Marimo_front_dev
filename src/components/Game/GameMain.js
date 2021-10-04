@@ -24,7 +24,7 @@ const ListItem = ({ item }) => {
   const navigation = useNavigation();
 
   return (
-    <ItemButton label={item.label}>
+    <ItemButton label={item.key}>
       <ItemBox
         background={item.background}
         onPress={() => navigation.navigate(`${item.router}`)}
@@ -40,6 +40,7 @@ const renderItem = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View
+      key={item.key}
       style={{
         alignContent: "center",
         alignItems: "center",

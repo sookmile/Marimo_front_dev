@@ -87,7 +87,7 @@ function SpellingGame({ route, navigation }) {
       const response = await axios.get(preURL + "/marimo/game/data");
       if (response.data) {
         const responseJson = response.data;
-        setQuestions(responseJson);
+        await setQuestions(responseJson);
       }
     } catch (error) {
       console.log(error);
@@ -150,10 +150,13 @@ function SpellingGame({ route, navigation }) {
     }
     setisRecord(!isRecord);
   };
-
   useEffect(() => {
-    const questionFrom = getGameData();
-    setQuestions(questionFrom);
+    console.log("퀴즈");
+    console.log(questions);
+  }, [questions]);
+  useEffect(async () => {
+    const questionFrom = await getGameData();
+
     setUserID(id);
     setUserNickName(nickname);
     Voice.onSpeechStart = _onSpeechStart;
@@ -204,12 +207,14 @@ function SpellingGame({ route, navigation }) {
   useEffect(() => {
     _start();
     setTimeout(() => {
-      readText(questions[currentQuestionIndex]?.answer);
+      questions !== undefined
+        ? readText(questions[currentQuestionIndex]?.answer)
+        : {};
     }, 1000);
     return () => {
       Tts.removeAllListeners;
     };
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, questions]);
 
   // 캐릭터 애니메이션
   useEffect(() => {
@@ -302,7 +307,7 @@ function SpellingGame({ route, navigation }) {
   // 다음 문제로 이동
   const handleNext = () => {
     console.log("handleNext 실행");
-    if (currentQuestionIndex == questions.length - 1) {
+    if (currentQuestionIndex == questions?.length - 1) {
       setisFeedbackModalVisible(false);
       setShowScoreModal(true);
       resultMusic.play((success) => {
@@ -344,40 +349,19 @@ function SpellingGame({ route, navigation }) {
           justifyContent: "space-around",
         }}
       >
-        {questions[currentQuestionIndex]?.vowel.map((option, index) => (
-          <View
-            style={{
-              flexDirection: "column",
-            }}
-          >
-            <Animated.View style={{ flex: 1, opacity: animationVariable }}>
-              <TouchableOpacity
-                onPress={() => validateAnswer(option)}
-                disabled={isOptionsDisabled}
-                key={index}
-                style={{
-                  borderWidth: 3,
-                  borderColor:
-                    option == correctOption
-                      ? COLORS.correct
-                      : option == currentOptionSelected
-                      ? COLORS.red
-                      : COLORS.black,
-                  backgroundColor:
-                    option == correctOption
-                      ? COLORS.correct + "50"
-                      : option == currentOptionSelected
-                      ? COLORS.wrong + "50"
-                      : COLORS.plateColor,
-                  height: 150,
-                  borderRadius: 150 / 2,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingHorizontal: 20,
-                  width: 150,
-                }}
-              >
-                <View
+        {questions !== undefined &&
+          questions[currentQuestionIndex]?.vowel.map((option, index) => (
+            <View
+              key={index}
+              style={{
+                flexDirection: "column",
+              }}
+            >
+              <Animated.View style={{ flex: 1, opacity: animationVariable }}>
+                <TouchableOpacity
+                  onPress={() => validateAnswer(option)}
+                  disabled={isOptionsDisabled}
+                  key={index}
                   style={{
                     borderWidth: 3,
                     borderColor:
@@ -386,50 +370,73 @@ function SpellingGame({ route, navigation }) {
                         : option == currentOptionSelected
                         ? COLORS.red
                         : COLORS.black,
-                    width: 110,
-                    height: 110,
-                    borderRadius: 110 / 2,
+                    backgroundColor:
+                      option == correctOption
+                        ? COLORS.correct + "50"
+                        : option == currentOptionSelected
+                        ? COLORS.wrong + "50"
+                        : COLORS.plateColor,
+                    height: 150,
+                    borderRadius: 150 / 2,
                     justifyContent: "center",
+                    alignItems: "center",
+                    paddingHorizontal: 20,
+                    width: 150,
                   }}
                 >
-                  <Text
+                  <View
                     style={{
-                      fontSize: hp(3.5),
-                      color: COLORS.black,
-                      textAlign: "center",
-                      fontFamily: "Cafe24Ssurround",
+                      borderWidth: 3,
+                      borderColor:
+                        option == correctOption
+                          ? COLORS.correct
+                          : option == currentOptionSelected
+                          ? COLORS.red
+                          : COLORS.black,
+                      width: 110,
+                      height: 110,
+                      borderRadius: 110 / 2,
+                      justifyContent: "center",
                     }}
                   >
-                    {option}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </Animated.View>
-            {/* 발음 듣기 */}
-            <View>
-              <TouchableOpacity
-                onPress={() => readText(option)}
-                key={index}
-                style={{
-                  borderWidth: 3,
-                  backgroundColor: COLORS.bgPurple,
-                  height: hp(6),
-                  borderRadius: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingHorizontal: 20,
-                  marginVertical: 10,
-                }}
-              >
-                <Image
-                  source={images.listenWordButton}
-                  resizeMode="contain"
-                  style={{ width: wp(20) }}
-                />
-              </TouchableOpacity>
+                    <Text
+                      style={{
+                        fontSize: hp(3.5),
+                        color: COLORS.black,
+                        textAlign: "center",
+                        fontFamily: "Cafe24Ssurround",
+                      }}
+                    >
+                      {option}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </Animated.View>
+              {/* 발음 듣기 */}
+              <View>
+                <TouchableOpacity
+                  onPress={() => readText(option)}
+                  key={index}
+                  style={{
+                    borderWidth: 3,
+                    backgroundColor: COLORS.bgPurple,
+                    height: hp(6),
+                    borderRadius: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingHorizontal: 20,
+                    marginVertical: 10,
+                  }}
+                >
+                  <Image
+                    source={images.listenWordButton}
+                    resizeMode="contain"
+                    style={{ width: wp(20) }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </View>
     );
   };
@@ -591,7 +598,7 @@ function SpellingGame({ route, navigation }) {
                 {currentQuestionIndex + 1}
               </Text>
               <Text style={{ color: COLORS.black, fontSize: 18, opacity: 0.6 }}>
-                / {questions.length}
+                / {questions?.length}
               </Text>
             </View>
             <View
@@ -610,7 +617,11 @@ function SpellingGame({ route, navigation }) {
             }}
           >
             <TouchableOpacity
-              onPress={() => readText(questions[currentQuestionIndex]?.answer)}
+              onPress={() =>
+                questions !== undefined
+                  ? readText(questions[currentQuestionIndex]?.answer)
+                  : {}
+              }
             >
               <Animated.View
                 style={{
@@ -634,7 +645,8 @@ function SpellingGame({ route, navigation }) {
                   }}
                 >
                   <Text style={styles.game_question}>
-                    {questions[currentQuestionIndex]?.initial}
+                    {questions !== undefined &&
+                      questions[currentQuestionIndex]?.initial}
                   </Text>
                 </ImageBackground>
               </Animated.View>
@@ -709,7 +721,7 @@ function SpellingGame({ route, navigation }) {
                   <Text
                     style={{
                       fontSize: 30,
-                      color: score > questions.length / 2 ? "green" : "red",
+                      color: score > questions?.length / 2 ? "green" : "red",
                     }}
                   >
                     {score}
