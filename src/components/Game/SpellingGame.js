@@ -105,10 +105,10 @@ function SpellingGame({ route, navigation }) {
     };
     await axios
       .post(preURL + "/marimo/game/feedback", userSpeechData)
-      .then((res) => {
+      .then(async(res) => {
         const response = res.data;
         console.log("성공:", response);
-        setFeedback(response);
+        await setFeedback(response);
         return response;
       })
       .catch((err) => {
@@ -200,7 +200,7 @@ function SpellingGame({ route, navigation }) {
 
   const readText = async (speakWord) => {
     Tts.stop();
-    Tts.speak(speakWord);
+    if (speakWord) Tts.speak(speakWord);
   };
 
   // 렌더링 시 글자 읽기
