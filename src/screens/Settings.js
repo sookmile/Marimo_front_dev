@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   View,
@@ -8,24 +8,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import Modal from "react-native-modal";
+import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CommonActions } from "@react-navigation/native";
 
 function SettingScreen({ navigation }) {
   const [alarm, setAlarm] = useState(true);
   const alarmToggleSwitch = () => setAlarm((previousState) => !previousState);
-
   const [darkMode, setDarkMode] = useState(false);
   const darkToggleSwitch = () => setDarkMode((previousState) => !previousState);
-
+  const [token, setToken] = useState(null);
   const [rountineModal, setRoutine] = useState(false);
   function SettingRoutine() {
     setRoutine(!rountineModal);
   }
+  const [isOpen, setIsOpen] = useState(false);
+
   const [wakeupTimePicker, setWPickerMode] = useState(null);
   const [sleepTimePicker, setSPickerMode] = useState(null);
   const [wakeupTime, setWakeupTime] = useState(null);
   const [sleepTime, setSleepTime] = useState(null);
-
-  const [alarmAttach, setAlarmAttach] = useState(false);
 
   const showWTimePicker = () => {
     setWPickerMode("time");
@@ -41,15 +44,17 @@ function SettingScreen({ navigation }) {
   const hideSPicker = () => {
     setSPickerMode(null);
   };
+  const resetAction = CommonActions.reset({
+    index: 1,
+    routes: [{ name: "StartMain" }],
+  });
+  const naverLogout = async () => {
+    await NaverLogin.logout();
+    await AsyncStorage.setItem("token", "");
+    console.log("로그아웃");
 
-  const handleWConfirm = (time) => {
-    hideWPicker();
-    setWakeupTime(time);
-  };
-
-  const handleSConfirm = (time) => {
-    hideSPicker();
-    setSleepTime(time);
+    navigation.dispatch(resetAction);
+    navigation.navigate("StartMain");
   };
 
   // 선택 버튼 1: 아침형, 2: 점심형, 3: 저녁형, 4: 새벽형
@@ -168,8 +173,11 @@ function SettingScreen({ navigation }) {
           style={{ height: "48%", paddingHorizontal: 10, paddingVertical: 20 }}
         >
           <Text style={styles.contentTitle}>더 보기</Text>
-          <TouchableOpacity style={{ flexDirection: "row" }}>
-            <Text style={styles.menu}>도움말</Text>
+          <TouchableOpacity
+            onPress={() => setIsOpen(true)}
+            style={{ flexDirection: "row" }}
+          >
+            <Text style={styles.menu}>사용자 정보</Text>
             <Icon
               name="chevron-forward"
               size={23}
@@ -177,8 +185,11 @@ function SettingScreen({ navigation }) {
               style={{ position: "absolute", right: 5, marginVertical: 10 }}
             ></Icon>
           </TouchableOpacity>
-          <TouchableOpacity style={{ flexDirection: "row" }}>
-            <Text style={styles.menu}>이용 약관</Text>
+          <TouchableOpacity
+            onPress={naverLogout}
+            style={{ flexDirection: "row" }}
+          >
+            <Text style={styles.menu}>로그 아웃</Text>
             <Icon
               name="chevron-forward"
               size={23}
@@ -198,6 +209,76 @@ function SettingScreen({ navigation }) {
           <Text style={styles.appInfo}>마리모 ver0.9.0</Text>
         </View>
       </View>
+      <Modal isVisible={isOpen} onBackdropPress={() => setIsOpen(false)}>
+        <View style={styles.modal}>
+          <View
+            style={{ padding: 10, alignItems: "center", textAlign: "center" }}
+          >
+            <Text
+              style={[
+                styles.textButton,
+                { marginTop: -40, marginBottom: 30, marginLeft: "2%" },
+              ]}
+            >
+              사용자 정보
+            </Text>
+            <View
+              style={{
+                textAlign: "cneter",
+                alignContent: "center",
+                alignItems: "center",
+                width: "80%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity onPress={showWTimePicker}>
+                <Text style={[styles.text]}>이름</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={showSTimePicker}>
+                <Text style={[styles.text2]}>변우진</Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                textAlign: "cneter",
+                alignContent: "center",
+                alignItems: "center",
+                width: 300,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity onPress={showWTimePicker}>
+                <Text style={[styles.text]}>네이버 계정</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={showSTimePicker}>
+                <Text style={[styles.text2]}>woojin8308</Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                textAlign: "cneter",
+                alignContent: "center",
+                alignItems: "center",
+                width: 300,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <TouchableOpacity onPress={showWTimePicker}>
+                <Text style={[styles.text]}>가입 일자</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={showSTimePicker}>
+                <Text style={[styles.text2]}>2021.09.28</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -213,9 +294,27 @@ const styles = StyleSheet.create({
     borderBottomColor: "#dedede",
   },
   subTitle: {
+    textAlign: "center",
     paddingVertical: 10,
     fontSize: 17,
     color: "gray",
+  },
+  text: {
+    width: 100,
+    textAlign: "left",
+    paddingVertical: 10,
+    fontSize: 17,
+    color: "gray",
+    marginLeft: "15%",
+  },
+  text2: {
+    width: 100,
+    textAlign: "left",
+    paddingVertical: 10,
+    fontSize: 17,
+    color: "gray",
+    marginLeft: "7%",
+    marginRight: "0%",
   },
   timeText: {
     fontSize: 15,
@@ -267,7 +366,8 @@ const styles = StyleSheet.create({
     color: "#666666",
   },
   modal: {
-    height: "57%",
+    justifyContent: "center",
+    height: "40%",
     borderRadius: 10,
     alignItems: "center",
     backgroundColor: "white",
