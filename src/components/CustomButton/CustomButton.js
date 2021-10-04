@@ -17,7 +17,13 @@ const styles = StyleSheet.create({
     marginTop: SIZES.radius,
     paddingVertical: 13,
     borderRadius: 20,
-    backgroundColor: COLORS.primary,
+    backgroundColor: "#D4AEF9",
   },
-  buttonText: { textAlign: "center", color: COLORS.white, ...FONTS.body2 },
+  buttonText: {
+    textAlign: "center",
+    color: "black",
+    fontSize: 22,
+    fontWeight: "400",
+    ...FONTS.body2,
+  },
 });
