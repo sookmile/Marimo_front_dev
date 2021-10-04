@@ -10,22 +10,24 @@ import Orientation from "react-native-orientation";
 import Tts from "react-native-tts";
 
 const StoryOne = ({ navigation }) => {
-  // useEffect(() => {
-  //   Orientation.lockToLandscape();
-  //   Orientation.addOrientationListener(onOrientaionChange);
-  //   return (
-  //     () => {
-  //       Orientation.unlockAllOrientations(),
-  //         Orientation.removeOrientationListener(onOrientaionChange);
-  //     },
-  //     []
-  //   );
-  // });
-  // const onOrientaionChange = (orientation) => {
-  //   if (orientation === "PORTRAIT") {
-  //     Orientation.lockToLandscape();
-  //   }
-  // };
+  useEffect(() => {
+    Orientation.lockToLandscapeRight();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  }, []);
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE_RIGHT") {
+      Orientation.lockToLandscape();
+    }
+  };
+  const onOrientaionChange2 = (orientation) => {
+    if (orientation === "LANDSCAPE_RIGHT") {
+      Orientation.lockToLandscape();
+    }
+  };
 
   Tts.setDefaultLanguage("ko-KR");
   setTimeout(() => {
