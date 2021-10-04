@@ -2,34 +2,28 @@ import React, { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, View, Text, StyleSheet, Image } from "react-native";
 import Orientation from "react-native-orientation";
+import styled from "styled-components";
 
 const StoryLoading = ({ navigation }) => {
-  // useEffect(() => {
-  //   Orientation.lockToPortrait();
-  //   Orientation.addOrientationListener(onOrientaionChange);
-  //   return (
-  //     () => {
-  //       Orientation.unlockAllOrientations(),
-  //         Orientation.removeOrientationListener(onOrientaionChange);
-  //     },
-  //     []
-  //   );
-  // });
-  // const onOrientaionChange = (orientation) => {
-  //   if (orientation === "LANDSCAPE") {
-  //     Orientation.lockToPortrait();
-  //   }
-  // };
+  useEffect(() => {
+    Orientation.unlockAllOrientations();
+  }, []);
+  let cntrMargin = 0;
+  Platform.OS === "ios" ? (cntrMargin = 140) : (cntrMargin = 100);
+  let chMargin = 0;
+  Platform.OS === "ios" ? (chMargin = 130) : (chMargin = 20);
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>앗, 도와줘! 우당탕탕 왕국 모험</Text>
+    <Container style={{ marginTop: cntrMargin }}>
+      <Text style={[styles.title, { marginBottom: 50 }]}>
+        앗, 도와줘! 우당탕탕 왕국 모험
+      </Text>
       <Image
         source={require("../../assets/LoadingImg.png")}
         style={styles.loadingImg}
       />
-      <View style={styles.btnContainer}>
+      <View style={[styles.btnContainer]}>
         <TouchableOpacity
-          style={styles.selectAg}
+          style={[styles.selectAg, { marginBottom: 20 }]}
           onPress={() => navigation.navigate("Story1")}
         >
           <Text style={styles.btnText}>계속 모험을 진행할래요!</Text>
@@ -41,7 +35,7 @@ const StoryLoading = ({ navigation }) => {
           <Text style={styles.btnText}>아니요, 다른 모험을 선택할래요!</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </Container>
   );
 };
 
@@ -49,6 +43,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     marginTop: 35,
@@ -83,3 +78,12 @@ const styles = StyleSheet.create({
 });
 
 export default StoryLoading;
+const Container = styled.View`
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

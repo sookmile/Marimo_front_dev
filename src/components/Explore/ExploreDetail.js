@@ -9,15 +9,27 @@ import {
   StyleSheet,
 } from "react-native";
 import CustomButton from "../CustomButton/CustomButton";
-import { FONTS, COLORS, SIZES, icons } from "../../constants";
+import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
 import { preURL } from "../../preURL/preURL";
 import { save } from "@react-native-community/cameraroll";
-
+import Tts from "react-native-tts";
+import styled from "styled-components";
 const ExploreDetail = ({ navigation, route }) => {
+  // tts 설정
+  Tts.setDefaultLanguage("ko-KR");
+  Tts.addEventListener("tts-start", (event) => console.log("start", event));
+  Tts.addEventListener("tts-finish", (event) => console.log("finish", event));
+  Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
+
+  const _onPressSpeech = (word) => {
+    Tts.stop();
+    Tts.speak(word);
+  };
+
   // 나의 추억창고 저장하기
   const saveMyMemories = (userId) => {
     let dataToSend = {
-      userId: userId,
+      userId: 1,
       link: route.params.imageData.link,
       word: route.params.imageData.word,
     };
@@ -47,7 +59,7 @@ const ExploreDetail = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <View style={styles.container_headerText}>
-          <Text style={styles.titleText}>내가 찾은 추억창고</Text>
+          <StudyTxt style={{ marginTop: 20 }}>내가 찾은 추억창고</StudyTxt>
         </View>
 
         <View
@@ -69,7 +81,11 @@ const ExploreDetail = ({ navigation, route }) => {
           {/* Image */}
           <View style={styles.container_imgShadow}>
             <Image
-              source={{ uri: route.params.imageData.link }}
+              source={{
+                uri: route?.params?.imageData?.link
+                  ? route.params.imageData.link
+                  : "https://picsum.photos/id/1002/200",
+              }}
               style={styles.img}
               resizeMode="cover"
             />
@@ -77,7 +93,9 @@ const ExploreDetail = ({ navigation, route }) => {
           {/* Text */}
           <View style={{ paddingTop: 20 }}>
             <Text style={styles.description}>
-              {route.params.imageData.word}
+              {route?.params?.imageData?.word
+                ? route.params.imageData.word
+                : "단어"}
             </Text>
           </View>
         </View>
@@ -90,7 +108,13 @@ const ExploreDetail = ({ navigation, route }) => {
       <View style={styles.container_button}>
         <CustomButton
           buttonText="이름 불러보기"
-          onPress={() => console.log("이름 불러보기")}
+          onPress={() =>
+            _onPressSpeech(
+              route?.params?.imageData?.word
+                ? route.params.imageData.word
+                : "단어"
+            )
+          }
         />
         <CustomButton
           buttonText="내 추억창고에 저장하기"
@@ -151,7 +175,7 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.padding,
     marginHorizontal: SIZES.padding,
     borderRadius: 20,
-    backgroundColor: "#E8E8E8",
+    backgroundColor: "#F9F4FF",
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: SIZES.padding,
@@ -167,15 +191,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   img: {
-    width: 250,
-    height: 150,
-    borderRadius: 35,
+    width: 310,
+    height: 180,
+    borderRadius: 20,
     borderColor: COLORS.purple,
     borderWidth: 2,
   },
   description: {
     color: COLORS.primary,
-    fontSize: 30,
+    fontSize: 34,
+    lineHeight:38,
     fontWeight: "700",
   },
   container_button: {
@@ -185,3 +210,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.padding,
   },
 });
+const StudyTxt = styled.Text`
+  font-family: NanumSquareRoundB;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: bold;
+  color: #191919;
+`;

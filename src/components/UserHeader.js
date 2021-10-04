@@ -4,8 +4,10 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  StatusBar,
   Text,
+  StatusBar,
+  Platform,
+  Dimensions,
 } from "react-native";
 import {
   widthPercentage,
@@ -16,66 +18,208 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
 
-import { images, icons, SIZES, COLORS } from "../constants";
-export const UserHeader = (props) => {
-  const { userNickname } = props;
+import { images, icons, SIZES, COLORS, navTabIcons } from "../constants";
+import { useEffect } from "react";
+import styled from "styled-components";
+import Icon from "react-native-vector-icons/Ionicons";
+
+export const UserHeader = ({ userNickname, type }) => {
+  const { width, height } = Dimensions.get("window");
+  let cntrMargin = 0;
+  Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 0);
+
+  useEffect(() => {
+    console.log(userNickname);
+  }, []);
+  const navigation = useNavigation();
+
   return (
-    <>
+    <View style={[styles.container, { marginTop: cntrMargin }]}>
       <View style={styles.header}>
-        <Image
+        {type == "story" ? (
+          <BackCntr onPress={() => navigation.navigate("Home")}>
+            <Icon
+              name="chevron-back"
+              style={{ marginRight: 10 }}
+              size={23}
+              color={"#555555"}
+            ></Icon>
+            <BackIcon></BackIcon>
+            <View
+              style={{
+                width: "50%",
+                alignItems: "flex-start",
+              }}
+            >
+              <Text style={[styles.headerText, { alignContent: "center" }]}>
+                동화
+              </Text>
+            </View>
+          </BackCntr>
+        ) : type === "game" ? (
+          <BackCntr onPress={() => navigation.navigate("Home")}>
+            <Icon
+              name="chevron-back"
+              style={{ marginRight: 10 }}
+              size={23}
+              color={"#555555"}
+            ></Icon>
+            <BackIcon></BackIcon>
+            <View
+              style={{
+                width: "50%",
+                alignItems: "flex-start",
+              }}
+            >
+              <Text style={[styles.headerText, { alignContent: "center" }]}>
+                게임
+              </Text>
+            </View>
+          </BackCntr>
+        ) : type === "explore" ? (
+          <>
+            <BackCntr onPress={() => navigation.navigate("Home")}>
+              <Icon
+                name="chevron-back"
+                style={{ marginRight: 10 }}
+                size={23}
+                color={"#555555"}
+              ></Icon>
+              <BackIcon></BackIcon>
+              <View
+                style={{
+                  width: "50%",
+                  alignItems: "flex-start",
+                }}
+              >
+                <Text style={[styles.headerText, { alignContent: "center" }]}>
+                  탐험
+                </Text>
+              </View>
+            </BackCntr>
+          </>
+        ) : (
+          <Text style={styles.headerText}>마리모와 말의 세계</Text>
+        )}
+
+        {/* <Image
           style={styles.mainLogo}
           source={require("../assets/icons/MainLogo.png")}
-        />
-        <Text style={styles.headerText}>마리모와 말의 세계</Text>
+       />*/}
       </View>
-      <View>
-        <View style={styles.name}>
-          <Image style={styles.logo} source={icons.marimo_logo} />
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              marginRight: widthPercentage(45),
-            }}
-          >
-            <Text style={styles.userName}>
-              {userNickname ? userNickname : "송이"}
-            </Text>
+      <View style={styles.body}>
+        {type === "story" ? (
+          <>
+            <Image
+              style={{ width: "100%", height: 179, marginTop: -20 }}
+              source={navTabIcons.cv_story}
+            />
+          </>
+        ) : type === "game" ? (
+          <>
+            <Image
+              style={{ width: "100%", height: 179, marginTop: -20 }}
+              source={navTabIcons.cv_game}
+            />
+          </>
+        ) : type === "explore" ? (
+          <>
+            <Image
+              style={{ width: "100%", height: 179, marginTop: -20 }}
+              source={navTabIcons.cv_explore}
+            />
+          </>
+        ) : (
+          <View style={styles.box}>
+            <View style={styles.mainbox}>
+              <Text style={styles.boxText}>
+                "마리모,{"\n"} 말이 뭐가 어렵니?
+              </Text>
+              <Image
+                style={styles.mainLogo}
+                source={require("../assets/icons/MainLogo.png")}
+              />
+            </View>
+            <View style={styles.btnCntr}>
+              <TouchableOpacity style={styles.btn}>
+                <Text style={styles.btnText}>See More</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View style={styles.records}>
-          <TouchableOpacity style={styles.rButton1}>
-            <Text style={styles.buttonText}>나의 기록들</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rButton2}>
-            <Text style={styles.buttonText}>친구 등록하기</Text>
-          </TouchableOpacity>
-        </View>
+        )}
       </View>
-    </>
+    </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     zIndex: 1,
+    width: "100%",
     // display: "flex",
     // padding: 10,
+  },
+  box: {
+    borderRadius: 20,
+    width: "100%",
+    height: 179,
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "#C5A1F3",
+  },
+  boxText: {
+    fontWeight: "bold",
+    fontSize: 18,
+    lineHeight: 40,
+    color: "#F2F2F2",
+  },
+  btnText: {
+    color: "#C5A1F3",
+    fontSize: 13,
+    lineHeight: 15,
+    fontWeight: "bold",
+  },
+  mainbox: {
+    width: "87%",
+    height: "75%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  btnCntr: {
+    width: "87%",
+    alignItems: "flex-start",
+  },
+  btn: {
+    width: widthPercentage(72),
+    height: heightPercentage(27),
+    borderRadius: 20,
+    backgroundColor: "#F2F2F2",
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     display: "flex",
     flexDirection: "row",
+    textAlign: "left",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    marginVertical: Platform.OS === "android" ? StatusBar.currentHeight : hp(2),
+  },
+  body: {
+    flex: 1,
+    display: "flex",
     alignItems: "center",
-    marginHorizontal: SIZES.padding,
-    marginVertical:
-      Platform.OS === "android" ? StatusBar.currentHeight + hp(1) : hp(2),
+    alignContent: "center",
   },
   mainLogo: {
-    width: widthPercentage(35),
-    height: heightPercentage(35),
+    width: widthPercentage(90),
+    height: heightPercentage(87),
     marginLeft: 5,
+    marginTop: 30,
     marginRight: 10,
   },
   logo: {
@@ -85,10 +229,9 @@ const styles = StyleSheet.create({
     borderRadius: 45,
   },
   headerText: {
-    paddingLeft: widthPercentage(14),
     color: "#464D46",
-    fontSize: fontPercentage(18),
-    fontFamily: "Cafe24Ssurround",
+    fontSize: fontPercentage(24),
+    fontWeight: "bold",
   },
   camera: {
     width: wp(45),
@@ -193,3 +336,15 @@ const styles = StyleSheet.create({
     fontSize: hp(1.5),
   },
 });
+const BackCntr = styled.TouchableOpacity`
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+`;
+
+const BackIcon = styled.Text`
+  width: 120px;
+  font-size: 18px;
+`;

@@ -18,7 +18,6 @@ target 'Marimo' do
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'react-native-video-cache', :path => '../node_modules/react-native-video-cache'
 
-  pod 'react-native-voice', :path => '../node_modules/@react-native-voice/voice'
 
   target 'MarimoTests' do
     inherit! :complete

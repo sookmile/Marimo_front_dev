@@ -19,7 +19,6 @@ import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
-
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
 
@@ -36,37 +35,34 @@ const ListItem = ({ item }) => {
   );
 };
 
-const renderItem = ({ item }) => {
-  const navigation = useNavigation();
-  return (
-    <View
-      style={{
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        marginVertical: 16,
-      }}
-    >
-      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
-        <ChImage
-          style={{
-            borderRadius: 20,
-            width: 90,
-            height: 90,
-          }}
-          source={item.src}
-        />
-        <ContentTexts>
-          <ContentTitle numberOfLines={1} ellipsizeMode="tail">
-            {item.text}
-          </ContentTitle>
-          <ContentText>추천 연령 : {item.age}세</ContentText>
-        </ContentTexts>
-      </ContnetSubCntr>
-    </View>
-  );
-};
-const ContnetSubCntr = styled.TouchableOpacity`
+const renderItem = ({ item }) => (
+  <View
+    style={{
+      alignContent: "center",
+      alignItems: "center",
+      justifyContent: "center",
+      marginVertical: 16,
+    }}
+  >
+    <ContnetSubCntr>
+      <ChImage
+        style={{
+          borderRadius: 20,
+          width: 90,
+          height: 90,
+        }}
+        source={item.src}
+      />
+      <ContentTexts>
+        <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+          {item.text}
+        </ContentTitle>
+        <ContentText>{item.number}명이 플레이 중입니다.</ContentText>
+      </ContentTexts>
+    </ContnetSubCntr>
+  </View>
+);
+const ContnetSubCntr = styled.View`
   width: 100%;
   height: 108px;
   background: #fbf8ff;
@@ -92,7 +88,6 @@ const ContentTitle = styled.Text`
   font-size: 15px;
   line-height: 24px;
   color: #000000;
-  overflow: hidden;
 `;
 
 const ContentText = styled.Text`
@@ -104,7 +99,7 @@ const ContentText = styled.Text`
   color: #434141;
 `;
 
-const GameMain = () => {
+const Home = () => {
   const [userNickname, setUserNickName] = useState("");
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -137,18 +132,30 @@ const GameMain = () => {
           }}
         >
           <UserHeader
+            type={"home"}
             style={{ height: "40%" }}
-            type={"game"}
             userNickname={userNickname}
           />
           <View
             style={{
               width: "94%",
-              height: "57%",
+              height: "58%",
               alignContent: "center",
               alignItems: "center",
             }}
           >
+            <View
+              style={{
+                display: "flex",
+                marginBottom: 30,
+                flexDirection: "row",
+                alignContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {SECTIONS1.map((item) => ListItem({ item }))}
+            </View>
+
             <View
               style={{
                 display: "flex",
@@ -181,7 +188,7 @@ const GameMain = () => {
   );
 };
 
-export default GameMain;
+export default Home;
 
 const SECTIONS1 = [
   {
@@ -212,24 +219,17 @@ const SECTIONS1 = [
 const SECTIONS3 = [
   {
     key: "1",
-    text: "누가누가 잘하나 재미있는 끝말잇기",
-    age: "6~7",
-    src: navTabIcons.ic_game1,
-    router: "SpellingGameContainer",
+    text: "앗, 도와줘! 우당탕탕 왕국 모험",
+    src: navTabIcons.ic_story1,
+    number: 50,
+    route: "Story1",
   },
   {
     key: "2",
-    text: "동물 친구들의 초성게임",
-    age: "7~8",
-    src: navTabIcons.ic_game2,
-    router: "SpellingGameContainer",
-  },
-  {
-    key: "3",
-    text: "충치를 막아라, 치카치카 방어대",
-    src: navTabIcons.ic_game3,
-    age: "7~8",
-    router: "SpellingGameContainer",
+    text: "동물 친구들의 초성 게임",
+    src: navTabIcons.ic_game1,
+    number: 20,
+    route: "StoryLoading",
   },
 ];
 

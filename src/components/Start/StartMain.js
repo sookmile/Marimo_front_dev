@@ -15,7 +15,6 @@ import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
-
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
@@ -38,7 +37,7 @@ const initials = Platform.OS === "ios" ? iosKeys : androidKeys;
 const StartMain = ({ navigation }) => {
   const [naverToken, setNaverToken] = React.useState(null);
   const [userId, setUserId] = useState(-1);
-
+  const [refresh, setRefresh] = useState(false);
   const naverLogin = (props) => {
     NaverLogin.login(props, (err, token) => {
       console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
@@ -50,19 +49,26 @@ const StartMain = ({ navigation }) => {
       return token;
     });
   };
+
+  useEffect(async () => {
+    console.log("Hello");
+  
+  }, []);
+
+  const naverLogout = () => {
+    NaverLogin.logout();
+    setNaverToken("");
+  };
+
   useEffect(() => {
     if (naverToken !== null && AsyncStorage.getItem("isLogin") !== "true") {
       getUserProfile();
     }
   }, [naverToken]);
-  
+
   const Login = async (props) => {
     console.log(2);
     await naverLogin(props);
-  };
-  const naverLogout = () => {
-    NaverLogin.logout();
-    setNaverToken("");
   };
 
   const postUserInfo = async (body) => {
@@ -89,7 +95,7 @@ const StartMain = ({ navigation }) => {
   const setLogin = async () => {
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
-
+    await AsyncStorage.setItem("token", JSON.stringify(naverToken));
     console.log(JSON.stringify(userId));
     await AsyncStorage.setItem("userId", JSON.stringify(userId));
   };
@@ -110,6 +116,7 @@ const StartMain = ({ navigation }) => {
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
     if (profileResult.resultcode === "024") {
+      console.log(profileResult);
       Alert.alert("로그인 실패", profileResult.message);
       return;
     } else {
@@ -162,15 +169,21 @@ const StartMain = ({ navigation }) => {
           <AppName margin={topMargin}>마리모</AppName>
           <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
           <BtnCntr>
-            <Btn onPress={() => Login(initials)}>
-              <BtnText>시작하기</BtnText>
-            </Btn>
+            <Btn2 onPress={() => Login(initials)}>
+              <NIMg
+                source={require("../../assets/icons/Home/naverLogin.png")}
+              />
+            </Btn2>
+
             <Btn
               style={{ marginTop: height * 0.025 }}
               onPress={() => hanldeContinue()}
             >
               <BtnText>이어하기</BtnText>
             </Btn>
+            {!!naverToken && (
+              <Button title="로그아웃하기" onPress={naverLogout} />
+            )}
           </BtnCntr>
         </LogoCntr>
       </Cntr>
@@ -214,6 +227,29 @@ const Btn = Styled.TouchableOpacity`
   align-items:center;
   justify-content:center;
 
+
+`;
+const Btn2 = Styled.TouchableOpacity`
+  background-color: #03C75A;
+  color: white;
+  padding:10px;
+
+  width: 343px;
+  height: 56px;
+  border-radius: 14px;
+  align-items:center;
+  justify-content:center;
+
+
+`;
+const NIMg = Styled.Image`
+  background-color: #B16CF6;
+  color: white;
+  width: 270px;
+  height: 50px;
+  border-radius: 14px;
+  align-items:center;
+  justify-content:center;
 `;
 const ContinueBtn = Styled.TouchableOpacity`
 

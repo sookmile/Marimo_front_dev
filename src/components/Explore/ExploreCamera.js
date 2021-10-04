@@ -18,6 +18,7 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { icons } from "../../constants";
 
+
 const ExploreCamera = ({ navigation }) => {
   // for data to  send api
   const [image, setImage] = useState("");
@@ -84,16 +85,20 @@ const ExploreCamera = ({ navigation }) => {
         seturl(data.uri);
         setprocessingImage(true);
         console.log("result", url);
+        return data.uri;
       }
+      return null;
     }
   };
 
-  const postImage2 = async () => {
+  const postImage2 = async (url) => {
+    console.log("post시작");
+    console.log(url);
     const fd = new FormData();
     fd.append("image", {
       name: "picture.jpg",
       type: "image/jpeg",
-      uri: url,
+      uri: navTabIcons,
     });
     const response = await fetch(preURL.preURL + "/image/name", {
       method: "POST",
@@ -103,24 +108,24 @@ const ExploreCamera = ({ navigation }) => {
       },
     })
       .then((response) => response.json())
-      .then((responseJson) => {
+      .then(async (responseJson) => {
         setprocessingImage(false);
-        setImageData(responseJson);
-        console.log("ImageData: ", imageData);
+        await setImageData(responseJson);
+        console.log("ImageData: ", responseJson);
+        if (imageData.length !== 0) {
+          setprocessingImage(false);
+          navigation.navigate("Detail", {
+            imageData,
+          });
+        } else {
+          setprocessingImage(false);
+          alert("이미지 설명 받아오지 못했습니다!");
+        }
       })
       .catch((error) => {
         setprocessingImage(false);
         console.error(error);
       });
-    if (imageData) {
-      setprocessingImage(false);
-      navigation.navigate("Detail", {
-        imageData,
-      });
-    } else {
-      setprocessingImage(false);
-      alert("이미지 설명 받아오지 못했습니다!");
-    }
   };
 
   const postImage = async () => {
@@ -202,8 +207,11 @@ const ExploreCamera = ({ navigation }) => {
             <View style={{ position: "absolute", bottom: 15 }}>
               <TouchableOpacity
                 onPress={async () => {
-                  await takePhoto();
-                  if (url) postImage2();
+                  const newURL = await takePhoto();
+                  console.log(newURL);
+                  console.log("post전");
+                  await seturl(newURL);
+                  if (newURL) await postImage2(newURL);
                   // post api
                   console.log("hello");
                 }}
