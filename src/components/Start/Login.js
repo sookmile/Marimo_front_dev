@@ -10,6 +10,7 @@ import {
   Dimensions,
   TextInput,
   StyleSheet,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -44,6 +45,7 @@ const Login = ({ navigation }) => {
     : "마이크 버튼을 누르고 말해주세요!";
 
   useEffect(async () => {
+    Alert.alert("변우진님 환영합니다");
     console.log("변했니");
     console.log(await AsyncStorage.getItem("isLogin"));
     console.log(await AsyncStorage.getItem("userId"));
@@ -191,14 +193,15 @@ const Login = ({ navigation }) => {
               style={{
                 display: "flex",
                 flexDirection: "row",
-                width: "50%",
-                verticalAlign: "space-between",
+                width: "100%",
+
+                justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "15%",
+                  width: 30,
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -304,8 +307,9 @@ const Login = ({ navigation }) => {
               style={{
                 display: "flex",
                 flexDirection: "row",
-                width: "50%",
-                verticalAlign: "space-between",
+                width: "100%",
+                textAlign: "center",
+                verticalAlign: "center",
               }}
               onPress={() => setPageNum(2)}
             >
@@ -325,7 +329,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum == 2 ? (
         <Container style={{ marginTop: cntrMargin }}>
-           <BackCntr onPress={() => navigation.navigate("StartMain")}>
+          <BackCntr onPress={() => navigation.navigate("StartMain")}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -422,7 +426,7 @@ const VoiceText = Styled.Text`
   line-height:29.6px;
 `;
 const KeyText = Styled.Text`
-  width:85%;
+  width:180px;
   text-align:center;
   font-family: Noto Sans CJK KR;
   font-style: normal;
