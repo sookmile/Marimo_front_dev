@@ -7,6 +7,17 @@ const gameBackground = require("../assets/images/GameObject/BG.png");
 const gameOb_wordContainer = require("../assets/images/GameObject/Window.png");
 const gameOb_Crate = require("../assets/images/GameObject/Crate.png");
 const gameOb_tile2 = require("../assets/images/GameObject/2.png");
+
+// SpellingGame Objects
+const spellingGameBackground = require("../assets/images/GameObject/SpellingGame/background.png");
+const gameWordBoard = require("../assets/images/GameObject/SpellingGame/menuBoard.png");
+const listenWordButton = require("../assets/images/GameObject/SpellingGame/listenWordButton.png");
+const gameResultModal = require("../assets/images/GameObject/SpellingGame/gameResultModal.png");
+const marimoCharacter = require("../assets/images/GameObject/SpellingGame/marimoGameCharacter.png");
+const feedbackImage = require("../assets/images/GameObject/SpellingGame/feedbackImage.png");
+const scoreFailed = require("../assets/images/GameObject/SpellingGame/scoreEggFailed.png");
+const scoreSuccess = require("../assets/images/GameObject/SpellingGame/scoreEgg.png");
+
 export default {
   sunflowers,
   deer,
@@ -15,4 +26,12 @@ export default {
   gameOb_Crate,
   gameOb_tile2,
   gameBackground,
+  spellingGameBackground,
+  gameWordBoard,
+  listenWordButton,
+  gameResultModal,
+  marimoCharacter,
+  feedbackImage,
+  scoreFailed,
+  scoreSuccess,
 };

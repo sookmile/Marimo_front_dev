@@ -11,7 +11,7 @@ import axios from "axios";
 import { preURL } from "../../preURL/preURL";
 
 export default function SpellingGameContainer({ navigation }) {
-  const [userID, setuserID] = useState(0);
+  const [userID, setUserID] = useState(0);
   const [userNickname, setUserNickname] = useState("");
 
   const getUserId = async () => {
@@ -27,6 +27,7 @@ export default function SpellingGameContainer({ navigation }) {
       .then((res) => {
         const response = res.data;
         console.log("성공:", response);
+        setUserNickname(response);
         return response;
       })
       .catch((err) => {
@@ -38,10 +39,8 @@ export default function SpellingGameContainer({ navigation }) {
     const userId = await getUserId();
     const userIdCheck = userId ? userId : 1;
     console.log("userIdCheck", userIdCheck);
-    setuserID(userIdCheck);
+    setUserID(userIdCheck);
     const userNickName = await getUserNickname(userIdCheck);
-    const userNickNameCheck = userNickName ? userNickName : "송이";
-    setUserNickname(userNickName);
     console.log("userID", userID);
     console.log("userNickname", userNickname);
   };
