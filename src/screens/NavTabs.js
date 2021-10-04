@@ -1,12 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { icons, COLORS } from "../constants/index";
+import { COLORS, navTabIcons } from "../constants/index";
 import Settings from "./Settings";
 import Explore from "./ExploreScreen";
 import Game from "./GameScreen";
 import Story from "./StoryScreen";
-
+import Mypage from "./MyPage";
+import HomeScreen from "./HomeScreen";
 const Tab = createBottomTabNavigator();
 
 /*const tabOptions = {
@@ -23,83 +24,61 @@ const NavTabs = () => {
         tabBarShowLabel: false,
         headerShown: false,
         tabBarStyle: {
-          height: "10%",
-          backgroundColor: COLORS.bgPurple,
+          height: "8%",
+          alignContent: "center",
+          alignItems: "center",
+          backgroundColor: "#FFFEFD",
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         },
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Story}
+        name="HomeScreen"
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
-                source={icons.home_ic}
+                source={navTabIcons.ic_home}
                 resizeMode="contain"
                 style={styles.icons}
               />
-              <Text
-                style={{
-                  color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? "bold" : "normal",
-                }}
-              >
-                동화
-              </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="Game"
-        component={Game}
+        name="MyPage"
+        component={Mypage}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
-                source={icons.game_ic}
+                source={navTabIcons.ic_record}
                 resizeMode="contain"
                 style={styles.icons}
               />
-              <Text
-                style={{
-                  color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? "bold" : "normal",
-                }}
-              >
-                게임
-              </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="Explore"
-        component={Explore}
+        name="Settings"
+        component={Settings}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
-                source={icons.explore_ic}
+                source={navTabIcons.ic_setting}
                 resizeMode="contain"
                 style={styles.icons}
               />
-              <Text
-                style={{
-                  color: focused ? COLORS.primary : COLORS.gray,
-                  fontWeight: focused ? "bold" : "normal",
-                }}
-              >
-                탐험하기
-              </Text>
             </View>
           ),
         }}
       />
-      <Tab.Screen
+      {/*<Tab.Screen
         name="Settings"
         component={Settings}
         options={{
@@ -121,7 +100,7 @@ const NavTabs = () => {
             </View>
           ),
         }}
-      />
+      />*/}
     </Tab.Navigator>
   );
 };
@@ -132,8 +111,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icons: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
   },
 });
 
