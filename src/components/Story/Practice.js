@@ -1,171 +1,205 @@
-"use strict";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  ActivityIndicator,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
-  ImageBackground,
   Image,
+  ImageBackground,
+  TouchableOpacity,
+  Text,
+  Button,
 } from "react-native";
-import { RNCamera } from "react-native-camera";
-import { ENDPOINT } from "./Config";
-import CameraRoll from "@react-native-community/cameraroll";
+import Modal from "react-native-modal";
+import Video from "react-native-video";
+import Voice from "@react-native-community/voice";
+import axios from "axios";
 
-export default class RecordVideo extends Component {
-  constructor() {
-    super();
+const Practice = () => {
+  const [activateRecord, setActivation] = useState(false);
+  const [isRecord, setIsRecord] = useState(false);
+  const [text, setText] = useState("");
+  const [isRModalVisible, setRModalVisible] = useState(false);
+  const [isWModalVisible, setWModalVisible] = useState(false);
+  const [response, setResponse] = useState("");
+  const storyData = ["장미꽃"];
 
-    this.state = {
-      recording: false,
-      processing: false,
+  const voiceLabel = text
+    ? text
+    : isRecord
+    ? "단어를 발음해주세요"
+    : "마이크 버튼을 눌러주세요";
+
+  const _onSpeechStart = () => {
+    console.log("onSpeechStart");
+    setText("");
+  };
+  const _onSpeechEnd = () => {
+    console.log("onSpeechEnd");
+  };
+  const _onSpeechResults = (event) => {
+    console.log("onSpeechResults");
+    console.log(event.value[0]);
+    setText(event.value[0]);
+    console.log(text);
+    if (event.value[0] === storyData[0]) {
+      postResult();
+      console.log("정답");
+      setRModalVisible(!isRModalVisible);
+    } else {
+      postResult();
+      console.log("오답");
+      setWModalVisible(!isWModalVisible);
+    }
+  };
+  const _onSpeechError = (event) => {
+    console.log("_onSpeechError");
+    console.log(event.error);
+  };
+
+  const _onRecordVoice = () => {
+    if (activateRecord) {
+      if (isRecord) {
+        Voice.stop();
+      } else {
+        Voice.start("ko-KR");
+      }
+      setIsRecord(!isRecord);
+    } else {
+      console.log("영상 진행중");
+    }
+  };
+
+  useEffect(() => {
+    Voice.onSpeechStart = _onSpeechStart;
+    Voice.onSpeechEnd = _onSpeechEnd;
+    Voice.onSpeechResults = _onSpeechResults;
+    Voice.onSpeechError = _onSpeechError;
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
     };
-  }
-  render() {
-    const { recording, processing } = this.state;
+  }, []);
 
-    let button = (
-      <TouchableOpacity
-        onPress={this.startRecording.bind(this)}
-        style={styles.capture}
-      >
-        <Text style={{ fontSize: 14 }}> RECORD </Text>
-      </TouchableOpacity>
-    );
-
-    if (recording) {
-      button = (
-        <TouchableOpacity
-          onPress={this.stopRecording.bind(this)}
-          style={styles.capture}
-        >
-          <Text style={{ fontSize: 14 }}> STOP </Text>
-        </TouchableOpacity>
-      );
-    }
-
-    // if (processing) {
-    //   button = (
-    //     <View style={styles.capture}>
-    //       <ActivityIndicator animating size={18} />
-    //     </View>
-    //   );
-    // }
-
-    return (
-      <View>
-        <ImageBackground
-          source={require("../../assets/images/story/practice.png")}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          resizeMode="cover"
-        >
-          <View style={styles.word}>
-            <Text>장미꽃</Text>
-          </View>
-          <View style={styles.cameraContainer}>
-            <View style={styles.container}>
-              <RNCamera
-                ref={(ref) => {
-                  this.camera = ref;
-                }}
-                style={styles.preview}
-                type={RNCamera.Constants.Type.front}
-                flashMode={RNCamera.Constants.FlashMode.off}
-                permissionDialogTitle={"Permission to use camera"}
-                permissionDialogMessage={
-                  "We need your permission to use your camera phone"
-                }
-              />
-              <View
-                style={{
-                  flex: 0,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                {button}
-              </View>
-            </View>
-          </View>
-        </ImageBackground>
-      </View>
-    );
-  }
-
-  async startRecording() {
-    this.setState({ recording: true });
-    // default to mp4 for android as codec is not set
-    const { uri, codec = "mp4" } = await this.camera.recordAsync();
-    this.setState({ recording: false, processing: true });
-    const type = `video/${codec}`;
-
-    const data = new FormData();
-    data.append("video", {
-      name: "mobile-video-upload",
-      type,
-      uri,
-    });
-    const URI = data._parts[0][1].uri;
-    console.log(URI);
-
-    const result = await CameraRoll.save(URI, {
-      type: "video",
-      album: "Marimo",
-    });
-    console.log("result", result);
-
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: "post",
-        body: data,
+  const postResult = () => {
+    const data = {
+      userId: 1,
+      oWord: storyData[0],
+      rWord: text,
+      Lastpage: 1,
+    };
+    console.log("data: ", data);
+    axios
+      .post("192.168.35.40" + "/marimo/tale/save", data)
+      .then((res) => {
+        setResponse(res.data);
+        console.log("성공여부: ", response);
+      })
+      .catch((err) => {
+        console.log("전송에 실패 ");
+        console.log(err);
       });
-    } catch (e) {
-      console.error(e);
-    }
+  };
 
-    this.setState({ processing: false });
-  }
+  const closeRModal = () => {
+    setRModalVisible(!isRModalVisible);
+  };
+  const closeWModal = () => {
+    setWModalVisible(!isWModalVisible);
+  };
+  return (
+    <>
+      <ImageBackground
+        source={require("../../assets/images/story/practice.png")}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        resizeMode="cover"
+      >
+        <View style={styles.container}>
+          <View style={styles.videoContainer}>
+            <Video
+              source={{
+                uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+              }}
+              style={styles.mediaPlayer}
+              volume={10}
+              onEnd={() => setActivation(!activateRecord)}
+            />
+          </View>
+          <View style={styles.recordContainer}>
+            <Text style={styles.text}>{voiceLabel}</Text>
+            <TouchableOpacity onPress={_onRecordVoice}>
+              <Image
+                style={styles.button}
+                source={require("../../assets/MikeIcon.png")}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Modal isVisible={isRModalVisible} style={styles.modal}>
+          <TouchableOpacity onPress={closeRModal}>
+            <Image
+              style={styles.sticker}
+              source={require("../../assets/Sticker.png")}
+            />
+          </TouchableOpacity>
+        </Modal>
+        <Modal isVisible={isWModalVisible} style={styles.modal}>
+          <View>
+            <Text>{response}</Text>
+          </View>
+          <TouchableOpacity onPress={closeWModal}>
+            <Text>닫기</Text>
+          </TouchableOpacity>
+        </Modal>
+      </ImageBackground>
+    </>
+  );
+};
 
-  stopRecording() {
-    this.camera.stopRecording();
-  }
-}
+export default Practice;
 
 const styles = StyleSheet.create({
-  word: {
+  container: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  videoContainer: {
+    flex: 0.5,
     display: "flex",
     alignItems: "center",
-    width: 50,
-    top: 35,
-    left: 375,
-    padding: 5,
-    margin: 5,
-    backgroundColor: "#face34",
-    borderRadius: 15,
   },
-  container: {
-    width: 300,
+  recordContainer: {
+    flex: 0.5,
+    display: "flex",
+    alignItems: "center",
+    marginTop: 50,
+    marginRight: 20,
+  },
+  mediaPlayer: {
+    position: "absolute",
+    width: 500,
     height: 300,
-    top: 50,
-    left: 450,
-    flexDirection: "column",
+    top: 100,
+    left: 100,
+    justifyContent: "center",
   },
-  preview: {
-    flex: 1,
-    justifyContent: "flex-end",
+  text: {
+    fontSize: 20,
+    margin: 20,
+  },
+  button: {
+    width: 200,
+    height: 200,
+  },
+  modal: {
+    display: "flex",
     alignItems: "center",
   },
-  capture: {
-    flex: 0,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: "center",
-    margin: 20,
+  sticker: {
+    width: 200,
+    height: 200,
   },
 });
