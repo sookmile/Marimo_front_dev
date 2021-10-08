@@ -13,15 +13,14 @@ import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
 
-const Practice = () => {
+const Practice = ({ route, navigation }) => {
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
   const [isRModalVisible, setRModalVisible] = useState(false);
   const [isWModalVisible, setWModalVisible] = useState(false);
   const [response, setResponse] = useState("");
-  const storyData = ["장미꽃"];
-
+  const { oWord, Lastpage } = route.params;
   const voiceLabel = text
     ? text
     : isRecord
@@ -40,7 +39,7 @@ const Practice = () => {
     console.log(event.value[0]);
     setText(event.value[0]);
     console.log(text);
-    if (event.value[0] === storyData[0]) {
+    if (event.value[0] === oWord) {
       postResult();
       console.log("정답");
       setRModalVisible(!isRModalVisible);
@@ -82,9 +81,9 @@ const Practice = () => {
   const postResult = () => {
     const data = {
       userId: 1,
-      oWord: storyData[0],
+      oWord: oWord,
       rWord: text,
-      Lastpage: 1,
+      Lastpage: Lastpage,
     };
     console.log("data: ", data);
     axios
@@ -116,6 +115,14 @@ const Practice = () => {
         resizeMode="cover"
       >
         <View style={styles.container}>
+          <Text
+            style={{ top: "1%", left: "3%" }}
+            onPress={() => {
+              navigation.navigate("Story1");
+            }}
+          >
+            이전
+          </Text>
           <View style={styles.videoContainer}>
             <Video
               source={{
