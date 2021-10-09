@@ -588,7 +588,7 @@ function SpellingGame({ route, navigation }) {
               style={{
                 marginHorizontal: SIZES.padding,
                 backgroundColor: "#F6E08D",
-                width: "30%",
+                width: "25%",
                 justifyContent: "center",
                 alignItems: "center",
                 paddingVertical: 5,
@@ -773,7 +773,7 @@ function SpellingGame({ route, navigation }) {
                       color: COLORS.white,
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: hp(1.5),
+                      fontSize: hp(2.5),
                     }}
                   >
                     메인화면으로
@@ -787,7 +787,7 @@ function SpellingGame({ route, navigation }) {
                     style={{
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: hp(1.5),
+                      fontSize: hp(2.5),
                     }}
                   >
                     다시 하기
@@ -842,7 +842,7 @@ const styles = StyleSheet.create({
   },
   game_question: {
     color: COLORS.black,
-    fontSize: 30,
+    fontSize: hp(4),
     textAlign: "center",
     fontFamily: "NanumSquareRoundB",
   },
@@ -909,20 +909,21 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: COLORS.primary,
     marginTop: SIZES.radius,
-    width: wp(25),
-    height: hp(4),
     justifyContent: "center",
     marginHorizontal: 5,
     paddingHorizontal: 5,
     borderWidth: 3,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   resultModal_restartGameBtn: {
     borderRadius: 15,
     backgroundColor: "#9CCDFA",
     marginTop: SIZES.radius,
-    width: wp(20),
     justifyContent: "center",
     marginHorizontal: 5,
     borderWidth: 3,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
 });
