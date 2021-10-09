@@ -24,7 +24,10 @@ import Logo from "../../assets/icons/Logo.png";
 import Icon2 from "react-native-vector-icons/Ionicons";
 import { login, logo } from "../../assets/icons/Character/Logo";
 import { icons, images } from "../../constants";
-import { widthPercentageToDP } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const Login = ({ navigation }) => {
   let cntrMargin = 0;
@@ -149,7 +152,7 @@ const Login = ({ navigation }) => {
           <BackCntr onPress={() => navigation.navigate("StartMain")}>
             <Icon2
               name="chevron-back"
-              style={{ marginRight: 10 }}
+              style={{ marginRight: 10, marginLeft: 10 }}
               size={23}
               color={"#555555"}
             ></Icon2>
@@ -160,8 +163,9 @@ const Login = ({ navigation }) => {
               <Text>이동</Text>
             </TouchableOpacity>
           </BackCntr>
-          <IntroText>
-            안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
+          <IntroText style={{ fontSize: hp(3), lineHeight: hp(4.5) }}>
+            안녕, <AppName style={{ fontSize: hp(3) }}>마리모</AppName>에 온 걸
+            환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
           <Cntr>
             <TouchableOpacity
@@ -171,6 +175,7 @@ const Login = ({ navigation }) => {
                 height: 290,
                 marginTop: -1 * cntrMargin,
                 alignItems: "center",
+                justifyContent: "center",
               }}
               onPress={_onRecordVoice}
             >
@@ -183,7 +188,7 @@ const Login = ({ navigation }) => {
               <Animated.Image
                 style={{
                   position: "relative",
-                  marginLeft: widthPercentageToDP(5),
+                  marginLeft: wp(5),
                   bottom: -20,
                   marginRight: 15,
                   width: 60,
@@ -196,7 +201,9 @@ const Login = ({ navigation }) => {
               />
 
               <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
-                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                <Text
+                  style={{ paddingTop: 5, color: "black", fontSize: hp(2) }}
+                >
                   {voiceLabel}
                 </Text>
                 <View
@@ -238,7 +245,7 @@ const Login = ({ navigation }) => {
               >
                 <Icon name="keyboard" size={23} color={"#555555"} />
               </View>
-              <KeyText>자판으로 입력할게요</KeyText>
+              <KeyText style={{ fontSize: hp(2) }}>자판으로 입력할게요</KeyText>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
@@ -254,7 +261,7 @@ const Login = ({ navigation }) => {
           <BackCntr onPress={() => setPageNum(1)}>
             <Icon2
               name="chevron-back"
-              style={{ marginRight: 10 }}
+              style={{ marginRight: 10, marginLeft: 10 }}
               size={23}
               color={"#555555"}
             ></Icon2>
@@ -264,10 +271,14 @@ const Login = ({ navigation }) => {
             </TouchableOpacity>
           </BackCntr>
           <Cntr style={{ flex: 1 }}>
-            <Box>
-              <ConfirmText>친구의 이름은</ConfirmText>
+            <Box style={{ width: wp(70), height: hp(24) }}>
+              <ConfirmText style={{ fontSize: hp(2.5) }}>
+                친구의 이름은
+              </ConfirmText>
               <ConfirmNameText>{text}</ConfirmNameText>
-              <ConfirmText>가 맞나요?</ConfirmText>
+              <ConfirmText style={{ fontSize: hp(2.5) }}>
+                (이)/가 맞나요?
+              </ConfirmText>
             </Box>
             <Svg
               style={styles.arrowLeft2}
@@ -352,7 +363,7 @@ const Login = ({ navigation }) => {
               >
                 <Icon name="keyboard" size={23} color={"#555555"} />
               </View>
-              <KeyText>자판으로 입력할게요</KeyText>
+              <KeyText style={{ fontSize: hp(2) }}>자판으로 입력할게요</KeyText>
             </TouchableOpacity>
           </Cntr>
           <Text>{text}</Text>
@@ -373,8 +384,9 @@ const Login = ({ navigation }) => {
               <Text>이동</Text>
             </TouchableOpacity>
           </BackCntr>
-          <IntroText>
-            안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
+          <IntroText style={{ fontSize: hp(3), lineHeight: hp(4.5) }}>
+            안녕, <AppName style={{ fontSize: hp(3) }}>마리모</AppName>에 온 걸
+            환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
           <Cntr>
             <View
@@ -403,7 +415,9 @@ const Login = ({ navigation }) => {
               />
 
               <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
-                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                <Text
+                  style={{ paddingTop: 5, color: "black", fontSize: hp(2) }}
+                >
                   친구의 이름을 입력해주세요!
                 </Text>
                 <View
@@ -430,6 +444,7 @@ const Login = ({ navigation }) => {
               style={{
                 position: "absolute",
                 top: height * 0.47,
+                fontSize: hp(2),
               }}
               placeholder="이름을 입력해주세요"
               value={text}
@@ -496,11 +511,10 @@ const Container = Styled.View`
 `;
 
 const IntroText = Styled.Text`
-  font-size:22px;
   margin-top:30px;
   line-height: 40px;
   margin-horizontal: 24;
-  font-weight: bold;
+  font-family: "NanumSquareRoundB"
 `;
 const VoiceText = Styled.Text`
   margin: 32px;
@@ -514,25 +528,19 @@ const KeyText = Styled.Text`
   font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
   line-height: 27px;
   text-align: center;
   color: #191919;
 
   `;
 const AppName = Styled.Text`
-  font-size:22px;
   color: #F66C6C;
 `;
 
 const Box = Styled.View`
-width:290px;
-height:205px;
 border-radius:10;
 margin-top:30px;
-border-width:1.5;
 box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
-border-color:black;
 background-color:#FFEB81
 z-index:3;
 align-items:center;
@@ -542,9 +550,7 @@ justify-content:center;
 
 const ConfirmText = Styled.Text`
 font-family: "NanumSquareRoundB";
-
 color:#191919;
-font-size:22px;
 line-height: 30px;
 `;
 
@@ -553,7 +559,6 @@ color:#F66C6C;
 font-family: "Cafe24Ssurround";
 font-size:36px;
 line-height: 53.28px;
-font-weight:700;
 `;
 
 const BtnCntr = Styled.View`

@@ -8,17 +8,19 @@ import {
   StyleSheet,
   Image,
   Alert,
+  ImageBackground,
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
 import {
   widthPercentageToDP as wp,
-  HeightPercentageToDP as hp,
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
+import { images } from "../../constants";
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
@@ -153,37 +155,50 @@ const StartMain = ({ navigation }) => {
   });
   return (
     <View style={style.view}>
-      <Cntr>
-        <LogoCntr
-          margin={topMargin}
-          bottom={bottomMargin}
-          width={displayHeight * 0.8}
-        >
-          <MainLogo
-            width={height * 0}
-            source={require("../../assets/icons/MainLogo.png")}
-          />
-          <AppName margin={topMargin}>마리모</AppName>
-          <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
-          <BtnCntr>
-            <Btn2 onPress={() => Login(initials)}>
-              <NIMg
-                source={require("../../assets/icons/Home/naverLogin.png")}
-              />
-            </Btn2>
+      <ImageBackground
+        source={images.splashScreen}
+        resizeMode="cover"
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Cntr>
+          <LogoCntr
+            margin={topMargin}
+            bottom={bottomMargin}
+            width={displayHeight * 0.8}
+          >
+            <MainLogo
+              width={height * 0}
+              source={require("../../assets/icons/MainLogo.png")}
+            />
+            <AppName margin={topMargin} style={{ fontSize: hp(5.5) }}>
+              마리모
+            </AppName>
+            <DtText margin={topMargin} style={{ fontSize: hp(2.5) }}>
+              신나는 말의 세계로 출발해보자!
+            </DtText>
+            <BtnCntr>
+              <Btn2 onPress={() => Login(initials)}>
+                <NIMg
+                  source={require("../../assets/icons/Home/naverLogin.png")}
+                />
+              </Btn2>
 
-            <Btn
-              style={{ marginTop: height * 0.025 }}
-              onPress={() => hanldeContinue()}
-            >
-              <BtnText>이어하기</BtnText>
-            </Btn>
-            {!!naverToken && (
-              <Button title="로그아웃하기" onPress={naverLogout} />
-            )}
-          </BtnCntr>
-        </LogoCntr>
-      </Cntr>
+              <Btn
+                style={{ marginTop: height * 0.025 }}
+                onPress={() => hanldeContinue()}
+              >
+                <BtnText>이어하기</BtnText>
+              </Btn>
+              {!!naverToken && (
+                <Button title="로그아웃하기" onPress={naverLogout} />
+              )}
+            </BtnCntr>
+          </LogoCntr>
+        </Cntr>
+      </ImageBackground>
     </View>
   );
 };
@@ -198,6 +213,7 @@ const LogoCntr = Styled.View`
 `;
 const BtnCntr = Styled.View`
     margin-top:20px;
+
 `;
 const AppName = Styled.Text`
     margin-top:${(props) => props.margin};
@@ -205,7 +221,6 @@ const AppName = Styled.Text`
     position:relative;
     top:0;
     color: #F66C6C;
-    font-size: 52px;
     font-family: "Cafe24Ssurround"
     line-height: 61px;
 `;
@@ -213,14 +228,13 @@ const DtText = Styled.Text`
     margin-top:${(props) => props.margin};
     margin-bottom:${(props) => props.margin * 2};
     color: #191919;
-    font-size: 18px;
     font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
-  width: 343px;
   height: 56px;
+  width: 343px;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -231,14 +245,11 @@ const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
   padding:10px;
-
-  width: 343px;
   height: 56px;
+  width: 343px;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
-
-
 `;
 const NIMg = Styled.Image`
   background-color: #03C75A;
@@ -262,6 +273,7 @@ const ContinueBtn = Styled.TouchableOpacity`
 `;
 
 const Cntr = Styled.View`
+flex:1
 width:100%;
 align-items:center;
 justify-content:center;

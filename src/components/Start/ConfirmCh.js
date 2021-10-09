@@ -7,6 +7,7 @@ import {
   Dimensions,
   Settings,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,6 +15,11 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 import { character } from "../../assets/icons/Character/Character";
 import Icon2 from "react-native-vector-icons/Ionicons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { images } from "../../constants";
 
 /* 캐릭터 선택 페이지 */
 const ConfirmCh = ({ route, navigation }) => {
@@ -71,7 +77,7 @@ const ConfirmCh = ({ route, navigation }) => {
           </TouchableOpacity>
         </BackCntr>
 
-        <IntroText>
+        <IntroText style={{ fontSize: hp(2.8), lineHeight: hp(4.5) }}>
           {character[chrNum].label}와 모험을 떠날 준비가 되었니?
           {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
@@ -90,7 +96,7 @@ const ConfirmCh = ({ route, navigation }) => {
               source={character[chrNum].src}
             />
             <Box>
-              <BoxText>
+              <BoxText style={{ fontSize: hp(2) }}>
                 "{name}아 안녕, 나는 {character[chrNum].label}야!
                 {"\n"}우리 함께 재밌는 모험을 떠나자!"
               </BoxText>
@@ -169,11 +175,10 @@ const Container = styled.View`
 `;
 
 const IntroText = styled.Text`
-  font-size: 22px;
-  font-weight: bold;
   margin-top: 30px;
   line-height: 40px;
   margin-horizontal: 24px;
+  font-family: NanumSquareRoundB;
 `;
 const AppName = styled.Text`
   font-size: 22px;
@@ -190,8 +195,8 @@ const Box = styled.View`
 `;
 
 const BoxText = styled.Text`
-  font-size: 17px;
   text-align: center;
   padding: 10px;
   line-height: 28px;
+  font-family: NanumSquareRoundB;
 `;
