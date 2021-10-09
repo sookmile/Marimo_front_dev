@@ -63,8 +63,8 @@ function SpellingGame({ route, navigation }) {
   const [text, setText] = useState("");
 
   // animation
-  const opacity = useRef(new Animated.Value(0)).current;
-  const slideInLeft = new Animated.Value(0);
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const slideInLeft = useRef(new Animated.Value(0)).current;
   const anim = useRef(new Animated.Value(1));
 
   //game music
@@ -127,7 +127,6 @@ function SpellingGame({ route, navigation }) {
 
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
-    setText("");
   };
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
@@ -180,7 +179,7 @@ function SpellingGame({ route, navigation }) {
         duration: 500,
         useNativeDriver: true,
       }),
-      Animated.timing(opacity, {
+      Animated.timing(animatedValue, {
         toValue: 1,
         duration: 1000,
         useNativeDriver: true,
@@ -349,7 +348,7 @@ function SpellingGame({ route, navigation }) {
                 flexDirection: "column",
               }}
             >
-              <Animated.View style={{ flex: 1, opacity: opacity }}>
+              <Animated.View style={{ flex: 1, opacity: animatedValue }}>
                 <TouchableOpacity
                   onPress={() => validateAnswer(option)}
                   disabled={isOptionsDisabled}

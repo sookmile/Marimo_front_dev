@@ -68,7 +68,7 @@ export default function SpellingGameContainer({ navigation }) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
 `;
