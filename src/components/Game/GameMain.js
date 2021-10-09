@@ -46,6 +46,7 @@ const renderItem = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
+        marginHorizontal: SIZES.padding,
       }}
     >
       <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
