@@ -86,6 +86,7 @@ const ConfirmCh = ({ route, navigation }) => {
           >
             <Image
               style={{ width: 225, height: 225 }}
+              resizeMode="contain"
               source={character[chrNum].src}
             />
             <Box>
@@ -172,6 +173,7 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 30px;
   line-height: 40px;
+  margin-horizontal: 24px;
 `;
 const AppName = styled.Text`
   font-size: 22px;

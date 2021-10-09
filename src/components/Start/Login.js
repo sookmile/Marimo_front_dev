@@ -24,6 +24,7 @@ import Logo from "../../assets/icons/Logo.png";
 import Icon2 from "react-native-vector-icons/Ionicons";
 import { login, logo } from "../../assets/icons/Character/Logo";
 import { icons, images } from "../../constants";
+import { widthPercentageToDP } from "react-native-responsive-screen";
 
 const Login = ({ navigation }) => {
   let cntrMargin = 0;
@@ -169,6 +170,7 @@ const Login = ({ navigation }) => {
                 width: 290,
                 height: 290,
                 marginTop: -1 * cntrMargin,
+                alignItems: "center",
               }}
               onPress={_onRecordVoice}
             >
@@ -181,8 +183,8 @@ const Login = ({ navigation }) => {
               <Animated.Image
                 style={{
                   position: "relative",
+                  marginLeft: widthPercentageToDP(5),
                   bottom: -20,
-                  marginLeft: 5,
                   marginRight: 15,
                   width: 60,
                   height: 45,
@@ -336,12 +338,14 @@ const Login = ({ navigation }) => {
                 width: "100%",
                 textAlign: "center",
                 verticalAlign: "center",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "15%",
+                  width: 40,
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -493,9 +497,10 @@ const Container = Styled.View`
 
 const IntroText = Styled.Text`
   font-size:22px;
-  font-weight: bold;
   margin-top:30px;
   line-height: 40px;
+  margin-horizontal: 24;
+  font-weight: bold;
 `;
 const VoiceText = Styled.Text`
   margin: 32px;

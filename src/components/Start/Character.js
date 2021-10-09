@@ -91,7 +91,8 @@ const Character = ({ route, navigation }) => {
                       }}
                     >
                       <Image
-                        style={{ width: 100, height: 100 }}
+                        style={{ width: 110, height: 110 }}
+                        resizeMode="contain"
                         source={item.src}
                       />
                     </ImageCntr>
@@ -175,7 +176,7 @@ const CharacterCntr = styled.View`
   border-color: #fa9c9c;
   border-width: 2;
   border-radius: 20;
-  margin-horizontal: 10;
+  margin-horizontal: 24;
 `;
 const BackCntr = styled.TouchableOpacity`
   width: 100%;
@@ -203,6 +204,7 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 30px;
   line-height: 40px;
+  margin-horizontal: 24px;
 `;
 const AppName = styled.Text`
   font-size: 22px;
