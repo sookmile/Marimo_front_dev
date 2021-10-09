@@ -53,7 +53,7 @@ export default function SpellingGameContainer({ navigation }) {
   return (
     <Container>
       <ButtonContainer>
-        <Title>동물 친구들의 초성 게임</Title>
+        <Title>냠냠 맛있는 모음게임</Title>
         <CustomButton
           buttonText="게임 시작하기"
           onPress={() =>

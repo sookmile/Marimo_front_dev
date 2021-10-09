@@ -265,7 +265,7 @@ const SECTIONS3 = [
   },
   {
     key: "2",
-    text: "동물 친구들의 초성 게임",
+    text: "냠냠 맛있는 모음게임",
     src: navTabIcons.ic_game1,
     number: 20,
     route: "StoryLoading",

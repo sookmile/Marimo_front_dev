@@ -19,12 +19,12 @@ const Game = () => {
       <GameStack.Screen
         name="SpellingGameContainer"
         component={SpellingGameContainer}
-        options={{ headerShown: true, title: "동물 친구들의 초성 게임" }}
+        options={{ headerShown: true, title: "냠냠 맛있는 모음게임임" }}
       />
       <GameStack.Screen
         name="SpellingGame"
         component={SpellingGame}
-        options={{ headerShown: true, title: "동물 친구들의 초성 게임" }}
+        options={{ headerShown: true, title: "냠냠 맛있는 모음게임" }}
       />
       <GameStack.Screen
         name="GameResult"
