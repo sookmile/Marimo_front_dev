@@ -124,7 +124,7 @@ const StoryMain = () => {
     setUserNickName(Nickname);
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
