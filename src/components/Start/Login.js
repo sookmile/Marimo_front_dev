@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Styled from "styled-components/native";
 import Voice from "@react-native-community/voice";
 import {
   Text,
+  Animated,
   Button,
   Image,
   View,
@@ -22,6 +23,7 @@ const ButtonRecord = Styled.Button``;
 import Logo from "../../assets/icons/Logo.png";
 import Icon2 from "react-native-vector-icons/Ionicons";
 import { login, logo } from "../../assets/icons/Character/Logo";
+import { icons, images } from "../../constants";
 
 const Login = ({ navigation }) => {
   let cntrMargin = 0;
@@ -43,6 +45,27 @@ const Login = ({ navigation }) => {
       ? "이름을 인식하고 있습니다\n 잠시만 기다려주세요.."
       : text
     : "마이크 버튼을 누르고 말해주세요!";
+
+  // animation
+  const anim = useRef(new Animated.Value(1));
+
+  // 캐릭터 애니메이션
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(anim.current, {
+          toValue: 1.1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(anim.current, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
 
   useEffect(async () => {
     Alert.alert("변우진님 환영합니다");
@@ -119,7 +142,7 @@ const Login = ({ navigation }) => {
   }, []);
 
   return (
-    <>
+    <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       {pageNum === 0 ? (
         <Container style={{ marginTop: cntrMargin }}>
           <BackCntr onPress={() => navigation.navigate("StartMain")}>
@@ -155,16 +178,21 @@ const Login = ({ navigation }) => {
               />
             </TouchableOpacity>
             <View style={[styles.item, styles.itemIn]}>
-              <Image
+              <Animated.Image
                 style={{
                   position: "relative",
                   bottom: -20,
-                  marginRight: 5,
+                  marginLeft: 5,
+                  marginRight: 15,
                   width: 60,
                   height: 45,
+
+                  transform: [{ scale: anim.current }],
                 }}
-                source={Logo}
+                source={images.marimoCharacter}
+                resizeMode="contain"
               />
+
               <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
                 <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
                   {voiceLabel}
@@ -194,14 +222,14 @@ const Login = ({ navigation }) => {
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
-
+                alignItems: "center",
                 justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: 30,
+                  width: 40,
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -221,7 +249,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum === 1 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => setPageNum(0)}>
+          <BackCntr onPress={() => setPageNum(1)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -229,9 +257,7 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Character", { name: "우진" })}
-            >
+            <TouchableOpacity onPress={() => setPageNum(0)}>
               <Text>이동</Text>
             </TouchableOpacity>
           </BackCntr>
@@ -329,7 +355,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum == 2 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => navigation.navigate("StartMain")}>
+          <BackCntr onPress={() => setPageNum(1)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -347,29 +373,81 @@ const Login = ({ navigation }) => {
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
           <Cntr>
+            <View
+              style={[
+                styles.item,
+                styles.itemIn,
+                {
+                  position: "absolute",
+                  top: height * -0.005,
+                  justifyContent: "center",
+                },
+              ]}
+            >
+              <Animated.Image
+                style={{
+                  position: "relative",
+                  bottom: -20,
+                  marginLeft: 5,
+                  marginRight: 20,
+                  width: 65,
+                  height: 50,
+                  transform: [{ scale: anim.current }],
+                }}
+                source={images.marimoCharacter}
+                resizeMode="contain"
+              />
+
+              <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
+                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                  친구의 이름을 입력해주세요!
+                </Text>
+                <View
+                  style={[styles.arrowContainer, styles.arrowLeftContainer]}
+                >
+                  <Svg
+                    style={styles.arrowLeft}
+                    width={moderateScale(15.5, 0.6)}
+                    height={moderateScale(17.5, 0.6)}
+                    viewBox="32.484 17.5 15.515 17.5"
+                    enable-background="new 32.485 17.5 15.515 17.5"
+                  >
+                    <Path
+                      d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                      fill="#ACDBFD"
+                      x="0"
+                      y="0"
+                    />
+                  </Svg>
+                </View>
+              </View>
+            </View>
             <NameInput
+              style={{
+                position: "absolute",
+                top: height * 0.47,
+              }}
               placeholder="이름을 입력해주세요"
               value={text}
               onChangeText={setText}
             />
-            <BtnCntr>
-              <Btn
-                style={{ marginTop: height * 0.025 }}
-                onPress={() =>
-                  navigation.navigate("Character", {
-                    name: text,
-                  })
-                }
-              >
-                <BtnText>입력을 완료했어요</BtnText>
-              </Btn>
-            </BtnCntr>
+            {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
+            <Btn
+              style={{ position: "absolute", bottom: height * 0.1 }}
+              onPress={() =>
+                navigation.navigate("Character", {
+                  name: text,
+                })
+              }
+            >
+              <BtnText>입력을 완료했어요</BtnText>
+            </Btn>
           </Cntr>
         </Container>
       ) : (
         <></>
       )}
-    </>
+    </View>
   );
 };
 
@@ -426,7 +504,7 @@ const VoiceText = Styled.Text`
   line-height:29.6px;
 `;
 const KeyText = Styled.Text`
-  width:180px;
+
   text-align:center;
   font-family: Noto Sans CJK KR;
   font-style: normal;
@@ -493,11 +571,14 @@ const BtnText = Styled.Text`
   letter-spacing: -0.408px;
 `;
 const NameInput = Styled.TextInput`
-height:55px;
+height:70px;
 width:80%;
 font-size:16px;
-border-width:1
-padding:10px
+background-color:#FFEB81;
+border-width:1;
+elevation:5;
+border-radius:5;
+padding:10px;
 margin-top:-200;
 `;
 
@@ -507,10 +588,10 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: moderateScale(7, 2),
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   itemIn: {
-    marginTop: 30,
+    marginTop: 50,
     marginBottom: 30,
   },
   itemOut: {
