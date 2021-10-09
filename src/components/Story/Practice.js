@@ -35,10 +35,10 @@ const Practice = () => {
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = (event) => {
+  const _onSpeechResults = async(event) => {
     console.log("onSpeechResults");
     console.log(event.value[0]);
-    setText(event.value[0]);
+    await setText(event.value[0]);
     console.log(text);
     if (event.value[0] === storyData[0]) {
       postResult();
@@ -87,6 +87,7 @@ const Practice = () => {
       Lastpage: 1,
     };
     console.log("data: ", data);
+
     axios
       .post("192.168.35.40" + "/marimo/tale/save", data)
       .then((res) => {
@@ -116,7 +117,7 @@ const Practice = () => {
         resizeMode="cover"
       >
         <View style={styles.container}>
-          <View style={styles.videoContainer}>
+          <View style={[styles.videoContainer]}>
             <Video
               source={{
                 uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
