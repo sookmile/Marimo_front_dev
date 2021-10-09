@@ -169,6 +169,7 @@ const Login = ({ navigation }) => {
                 width: 290,
                 height: 290,
                 marginTop: -1 * cntrMargin,
+                alignItems: "center",
               }}
               onPress={_onRecordVoice}
             >
@@ -182,7 +183,7 @@ const Login = ({ navigation }) => {
                 style={{
                   position: "relative",
                   bottom: -20,
-                  marginLeft: 5,
+                  marginLeft: 24,
                   marginRight: 15,
                   width: 60,
                   height: 45,
@@ -336,12 +337,14 @@ const Login = ({ navigation }) => {
                 width: "100%",
                 textAlign: "center",
                 verticalAlign: "center",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "15%",
+                  width: 40,
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -496,6 +499,7 @@ const IntroText = Styled.Text`
   font-weight: bold;
   margin-top:30px;
   line-height: 40px;
+  margin-horizontal: 24px;
 `;
 const VoiceText = Styled.Text`
   margin: 32px;
