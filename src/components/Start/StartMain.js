@@ -11,6 +11,10 @@ import {
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
+import {
+  widthPercentageToDP as wp,
+  HeightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -201,8 +205,8 @@ const AppName = Styled.Text`
     position:relative;
     top:0;
     color: #F66C6C;
-    font-weight: bold;
     font-size: 52px;
+    font-family: "Cafe24Ssurround"
     line-height: 61px;
 `;
 const DtText = Styled.Text`
@@ -210,6 +214,7 @@ const DtText = Styled.Text`
     margin-bottom:${(props) => props.margin * 2};
     color: #191919;
     font-size: 18px;
+    font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;

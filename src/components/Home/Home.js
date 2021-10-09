@@ -193,7 +193,6 @@ const Home = () => {
                 display: "flex",
                 flex: 1,
                 marginBottom: 5,
-                marginHorizontal: SIZES.padding,
               }}
             >
               <View

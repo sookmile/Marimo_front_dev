@@ -91,7 +91,7 @@ const Character = ({ route, navigation }) => {
                       }}
                     >
                       <Image
-                        style={{ width: 100, height: 100 }}
+                        style={{ width: 110, height: 110 }}
                         resizeMode="contain"
                         source={item.src}
                       />

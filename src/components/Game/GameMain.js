@@ -46,7 +46,6 @@ const renderItem = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
-        marginHorizontal: SIZES.padding,
       }}
     >
       <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
@@ -214,9 +213,9 @@ const SECTIONS1 = [
 const SECTIONS3 = [
   {
     key: "1",
-    text: "누가누가 잘하나 재미있는 끝말잇기",
+    text: "냠냠 맛있는 초성 게임",
     age: "6~7",
-    src: navTabIcons.ic_game1,
+    src: navTabIcons.cv_game,
     router: "SpellingGameContainer",
   },
   {
