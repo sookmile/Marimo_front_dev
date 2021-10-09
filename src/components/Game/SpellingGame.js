@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   Animated,
   View,
+  SafeAreaView,
   Text,
   StyleSheet,
   ImageBackground,
@@ -35,13 +36,15 @@ const wrongSound = require("../../assets/sounds/mixkit-small-hit-in-a-game-2072.
 const resultSound = require("../../assets/sounds/mixkit-game-experience-level-increased-2062.wav");
 
 function SpellingGame({ route, navigation }) {
-  const { userId, userNickname } = route.params;
+  const { userId, userNickname, characterNum } = route.params;
   //user Id
   const [userID, setUserID] = useState(0);
   const [userNickName, setUserNickName] = useState("");
 
   const id = userId ? userId : 0;
   const nickname = userNickname ? userNickname : "송이";
+  const characterImg =
+    characterNum == 1 ? images.mallangCharacter : images.marimoCharacter;
 
   // game states
   const [questions, setQuestions] = useState("");
@@ -60,8 +63,8 @@ function SpellingGame({ route, navigation }) {
   const [text, setText] = useState("");
 
   // animation
-  const animationVariable = useRef(new Animated.Value(0)).current;
-  const slideInLeft = useRef(new Animated.Value(0)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+  const slideInLeft = new Animated.Value(0);
   const anim = useRef(new Animated.Value(1));
 
   //game music
@@ -105,9 +108,8 @@ function SpellingGame({ route, navigation }) {
     };
     await axios
       .post(preURL + "/marimo/game/feedback", userSpeechData)
-      .then(async(res) => {
+      .then(async (res) => {
         const response = res.data;
-        console.log("성공:", response);
         await setFeedback(response);
         return response;
       })
@@ -154,6 +156,7 @@ function SpellingGame({ route, navigation }) {
     console.log("퀴즈");
     console.log(questions);
   }, [questions]);
+
   useEffect(async () => {
     const questionFrom = await getGameData();
 
@@ -172,14 +175,14 @@ function SpellingGame({ route, navigation }) {
   // character animation
   const _start = () => {
     return Animated.parallel([
-      Animated.timing(animationVariable, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
       Animated.timing(slideInLeft, {
         toValue: 1,
         duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 1000,
         useNativeDriver: true,
       }),
     ]).start();
@@ -270,9 +273,8 @@ function SpellingGame({ route, navigation }) {
 
   // 정답 체크
   const validateAnswer = (selectedOption) => {
-    console.log("ValidateAnswer 실행");
-    // let correct_answer = questions[currentQuestionIndex]?.vowel_answer;
-    let correct_answer = diassmebleVowel();
+    let correct_answer = questions[currentQuestionIndex]?.vowelAnswer;
+    let fullWord = questions[currentQuestionIndex]?.answer;
     setCurrentOptionSelected(selectedOption);
     setCorrectOption(correct_answer);
     setIsOptionsDisabled(true);
@@ -281,7 +283,6 @@ function SpellingGame({ route, navigation }) {
       setuserAnswerState(true);
       // Set Score
       setScore(score + 20);
-      console.log("점수", score);
       // music
       correctMusic.play((success) => {
         if (success) {
@@ -300,13 +301,14 @@ function SpellingGame({ route, navigation }) {
         }
       });
     }
+    readText(correct_answer);
+    readText(fullWord);
     // Show Modal
     setModalVisible(true);
   };
 
   // 다음 문제로 이동
   const handleNext = () => {
-    console.log("handleNext 실행");
     if (currentQuestionIndex == questions?.length - 1) {
       setisFeedbackModalVisible(false);
       setShowScoreModal(true);
@@ -319,7 +321,6 @@ function SpellingGame({ route, navigation }) {
       });
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      console.log("넘어가기");
       setText("");
       setCurrentOptionSelected(false);
       setCorrectOption(null);
@@ -328,15 +329,6 @@ function SpellingGame({ route, navigation }) {
       setIsOptionsDisabled(false);
       setFeedback("");
     }
-  };
-
-  // 임시 vowel 분리
-  const diassmebleVowel = () => {
-    let answer = questions[currentQuestionIndex]?.answer;
-    let dWord = hangul.d(answer);
-    let len = dWord.length;
-    console.log("분리된 말", dWord[1] + dWord[len - 1]);
-    return dWord[1] + dWord[len - 1];
   };
 
   // 옵션 렌더링
@@ -357,7 +349,7 @@ function SpellingGame({ route, navigation }) {
                 flexDirection: "column",
               }}
             >
-              <Animated.View style={{ flex: 1, opacity: animationVariable }}>
+              <Animated.View style={{ flex: 1, opacity: opacity }}>
                 <TouchableOpacity
                   onPress={() => validateAnswer(option)}
                   disabled={isOptionsDisabled}
@@ -376,12 +368,11 @@ function SpellingGame({ route, navigation }) {
                         : option == currentOptionSelected
                         ? COLORS.wrong + "50"
                         : COLORS.plateColor,
-                    height: 150,
-                    borderRadius: 150 / 2,
+                    height: hp(20),
+                    borderRadius: hp(20) / 2,
                     justifyContent: "center",
                     alignItems: "center",
-                    paddingHorizontal: 20,
-                    width: 150,
+                    width: hp(20),
                   }}
                 >
                   <View
@@ -393,9 +384,9 @@ function SpellingGame({ route, navigation }) {
                           : option == currentOptionSelected
                           ? COLORS.red
                           : COLORS.black,
-                      width: 110,
-                      height: 110,
-                      borderRadius: 110 / 2,
+                      width: hp(15),
+                      height: hp(15),
+                      borderRadius: hp(15) / 2,
                       justifyContent: "center",
                     }}
                   >
@@ -428,11 +419,16 @@ function SpellingGame({ route, navigation }) {
                     marginVertical: 10,
                   }}
                 >
-                  <Image
-                    source={images.listenWordButton}
-                    resizeMode="contain"
-                    style={{ width: wp(20) }}
-                  />
+                  <Text
+                    style={{
+                      fontSize: hp(3),
+                      color: COLORS.black,
+                      textAlign: "center",
+                      fontFamily: "Cafe24Ssurround",
+                    }}
+                  >
+                    소리 듣기
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -467,7 +463,7 @@ function SpellingGame({ route, navigation }) {
                 justifyContent: "center",
               }}
             >
-              <BouncingComponent />
+              <BouncingComponent characterNum={characterNum} />
               <Text
                 style={{
                   marginVertical: hp(1),
@@ -480,7 +476,7 @@ function SpellingGame({ route, navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: wp(4),
+                  fontSize: hp(2.5),
                   fontFamily: "NanumSquareRoundB",
                 }}
               >
@@ -489,7 +485,7 @@ function SpellingGame({ route, navigation }) {
               <Text
                 style={{
                   marginTop: hp(1),
-                  fontSize: wp(4),
+                  fontSize: hp(2.5),
                   fontFamily: "NanumSquareRoundB",
                 }}
               >
@@ -544,15 +540,17 @@ function SpellingGame({ route, navigation }) {
               >
                 피드백 시간!
               </Text>
-              <Text
-                style={{
-                  fontFamily: "NanumSquareRoundB",
-                  fontSize: wp(5),
-                  textAlign: "center",
-                }}
-              >
-                {feedbackWord}
-              </Text>
+              <View style={{ paddingHorizontal: 6 }}>
+                <Text
+                  style={{
+                    fontFamily: "NanumSquareRoundB",
+                    fontSize: wp(5),
+                    textAlign: "center",
+                  }}
+                >
+                  {feedbackWord}
+                </Text>
+              </View>
               <CustomButton buttonText="다음 문제로!" onPress={handleNext} />
             </ImageBackground>
           </View>
@@ -563,23 +561,8 @@ function SpellingGame({ route, navigation }) {
     }
   };
 
-  const renderItem = () => <GameScore />;
-
-  const renderScore = () => {
-    return (
-      <View style={{ flexDirection: "row" }}>
-        <FlatList
-          data={dummyData.score}
-          horizontal
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    );
-  };
-
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground
         source={images.spellingGameBackground}
         resizeMode="cover"
@@ -602,10 +585,18 @@ function SpellingGame({ route, navigation }) {
               </Text>
             </View>
             <View
-              style={{ marginHorizontal: SIZES.padding, backgroundColor: "" }}
+              style={{
+                marginHorizontal: SIZES.padding,
+                backgroundColor: "#F6E08D",
+                width: "30%",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingVertical: 5,
+                borderRadius: 15,
+                borderWidth: 3,
+              }}
             >
-              <Text style={styles.scoreText}>score: {score}</Text>
-              {renderScore()}
+              <Text style={styles.scoreText}>점수: {score}</Text>
             </View>
           </View>
 
@@ -644,10 +635,18 @@ function SpellingGame({ route, navigation }) {
                     height: hp(15),
                   }}
                 >
-                  <Text style={styles.game_question}>
-                    {questions !== undefined &&
-                      questions[currentQuestionIndex]?.initial}
-                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.game_question}>
+                      {questions !== undefined &&
+                        questions[currentQuestionIndex]?.initial}
+                    </Text>
+                  </View>
                 </ImageBackground>
               </Animated.View>
             </TouchableOpacity>
@@ -657,17 +656,21 @@ function SpellingGame({ route, navigation }) {
                 backgroundColor: "#0078fe",
                 padding: 10,
                 marginLeft: "10%",
-                borderRadius: 5,
+                borderRadius: 20,
                 marginTop: 5,
                 marginRight: "5%",
-                maxWidth: "50%",
+                maxWidth: "60%",
                 alignSelf: "center",
-
-                borderRadius: 20,
               }}
             >
-              <Text style={{ fontSize: 16, color: "#fff" }}>
-                어떤 모음을 사용해야지 글자가 완성될까?
+              <Text
+                style={{
+                  fontSize: hp(3),
+                  color: "#fff",
+                  fontFamily: "Cafe24Ssurround",
+                }}
+              >
+                모음을 연결해보자!
               </Text>
             </View>
           </View>
@@ -685,11 +688,7 @@ function SpellingGame({ route, navigation }) {
             }}
           >
             <Svg style={{ width: 150, height: 560 / 449.75 }}>
-              <Image
-                width="100%"
-                height="100%"
-                source={images.marimoCharacter}
-              />
+              <Image width="100%" height="100%" source={characterImg} />
             </Svg>
             {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
           </Animated.View>
@@ -709,10 +708,43 @@ function SpellingGame({ route, navigation }) {
         >
           <View style={styles.resultModal_background}>
             <View style={styles.resultModal_Container}>
-              <Text style={styles.resultModal_congratText}>
-                우와, 대단해요!
-              </Text>
+              {/* 게임 결과 */}
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: "105%",
+                  width: "100%",
+                  height: "20%",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  marginVertical: 10,
+                }}
+              >
+                <View
+                  style={{
+                    width: wp(30),
+                    backgroundColor: "#B29262",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 20,
+                    borderWidth: 3,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cafe24Ssurround",
+                      fontSize: hp(2.5),
+                      color: COLORS.white,
+                    }}
+                  >
+                    게임 결과
+                  </Text>
+                </View>
+              </View>
               <View style={styles.resultModal_innerContainer}>
+                <Text style={styles.resultModal_congratText}>
+                  우와, 대단해요!
+                </Text>
                 <Text style={{ fontSize: 25, fontFamily: "NanumSquareRoundB" }}>
                   {userNickname}이의 최종 점수는
                 </Text>
@@ -736,28 +768,37 @@ function SpellingGame({ route, navigation }) {
                     postGameResult() && navigation.navigate("GameMain")
                   }
                 >
-                  <Text style={{ color: COLORS.white, textAlign: "center" }}>
-                    홈으로 돌아가기
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      textAlign: "center",
+                      fontFamily: "Cafe24Ssurround",
+                      fontSize: hp(1.5),
+                    }}
+                  >
+                    메인화면으로
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.resultModal_restartGameBtn}
                   onPress={restartQuiz}
                 >
-                  <Text style={{ textAlign: "center" }}>다시 하기</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.resultModal_showRankingBtn}
-                  onPress={() => navigation.navigate("GameRank")}
-                >
-                  <Text style={{ textAlign: "center" }}>랭킹 확인하기</Text>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "Cafe24Ssurround",
+                      fontSize: hp(1.5),
+                    }}
+                  >
+                    다시 하기
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </Modal>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -787,13 +828,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "space-between",
     justifyContent: "center",
-    backgroundColor: COLORS.bgPurple,
+    backgroundColor: "#F6E08D",
     width: "20%",
     borderRadius: 15,
     marginHorizontal: SIZES.padding,
   },
   game_currentIndex: {
-    color: COLORS.darkGray,
+    color: "#B29262",
     fontSize: 20,
     opacity: 0.6,
     marginRight: 2,
@@ -807,7 +848,7 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     color: "#464D46",
-    fontSize: wp(4),
+    fontSize: hp(2),
     fontFamily: "Cafe24Ssurround",
   },
   voiceLabel: {
@@ -816,6 +857,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.padding,
     fontFamily: "NanumSquareRoundB",
     textAlign: "center",
+    fontSize: hp(2),
   },
   modal_background: {
     flex: 1,
@@ -832,16 +874,17 @@ const styles = StyleSheet.create({
   },
   resultModal_background: {
     flex: 1,
-    backgroundColor: COLORS.primary,
+    backgroundColor: "#EBE9B3",
     alignItems: "center",
     justifyContent: "center",
   },
   resultModal_Container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: "#F6E08D",
     width: "90%",
     borderRadius: 20,
     padding: 20,
     alignItems: "center",
+    borderWidth: 3,
   },
   resultModal_congratText: {
     fontSize: hp(2),
@@ -870,6 +913,8 @@ const styles = StyleSheet.create({
     height: hp(4),
     justifyContent: "center",
     marginHorizontal: 5,
+    paddingHorizontal: 5,
+    borderWidth: 3,
   },
   resultModal_restartGameBtn: {
     borderRadius: 15,
@@ -878,13 +923,6 @@ const styles = StyleSheet.create({
     width: wp(20),
     justifyContent: "center",
     marginHorizontal: 5,
-  },
-  resultModal_showRankingBtn: {
-    borderRadius: 15,
-    backgroundColor: "#FA9C9C",
-    marginTop: SIZES.radius,
-    width: wp(23),
-    justifyContent: "center",
-    marginHorizontal: 5,
+    borderWidth: 3,
   },
 });

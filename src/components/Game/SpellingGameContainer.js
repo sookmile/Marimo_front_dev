@@ -13,26 +13,16 @@ import { preURL } from "../../preURL/preURL";
 export default function SpellingGameContainer({ navigation }) {
   const [userID, setUserID] = useState(0);
   const [userNickname, setUserNickname] = useState("");
+  const [characterNum, setcharacterNum] = useState(0);
 
   const getUserId = async () => {
     const userId = await AsyncStorage.getItem("userId");
     return userId;
   };
 
-  const getUserNickname = async (userID) => {
-    console.log("props로 들어온", userID);
-    const data = { userId: userID };
-    await axios
-      .post(preURL + "/marimo/getNickName", data)
-      .then((res) => {
-        const response = res.data;
-        console.log("성공:", response);
-        setUserNickname(response);
-        return response;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const getUserNickname = async () => {
+    const nickname = await AsyncStorage.getItem("userNickname");
+    return nickname;
   };
 
   const getMultiData = async () => {
@@ -40,8 +30,12 @@ export default function SpellingGameContainer({ navigation }) {
     const userIdCheck = userId ? userId : 1;
     console.log("userIdCheck", userIdCheck);
     setUserID(userIdCheck);
-    const userNickName = await getUserNickname(userIdCheck);
-    console.log("userID", userID);
+    const userNickName = await getUserNickname();
+    const userNickNameCheck = userNickName ? userNickName : "송이";
+    setUserNickname(userNickNameCheck);
+    const Character = await AsyncStorage.getItem("characterNum");
+    console.log(Character);
+    setcharacterNum(Character);
     console.log("userNickname", userNickname);
   };
 
@@ -53,13 +47,14 @@ export default function SpellingGameContainer({ navigation }) {
   return (
     <Container>
       <ButtonContainer>
-        <Title>동물 친구들의 초성 게임</Title>
+        <Title>냠냠 맛있는 모음게임</Title>
         <CustomButton
           buttonText="게임 시작하기"
           onPress={() =>
             navigation.navigate("SpellingGame", {
               userId: userID,
               userNickname: userNickname,
+              characterNum: characterNum,
             })
           }
         ></CustomButton>
