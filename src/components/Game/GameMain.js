@@ -9,6 +9,7 @@ import {
   Image,
   StatusBar,
   ScrollView,
+  Alert,
   FlatList,
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
@@ -27,7 +28,11 @@ const ListItem = ({ item }) => {
     <ItemButton label={item.key}>
       <ItemBox
         background={item.background}
-        onPress={() => navigation.navigate(`${item.router}`)}
+        onPress={() =>
+          item.router === "null"
+            ? Alert.alert("12월 정식버전 출시 이후, 만나보실 수 있습니다.")
+            : navigation.navigate(`${item.router}`)
+        }
       >
         <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
         <ItemText color={item.color}>{item.label}</ItemText>
@@ -48,7 +53,13 @@ const renderItem = ({ item }) => {
         marginVertical: 16,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+      <ContnetSubCntr
+        onPress={() =>
+          item.router === "null"
+            ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
+            : navigation.navigate(`${item.router}`)
+        }
+      >
         <ChImage
           style={{
             borderRadius: 20,
@@ -213,7 +224,7 @@ const SECTIONS1 = [
 const SECTIONS3 = [
   {
     key: "1",
-    text: "누가누가 잘하나 재미있는 끝말잇기",
+    text: "냠냠 맛있는 모음게임",
     age: "6~7",
     src: navTabIcons.ic_game1,
     router: "SpellingGameContainer",
@@ -223,14 +234,14 @@ const SECTIONS3 = [
     text: "동물 친구들의 초성게임",
     age: "7~8",
     src: navTabIcons.ic_game2,
-    router: "SpellingGameContainer",
+    router: "null",
   },
   {
     key: "3",
     text: "충치를 막아라, 치카치카 방어대",
     src: navTabIcons.ic_game3,
     age: "7~8",
-    router: "SpellingGameContainer",
+    router: "null",
   },
 ];
 

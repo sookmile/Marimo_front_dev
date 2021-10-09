@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Image,
   StatusBar,
+  Alert,
   ScrollView,
   FlatList,
 } from "react-native";
@@ -47,7 +48,13 @@ const renderItem = ({ item }) => {
         marginVertical: 16,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+      <ContnetSubCntr
+        onPress={() =>
+          item.router === "null"
+            ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
+            : navigation.navigate(`${item.router}`)
+        }
+      >
         <ChImage
           style={{
             borderRadius: 20,
@@ -223,7 +230,7 @@ const SECTIONS3 = [
     age: "7~8",
     src: navTabIcons.ic_story2,
     number: 20,
-    router: "StoryLoading",
+    router: "null",
   },
   {
     key: "3",
@@ -231,7 +238,7 @@ const SECTIONS3 = [
     src: navTabIcons.ic_story3,
     age: "7~8",
     number: 20,
-    router: "StoryLoading",
+    router: "null",
   },
 ];
 
