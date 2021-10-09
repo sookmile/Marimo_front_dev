@@ -5,11 +5,39 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 import Orientation from "react-native-orientation";
-import Tts from "react-native-tts";
 import StoryMain from "./StoryMain";
+import Sound from "react-native-sound";
+
+const path1 = require("../../assets/sounds/story1page1.m4a");
+const path2 = require("../../assets/sounds/story1page2.m4a");
+const path3 = require("../../assets/sounds/story1page3.mp3");
+const path4 = require("../../assets/sounds/story1page4.m4a");
+
+let music1 = new Sound(path1, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
+
+let music2 = new Sound(path2, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
+
+let music3 = new Sound(path3, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
+
+let music4 = new Sound(path4, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
 
 const StoryOne = ({ navigation }) => {
   const [pageNum, setPageNum] = useState(1);
@@ -26,6 +54,30 @@ const StoryOne = ({ navigation }) => {
       Orientation.lockToLandscape();
     }
   };
+
+  if (pageNum == 1) {
+    music1.play();
+    music2.pause();
+    music3.pause();
+    music4.pause();
+  } else if (pageNum == 2) {
+    music2.play();
+    music1.pause();
+    music3.pause();
+    music4.pause();
+  } else if (pageNum == 3) {
+    music3.play();
+    music1.pause();
+    music2.pause();
+    music4.pause();
+  } else if (pageNum == 4) {
+    music4.play();
+    music1.pause();
+    music2.pause();
+    music3.pause();
+  } else {
+    console.log("동화1 끝!");
+  }
 
   // Tts.setDefaultLanguage("ko-KR");
   // setTimeout(() => {
@@ -51,20 +103,24 @@ const StoryOne = ({ navigation }) => {
             <TouchableOpacity
               style={{
                 width: 265,
-                height: 100,
+                height: 90,
                 position: "absolute",
-                top: "2%",
+                top: "0%",
                 left: "32%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
-                navigation.navigate("Practice", { oWord: "침대", LastPage: 1 })
-              }
+              onPress={() => {
+                music1.pause();
+                navigation.navigate("Practice", {
+                  oWord: "침대",
+                  LastPage: 1,
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>침대</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -78,71 +134,82 @@ const StoryOne = ({ navigation }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
-                navigation.navigate("Practice", { oWord: "이불", LastPage: 1 })
-              }
+              onPress={() => {
+                music1.pause();
+                navigation.navigate("Practice", {
+                  oWord: "이불",
+                  LastPage: 1,
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>이불</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 80,
                 height: 80,
                 position: "absolute",
-                top: "39%",
-                left: "67%",
+                top: "50%",
+                left: "66%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
-                navigation.navigate("Practice", { oWord: "시계", LastPage: 1 })
-              }
+              onPress={() => {
+                music1.pause();
+
+                navigation.navigate("Practice", {
+                  oWord: "시계",
+                  LastPage: 1,
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>시계</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 70,
                 height: 70,
                 position: "absolute",
-                top: "45%",
-                left: "90%",
+                top: "40%",
+                left: "91%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music1.pause();
                 navigation.navigate("Practice", {
                   oWord: "축구공",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>축구공</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 120,
                 height: 70,
                 position: "absolute",
-                top: "8%",
+                top: "17%",
                 left: "73%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music1.pause();
                 navigation.navigate("Practice", {
                   oWord: "액자",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>액자</Text>
             </TouchableOpacity>
             <View style={styles.navBox}>
               <TouchableOpacity
@@ -150,14 +217,14 @@ const StoryOne = ({ navigation }) => {
                   navigation.navigate("StoryLoading");
                 }}
               >
-                <Text>이전 </Text>
+                <Text style={styles.navBoxText}> 이전 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(2);
                 }}
               >
-                <Text> 다음</Text>
+                <Text style={styles.navBoxText}> 다음</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -185,35 +252,81 @@ const StoryOne = ({ navigation }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "냉장고",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>냉장고</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 80,
                 height: 80,
                 position: "absolute",
-                top: "65%",
-                left: "32%",
+                top: "75%",
+                left: "33%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "사과",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>사과</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 80,
+                height: 80,
+                position: "absolute",
+                top: "66%",
+                left: "52%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "포도",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>포도</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 85,
+                height: 85,
+                position: "absolute",
+                top: "68%",
+                left: "69%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "수박",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>수박</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -221,62 +334,21 @@ const StoryOne = ({ navigation }) => {
                 height: 80,
                 position: "absolute",
                 top: "55%",
-                left: "52%",
+                left: "85%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
-                navigation.navigate("Practice", {
-                  oWord: "포도",
-                  LastPage: 1,
-                })
-              }
-            >
-              <Text style={styles.word}>✓</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: 85,
-                height: 85,
-                position: "absolute",
-                top: "58%",
-                left: "69.5%",
-                borderRadius: 25,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={() =>
-                navigation.navigate("Practice", {
-                  oWord: "수박",
-                  LastPage: 1,
-                })
-              }
-            >
-              <Text style={styles.word}>✓</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: 80,
-                height: 80,
-                position: "absolute",
-                top: "68%",
-                left: "83%",
-                borderRadius: 25,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={() =>
+              onPress={() => {
+                music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "바나나",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>바나나</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -290,14 +362,15 @@ const StoryOne = ({ navigation }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "달력",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>달력</Text>
             </TouchableOpacity>
             <View style={styles.navBox}>
               <TouchableOpacity
@@ -305,14 +378,14 @@ const StoryOne = ({ navigation }) => {
                   setPageNum(1);
                 }}
               >
-                <Text>이전 </Text>
+                <Text style={styles.navBoxText}>이전 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(3);
                 }}
               >
-                <Text> 다음</Text>
+                <Text style={styles.navBoxText}> 다음</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -334,14 +407,14 @@ const StoryOne = ({ navigation }) => {
                   setPageNum(2);
                 }}
               >
-                <Text>이전 </Text>
+                <Text style={styles.navBoxText}>이전 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(4);
                 }}
               >
-                <Text> 다음</Text>
+                <Text style={styles.navBoxText}> 다음</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -362,105 +435,110 @@ const StoryOne = ({ navigation }) => {
                 width: 85,
                 height: 85,
                 position: "absolute",
-                top: "70%",
+                top: "82%",
                 left: "16%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "기차",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>기차</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 200,
                 height: 120,
                 position: "absolute",
-                top: "55%",
-                left: "30%",
+                top: "62%",
+                left: "32%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "자전거",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>자전거</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 85,
                 height: 85,
                 position: "absolute",
-                top: "50%",
-                left: "60%",
+                top: "43%",
+                left: "61%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "색연필",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>색연필</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                width: 50,
+                width: 80,
                 height: 50,
                 position: "absolute",
-                top: "75%",
-                left: "63%",
+                top: "85%",
+                left: "61%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "도토리",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>도토리</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 width: 85,
                 height: 85,
                 position: "absolute",
-                top: "65%",
-                left: "74%",
+                top: "55%",
+                left: "75%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() =>
+              onPress={() => {
+                music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "장갑",
                   LastPage: 1,
-                })
-              }
+                });
+              }}
             >
-              <Text style={styles.word}>✓</Text>
+              <Text style={styles.word}>장갑</Text>
             </TouchableOpacity>
             <View style={styles.navBox}>
               <TouchableOpacity
@@ -468,14 +546,14 @@ const StoryOne = ({ navigation }) => {
                   setPageNum(3);
                 }}
               >
-                <Text>이전 </Text>
+                <Text style={styles.navBoxText}>이전 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(5);
                 }}
               >
-                <Text> 다음</Text>
+                <Text style={styles.navBoxText}> 다음</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -495,22 +573,40 @@ export default StoryOne;
 
 const styles = StyleSheet.create({
   pageIndex: {
-    width: 35,
+    position: "absolute",
+    width: 45,
     top: "3%",
-    left: "94%",
-    backgroundColor: "#E5E5E5",
+    left: "1.5%",
+    backgroundColor: "white",
     textAlign: "center",
-    padding: 5,
+    padding: 7,
     borderRadius: 10,
+    fontFamily: "Cafe24Ssurround",
   },
   word: {
-    fontSize: 30,
+    fontSize: 15,
     color: "white",
+    backgroundColor: "#C5A1F3",
+    padding: 7,
+    borderRadius: 15,
+    borderWidth: 2.5,
+    borderColor: "#B16CF6",
+    textAlign: "center",
   },
   navBox: {
-    top: "38%",
-    left: "195%",
+    position: "absolute",
+    width: 88,
+    top: "90%",
+    left: "88.5%",
     display: "flex",
     flexDirection: "row",
+    backgroundColor: "white",
+    padding: 7,
+    borderRadius: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  navBoxText: {
+    fontFamily: "Cafe24Ssurround",
   },
 });

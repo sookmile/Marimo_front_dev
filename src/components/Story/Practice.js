@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
   Button,
+  Animated,
 } from "react-native";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
@@ -20,7 +21,9 @@ const Practice = ({ route, navigation }) => {
   const [isRModalVisible, setRModalVisible] = useState(false);
   const [isWModalVisible, setWModalVisible] = useState(false);
   const [response, setResponse] = useState("");
+  const [URI, setURI] = useState("");
   const { oWord, Lastpage } = route.params;
+
   const voiceLabel = text
     ? text
     : isRecord
@@ -68,6 +71,21 @@ const Practice = ({ route, navigation }) => {
   };
 
   useEffect(() => {
+    // 비디오 가져오기
+    const data = {
+      word: oWord,
+    };
+    axios
+      .post("192.168.35.40" + "/marimo/tale/speechuri", data)
+      .then((res) => {
+        setURI(res.data.uri);
+        console.log("비디오 링크: ", URI);
+      })
+      .catch((err) => {
+        console.log("전송에 실패 ");
+        console.log(err);
+      });
+
     Voice.onSpeechStart = _onSpeechStart;
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
@@ -126,7 +144,7 @@ const Practice = ({ route, navigation }) => {
           <View style={styles.videoContainer}>
             <Video
               source={{
-                uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+                uri: URI,
               }}
               style={styles.mediaPlayer}
               volume={10}
