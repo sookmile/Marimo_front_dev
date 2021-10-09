@@ -8,7 +8,7 @@ import Start from "./src/screens/StartScreen";
 import Story from "./src/screens/StoryScreen";
 import Game from "./src/screens/GameScreen";
 import Explore from "./src/screens/ExploreScreen";
-import Settings from "./src/screens/Settings";
+import SettingScreen from "./src/screens/SettingScreen";
 
 //Tabs
 import NavTab from "./src/screens/NavTabs";
@@ -57,8 +57,8 @@ const App = () => {
         />
 
         <MainStack.Screen
-          name="Settings"
-          component={Settings}
+          name="SettingScreen"
+          component={SettingScreen}
           options={{ headerShown: false }}
         />
       </MainStack.Navigator>

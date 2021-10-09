@@ -243,7 +243,7 @@ const ExploreMain = ({ navigation }) => {
     userData.map((obj) => console.log(obj));
   }, [userData]);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
@@ -262,7 +262,6 @@ const ExploreMain = ({ navigation }) => {
           <View
             style={{
               width: "94%",
-              height: "100%",
               alignContent: "center",
               alignItems: "center",
               overflow: "visible",
@@ -285,7 +284,6 @@ const ExploreMain = ({ navigation }) => {
                   overflow: "visible",
                   marginTop: "15%",
                   marginBottom: 5,
-                  height: 200 * userData.length,
                 }}
               >
                 <StudyTxt>찰칵, 카메라를 눌러서 찾아봐요!</StudyTxt>

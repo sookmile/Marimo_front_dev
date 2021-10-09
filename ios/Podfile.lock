@@ -273,9 +273,14 @@ PODS:
     - React
   - react-native-safe-area-context (3.3.0):
     - React-Core
+  - react-native-video (5.1.1):
+    - React-Core
+    - react-native-video/Video (= 5.1.1)
   - react-native-video-cache (2.0.5):
     - KTVHTTPCache (~> 2.0.0)
     - React
+  - react-native-video/Video (5.1.1):
+    - React-Core
   - react-native-voice (1.1.9):
     - React
   - React-perflogger (0.64.2)
@@ -440,6 +445,7 @@ DEPENDENCIES:
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
   - react-native-orientation (from `../node_modules/react-native-orientation`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - react-native-video-cache (from `../node_modules/react-native-video-cache`)
   - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -525,6 +531,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-orientation"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   react-native-video-cache:
     :path: "../node_modules/react-native-video-cache"
   react-native-voice:
@@ -611,6 +619,7 @@ SPEC CHECKSUMS:
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
+  react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
   react-native-video-cache: 0f8b1b2195f234eabd507cfebdd91c2e82695008
   react-native-voice: eb6b7c7f752310f72a6f4d64c2fba6ee724d6604
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
@@ -638,6 +647,6 @@ SPEC CHECKSUMS:
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 9ae00d0f69832bf9101628462d7b2af4c0ebe897
+PODFILE CHECKSUM: 272ad86e3f05c01a3491367b3b5868527b3b03d0
 
 COCOAPODS: 1.11.0

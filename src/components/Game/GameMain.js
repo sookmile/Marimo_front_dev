@@ -126,7 +126,7 @@ const GameMain = () => {
     setUserNickName(Nickname);
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
@@ -144,7 +144,7 @@ const GameMain = () => {
           />
           <View
             style={{
-              width: "94%",
+              width: "92%",
               height: "57%",
               alignContent: "center",
               alignItems: "center",
