@@ -173,9 +173,10 @@ const LearnRecord = ({ navigation, route }) => {
         <Cntr style>
           <Text
             style={{
-              fontFamily: "Cafe24Ssurround",
-              lineHeight: 21,
-              fontSize: 18,
+              fontFamily: "NanumSquareRoundB",
+              lineHeight: 25,
+              fontSize: 22,
+              fontWeight: "bold",
             }}
           >
             나의 기록들
@@ -202,9 +203,10 @@ const LearnRecord = ({ navigation, route }) => {
           <RecordCntr>
             <Text
               style={{
-                fontFamily: "Cafe24Ssurround",
-                lineHeight: 21,
-                fontSize: 18,
+                fontFamily: "NanumSquareRoundB",
+                lineHeight: 24,
+                fontSize: 20,
+                fontWeight: "700",
                 width: "100%",
                 textAlign: "left",
               }}
@@ -226,7 +228,9 @@ const LearnRecord = ({ navigation, route }) => {
             {getSelectionMode === 1 ? (
               <MainCntr isResult>
                 <ChartCntr>
-                  <ResultText>{userNickname} 의 전반적 성취도</ResultText>
+                  <ResultText style={{ fontFamily: "NanumSquareRoundB" }}>
+                    {userNickname} 의 전반적 성취도
+                  </ResultText>
                   <ProgressCntr>
                     <AnimatedCircularProgress
                       size={150}
