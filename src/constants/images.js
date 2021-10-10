@@ -1,6 +1,5 @@
 //splash screen
 const splashScreen = require("../assets/marimo_splash.png");
-const readyScreenBackground = require("../assets/readyBackground.png");
 
 const sunflowers = require("../assets/images/memories/sunflowers.png");
 const deer = require("../assets/images/memories/deer.png");
@@ -23,7 +22,6 @@ const scoreSuccess = require("../assets/images/GameObject/SpellingGame/scoreEgg.
 
 export default {
   splashScreen,
-  readyScreenBackground,
   sunflowers,
   deer,
   blocks,

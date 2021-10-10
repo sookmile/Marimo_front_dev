@@ -163,9 +163,9 @@ const Login = ({ navigation }) => {
               <Text>이동</Text>
             </TouchableOpacity>
           </BackCntr>
-          <IntroText style={{ fontSize: hp(3), lineHeight: hp(4.5) }}>
-            안녕, <AppName style={{ fontSize: hp(3) }}>마리모</AppName>에 온 걸
-            환영해!{"\n"}네 이름은 뭐니?
+          <IntroText style={{ fontSize: hp(2.5), lineHeight: hp(4) }}>
+            안녕, <AppName style={{ fontSize: hp(2.5) }}>마리모</AppName>에 온
+            걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
           <Cntr>
             <TouchableOpacity
@@ -384,9 +384,9 @@ const Login = ({ navigation }) => {
               <Text>이동</Text>
             </TouchableOpacity>
           </BackCntr>
-          <IntroText style={{ fontSize: hp(3), lineHeight: hp(4.5) }}>
-            안녕, <AppName style={{ fontSize: hp(3) }}>마리모</AppName>에 온 걸
-            환영해!{"\n"}네 이름은 뭐니?
+          <IntroText style={{ fontSize: hp(2.5), lineHeight: hp(4) }}>
+            안녕, <AppName style={{ fontSize: hp(2.5) }}>마리모</AppName>에 온
+            걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
           <Cntr>
             <View
