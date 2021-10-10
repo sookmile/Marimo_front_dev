@@ -30,6 +30,7 @@ export const UserHeader = ({ userNickname, type }) => {
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 0);
 
+
   const navigation = useNavigation();
 
   return (
@@ -50,7 +51,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <View
               style={{
                 position: "absolute",
-                left: width * 0.4,
+                left: '45%',
                 width: "100%",
                 alignItems: "flex-start",
               }}
@@ -75,7 +76,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <View
               style={{
                 position: "absolute",
-                left: width * 0.4,
+                left: '45%',
                 width: "100%",
                 alignItems: "flex-start",
               }}
@@ -101,7 +102,7 @@ export const UserHeader = ({ userNickname, type }) => {
               <View
                 style={{
                   position: "absolute",
-                  left: width * 0.4,
+                  left: '45%',
                   width: "100%",
                   alignItems: "flex-start",
                 }}

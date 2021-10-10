@@ -174,7 +174,7 @@ function SettingScreen({ navigation }) {
                   }}
                 />
               </Contents>
-              <Contents height={height}>
+              <Contents height={height} isLast>
                 <InfoText>다크 모드</InfoText>
                 <Switch
                   trackColor={{ false: "#E5E5E5", true: "#4E5CF6" }}
@@ -253,7 +253,8 @@ function SettingScreen({ navigation }) {
               <BasicCntr>
                 <ImgCntr>
                   <ChImage
-                    style={{ width: 75, height: 75 }}
+                    resizeMode="contain"
+                    style={{ width: "90%", height: "90%" }}
                     source={chrImage}
                   />
                 </ImgCntr>
@@ -264,7 +265,7 @@ function SettingScreen({ navigation }) {
                   </UserRegister>
                   <ProgressBar
                     style={{
-                      width: 200,
+                      width: "90%",
                       marginTop: 15,
                       height: 10,
                       borderRadius: 5,
@@ -333,7 +334,8 @@ const ContentText = styled.Text`
 const CloseBtn = styled.TouchableOpacity`
   position: absolute;
   bottom: 5%;
-  height: 11.5%;
+  height: 14%;
+  padding: 2%;
   width: 30%;
   border-radius: 5;
   align-items: center;
@@ -345,13 +347,15 @@ const CloseText = styled.Text`
   font-family: NanumSquareRound;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 25px;
   color: #454545;
 `;
 
 const Contents = styled.TouchableOpacity`
   height: ${(props) => props.height * 0.065};
+  margin-bottom: ${(props) => (props.isLast ? "10%" : "0%")};
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -363,7 +367,7 @@ const InfoText = styled.Text`
 `;
 
 const BasicCntr = styled.View`
-  width: 100%;
+  width: 95%;
   height: 150px;
   padding: 10px 20px;
   display: flex;
