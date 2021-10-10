@@ -152,8 +152,8 @@ const StartMain = ({ navigation }) => {
   const style = StyleSheet.create({
     view: {
       backgroundColor: "#FFFBF8",
-      width: "100%",
-      height: "100%",
+      width: '100%',
+      height: '100%',
       alignItems: "center",
       justifyContent: "center",
     },
