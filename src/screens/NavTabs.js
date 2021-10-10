@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { COLORS, navTabIcons } from "../constants/index";
-import Settings from "./Settings";
+import SettingScreen from "./SettingScreen";
 import Explore from "./ExploreScreen";
 import Game from "./GameScreen";
 import Story from "./StoryScreen";
@@ -64,8 +64,8 @@ const NavTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={Settings}
+        name="SettingScreen"
+        component={SettingScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
@@ -79,13 +79,13 @@ const NavTabs = () => {
         }}
       />
       {/*<Tab.Screen
-        name="Settings"
-        component={Settings}
+        name="SettingScreen"
+        component={SettingScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
               <Image
-                source={icons.Settings_ic}
+                source={icons.SettingScreen_ic}
                 resizeMode="contain"
                 style={styles.icons}
               />

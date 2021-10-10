@@ -54,6 +54,7 @@ const ListItem2 = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
+        marginHorizontal: SIZES.padding,
       }}
     >
       <ContnetSubCntr onPress={() => navigation.navigate("Detail")}>
@@ -183,7 +184,7 @@ const ExploreMain = ({ navigation }) => {
 
   const getUserData = async (userId) => {
     await axios
-      .post(preURL + "marimo/getNickName", { userId: 1 })
+      .post(preURL + "marimo/getNickName", { userId: userId })
       .then((res) => {
         const response = res.data;
         console.log("성공:", response);
@@ -198,7 +199,7 @@ const ExploreMain = ({ navigation }) => {
     try {
       const response = await fetch(preURL + "/image/show", {
         method: "POST",
-        body: JSON.stringify({ userId: 1 }),
+        body: JSON.stringify({ userId: userId }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -243,7 +244,7 @@ const ExploreMain = ({ navigation }) => {
     userData.map((obj) => console.log(obj));
   }, [userData]);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
@@ -262,7 +263,6 @@ const ExploreMain = ({ navigation }) => {
           <View
             style={{
               width: "94%",
-              height: "100%",
               alignContent: "center",
               alignItems: "center",
               overflow: "visible",
@@ -285,7 +285,6 @@ const ExploreMain = ({ navigation }) => {
                   overflow: "visible",
                   marginTop: "15%",
                   marginBottom: 5,
-                  height: 200 * userData.length,
                 }}
               >
                 <StudyTxt>찰칵, 카메라를 눌러서 찾아봐요!</StudyTxt>

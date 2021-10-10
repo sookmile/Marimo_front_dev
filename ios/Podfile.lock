@@ -273,9 +273,14 @@ PODS:
     - React
   - react-native-safe-area-context (3.3.0):
     - React-Core
+  - react-native-video (5.1.1):
+    - React-Core
+    - react-native-video/Video (= 5.1.1)
   - react-native-video-cache (2.0.5):
     - KTVHTTPCache (~> 2.0.0)
     - React
+  - react-native-video/Video (5.1.1):
+    - React-Core
   - react-native-voice (1.1.9):
     - React
   - React-perflogger (0.64.2)
@@ -346,6 +351,8 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
+  - RNDateTimePicker (3.5.2):
+    - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNNaverLogin (2.1.1):
@@ -440,6 +447,7 @@ DEPENDENCIES:
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
   - react-native-orientation (from `../node_modules/react-native-orientation`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - react-native-video-cache (from `../node_modules/react-native-video-cache`)
   - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -456,6 +464,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -525,6 +534,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-orientation"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   react-native-video-cache:
     :path: "../node_modules/react-native-video-cache"
   react-native-voice:
@@ -557,6 +568,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNNaverLogin:
@@ -582,7 +595,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: b5e3e0fed9e60c1b011523ab3f1ad02ded1a4027
+  FBReactNativeSpec: b7c08d2a51d353d977cfa7bb3e1d11c7fe7f09b1
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -611,6 +624,7 @@ SPEC CHECKSUMS:
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
+  react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
   react-native-video-cache: 0f8b1b2195f234eabd507cfebdd91c2e82695008
   react-native-voice: eb6b7c7f752310f72a6f4d64c2fba6ee724d6604
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
@@ -627,6 +641,7 @@ SPEC CHECKSUMS:
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   RNCAsyncStorage: e8b8d6320a0dd90eb610fb0d0b1ef90596697c69
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNNaverLogin: 2dcf003d4f52f8d5c15c3a5fadaa20b52352f4fe
   RNReanimated: 241c586663f44f19a53883c63375fdd041253960
@@ -638,6 +653,6 @@ SPEC CHECKSUMS:
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 9ae00d0f69832bf9101628462d7b2af4c0ebe897
+PODFILE CHECKSUM: 272ad86e3f05c01a3491367b3b5868527b3b03d0
 
-COCOAPODS: 1.11.0
+COCOAPODS: 1.10.1
