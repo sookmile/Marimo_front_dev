@@ -62,9 +62,9 @@ const Character = ({ route, navigation }) => {
             <Text>이동</Text>
           </TouchableOpacity>
         </BackCntr>
-        <IntroText style={{ fontSize: hp(2.5), lineHeight: hp(4) }}>
+        <IntroText style={{ fontSize: hp(3), lineHeight: hp(4.5) }}>
           만나서 반가워,{" "}
-          <AppName style={{ fontSize: hp(2.5), lineHeight: hp(4) }}>
+          <AppName style={{ fontSize: hp(3), lineHeight: hp(4) }}>
             {name}
           </AppName>
           아!{"\n"}너와 함께 모험을 떠날 친구를 {"\n"}골라봐!

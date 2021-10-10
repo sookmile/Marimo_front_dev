@@ -227,7 +227,7 @@ const AppName = Styled.Text`
 const DtText = Styled.Text`
     margin-top:${(props) => props.margin};
     margin-bottom:${(props) => props.margin * 2};
-    color: #191919;
+    color: #515151;
     font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
@@ -253,7 +253,6 @@ const Btn2 = Styled.TouchableOpacity`
 `;
 const NIMg = Styled.Image`
   background-color: #03C75A;
-  color: white;
   width: 270px;
   height: 50px;
   border-radius: 14px;
