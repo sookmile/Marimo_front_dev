@@ -181,7 +181,7 @@ const Practice = ({ route, navigation }) => {
           <View style={styles.videoContainer}>
             <Video
               source={{
-                uri: "https://storage.googleapis.com/marimo_bucket/video/%E1%84%8E%E1%85%B5%E1%86%B7%E1%84%83%E1%85%A2.mp4",
+                uri: URI,
               }}
               style={styles.mediaPlayer}
               volume={10}
