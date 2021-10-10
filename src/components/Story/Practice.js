@@ -27,20 +27,6 @@ const Practice = ({ route, navigation }) => {
   const [URI, setURI] = useState("");
   const { oWord, Lastpage } = route.params;
   
-  useEffect(() => {
-    Orientation.lockToPortrait();
-    Orientation.addOrientationListener(onOrientaionChange);
-    return () => {
-      Orientation.unlockAllOrientations(),
-        Orientation.removeOrientationListener(onOrientaionChange);
-    };
-  });
-  const onOrientaionChange = (orientation) => {
-    if (orientation === "PORTRAIT") {
-      Orientation.lockToPortrait();
-    }
-  };
-
   const voiceLabel = text
     ? text
     : isRecord

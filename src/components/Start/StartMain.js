@@ -152,8 +152,8 @@ const StartMain = ({ navigation }) => {
   const style = StyleSheet.create({
     view: {
       backgroundColor: "#FFFBF8",
-      width: '100%',
-      height: '100%',
+      width: "100%",
+      height: "100%",
       alignItems: "center",
       justifyContent: "center",
     },
@@ -205,6 +205,7 @@ const LogoCntr = Styled.View`
 const BtnCntr = Styled.View`
     width:88%;
     height:30%;
+    margin-top:5%;
     justify-content:center;
     align-items:center;
 `;
@@ -229,19 +230,17 @@ const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
   width: 100%;
-  height: 30%;
+  height: 35%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
 
 `;
 const Btn2 = Styled.TouchableOpacity`
-
   background-color: #03C75A;
   color: white;
-
   width: 100%;
-  height: 30%;
+  height: 35%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;

@@ -30,7 +30,7 @@ const ConfirmCh = ({ route, navigation }) => {
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 70) : (cntrMargin = 20);
 
-  // post character 
+  // post character
   const postCharacter = async (body) => {
     console.log(body);
     await axios
