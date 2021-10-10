@@ -5,9 +5,9 @@ import {
   Switch,
   Text,
   StyleSheet,
-  ScrollView,
-  StatusBar,
+  Image,
   Dimensions,
+  Alert,
   TouchableOpacity,
 } from "react-native";
 import Modal from "react-native-modal";
@@ -15,18 +15,54 @@ import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import styled from "styled-components";
-import { SIZES, COLORS, navTabIcons } from "../constants";
-import { fontPercentage } from "../constants/responsive";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import axios from "axios";
+import preURL from "../preURL/preURL";
+
 import Icon from "react-native-vector-icons/Ionicons";
-
+import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
+import { character } from "../assets/icons/Character/Character";
 function SettingScreen({ navigation }) {
+  const [userId, setUserID] = useState(-1);
+  const [recordInfo, setRecordInfo] = useState([]);
+  const [chrImage, setChrImage] = useState("");
+  const [userNickname, setUserNickName] = useState("");
   const { width, height } = Dimensions.get("window");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [alarm, setAlarm] = useState(true);
   const alarmToggleSwitch = () => setAlarm((previousState) => !previousState);
-  const [darkMode, setDarkMode] = useState(false);
-  const darkToggleSwitch = () => setDarkMode((previousState) => !previousState);
+
+  useEffect(async () => {
+    const id = await AsyncStorage.getItem("userId");
+    const chrNum = await AsyncStorage.getItem("characterNum");
+    const nickname = await AsyncStorage.getItem("userNickname");
+
+    console.log(id);
+    console.log(chrNum);
+    console.log(nickname);
+    await setChrImage(character[chrNum].src);
+    await setUserNickName(nickname);
+    await setUserID(Number(id));
+
+    await getRecord(id);
+  }, []);
+
+  const getRecord = async (id) => {
+    console.log(id);
+    await axios
+      .post(preURL.preURL + "/marimo/user/record", {
+        userId: 1,
+      })
+      .then(async (res) => {
+        const response = res.data;
+        console.log(res.data);
+        await setRecordInfo(response);
+        setData(response);
+      })
+      .catch((err) => {
+        console.log("에러 발생 ");
+        console.log(err);
+      });
+  };
 
   const resetAction = CommonActions.reset({
     index: 1,
@@ -36,7 +72,7 @@ function SettingScreen({ navigation }) {
     await NaverLogin.logout();
     await AsyncStorage.setItem("token", "");
     console.log("로그아웃");
-
+    Alert.alert("로그아웃 되셨습니다");
     navigation.dispatch(resetAction);
     navigation.navigate("StartMain");
   };
@@ -161,7 +197,10 @@ function SettingScreen({ navigation }) {
               }}
             >
               <ContentText>더 보기</ContentText>
-              <Contents height={height}>
+              <Contents
+                height={height}
+                onPress={() => setIsModalOpen(!isModalOpen)}
+              >
                 <InfoText>사용자 정보</InfoText>
                 <Icon
                   name="chevron-forward"
@@ -190,9 +229,58 @@ function SettingScreen({ navigation }) {
               </Contents>
             </Cntr>
           </View>
-          <VersionText isGray={true}>마리모 2.0.3</VersionText>
+          <VersionText isGray={true}>마리모 0.9.7</VersionText>
         </View>
       </View>
+      {
+        <Modal
+          isVisible={isModalOpen}
+          onBackdropPress={() => setIsModalOpen(false)}
+        >
+          <View style={styles.modal}>
+            <Text
+              style={{
+                fontFamily: "NanumSquareRoundB",
+                lineHeight: 25,
+                fontSize: 22,
+                fontWeight: "bold",
+                color: "#454545",
+              }}
+            >
+              사용자 정보
+            </Text>
+            <View>
+              <BasicCntr>
+                <ImgCntr>
+                  <ChImage
+                    style={{ width: 75, height: 75 }}
+                    source={chrImage}
+                  />
+                </ImgCntr>
+                <Info>
+                  <UserName>{userNickname}</UserName>
+                  <UserRegister>
+                    가입일자: {recordInfo?.registerDate}
+                  </UserRegister>
+                  <ProgressBar
+                    style={{
+                      width: 200,
+                      marginTop: 15,
+                      height: 10,
+                      borderRadius: 5,
+                    }}
+                    progress={0.5}
+                    color={"#A49CFA"}
+                  />
+                </Info>
+              </BasicCntr>
+            </View>
+            <CloseBtn onPress={() => setIsModalOpen(false)}>
+              <CloseText>닫기</CloseText>
+            </CloseBtn>
+          </View>
+        </Modal>
+      }
     </View>
   );
 }
@@ -204,6 +292,15 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     padding: 20,
+    height: "100%",
+  },
+  modal: {
+    width: "100%",
+    height: "40%",
+    borderRadius: 10,
+    paddingTop: "10%",
+    backgroundColor: "white",
+    alignItems: "center",
   },
 });
 
@@ -223,8 +320,6 @@ const SettingText = styled.Text`
   border-bottom-color: #dedede;
 `;
 const Cntr = styled.View`
-  padding-horizontal: 5;
-
   display: flex;
   justify-content: center;
   border-bottom-width: 1;
@@ -234,6 +329,25 @@ const ContentText = styled.Text`
   font-size: 18;
   color: gray;
   margin-bottom: 12;
+`;
+const CloseBtn = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 5%;
+  height: 11.5%;
+  width: 30%;
+  border-radius: 5;
+  align-items: center;
+  justify-content: center;
+  background-color: #a49cfa;
+`;
+
+const CloseText = styled.Text`
+  font-family: NanumSquareRound;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #454545;
 `;
 
 const Contents = styled.TouchableOpacity`
@@ -248,41 +362,43 @@ const InfoText = styled.Text`
   color: ${(props) => (props.isGray ? "#555555" : "#191919")};
 `;
 
-const ItemBox = styled.TouchableOpacity`
-  width: 97px;
-  height: 105px;
-  elevation: 1;
-  border-width: 0.0125;
-  margin-right: 10;
-  background: ${(props) => props.background};
-  border-radius: 20;
-  border-color: ${(props) => props.background};
-  align-items: center;
-  align-content: center;
-`;
-const ItemText = styled.Text`
-  color: ${(props) => props.color};
-  text-align: center;
-  padding-horizontal: 5;
-  margin-top: 10;
-  font-family: NanumSquareRoundB;
-  font-size: 18;
-  font-weight: bold;
-`;
-
-const ItemButton = styled.View`
-  margin-right: ${(props) => (props.label !== "탐험" ? 15 : 0)};
-  overflow: visible;
-`;
-const StudyTxt = styled.Text`
-  font-family: NanumSquareRoundB;
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: bold;
-  color: #191919;
-`;
-
-const Wrapper = styled.View`
+const BasicCntr = styled.View`
   width: 100%;
-  height: 100;
+  height: 150px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+`;
+const Info = styled.View`
+  width: 65%;
+`;
+const ImgCntr = styled.View`
+  width: 30%;
+  align-items: center;
+`;
+
+const ChImage = styled(Image)`
+  width: 90px;
+`;
+
+const UserName = styled.Text`
+  font-family: NanumSquareRound;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  margin-bottom: 8px;
+  color: #000000;
+`;
+
+const UserRegister = styled.Text`
+  font-family: NanumSquareRound;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  /* identical to box height */
+  color: #9b979d;
 `;
