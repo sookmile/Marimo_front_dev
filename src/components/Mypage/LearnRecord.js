@@ -23,17 +23,10 @@ import {
   YAxis,
 } from "react-native-svg-charts";
 import * as scale from "d3-scale";
-
-import CustomButton from "../CustomButton/CustomButton";
 import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
 import styled from "styled-components";
-import Character1 from "../../assets/icons/Character/Character1.png";
-import Character2 from "../../assets/icons/Character/Character2.png";
-import Character3 from "../../assets/icons/Character/Character3.png";
-import Character4 from "../../assets/icons/Character/Character4.png";
-import Contents from "../../assets/images/memories/sunflowers.png";
-import Inactive from "../../assets/icons/Character/Inactive.png";
-import { FlatList } from "react-native";
+import { character } from "../../assets/icons/Character/Character";
+
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -41,30 +34,22 @@ import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
-import { blue100 } from "react-native-paper/lib/typescript/styles/colors";
 import Tts from "react-native-tts";
 
-const character = [
-  { value: 0, src: Character1, label: "모모" },
-  { value: 1, src: Character2, label: "말랑이" },
-  { value: 2, src: Character3, label: "행복이" },
-  { value: 3, src: Character4, label: "기쁨이" },
-];
-
 const LearnRecord = ({ navigation, route }) => {
-  const onSelectSwitch = (index) => {
-    alert("Selected index: " + index);
-  };
+  // toggle section
   const [getSelectionMode, setSelectionMode] = useState(1);
-  const [grade, setGrade] = useState(80);
+  // achivement
+  const [grade, setGrade] = useState(0);
+  // difficult word
   const [diffWord, setDiffWord] = useState(["양동이", "옷걸이", "장미꽃"]);
+
   const [userId, setUserID] = useState(-1);
+  const [chrImage, setChrImage] = useState("");
   const [recordInfo, setRecordInfo] = useState([]);
-  const [word, setWord] = useState({});
-  const [joinNum, setJoinNum] = useState({});
+  const [goodWord, setGoodWord] = useState([]);
   const [userNickname, setUserNickName] = useState("");
-  const fill = "rgb(134, 65, 244)";
-  const data = [50, 10, 40, 95, 40, 20];
+
   const data2 = [
     {
       value: 50,
@@ -104,22 +89,39 @@ const LearnRecord = ({ navigation, route }) => {
     ));
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userId");
+    const chrNum = await AsyncStorage.getItem("characterNum");
     const nickname = await AsyncStorage.getItem("userNickname");
-    setUserNickName(nickname);
-    setUserID(Number(id));
+
+    console.log(id);
+    console.log(chrNum);
+    console.log(nickname);
+    await setChrImage(character[chrNum].src);
+    await setUserNickName(nickname);
+    await setUserID(Number(id));
+
     await getRecord(id);
   }, []);
 
-  useEffect(() => {
-    if (recordInfo.length !== 0) {
-      setWord({ success: recordInfo.mostSuccess, fail: recordInfo.mostFail });
-      setJoinNum({
-        game: recordInfo.gameJoinNum,
-        tail: recordInfo.taleJoinNum,
+  const setData = (response) => {
+    if (response.length !== 0) {
+      console.log(response);
+      const getEntries = response.mostSuccessWord.map((obj) => {
+        return { label: obj.word, value: Number(obj.count) };
       });
-      setGrade(recordInfo.achievementRate);
+
+      setGoodWord([...getEntries]);
+      console.log(getEntries);
+      const failWord = response.mostFailWord.map((obj) => {
+        console.log(obj);
+        return { label: obj.count, value: obj.word };
+      });
+      console.log("실패");
+      console.log(failWord);
+      setDiffWord(failWord);
+      setGrade(response.achievementRate);
     }
-  }, [recordInfo]);
+  };
+
   const getRecord = async (id) => {
     console.log(id);
     await axios
@@ -130,6 +132,7 @@ const LearnRecord = ({ navigation, route }) => {
         const response = res.data;
         console.log(res.data);
         await setRecordInfo(response);
+        setData(response);
       })
       .catch((err) => {
         console.log("에러 발생 ");
@@ -170,19 +173,20 @@ const LearnRecord = ({ navigation, route }) => {
           ></Icon>
           <BackIcon>뒤로 가기</BackIcon>
         </BackCntr>
-        <Cntr style>
+        <Cntr >
           <Text
             style={{
-              fontFamily: "Cafe24Ssurround",
-              lineHeight: 21,
-              fontSize: 18,
+              fontFamily: "NanumSquareRoundB",
+              lineHeight: 25,
+              fontSize: 22,
+              fontWeight: "bold",
             }}
           >
             나의 기록들
           </Text>
           <BasicCntr>
             <ImgCntr>
-              <ChImage style={{ width: 75, height: 75 }} source={item.src} />
+              <ChImage style={{ width: 75, height: 75 }} source={chrImage} />
             </ImgCntr>
             <Info>
               <UserName>{userNickname}</UserName>
@@ -202,9 +206,10 @@ const LearnRecord = ({ navigation, route }) => {
           <RecordCntr>
             <Text
               style={{
-                fontFamily: "Cafe24Ssurround",
-                lineHeight: 21,
-                fontSize: 18,
+                fontFamily: "NanumSquareRoundB",
+                lineHeight: 24,
+                fontSize: 20,
+                fontWeight: "700",
                 width: "100%",
                 textAlign: "left",
               }}
@@ -226,7 +231,9 @@ const LearnRecord = ({ navigation, route }) => {
             {getSelectionMode === 1 ? (
               <MainCntr isResult>
                 <ChartCntr>
-                  <ResultText>{userNickname} 의 전반적 성취도</ResultText>
+                  <ResultText style={{ fontFamily: "NanumSquareRoundB" }}>
+                    {userNickname} 의 전반적 성취도
+                  </ResultText>
                   <ProgressCntr>
                     <AnimatedCircularProgress
                       size={150}
@@ -248,9 +255,7 @@ const LearnRecord = ({ navigation, route }) => {
                     </AnimatedCircularProgress>
                   </ProgressCntr>
                   <ResultText isSmall>
-                    {userNickname} (은)는 모음과 자음의 발음에 능숙합니다.{"\n"}
-                    아직 받침이 있는 단어의 발음과 된자음의 발음에 어려움을
-                    겪습니다.
+                    {userNickname} 은(는) {recordInfo?.analysis}
                   </ResultText>
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
@@ -259,7 +264,7 @@ const LearnRecord = ({ navigation, route }) => {
                   <View style={{ height: 210, padding: 20 }}>
                     <BarChart
                       style={{ flex: 1 }}
-                      data={data2.map((obj) => obj.value)}
+                      data={goodWord.map((obj) => obj.value)}
                       gridMin={0}
                       svg={{ fill: "rgb(134, 65, 244)" }}
                     >
@@ -267,17 +272,19 @@ const LearnRecord = ({ navigation, route }) => {
                     </BarChart>
                     <XAxis
                       style={{ marginTop: 10 }}
-                      data={data2}
+                      data={goodWord}
                       scale={scale.scaleBand}
-                      formatLabel={(value, index) => data2[index].label}
+                      formatLabel={(value, index) => goodWord[index].label}
                       contentInset={{ left: 0 }}
                       svg={{ fontSize: 13, fill: "black" }}
                     />
                     <XAxis
                       style={{ marginTop: 10 }}
-                      data={data2}
+                      data={goodWord}
                       scale={scale.scaleBand}
-                      formatLabel={(value, index) => data2[index].value}
+                      formatLabel={(value, index) =>
+                        `${goodWord[index].value}회`
+                      }
                       contentInset={{ left: 0 }}
                       svg={{ fontSize: 13, fill: "black" }}
                     />
@@ -296,14 +303,14 @@ const LearnRecord = ({ navigation, route }) => {
                             numberOfLines={1}
                             ellipsizeMode="tail"
                           >
-                            {obj}
+                            {obj?.value}
                           </ContentDiffWord>
                           <ContentText
                             style={{ width: "100%", fontSize: 13 }}
                             numberOfLines={1}
                             ellipsizeMode="tail"
                           >
-                            {obj === "장미꽃"
+                            {obj?.label === "모험"
                               ? "모험-앗, 도와줘! 우당탕탕 왕국 모험"
                               : "게임-마리모와 함께하는 모음학습"}
                           </ContentText>
@@ -350,8 +357,17 @@ const LearnRecord = ({ navigation, route }) => {
                       <ContentTitle numberOfLines={1} ellipsizeMode="tail">
                         마리모 친구들의 얼음성 탐험
                       </ContentTitle>
-                      <ContentText>10회 플레이 </ContentText>
-                      <ContentText>최고점 단어 : '양동이' </ContentText>
+                      <ContentText>
+                        {recordInfo?.talePlayCount !== 0
+                          ? `${recordInfo?.talePlayCount}회 플레이`
+                          : "미참여"}{" "}
+                      </ContentText>
+                      <ContentText>
+                        최고점 단어 :{" "}
+                        {recordInfo?.taleBestWord !== ""
+                          ? `'${recordInfo?.taleBestWord}'`
+                          : "기록 없음"}{" "}
+                      </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>
                 </ContentCntr>
@@ -362,8 +378,8 @@ const LearnRecord = ({ navigation, route }) => {
                     numberOfLines={2}
                     ellipsizeMode="tail"
                   >
-                    {userNickname} (이)가 가장 많이 플레이한 게임은 '동물
-                    친구들의 초성 게임' 이에요
+                    {userNickname} (이)가 가장 많이 플레이한 게임은 ' 냠냠
+                    맛있는 모음게임' 이에요
                   </ContentExp>
                   <ContnetSubCntr>
                     <View style={{ width: "30%" }}>
@@ -378,10 +394,22 @@ const LearnRecord = ({ navigation, route }) => {
                     </View>
                     <ContentTexts style={{ width: "64%" }}>
                       <ContentTitle numberOfLines={1} ellipsizeMode="tail">
-                        호두까기 인형
+                        냠냠 맛있는 모음게임
                       </ContentTitle>
-                      <ContentText>15회 플레이 </ContentText>
-                      <ContentText>최고점 단어 : '병정 인형' </ContentText>
+                      <ContentText>
+                        <ContentText>
+                          {recordInfo?.gamePlayCount !== 0
+                            ? `${recordInfo?.gamePlayCount}회 플레이`
+                            : "미참여"}{" "}
+                        </ContentText>
+                      </ContentText>
+                      <ContentText>
+                        최고점 단어 : '
+                        {recordInfo?.gameBestWord !== ""
+                          ? `'${recordInfo?.gameBestWord}'`
+                          : "기록 없음"}{" "}
+                        '
+                      </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>
                 </ContentCntr>
@@ -605,29 +633,12 @@ const BackIcon = styled.Text`
   width: 120px;
   font-size: 18px;
 `;
+
 const Container = styled.View`
   flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-`;
-
-const IntroText = styled.Text`
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: 30px;
-  line-height: 40px;
-`;
-const AppName = styled.Text`
-  font-size: 22px;
-  color: #f66c6c;
-`;
-
-const CharacterName = styled.Text`
-font-size: 16px;
-line-height: 23.5
-color: #191919;
-margin-top: 10;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 1%;
 `;
 
 const styles = StyleSheet.create({

@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Image,
   StatusBar,
+  Alert,
   ScrollView,
   FlatList,
 } from "react-native";
@@ -20,27 +21,12 @@ import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
 
-const ListItem = ({ item }) => {
-  const navigation = useNavigation();
-
-  return (
-    <ItemButton label={item.label}>
-      <ItemBox
-        background={item.background}
-        onPress={() => navigation.navigate(`${item.router}`)}
-      >
-        <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
-        <ItemText color={item.color}>{item.label}</ItemText>
-      </ItemBox>
-    </ItemButton>
-  );
-};
-
 const renderItem = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View
       style={{
+        width: "100%",
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
@@ -48,12 +34,18 @@ const renderItem = ({ item }) => {
         marginHorizontal: SIZES.padding,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+      <ContnetSubCntr
+        onPress={() =>
+          item.router === "null"
+            ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
+            : navigation.navigate(`${item.router}`)
+        }
+      >
         <ChImage
           style={{
             borderRadius: 20,
-            width: 90,
-            height: 90,
+            width: "26%",
+            height: "94%",
           }}
           source={item.src}
         />
@@ -69,7 +61,7 @@ const renderItem = ({ item }) => {
 };
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
-  height: 108px;
+  height: 100%;
   background: #fbf8ff;
   border-radius: 23;
   justify-content: space-between;
@@ -77,8 +69,8 @@ const ContnetSubCntr = styled.TouchableOpacity`
   display: flex;
   elevation: 10;
   flex-direction: row;
-  padding-horizontal: 10;
-  margin-horizontal: 10;
+  padding-vertical: 1.5%;
+  padding-horizontal: 2.5%;
 `;
 const ChImage = styled(Image)`
   width: 20%;
@@ -144,7 +136,9 @@ const StoryMain = () => {
           <View
             style={{
               width: "94%",
-              height: "57%",
+              height: "55%",
+              marginBottom: "5%",
+
               alignContent: "center",
               alignItems: "center",
             }}
@@ -154,6 +148,8 @@ const StoryMain = () => {
                 display: "flex",
                 flex: 1,
                 marginBottom: 5,
+                height: "100%",
+                marginTop: "10%",
               }}
             >
               <View
@@ -183,32 +179,6 @@ const StoryMain = () => {
 
 export default StoryMain;
 
-const SECTIONS1 = [
-  {
-    key: "1",
-    label: "동화",
-    src: navTabIcons.ic_story,
-    color: "#CCAB37",
-    background: "rgba(251, 222, 120, 0.08)",
-    router: "Story",
-  },
-  {
-    key: "2",
-    label: "게임",
-    src: navTabIcons.ic_game,
-    color: "#D5A0FE",
-    background: "rgba(213, 160, 254, 0.08)",
-    router: "Game",
-  },
-  {
-    key: "3",
-    label: "탐험",
-    src: navTabIcons.ic_camera,
-    color: "#F66C6C",
-    background: "rgba(246, 108, 108, 0.08)",
-    router: "Explore",
-  },
-];
 const SECTIONS3 = [
   {
     key: "1",
@@ -224,7 +194,7 @@ const SECTIONS3 = [
     age: "7~8",
     src: navTabIcons.ic_story2,
     number: 20,
-    router: "StoryLoading",
+    router: "null",
   },
   {
     key: "3",
@@ -232,35 +202,7 @@ const SECTIONS3 = [
     src: navTabIcons.ic_story3,
     age: "7~8",
     number: 20,
-    router: "StoryLoading",
-  },
-];
-
-const SECTIONS2 = [
-  {
-    title: "Made for you",
-    horizontal: true,
-    data: [
-      {
-        key: "1",
-        text: "이상한 나라의 앨리스",
-        src: "https://picsum.photos/id/1/200",
-        route: "StoryLoading",
-      },
-      {
-        key: "2",
-        text: "호두까기 인형",
-        uri: "https://picsum.photos/id/10/200",
-        route: "StoryLoading",
-      },
-
-      {
-        key: "3",
-        text: "Item text 3",
-        uri: "https://picsum.photos/id/1002/200",
-        route: "StoryLoading",
-      },
-    ],
+    router: "null",
   },
 ];
 
@@ -377,31 +319,7 @@ const styles = StyleSheet.create({
     fontSize: wp(3.5),
   },
 });
-const ItemBox = styled.TouchableOpacity`
-  width: 97px;
-  height: 105px;
 
-  margin-right: 10;
-  background: ${(props) => props.background};
-  border-radius: 20px;
-  border-color: ${(props) => props.background};
-  align-items: center;
-  align-content: center;
-`;
-const ItemText = styled.Text`
-  color: ${(props) => props.color};
-  text-align: center;
-  padding-horizontal: 5;
-  margin-top: 10;
-  font-family: NanumSquareRoundB;
-  font-size: 18;
-  font-weight: bold;
-`;
-
-const ItemButton = styled.View`
-  margin-right: ${(props) => (props.label !== "탐험" ? 15 : 0)};
-  overflow: visible;
-`;
 const StudyTxt = styled.Text`
   font-family: NanumSquareRoundB;
   font-size: 22px;

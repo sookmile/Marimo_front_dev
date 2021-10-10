@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   View,
-  Text,
-  TouchableOpacity,
   Dimensions,
   StyleSheet,
   Image,
@@ -54,11 +52,6 @@ const StartMain = ({ navigation }) => {
     });
   };
 
-  useEffect(async () => {
-    console.log("token");
-    console.log(naverToken);
-  }, [naverToken]);
-
   const naverLogout = () => {
     NaverLogin.logout();
     setNaverToken("");
@@ -72,7 +65,6 @@ const StartMain = ({ navigation }) => {
   }, [naverToken]);
 
   const Login = async (props) => {
-    console.log(2);
     await naverLogin(props);
   };
 
@@ -161,6 +153,7 @@ const StartMain = ({ navigation }) => {
         >
           <MainLogo
             width={height * 0}
+            resizeMode="contain"
             source={require("../../assets/icons/MainLogo.png")}
           />
           <AppName margin={topMargin}>마리모</AppName>
@@ -178,9 +171,6 @@ const StartMain = ({ navigation }) => {
             >
               <BtnText>이어하기</BtnText>
             </Btn>
-            {!!naverToken && (
-              <Button title="로그아웃하기" onPress={naverLogout} />
-            )}
           </BtnCntr>
         </LogoCntr>
       </Cntr>
@@ -188,16 +178,20 @@ const StartMain = ({ navigation }) => {
   );
 };
 const MainLogo = Styled.Image`
-    height: 132px;
-    width: 132px;
+    height: 23%;
+    width: 35%;
 `;
 const LogoCntr = Styled.View`
     align-items:center;
     justify-content:center;
+    width:100%;
     height: ${(props) => props.width};
 `;
 const BtnCntr = Styled.View`
-    margin-top:20px;
+    width:88%;
+    height:30%;
+    justify-content:center;
+    align-items:center;
 `;
 const AppName = Styled.Text`
     margin-top:${(props) => props.margin};
@@ -219,8 +213,8 @@ const DtText = Styled.Text`
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
-  width: 343px;
-  height: 56px;
+  width: 100%;
+  height: 30%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -230,10 +224,9 @@ const Btn2 = Styled.TouchableOpacity`
 
   background-color: #03C75A;
   color: white;
-  padding:10px;
 
-  width: 343px;
-  height: 56px;
+  width: 100%;
+  height: 30%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -243,22 +236,11 @@ const Btn2 = Styled.TouchableOpacity`
 const NIMg = Styled.Image`
   background-color: #03C75A;
   color: white;
-  width: 270px;
-  height: 50px;
+  width: 70%;
+  height: 90%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
-`;
-const ContinueBtn = Styled.TouchableOpacity`
-
-  background-color: #B16CF6;
-  color: white;
-  width: 343px;
-  height: 56px;
-  border-radius: 14px;
-  align-items:center;
-  justify-content:center;
-
 `;
 
 const Cntr = Styled.View`

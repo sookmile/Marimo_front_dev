@@ -37,16 +37,17 @@ const ListItem = ({ item }) => {
 
 const ItemButton = styled.View`
   width: 30%;
+  height: 100%;
   align-items: center;
   overflow: visible;
 `;
 
 const ItemBox = styled.TouchableOpacity`
   width: 100%;
-  height: 105px;
+  height: 100%;
   elevation: 1;
   border-width: 0.0125;
-  margin-right: 10;
+  margin-right: 10%;
   background: ${(props) => props.background};
   border-radius: 20;
   border-color: ${(props) => props.background};
@@ -56,43 +57,47 @@ const ItemBox = styled.TouchableOpacity`
 const ItemText = styled.Text`
   color: ${(props) => props.color};
   text-align: center;
-  padding-horizontal: 5;
-  margin-top: 10;
+  margin-top: 10%;
   font-family: NanumSquareRoundB;
   font-size: 18;
   font-weight: bold;
 `;
 
-const renderItem = ({ item }) => (
-  <View
-    style={{
-      alignContent: "center",
-      alignItems: "center",
-      justifyContent: "center",
-      marginVertical: 16,
-    }}
-  >
-    <ContnetSubCntr>
-      <ChImage
-        style={{
-          borderRadius: 20,
-          width: 90,
-          height: 90,
-        }}
-        source={item.src}
-      />
-      <ContentTexts>
-        <ContentTitle numberOfLines={1} ellipsizeMode="tail">
-          {item.text}
-        </ContentTitle>
-        <ContentText>{item.number}명이 플레이 중입니다.</ContentText>
-      </ContentTexts>
-    </ContnetSubCntr>
-  </View>
-);
-const ContnetSubCntr = styled.View`
+const renderItem = ({ item }) => {
+  const navigation = useNavigation();
+  return (
+    <View
+      style={{
+        width: "100%",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        marginVertical: 16,
+        height: "40%",
+      }}
+    >
+      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+        <ChImage
+          style={{
+            borderRadius: 20,
+            width: "26%",
+            height: "94%",
+          }}
+          source={item.src}
+        />
+        <ContentTexts>
+          <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+            {item.text}
+          </ContentTitle>
+          <ContentText>{item.number}명이 플레이 중입니다.</ContentText>
+        </ContentTexts>
+      </ContnetSubCntr>
+    </View>
+  );
+};
+const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
-  height: 108px;
+  height: 100%;
   background: #fbf8ff;
   border-radius: 23;
   justify-content: space-between;
@@ -100,8 +105,8 @@ const ContnetSubCntr = styled.View`
   display: flex;
   elevation: 10;
   flex-direction: row;
-  padding-horizontal: 10;
-  margin-horizontal: 10;
+  padding-vertical: 1.5%;
+  padding-horizontal: 2.5%;
 `;
 const ChImage = styled(Image)`
   width: 20%;
@@ -170,6 +175,7 @@ const Home = () => {
             style={{
               width: "92%",
               height: "58%",
+
               alignContent: "center",
               alignItems: "center",
             }}
@@ -177,9 +183,11 @@ const Home = () => {
             <View
               style={{
                 display: "flex",
-                marginBottom: 30,
+                marginBottom: "10%",
                 justifyContent: "space-between",
                 width: "100%",
+                height: "27%",
+                marginTop: "5%",
                 flexDirection: "row",
                 alignContent: "center",
                 alignItems: "center",
@@ -193,6 +201,7 @@ const Home = () => {
                 display: "flex",
                 flex: 1,
                 marginBottom: 5,
+                height: "100%",
               }}
             >
               <View
@@ -212,6 +221,7 @@ const Home = () => {
               <View
                 stlye={{
                   flex: 1,
+
                   marginTop: StatusBar.currentHeight || 0,
                   marginBottom: 5,
                 }}
@@ -261,14 +271,14 @@ const SECTIONS3 = [
     text: "앗, 도와줘! 우당탕탕 왕국 모험",
     src: navTabIcons.ic_story1,
     number: 50,
-    route: "Story1",
+    router: "StoryLoading",
   },
   {
     key: "2",
-    text: "동물 친구들의 초성 게임",
+    text: "냠냠 맛있는 모음게임",
     src: navTabIcons.ic_game1,
     number: 20,
-    route: "StoryLoading",
+    router: "SpellingGameContainer",
   },
 ];
 

@@ -133,7 +133,7 @@ const ExploreDetail = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: "#FFFBF8" }]}>
       <StatusBar barStyle="dark-content" />
       {/* 헤더 렌더링 */}
       {renderHeader()}
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   description: {
     color: COLORS.primary,
     fontSize: 34,
-    lineHeight:38,
+    lineHeight: 38,
     fontWeight: "700",
   },
   container_button: {

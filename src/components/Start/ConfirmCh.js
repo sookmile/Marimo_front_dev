@@ -12,30 +12,25 @@ import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import { character } from "../../assets/icons/Character/Character";
+import { bigCharacter } from "../../assets/icons/Character/bigCharacter";
 import Icon2 from "react-native-vector-icons/Ionicons";
 
 /* 캐릭터 선택 페이지 */
 const ConfirmCh = ({ route, navigation }) => {
   const { width, height } = Dimensions.get("window");
-  let topMargin = height * 0.03;
-  let bottomMargin = 0;
-  let displayHeight = 0;
-  const [chrNum, setChrNum] = useState(0);
   const { name, characterNum } = route.params;
 
   useEffect(async () => {
-    console.log("hello");
-    await setChrNum(characterNum);
-    console.log(characterNum.toString());
-    await AsyncStorage.setItem("characterNum", characterNum.toString());
-    console.log(characterNum);
+    console.log("캐릭터 번호");
     console.log(name);
-    console.log(character[characterNum]);
+    console.log(characterNum);
+    await AsyncStorage.setItem("characterNum", characterNum.toString());
   }, []);
+
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 70) : (cntrMargin = 20);
 
+  // post character 
   const postCharacter = async (body) => {
     console.log(body);
     await axios
@@ -50,13 +45,14 @@ const ConfirmCh = ({ route, navigation }) => {
         console.log(err);
       });
   };
-
+  // ios top margin
   let chMargin = 0;
   Platform.OS === "ios" ? (chMargin = 60) : (chMargin = 40);
+
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr onPress={() => navigation.navigate("StartMain")}>
+        <BackCntr onPress={() => navigation.navigate("Login")}>
           <Icon2
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -64,15 +60,10 @@ const ConfirmCh = ({ route, navigation }) => {
             color={"#555555"}
           ></Icon2>
           <BackIcon>뒤로 가기</BackIcon>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Character", { name: "우진" })}
-          >
-            <Text>이동</Text>
-          </TouchableOpacity>
         </BackCntr>
 
         <IntroText>
-          {character[chrNum].label}와 모험을 떠날 준비가 되었니?
+          {bigCharacter[characterNum].label}와 모험을 떠날 준비가 되었니?
           {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
         </IntroText>
@@ -86,12 +77,11 @@ const ConfirmCh = ({ route, navigation }) => {
           >
             <Image
               style={{ width: 225, height: 225 }}
-              resizeMode="contain"
-              source={character[chrNum].src}
+              source={bigCharacter[characterNum].src}
             />
             <Box>
               <BoxText>
-                "{name}아 안녕, 나는 {character[chrNum].label}야!
+                "{name}아 안녕, 나는 {bigCharacter[characterNum].label}야!
                 {"\n"}우리 함께 재밌는 모험을 떠나자!"
               </BoxText>
             </Box>
@@ -103,7 +93,7 @@ const ConfirmCh = ({ route, navigation }) => {
                 console.log(userId);
                 const postData = {
                   userId: userId === null ? 3 : userId,
-                  character: chrNum,
+                  character: characterNum,
                 };
                 console.log(postData);
                 await postCharacter(postData);
@@ -156,24 +146,21 @@ const BackCntr = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
 `;
-
 const BackIcon = styled.Text`
-  width: 120px;
+  width: 25%;
   font-size: 18px;
 `;
 const Container = styled.View`
   flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1%;
 `;
-
 const IntroText = styled.Text`
   font-size: 22px;
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 4%;
   line-height: 40px;
-  margin-horizontal: 24px;
 `;
 const AppName = styled.Text`
   font-size: 22px;
@@ -182,11 +169,11 @@ const AppName = styled.Text`
 
 const Box = styled.View`
   width: 80%;
-  height: 80px;
+  height: 23%;
   background-color: #ededed;
   elevation: 10;
   border-radius: 20;
-  margin-top: 20;
+  margin-top: 5%;
 `;
 
 const BoxText = styled.Text`
