@@ -104,7 +104,6 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 265,
                 height: 90,
-                position: "absolute",
                 top: "0%",
                 left: "32%",
                 borderRadius: 25,
@@ -126,8 +125,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 290,
                 height: 120,
-                position: "absolute",
-                top: "68%",
+                top: "40%",
                 left: "27%",
                 borderRadius: 25,
                 display: "flex",
@@ -148,8 +146,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 80,
                 height: 80,
-                position: "absolute",
-                top: "50%",
+                top: "-4%",
                 left: "66%",
                 borderRadius: 25,
                 display: "flex",
@@ -171,8 +168,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 70,
                 height: 70,
-                position: "absolute",
-                top: "40%",
+                top: "-37%",
                 left: "91%",
                 borderRadius: 25,
                 display: "flex",
@@ -193,8 +189,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 120,
                 height: 70,
-                position: "absolute",
-                top: "17%",
+                top: "-75%",
                 left: "73%",
                 borderRadius: 25,
                 display: "flex",
@@ -244,7 +239,6 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 130,
                 height: 230,
-                position: "absolute",
                 top: "1%",
                 left: "0%",
                 borderRadius: 25,
@@ -266,9 +260,8 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 80,
                 height: 80,
-                position: "absolute",
-                top: "75%",
-                left: "33%",
+                top: "15%",
+                left: "32%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -288,8 +281,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 80,
                 height: 80,
-                position: "absolute",
-                top: "66%",
+                top: "-13%",
                 left: "52%",
                 borderRadius: 25,
                 display: "flex",
@@ -310,8 +302,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 85,
                 height: 85,
-                position: "absolute",
-                top: "68%",
+                top: "-33%",
                 left: "69%",
                 borderRadius: 25,
                 display: "flex",
@@ -332,8 +323,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 80,
                 height: 80,
-                position: "absolute",
-                top: "55%",
+                top: "-67%",
                 left: "85%",
                 borderRadius: 25,
                 display: "flex",
@@ -354,9 +344,8 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 85,
                 height: 90,
-                position: "absolute",
-                top: "8%",
-                left: "79%",
+                top: "10%",
+                left: "10%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -434,7 +423,6 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 85,
                 height: 85,
-                position: "absolute",
                 top: "82%",
                 left: "16%",
                 borderRadius: 25,
@@ -456,8 +444,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 200,
                 height: 120,
-                position: "absolute",
-                top: "62%",
+                top: "52%",
                 left: "32%",
                 borderRadius: 25,
                 display: "flex",
@@ -478,8 +465,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 85,
                 height: 85,
-                position: "absolute",
-                top: "43%",
+                top: "-15%",
                 left: "61%",
                 borderRadius: 25,
                 display: "flex",
@@ -500,8 +486,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 80,
                 height: 50,
-                position: "absolute",
-                top: "85%",
+                top: "12%",
                 left: "61%",
                 borderRadius: 25,
                 display: "flex",
@@ -522,9 +507,8 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 85,
                 height: 85,
-                position: "absolute",
-                top: "55%",
-                left: "75%",
+                top: "-35%",
+                left: "77%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -551,6 +535,7 @@ const StoryOne = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(5);
+                  music4.pause();
                 }}
               >
                 <Text style={styles.navBoxText}> 다음</Text>
@@ -585,13 +570,14 @@ const styles = StyleSheet.create({
   },
   word: {
     fontSize: 15,
-    color: "white",
-    backgroundColor: "#C5A1F3",
+    color: "black",
+    backgroundColor: "white",
     padding: 7,
     borderRadius: 15,
     borderWidth: 2.5,
     borderColor: "#B16CF6",
     textAlign: "center",
+    fontFamily: "Cafe24Ssurround",
   },
   navBox: {
     position: "absolute",
