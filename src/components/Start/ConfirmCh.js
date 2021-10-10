@@ -77,7 +77,7 @@ const ConfirmCh = ({ route, navigation }) => {
           </TouchableOpacity>
         </BackCntr>
 
-        <IntroText style={{ fontSize: hp(2.9), lineHeight: hp(3.5) }}>
+        <IntroText style={{ fontSize: hp(2.9), lineHeight: hp(4) }}>
           {character[chrNum].label}와 모험을 떠날 준비가 되었니?
           {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
@@ -187,11 +187,12 @@ const AppName = styled.Text`
 
 const Box = styled.View`
   width: 80%;
-  height: 80px;
+  height: 25%;
   background-color: #ededed;
   elevation: 10;
   border-radius: 20;
   margin-top: 20;
+  justify-content: center;
 `;
 
 const BoxText = styled.Text`
