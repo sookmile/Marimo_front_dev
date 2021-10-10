@@ -223,7 +223,7 @@ const Login = ({ navigation }) => {
             >
               <View
                 style={{
-                  width: 40,
+                  width: "10%",
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -243,7 +243,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum === 1 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => setPageNum(1)}>
+          <BackCntr onPress={() => setPageNum(0)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -251,7 +251,6 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-           
           </BackCntr>
           <Cntr style={{ flex: 1 }}>
             <Box>
@@ -326,13 +325,15 @@ const Login = ({ navigation }) => {
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
+                position: "absolute",
+                bottom: "5%",
                 justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "15%",
+                  width: "10%",
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -411,7 +412,7 @@ const Login = ({ navigation }) => {
             <NameInput
               style={{
                 position: "absolute",
-                top: height * 0.47,
+                top: height * 0.5,
               }}
               placeholder="이름을 입력해주세요"
               value={text}
@@ -419,7 +420,7 @@ const Login = ({ navigation }) => {
             />
             {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
             <Btn
-              style={{ position: "absolute", bottom: height * 0.1 }}
+              style={{ marginTop: "105%" }}
               onPress={() =>
                 navigation.navigate("Character", {
                   name: text,
@@ -445,7 +446,6 @@ display:flex;
 height:80%;
 align-items:center;
 justify-content:center;
-
 `;
 const BackCntr = Styled.TouchableOpacity`
 width: 100%;
@@ -459,15 +459,13 @@ display:flex;
 flex-direction:row;
 width:82%;
 justify-content:space-between;
-
 `;
 const Wrapper = Styled.View`
   height: 7%;
 `;
 const BackIcon = Styled.Text`
-width:20%;
-font-size:18px;
-
+  width: 25%;
+  font-size: 18px;
 `;
 const Container = Styled.View`
   flex: 1;
@@ -490,7 +488,6 @@ const VoiceText = Styled.Text`
   line-height:29.6px;
 `;
 const KeyText = Styled.Text`
-
   text-align:center;
   font-family: Noto Sans CJK KR;
   font-style: normal;
@@ -499,7 +496,6 @@ const KeyText = Styled.Text`
   line-height: 27px;
   text-align: center;
   color: #191919;
-
   `;
 const AppName = Styled.Text`
   font-size:22px;
@@ -518,12 +514,10 @@ background-color:#FFEB81
 z-index:3;
 align-items:center;
 justify-content:center;
-
 `;
 
 const ConfirmText = Styled.Text`
 font-family: "NanumSquareRoundB";
-
 color:#191919;
 font-size:22px;
 line-height: 30px;
@@ -538,14 +532,17 @@ font-weight:700;
 `;
 
 const BtnCntr = Styled.View`
-    margin-top:20px;
-    margin-bottom:40px;
+  width:92%;
+  height:30%;
+  align-items:center;
+  margin-top:10%;
+  margin-bottom:10;
 `;
 
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
-  width: 343px;
+  width: 100%;
   height: 56px;
   border-radius: 14px;
   align-items:center;

@@ -6,8 +6,18 @@ import styled from "styled-components";
 
 const StoryLoading = ({ navigation }) => {
   useEffect(() => {
-    Orientation.unlockAllOrientations();
-  }, []);
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  });
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "PORTRAIT") {
+      Orientation.lockToPortrait();
+    }
+  };
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 140) : (cntrMargin = 100);
   let chMargin = 0;

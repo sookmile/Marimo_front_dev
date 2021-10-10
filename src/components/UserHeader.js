@@ -50,7 +50,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <View
               style={{
                 position: "absolute",
-                left: width * 0.4,
+                left: "45%",
                 width: "100%",
                 alignItems: "flex-start",
               }}
@@ -75,7 +75,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <View
               style={{
                 position: "absolute",
-                left: width * 0.4,
+                left: "45%",
                 width: "100%",
                 alignItems: "flex-start",
               }}
@@ -101,7 +101,7 @@ export const UserHeader = ({ userNickname, type }) => {
               <View
                 style={{
                   position: "absolute",
-                  left: width * 0.4,
+                  left: "45%",
                   width: "100%",
                   alignItems: "flex-start",
                 }}

@@ -187,7 +187,11 @@ const LearnRecord = ({ navigation, route }) => {
           </Text>
           <BasicCntr>
             <ImgCntr>
-              <ChImage style={{ width: 75, height: 75 }} source={chrImage} />
+              <ChImage
+                resizeMode="contain"
+                style={{ width: "90%", height: "90%" }}
+                source={chrImage}
+              />
             </ImgCntr>
             <Info>
               <UserName>{userNickname}</UserName>
@@ -267,7 +271,7 @@ const LearnRecord = ({ navigation, route }) => {
                   )}
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
-                    {userNickname} (이)가 잘 발음하는 단어
+                    {userNickname}가 잘 발음하는 단어
                   </ResultText>
                   {goodWord.length > 0 ? (
                     <View style={{ height: 210, padding: 20 }}>
@@ -533,7 +537,6 @@ const GradeText = styled.Text`
   align-items: center;
   text-align: center;
   letter-spacing: -0.3px;
-
   color: #000000;
 `;
 

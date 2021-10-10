@@ -128,14 +128,14 @@ const ImageCntr = styled.TouchableOpacity`
 const GoodsList = styled.View``;
 
 const GoodsCntr = styled.View`
-  width: 95%;
+  width: 97%;
   padding-left: 2.5%;
   padding-right: 2.5%;
   height: 170;
   align-items: center;
   justify-content: center;
   border-radius: 20;
-  background-color: ${(props) => (props.isActive ? "#F1C7C7" : "#fffbf8")};
+  background-color: ${(props) => (props.isActive ? "#F1C7C7" : "transparent")};
   border-width: ${(props) => (props.isActive ? 3.5 : 0)};
   border-color: #d67e7e;
 `;
@@ -170,6 +170,7 @@ const Cntr = styled.View`
   justify-content: center;
 `;
 const CharacterCntr = styled.View`
+width:90%;
   height:${(props) => props.height * 0.55}
   align-items: center;
   justify-content: center;
@@ -192,18 +193,16 @@ const BackIcon = styled.Text`
 `;
 const Container = styled.View`
   flex: 1;
-  margin-left: 5%;
-  margin-right: 5%;
+  align-items: center;
+  margin-left: 3%;
+  margin-right: 3%;
   margin-top: 1%;
-  background-color: #fffbf8;
 `;
 const IntroText = styled.Text`
   font-size: 22px;
   font-weight: bold;
-  font-family: NanumSquareRound;
   margin-top: 4%;
   line-height: 40px;
-  margin-horizontal: 24px;
 `;
 
 const AppName = styled.Text`
