@@ -212,7 +212,7 @@ const SECTIONS1 = [
 const SECTIONS3 = [
   {
     key: "1",
-    text: "앗, 도와줘! 우당탕탕 왕국 모험",
+    text: "호랑이의 생일 잔치",
     age: "6~7",
     src: navTabIcons.ic_story1,
     number: 50,
