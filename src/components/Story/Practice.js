@@ -7,20 +7,23 @@ import {
   TouchableOpacity,
   Text,
   Button,
+  Animated,
 } from "react-native";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
 
-const Practice = () => {
+const Practice = ({ route, navigation }) => {
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
   const [isRModalVisible, setRModalVisible] = useState(false);
   const [isWModalVisible, setWModalVisible] = useState(false);
   const [response, setResponse] = useState("");
-  const storyData = ["장미꽃"];
+  const [feedback, setFeedback] = useState("");
+  const [URI, setURI] = useState("");
+  const { oWord, Lastpage } = route.params;
 
   const voiceLabel = text
     ? text
@@ -40,7 +43,7 @@ const Practice = () => {
     console.log(event.value[0]);
     setText(event.value[0]);
     console.log(text);
-    if (event.value[0] === storyData[0]) {
+    if (event.value[0] === oWord) {
       postResult();
       console.log("정답");
       setRModalVisible(!isRModalVisible);
@@ -69,6 +72,21 @@ const Practice = () => {
   };
 
   useEffect(() => {
+    // 비디오 가져오기
+    const data = {
+      word: oWord,
+    };
+    axios
+      .post("192.168.35.40" + "/marimo/tale/speechuri", data)
+      .then((res) => {
+        setURI(res.data.uri);
+        console.log("비디오 링크: ", URI);
+      })
+      .catch((err) => {
+        console.log("전송에 실패 ");
+        console.log(err);
+      });
+
     Voice.onSpeechStart = _onSpeechStart;
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
@@ -82,16 +100,27 @@ const Practice = () => {
   const postResult = () => {
     const data = {
       userId: 1,
-      oWord: storyData[0],
+      oWord: oWord,
       rWord: text,
-      Lastpage: 1,
+      lastpage: Lastpage,
     };
     console.log("data: ", data);
     axios
       .post("192.168.35.40" + "/marimo/tale/save", data)
+
       .then((res) => {
         setResponse(res.data);
         console.log("성공여부: ", response);
+      })
+      .catch((err) => {
+        console.log("전송에 실패 ");
+        console.log(err);
+      });
+    axios
+      .post("192.168.35.40" + "/marimo/tale/feedback", data)
+      .then((res) => {
+        setFeedback(res.data);
+        console.log("성공여부: ", feedback);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
@@ -116,10 +145,28 @@ const Practice = () => {
         resizeMode="cover"
       >
         <View style={styles.container}>
+          <Text
+            style={{
+              top: "1.5%",
+              left: "3%",
+              fontFamily: "Cafe24Ssurround",
+              backgroundColor: "white",
+              textAlign: "center",
+              width: 40,
+              height: 20,
+              borderRadius: 15,
+              paddingTop: 3,
+            }}
+            onPress={() => {
+              navigation.navigate("Story1");
+            }}
+          >
+            이전
+          </Text>
           <View style={styles.videoContainer}>
             <Video
               source={{
-                uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+                uri: "https://storage.googleapis.com/marimo_bucket/video/%E1%84%8E%E1%85%B5%E1%86%B7%E1%84%83%E1%85%A2.mp4",
               }}
               style={styles.mediaPlayer}
               volume={10}
@@ -136,7 +183,7 @@ const Practice = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <Modal isVisible={isRModalVisible} style={styles.modal}>
+        <Modal isVisible={isRModalVisible} style={styles.modal1}>
           <TouchableOpacity onPress={closeRModal}>
             <Image
               style={styles.sticker}
@@ -144,12 +191,12 @@ const Practice = () => {
             />
           </TouchableOpacity>
         </Modal>
-        <Modal isVisible={isWModalVisible} style={styles.modal}>
+        <Modal isVisible={isWModalVisible} style={styles.modal2}>
           <View>
-            <Text>{response}</Text>
+            <Text style={styles.feedback}>{feedback}</Text>
           </View>
           <TouchableOpacity onPress={closeWModal}>
-            <Text>닫기</Text>
+            <Text style={styles.feedback}>닫기</Text>
           </TouchableOpacity>
         </Modal>
       </ImageBackground>
@@ -168,38 +215,51 @@ const styles = StyleSheet.create({
   },
   videoContainer: {
     flex: 0.5,
+    paddingTop: "8%",
+    paddingRight: "6%",
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
   },
   recordContainer: {
     flex: 0.5,
     display: "flex",
     alignItems: "center",
-    marginTop: 50,
-    marginRight: 20,
+    justifyContent: "center",
+    paddingRight: "5%",
   },
   mediaPlayer: {
-    position: "absolute",
-    width: 500,
-    height: 300,
-    top: 100,
-    left: 100,
-    justifyContent: "center",
+    width: 320,
+    height: 200,
   },
   text: {
     fontSize: 20,
-    margin: 20,
+    marginTop: "20%",
+    marginBottom: "10%",
+    fontFamily: "Cafe24Ssurround",
   },
   button: {
     width: 200,
     height: 200,
   },
-  modal: {
+  modal1: {
     display: "flex",
     alignItems: "center",
+    borderRadius: 25,
+  },
+  modal2: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 25,
   },
   sticker: {
     width: 200,
     height: 200,
+  },
+  feedback: {
+    fontSize: 20,
+    fontFamily: "Cafe24Ssurround",
   },
 });
