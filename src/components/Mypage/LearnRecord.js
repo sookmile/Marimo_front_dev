@@ -126,7 +126,7 @@ const LearnRecord = ({ navigation, route }) => {
     console.log(id);
     await axios
       .post(preURL.preURL + "/marimo/user/record", {
-        userId: 1,
+        userId: id,
       })
       .then(async (res) => {
         const response = res.data;
@@ -255,80 +255,117 @@ const LearnRecord = ({ navigation, route }) => {
                       {(fill) => <GradeText>{grade}%</GradeText>}
                     </AnimatedCircularProgress>
                   </ProgressCntr>
-                  <ResultText isSmall>
-                    {userNickname} 은(는) {recordInfo?.analysis}
-                  </ResultText>
+                  {recordInfo?.analysis !== "" ? (
+                    <ResultText isSmall>
+                      {userNickname} 은(는)
+                      {recordInfo?.analysis}
+                    </ResultText>
+                  ) : (
+                    <ResultText isSmall style={{ color: "#555555" }}>
+                      분석결과 생성을 위해 학습에 참여해주세요.
+                    </ResultText>
+                  )}
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
                     {userNickname} (이)가 잘 발음하는 단어
                   </ResultText>
-                  <View style={{ height: 210, padding: 20 }}>
-                    <BarChart
-                      style={{ flex: 1 }}
-                      data={goodWord.map((obj) => obj.value)}
-                      gridMin={0}
-                      svg={{ fill: "rgb(134, 65, 244)" }}
+                  {goodWord.length > 0 ? (
+                    <View style={{ height: 210, padding: 20 }}>
+                      <BarChart
+                        style={{ flex: 1 }}
+                        data={goodWord.map((obj) => obj.value)}
+                        gridMin={0}
+                        svg={{ fill: "rgb(134, 65, 244)" }}
+                      >
+                        <Grid />
+                      </BarChart>
+                      <XAxis
+                        style={{ marginTop: 10 }}
+                        data={goodWord}
+                        scale={scale.scaleBand}
+                        formatLabel={(value, index) => goodWord[index].label}
+                        contentInset={{ left: 0 }}
+                        svg={{ fontSize: 13, fill: "black" }}
+                      />
+                      <XAxis
+                        style={{ marginTop: 10 }}
+                        data={goodWord}
+                        scale={scale.scaleBand}
+                        formatLabel={(value, index) =>
+                          `${goodWord[index].value}회`
+                        }
+                        contentInset={{ left: 0 }}
+                        svg={{ fontSize: 13, fill: "black" }}
+                      />
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "flex-start",
+                      }}
                     >
-                      <Grid />
-                    </BarChart>
-                    <XAxis
-                      style={{ marginTop: 10 }}
-                      data={goodWord}
-                      scale={scale.scaleBand}
-                      formatLabel={(value, index) => goodWord[index].label}
-                      contentInset={{ left: 0 }}
-                      svg={{ fontSize: 13, fill: "black" }}
-                    />
-                    <XAxis
-                      style={{ marginTop: 10 }}
-                      data={goodWord}
-                      scale={scale.scaleBand}
-                      formatLabel={(value, index) =>
-                        `${goodWord[index].value}회`
-                      }
-                      contentInset={{ left: 0 }}
-                      svg={{ fontSize: 13, fill: "black" }}
-                    />
-                  </View>
+                      <Wrapper />
+                      <ResultText isSmall style={{ color: "#555555" }}>
+                        분석결과 생성을 위해 학습에 참여해주세요.
+                      </ResultText>
+                    </View>
+                  )}
 
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle>
                     {userNickname}가 잘 발음하지 못하는 단어
                   </ResultText>
-                  {diffWord.map((obj) => (
+                  {diffWord.length > 0 ? (
+                    diffWord.map((obj) => (
+                      <>
+                        <Wrapper />
+                        <ContnetWordCntr>
+                          <ContentTexts>
+                            <ContentDiffWord
+                              numberOfLines={1}
+                              ellipsizeMode="tail"
+                            >
+                              {obj?.value}
+                            </ContentDiffWord>
+                            <ContentText
+                              style={{ width: "100%", fontSize: 13 }}
+                              numberOfLines={1}
+                              ellipsizeMode="tail"
+                            >
+                              {obj?.label === "모험"
+                                ? "모험-앗, 도와줘! 우당탕탕 왕국 모험"
+                                : "게임-마리모와 함께하는 모음학습"}
+                            </ContentText>
+                          </ContentTexts>
+                          <TouchableOpacity onPress={() => _onPressSpeech(obj)}>
+                            <ChImage
+                              style={{
+                                borderRadius: 0,
+                                width: 37,
+                                height: 37,
+                              }}
+                              source={navTabIcons.ic_voice}
+                            />
+                          </TouchableOpacity>
+                        </ContnetWordCntr>
+                      </>
+                    ))
+                  ) : (
                     <>
-                      <Wrapper />
-                      <ContnetWordCntr>
-                        <ContentTexts>
-                          <ContentDiffWord
-                            numberOfLines={1}
-                            ellipsizeMode="tail"
-                          >
-                            {obj?.value}
-                          </ContentDiffWord>
-                          <ContentText
-                            style={{ width: "100%", fontSize: 13 }}
-                            numberOfLines={1}
-                            ellipsizeMode="tail"
-                          >
-                            {obj?.label === "모험"
-                              ? "모험-앗, 도와줘! 우당탕탕 왕국 모험"
-                              : "게임-마리모와 함께하는 모음학습"}
-                          </ContentText>
-                        </ContentTexts>
-                        <TouchableOpacity onPress={() => _onPressSpeech(obj)}>
-                          <ChImage
-                            style={{
-                              borderRadius: 0,
-                              width: 37,
-                              height: 37,
-                            }}
-                            source={navTabIcons.ic_voice}
-                          />
-                        </TouchableOpacity>
-                      </ContnetWordCntr>
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <Wrapper />
+                        <ResultText isSmall style={{ color: "#555555" }}>
+                          분석결과 생성을 위해 학습에 참여해주세요.
+                        </ResultText>
+                      </View>
                     </>
-                  ))}
+                  )}
                 </ChartCntr>
               </MainCntr>
             ) : (
