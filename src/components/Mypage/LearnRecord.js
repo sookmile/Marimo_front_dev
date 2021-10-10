@@ -15,16 +15,18 @@ import CustomSwitch from "./CustomSwitch";
 import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
 import ToggleSwitch from "rn-toggle-switch";
 
-import CustomButton from "../CustomButton/CustomButton";
-import { FONTS, COLORS, SIZES, icons } from "../../constants";
+import {
+  BarChart,
+  XAxis,
+  Grid,
+  LineChart,
+  YAxis,
+} from "react-native-svg-charts";
+import * as scale from "d3-scale";
+import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
 import styled from "styled-components";
-import Character1 from "../../assets/icons/Character/Character1.png";
-import Character2 from "../../assets/icons/Character/Character2.png";
-import Character3 from "../../assets/icons/Character/Character3.png";
-import Character4 from "../../assets/icons/Character/Character4.png";
-import Contents from "../../assets/images/memories/sunflowers.png";
-import Inactive from "../../assets/icons/Character/Inactive.png";
-import { FlatList } from "react-native";
+import { character } from "../../assets/icons/Character/Character";
+
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -32,55 +34,106 @@ import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
-
-const character = [
-  { value: 0, src: Character1, label: "모모" },
-  { value: 1, src: Character2, label: "말랑이" },
-  { value: 2, src: Character3, label: "행복이" },
-  { value: 3, src: Character4, label: "기쁨이" },
-];
+import Tts from "react-native-tts";
 
 const LearnRecord = ({ navigation, route }) => {
-  const onSelectSwitch = (index) => {
-    alert("Selected index: " + index);
-  };
+  // toggle section
   const [getSelectionMode, setSelectionMode] = useState(1);
-  const [grade, setGrade] = useState(80);
-  const [diffWord, setDiffWord] = useState(["양동이", "옷걸이"]);
+  // achivement
+  const [grade, setGrade] = useState(0);
+  // difficult word
+  const [diffWord, setDiffWord] = useState(["양동이", "옷걸이", "장미꽃"]);
+
   const [userId, setUserID] = useState(-1);
+  const [chrImage, setChrImage] = useState("");
   const [recordInfo, setRecordInfo] = useState([]);
-  const [word, setWord] = useState({});
-  const [joinNum, setJoinNum] = useState({});
+  const [goodWord, setGoodWord] = useState([]);
   const [userNickname, setUserNickName] = useState("");
 
+  const data2 = [
+    {
+      value: 50,
+      label: "One",
+    },
+    {
+      value: 10,
+      label: "Two",
+    },
+    {
+      value: 40,
+      label: "Three",
+    },
+    {
+      value: 95,
+      label: "Four",
+    },
+    {
+      value: 85,
+      label: "Five",
+    },
+  ];
+  const CUT_OFF = 20;
+  const Labels = ({ x, y, bandwidth, data }) =>
+    data.map((value, index) => (
+      <Text
+        key={index}
+        x={-10}
+        y={value < CUT_OFF ? y(value) - 10 : y(value) + 15}
+        fontSize={14}
+        fill={value >= CUT_OFF ? "white" : "black"}
+        alignmentBaseline={"middle"}
+        textAnchor={"middle"}
+      >
+        {value}
+      </Text>
+    ));
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userId");
+    const chrNum = await AsyncStorage.getItem("characterNum");
     const nickname = await AsyncStorage.getItem("userNickname");
-    setUserNickName(nickname);
-    setUserID(Number(id));
-    await getRecord({
-      userId: 1,
-    });
+
+    console.log(id);
+    console.log(chrNum);
+    console.log(nickname);
+    await setChrImage(character[chrNum].src);
+    await setUserNickName(nickname);
+    await setUserID(Number(id));
+
+    await getRecord(id);
   }, []);
 
-  useEffect(() => {
-    if (recordInfo.length !== 0) {
-      setWord({ success: recordInfo.mostSuccess, fail: recordInfo.mostFail });
-      setJoinNum({
-        game: recordInfo.gameJoinNum,
-        fail: recordInfo.taleJoinNum,
+  const setData = (response) => {
+    if (response.length !== 0) {
+      console.log(response);
+      const getEntries = response.mostSuccessWord.map((obj) => {
+        return { label: obj.word, value: Number(obj.count) };
       });
+
+      setGoodWord([...getEntries]);
+      console.log(getEntries);
+      const failWord = response.mostFailWord.map((obj) => {
+        console.log(obj);
+        return { label: obj.count, value: obj.word };
+      });
+      console.log("실패");
+      console.log(failWord);
+      setDiffWord(failWord);
+      setGrade(response.achievementRate);
     }
-  }, [recordInfo]);
-  const getRecord = async (body) => {
-    console.log(body);
+  };
+
+  const getRecord = async (id) => {
+    console.log(id);
     await axios
       .post(preURL.preURL + "/marimo/user/record", {
-        userId: 2,
+        userId: id,
       })
       .then(async (res) => {
         const response = res.data;
+        console.log(res.data);
+        console.log("data");
         await setRecordInfo(response);
+        setData(response);
       })
       .catch((err) => {
         console.log("에러 발생 ");
@@ -97,10 +150,22 @@ const LearnRecord = ({ navigation, route }) => {
   Platform.OS === "ios" ? (cntrMargin = 70) : (cntrMargin = 20);
   let chMargin = 0;
   Platform.OS === "ios" ? (chMargin = 40) : (chMargin = 20);
+
+  // tts 설정
+  Tts.setDefaultLanguage("ko-KR");
+  Tts.addEventListener("tts-start", (event) => console.log("start", event));
+  Tts.addEventListener("tts-finish", (event) => console.log("finish", event));
+  Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
+
+  const _onPressSpeech = (word) => {
+    Tts.stop();
+    Tts.speak(word);
+  };
+
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr onPress={() => navigation.navigate("StoryMain")}>
+        <BackCntr onPress={() => navigation.navigate("Home")}>
           <Icon
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -109,23 +174,24 @@ const LearnRecord = ({ navigation, route }) => {
           ></Icon>
           <BackIcon>뒤로 가기</BackIcon>
         </BackCntr>
-        <Cntr style>
+        <Cntr>
           <Text
             style={{
-              fontFamily: "Cafe24Ssurround",
-              lineHeight: 21,
-              fontSize: 18,
+              fontFamily: "NanumSquareRoundB",
+              lineHeight: 25,
+              fontSize: 22,
+              fontWeight: "bold",
             }}
           >
             나의 기록들
           </Text>
           <BasicCntr>
             <ImgCntr>
-              <ChImage style={{ width: 75, height: 75 }} source={item.src} />
+              <ChImage style={{ width: 75, height: 75 }} source={chrImage} />
             </ImgCntr>
             <Info>
               <UserName>{userNickname}</UserName>
-              <UserRegister>가입일자: 2021 - 09 - 26</UserRegister>
+              <UserRegister>가입일자: {recordInfo?.registerDate}</UserRegister>
               <ProgressBar
                 style={{
                   width: 200,
@@ -141,14 +207,15 @@ const LearnRecord = ({ navigation, route }) => {
           <RecordCntr>
             <Text
               style={{
-                fontFamily: "Cafe24Ssurround",
-                lineHeight: 21,
-                fontSize: 18,
+                fontFamily: "NanumSquareRoundB",
+                lineHeight: 24,
+                fontSize: 20,
+                fontWeight: "700",
                 width: "100%",
                 textAlign: "left",
               }}
             >
-              송이의 기록들
+              {userNickname}의 기록들
             </Text>
 
             <View style={{ alignItems: "center", margin: 20 }}>
@@ -165,7 +232,9 @@ const LearnRecord = ({ navigation, route }) => {
             {getSelectionMode === 1 ? (
               <MainCntr isResult>
                 <ChartCntr>
-                  <ResultText>{userNickname} 의 전반적 성취도</ResultText>
+                  <ResultText style={{ fontFamily: "NanumSquareRoundB" }}>
+                    {userNickname} 의 전반적 성취도
+                  </ResultText>
                   <ProgressCntr>
                     <AnimatedCircularProgress
                       size={150}
@@ -186,95 +255,199 @@ const LearnRecord = ({ navigation, route }) => {
                       {(fill) => <GradeText>{grade}%</GradeText>}
                     </AnimatedCircularProgress>
                   </ProgressCntr>
-                  <ResultText isSmall>
-                  {userNickname} (은)는 모음과 자음의 발음에 능숙합니다.{"\n"}아직
-                    받침이 있는 단어의 발음과 된자음의 발음에 어려움을 겪습니다.
-                  </ResultText>
+                  {recordInfo?.analysis !== "" ? (
+                    <ResultText isSmall>
+                      {userNickname} 은(는)
+                      {recordInfo?.analysis}
+                    </ResultText>
+                  ) : (
+                    <ResultText isSmall style={{ color: "#555555" }}>
+                      분석결과 생성을 위해 학습에 참여해주세요.
+                    </ResultText>
+                  )}
                   <Wrapper style={{ height: 35 }} />
-                  <ResultText isMiddle>{userNickname}가 잘 발음하는 단어</ResultText>
-                  <Wrapper />
-                  <ContnetSubCntr>
-                    <ChImage
+                  <ResultText isMiddle style={{ marginBottom: 5 }}>
+                    {userNickname} (이)가 잘 발음하는 단어
+                  </ResultText>
+                  {goodWord.length > 0 ? (
+                    <View style={{ height: 210, padding: 20 }}>
+                      <BarChart
+                        style={{ flex: 1 }}
+                        data={goodWord.map((obj) => obj.value)}
+                        gridMin={0}
+                        svg={{ fill: "rgb(134, 65, 244)" }}
+                      >
+                        <Grid />
+                      </BarChart>
+                      <XAxis
+                        style={{ marginTop: 10 }}
+                        data={goodWord}
+                        scale={scale.scaleBand}
+                        formatLabel={(value, index) => goodWord[index].label}
+                        contentInset={{ left: 0 }}
+                        svg={{ fontSize: 13, fill: "black" }}
+                      />
+                      <XAxis
+                        style={{ marginTop: 10 }}
+                        data={goodWord}
+                        scale={scale.scaleBand}
+                        formatLabel={(value, index) =>
+                          `${goodWord[index].value}회`
+                        }
+                        contentInset={{ left: 0 }}
+                        svg={{ fontSize: 13, fill: "black" }}
+                      />
+                    </View>
+                  ) : (
+                    <View
                       style={{
-                        borderRadius: 20,
-                        width: 90,
-                        height: 90,
+                        justifyContent: "center",
+                        alignItems: "flex-start",
                       }}
-                      source={Contents}
-                    />
-                    <ContentTexts>
-                      <ContentText isTitle>
-                        장미
-                      </ContentText>
-                    </ContentTexts>
-                  </ContnetSubCntr>
+                    >
+                      <Wrapper />
+                      <ResultText isSmall style={{ color: "#555555" }}>
+                        분석결과 생성을 위해 학습에 참여해주세요.
+                      </ResultText>
+                    </View>
+                  )}
+
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle>
-                  {userNickname}가 잘 발음하지 못하는 단어
+                    {userNickname}가 잘 발음하지 못하는 단어
                   </ResultText>
-                  {diffWord.map((obj) => (
+                  {diffWord.length > 0 ? (
+                    diffWord.map((obj) => (
+                      <>
+                        <Wrapper />
+                        <ContnetWordCntr>
+                          <ContentTexts>
+                            <ContentDiffWord
+                              numberOfLines={1}
+                              ellipsizeMode="tail"
+                            >
+                              {obj?.value}
+                            </ContentDiffWord>
+                            <ContentText
+                              style={{ width: "100%", fontSize: 13 }}
+                              numberOfLines={1}
+                              ellipsizeMode="tail"
+                            >
+                              {obj?.label === "모험"
+                                ? "모험-앗, 도와줘! 우당탕탕 왕국 모험"
+                                : "게임-마리모와 함께하는 모음학습"}
+                            </ContentText>
+                          </ContentTexts>
+                          <TouchableOpacity onPress={() => _onPressSpeech(obj)}>
+                            <ChImage
+                              style={{
+                                borderRadius: 0,
+                                width: 37,
+                                height: 37,
+                              }}
+                              source={navTabIcons.ic_voice}
+                            />
+                          </TouchableOpacity>
+                        </ContnetWordCntr>
+                      </>
+                    ))
+                  ) : (
                     <>
-                      <Wrapper />
-                      <ContnetSubCntr>
-                        <ChImage
-                          style={{
-                            borderRadius: 20,
-                            width: 90,
-                            height: 90,
-                          }}
-                          source={Contents}
-                        />
-                        <ContentTexts>
-                          <ContentText isTitle>{obj}</ContentText>
-                        </ContentTexts>
-                      </ContnetSubCntr>
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <Wrapper />
+                        <ResultText isSmall style={{ color: "#555555" }}>
+                          분석결과 생성을 위해 학습에 참여해주세요.
+                        </ResultText>
+                      </View>
                     </>
-                  ))}
+                  )}
                 </ChartCntr>
               </MainCntr>
             ) : (
               <MainCntr>
                 <ContentCntr>
-                  <ContentExp style={{ textAlign: "left" }}>
-                  {userNickname} (이)가 가장 많이 플레이한 모험은{"\n"}'마리모 친구들의
-                    얼음성 탐험' 이에요
+                  <ContentExp
+                    style={{ textAlign: "left" }}
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                  >
+                    {userNickname} (이)가 가장 많이 플레이한 동화는 '앗, 도와줘!
+                    우당탕탕 왕국 모험' 이에요
                   </ContentExp>
+
                   <ContnetSubCntr>
-                    <ChImage
-                      style={{
-                        borderRadius: 20,
-                        width: 85,
-                        height: 90,
-                      }}
-                      source={Contents}
-                    />
-                    <ContentTexts>
-                      <ContentText isTitle>
-                        마리모 친구들의 얼음성 탐험{" "}
+                    <View style={{ width: "30%" }}>
+                      <ChImage
+                        style={{
+                          borderRadius: 20,
+                          width: 85,
+                          height: 90,
+                        }}
+                        source={navTabIcons.ic_story1}
+                      />
+                    </View>
+                    <ContentTexts style={{ width: "64%" }}>
+                      <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+                        마리모 친구들의 얼음성 탐험
+                      </ContentTitle>
+                      <ContentText>
+                        {recordInfo?.talePlayCount !== 0
+                          ? `${recordInfo?.talePlayCount}회 플레이`
+                          : "미참여"}{" "}
                       </ContentText>
-                      <ContentText>10회 플레이 </ContentText>
-                      <ContentText>최고점 단어 : '양동이' </ContentText>
+                      <ContentText>
+                        최고점 단어 :{" "}
+                        {recordInfo?.taleBestWord !== ""
+                          ? `'${recordInfo?.taleBestWord}'`
+                          : "기록 없음"}{" "}
+                      </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>
                 </ContentCntr>
                 <Wrapper />
                 <ContentCntr>
-                  <ContentExp style={{ textAlign: "right" }}>
-                  {userNickname} (이)가 가장 많이 플레이한 동화는{"\n"}'호두까기 인형' 이에요
+                  <ContentExp
+                    style={{ textAlign: "right" }}
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                  >
+                    {userNickname} (이)가 가장 많이 플레이한 게임은 ' 냠냠
+                    맛있는 모음게임' 이에요
                   </ContentExp>
                   <ContnetSubCntr>
-                    <ChImage
-                      style={{
-                        borderRadius: 20,
-                        width: 85,
-                        height: 90,
-                      }}
-                      source={Contents}
-                    />
-                    <ContentTexts>
-                      <ContentText isTitle>호두까기 인형</ContentText>
-                      <ContentText>15회 플레이 </ContentText>
-                      <ContentText>최고점 단어 : '병정 인형' </ContentText>
+                    <View style={{ width: "30%" }}>
+                      <ChImage
+                        style={{
+                          borderRadius: 20,
+                          width: 85,
+                          height: 90,
+                        }}
+                        source={navTabIcons.ic_game1}
+                      />
+                    </View>
+                    <ContentTexts style={{ width: "64%" }}>
+                      <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+                        냠냠 맛있는 모음게임
+                      </ContentTitle>
+                      <ContentText>
+                        <ContentText>
+                          {recordInfo?.gamePlayCount !== 0
+                            ? `${recordInfo?.gamePlayCount}회 플레이`
+                            : "미참여"}{" "}
+                        </ContentText>
+                      </ContentText>
+                      <ContentText>
+                        최고점 단어 : '
+                        {recordInfo?.gameBestWord !== ""
+                          ? `'${recordInfo?.gameBestWord}'`
+                          : "기록 없음"}{" "}
+                        '
+                      </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>
                 </ContentCntr>
@@ -310,6 +483,20 @@ const ContnetSubCntr = styled.View`
   display: flex;
   flex-direction: row;
   padding: 0px 8px;
+  elevation: 25;
+`;
+const ContnetWordCntr = styled.View`
+  width: 100%;
+  height: 72px;
+  background: #fbf8ff;
+  box-shadow: 0px 5px 8px rgba(62, 31, 251, 0.25);
+  border-radius: 20;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 0px 20px;
+  elevation: 25;
 `;
 const MainCntr = styled.View`
   width: 100%;
@@ -333,7 +520,8 @@ const ProgressCntr = styled.View`
   align-items: center;
 `;
 const ContentTexts = styled.View`
-  width: 170px;
+  width: 80%;
+  padding-horizontal: 3.5%;
 `;
 const GradeText = styled.Text`
   font-family: Noto Sans CJK KR;
@@ -370,6 +558,7 @@ const UserRegister = styled.Text`
 `;
 
 const ContentText = styled.Text`
+  width: 100%;
   font-family: Noto Sans CJK KR;
   font-weight: ${(props) => (props.isTitle ? "700" : "400")};
   margin-bottom: ${(props) => (props.isTitle ? 15 : 0)};
@@ -377,9 +566,29 @@ const ContentText = styled.Text`
   line-height: 21px;
   color: #434141;
 `;
+const ContentDiffWord = styled.Text`
+  font-family: Noto Sans CJK KR;
+  font-weight: bold;
+  margin-bottom: 3;
+  font-size: 20px;
+  line-height: 25px;
+  color: #000000;
+`;
+
+const ContentTitle = styled.Text`
+  width: 100%;
+  font-family: Noto Sans CJK KR;
+  margin-bottom: 15;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 24px;
+  color: #000000;
+  overflow: hidden;
+`;
+
 const ResultText = styled.Text`
   font-family: Noto Sans CJK KR;
-  font-weight: ${(props) => (props.isSmall ? "400" : "700")};
+  font-weight: ${(props) => (props.isSmall ? "400" : "bold")};
   font-size: ${(props) =>
     props.isSmall ? "14px" : props.isMiddle ? "20px" : "24px"};
   line-height: ${(props) => (props.isSmall ? "20.7px" : "30px")};
@@ -387,7 +596,8 @@ const ResultText = styled.Text`
 `;
 
 const ContentExp = styled.Text`
-  color: #ffffff;
+  width: 100%;
+  color: #f2f2f2;
   font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 700;
@@ -461,29 +671,12 @@ const BackIcon = styled.Text`
   width: 120px;
   font-size: 18px;
 `;
+
 const Container = styled.View`
   flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-`;
-
-const IntroText = styled.Text`
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: 30px;
-  line-height: 40px;
-`;
-const AppName = styled.Text`
-  font-size: 22px;
-  color: #f66c6c;
-`;
-
-const CharacterName = styled.Text`
-font-size: 16px;
-line-height: 23.5
-color: #191919;
-margin-top: 10;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 1%;
 `;
 
 const styles = StyleSheet.create({

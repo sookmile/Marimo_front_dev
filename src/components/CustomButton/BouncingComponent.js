@@ -9,25 +9,29 @@ import {
 export default class BouncingComponent extends Component {
   state = {
     animation: new Animated.Value(0),
+    characterImage: images.marimoCharacter,
   };
 
   componentDidMount() {
     Animated.spring(this.state.animation, {
-      toValue: hp(1.5),
+      toValue: hp(2),
       duration: 3000,
       friction: 1,
-      tension: 40,
+      tension: 4,
       useNativeDriver: true,
     }).start();
   }
   render() {
+    const { characterNum } = this.props;
+    this.state.characterImage =
+      characterNum == 1 ? images.mallangCharacter : images.marimoCharacter;
     const trans = {
       transform: [{ translateY: this.state.animation }],
     };
     return (
       <Animated.Image
         style={[style.icons, trans]}
-        source={images.marimoCharacter}
+        source={this.state.characterImage}
         resizeMode="contain"
       ></Animated.Image>
     );
@@ -40,5 +44,6 @@ const style = StyleSheet.create({
     height: 130,
     position: "relative",
     left: wp(2),
+    marginBottom: 10,
   },
 });

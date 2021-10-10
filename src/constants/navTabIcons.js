@@ -16,6 +16,9 @@ export const cv_story = require("../assets/icons/NavTab/cover-story.png");
 export const cv_game = require("../assets/icons/NavTab/cover-game.png");
 export const cv_explore = require("../assets/icons/NavTab/cover-explore.png");
 export const cv_camera = require("../assets/icons/NavTab/cover-camera.png");
+
+export const ic_voice = require("../assets/icons/NavTab/ic-voice.png");
+
 export default {
   ic_home,
   ic_record,
@@ -33,4 +36,5 @@ export default {
   cv_game,
   cv_explore,
   cv_camera,
+  ic_voice,
 };

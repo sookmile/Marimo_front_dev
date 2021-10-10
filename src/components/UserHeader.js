@@ -30,9 +30,6 @@ export const UserHeader = ({ userNickname, type }) => {
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 0);
 
-  useEffect(() => {
-    console.log(userNickname);
-  }, []);
   const navigation = useNavigation();
 
   return (
@@ -40,16 +37,21 @@ export const UserHeader = ({ userNickname, type }) => {
       <View style={styles.header}>
         {type == "story" ? (
           <BackCntr onPress={() => navigation.navigate("Home")}>
-            <Icon
-              name="chevron-back"
-              style={{ marginRight: 10 }}
-              size={23}
-              color={"#555555"}
-            ></Icon>
-            <BackIcon></BackIcon>
+            <View style={{ width: width * 0.1 }}>
+              <Icon
+                name="chevron-back"
+                style={{ marginRight: 10 }}
+                size={23}
+                color={"#555555"}
+              ></Icon>
+
+              <BackIcon></BackIcon>
+            </View>
             <View
               style={{
-                width: "50%",
+                position: "absolute",
+                left: width * 0.4,
+                width: "100%",
                 alignItems: "flex-start",
               }}
             >
@@ -60,16 +62,21 @@ export const UserHeader = ({ userNickname, type }) => {
           </BackCntr>
         ) : type === "game" ? (
           <BackCntr onPress={() => navigation.navigate("Home")}>
-            <Icon
-              name="chevron-back"
-              style={{ marginRight: 10 }}
-              size={23}
-              color={"#555555"}
-            ></Icon>
-            <BackIcon></BackIcon>
+            <View style={{ width: width * 0.1 }}>
+              <Icon
+                name="chevron-back"
+                style={{ marginRight: 10 }}
+                size={23}
+                color={"#555555"}
+              ></Icon>
+
+              <BackIcon></BackIcon>
+            </View>
             <View
               style={{
-                width: "50%",
+                position: "absolute",
+                left: width * 0.4,
+                width: "100%",
                 alignItems: "flex-start",
               }}
             >
@@ -81,16 +88,21 @@ export const UserHeader = ({ userNickname, type }) => {
         ) : type === "explore" ? (
           <>
             <BackCntr onPress={() => navigation.navigate("Home")}>
-              <Icon
-                name="chevron-back"
-                style={{ marginRight: 10 }}
-                size={23}
-                color={"#555555"}
-              ></Icon>
-              <BackIcon></BackIcon>
+              <View style={{ width: width * 0.1 }}>
+                <Icon
+                  name="chevron-back"
+                  style={{ marginRight: 10 }}
+                  size={23}
+                  color={"#555555"}
+                ></Icon>
+
+                <BackIcon></BackIcon>
+              </View>
               <View
                 style={{
-                  width: "50%",
+                  position: "absolute",
+                  left: width * 0.4,
+                  width: "100%",
                   alignItems: "flex-start",
                 }}
               >
@@ -158,6 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     zIndex: 1,
     width: "100%",
+    backgroundColor: "#FFFBF8",
     // display: "flex",
     // padding: 10,
   },
@@ -171,7 +184,7 @@ const styles = StyleSheet.create({
   },
   boxText: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
     lineHeight: 40,
     color: "#F2F2F2",
   },
@@ -341,10 +354,10 @@ const BackCntr = styled.TouchableOpacity`
   text-align: left;
   display: flex;
   flex-direction: row;
-  margin-bottom: 25px;
+  margin-bottom: 7%;
 `;
 
 const BackIcon = styled.Text`
-  width: 120px;
+  width: 100%;
   font-size: 18px;
 `;
