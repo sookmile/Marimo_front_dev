@@ -10,11 +10,6 @@ import {
   Alert,
 } from "react-native";
 import styled from "styled-components/native";
-import Character1 from "../../assets/icons/Character/Character1.png";
-import Character2 from "../../assets/icons/Character/Character2.png";
-import Character3 from "../../assets/icons/Character/Character3.png";
-import Character4 from "../../assets/icons/Character/Character4.png";
-import Inactive from "../../assets/icons/Character/Inactive.png";
 import { FlatList } from "react-native";
 import { character } from "../../assets/icons/Character/Character";
 import Icon2 from "react-native-vector-icons/Ionicons";
@@ -49,7 +44,7 @@ const Character = ({ route, navigation }) => {
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#fffbf8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr onPress={() => navigation.navigate("StartMain")}>
+        <BackCntr onPress={() => navigation.navigate("Login")}>
           <Icon2
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -67,8 +62,14 @@ const Character = ({ route, navigation }) => {
           만나서 반가워, <AppName>{name}</AppName>아!{"\n"}너와 함께 모험을 떠날
           친구를 골라봐!
         </IntroText>
-        <CharacterCntr>
-          <View style={{ width: 330 }}>
+        <CharacterCntr height={height}>
+          <View
+            style={{
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <FlatList
               data={character}
               renderItem={({ item }) => (
@@ -92,6 +93,7 @@ const Character = ({ route, navigation }) => {
                     >
                       <Image
                         style={{ width: 110, height: 110 }}
+                        resizeMode="contain"
                         source={item.src}
                       />
                     </ImageCntr>
@@ -106,7 +108,7 @@ const Character = ({ route, navigation }) => {
           </View>
         </CharacterCntr>
         <BtnCntr>
-          <Btn onPress={onSelect}>
+          <Btn height={height} onPress={onSelect}>
             <BtnText>선택했어요!</BtnText>
           </Btn>
         </BtnCntr>
@@ -126,9 +128,9 @@ const ImageCntr = styled.TouchableOpacity`
 const GoodsList = styled.View``;
 
 const GoodsCntr = styled.View`
-  width: 140;
-  padding-left: 10;
-  padding-right: 20;
+  width: 95%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
   height: 170;
   align-items: center;
   justify-content: center;
@@ -140,18 +142,19 @@ const GoodsCntr = styled.View`
 
 const ScrollView = styled.FlatList``;
 const BtnCntr = styled.View`
-  display: flex;
+  margin-top: 20;
   align-items: center;
   justify-content: center;
-  margin-top: 25px;
 `;
 const Btn = styled.TouchableOpacity`
   background-color: #b16cf6;
+  margin-bottom: 20;
   color: white;
   width: 343px;
   height: 56px;
   border-radius: 14px;
   align-items: center;
+  align-content: center;
   justify-content: center;
 `;
 const BtnText = styled.Text`
@@ -167,14 +170,14 @@ const Cntr = styled.View`
   justify-content: center;
 `;
 const CharacterCntr = styled.View`
-  height: 425px;
+  height:${(props) => props.height * 0.55}
   align-items: center;
   justify-content: center;
   margin-top: 30;
   border-color: #fa9c9c;
   border-width: 2;
   border-radius: 20;
-  margin-horizontal: 10;
+  margin-horizontal: 24;
 `;
 const BackCntr = styled.TouchableOpacity`
   width: 100%;
@@ -184,25 +187,25 @@ const BackCntr = styled.TouchableOpacity`
 `;
 
 const BackIcon = styled.Text`
-  width: 120px;
+  width: 25%;
   font-size: 18px;
 `;
 const Container = styled.View`
   flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1%;
   background-color: #fffbf8;
 `;
-
 const IntroText = styled.Text`
   font-size: 22px;
-  font-family: NanumSquareRound;
   font-weight: bold;
-  margin-top: 30px;
+  font-family: NanumSquareRound;
+  margin-top: 4%;
   line-height: 40px;
+  margin-horizontal: 24px;
 `;
+
 const AppName = styled.Text`
   font-size: 22px;
   color: #f66c6c;

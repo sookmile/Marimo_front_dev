@@ -13,6 +13,8 @@ import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
+import preURL from "../../preURL/preURL";
+import Orientation from "react-native-orientation";
 
 const Practice = ({ route, navigation }) => {
   const [activateRecord, setActivation] = useState(false);
@@ -24,6 +26,20 @@ const Practice = ({ route, navigation }) => {
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
   const { oWord, Lastpage } = route.params;
+  
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  });
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "PORTRAIT") {
+      Orientation.lockToPortrait();
+    }
+  };
 
   const voiceLabel = text
     ? text
@@ -38,10 +54,10 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = (event) => {
+  const _onSpeechResults = async (event) => {
     console.log("onSpeechResults");
     console.log(event.value[0]);
-    setText(event.value[0]);
+    await setText(event.value[0]);
     console.log(text);
     if (event.value[0] === oWord) {
       postResult();
@@ -76,8 +92,11 @@ const Practice = ({ route, navigation }) => {
     const data = {
       word: oWord,
     };
+    console.log(data);
+
     axios
-      .post("192.168.35.40" + "/marimo/tale/speechuri", data)
+      .post(preURL.preURL + "/marimo/tale/speechuri", data)
+
       .then((res) => {
         setURI(res.data.uri);
         console.log("비디오 링크: ", URI);
@@ -105,9 +124,9 @@ const Practice = ({ route, navigation }) => {
       lastpage: Lastpage,
     };
     console.log("data: ", data);
-    axios
-      .post("192.168.35.40" + "/marimo/tale/save", data)
 
+    axios
+      .post(preURL.preURL + "/marimo/tale/save", data)
       .then((res) => {
         setResponse(res.data);
         console.log("성공여부: ", response);
