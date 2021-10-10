@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   View,
@@ -7,9 +7,40 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Orientation from "react-native-orientation";
-import Tts from "react-native-tts";
+import StoryMain from "./StoryMain";
+import Sound from "react-native-sound";
+
+const path1 = require("../../assets/sounds/story1page1.m4a");
+const path2 = require("../../assets/sounds/story1page2.m4a");
+const path3 = require("../../assets/sounds/story1page3.mp3");
+const path4 = require("../../assets/sounds/story1page4.m4a");
+
+let music1 = new Sound(path1, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
+
+let music2 = new Sound(path2, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
+
+let music3 = new Sound(path3, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
+
+let music4 = new Sound(path4, null, (error) => {
+  if (error) {
+    console.log("play failed");
+  }
+});
 
 const StoryOne = ({ navigation }) => {
+  const [pageNum, setPageNum] = useState(1);
   useEffect(() => {
     Orientation.lockToLandscapeRight();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -23,44 +54,502 @@ const StoryOne = ({ navigation }) => {
       Orientation.lockToLandscape();
     }
   };
-  const onOrientaionChange2 = (orientation) => {
-    if (orientation === "LANDSCAPE_RIGHT") {
-      Orientation.lockToLandscape();
-    }
-  };
 
-  Tts.setDefaultLanguage("ko-KR");
-  setTimeout(() => {
-    Tts.speak("정원이 정말 아름답구나!");
-  }, 1000);
-  setTimeout(() => {
-    Tts.speak("우와, 예쁜 장미꽃이 피어있네?");
-  }, 4000);
+  if (pageNum == 1) {
+    music1.play();
+    music2.pause();
+    music3.pause();
+    music4.pause();
+  } else if (pageNum == 2) {
+    music2.play();
+    music1.pause();
+    music3.pause();
+    music4.pause();
+  } else if (pageNum == 3) {
+    music3.play();
+    music1.pause();
+    music2.pause();
+    music4.pause();
+  } else if (pageNum == 4) {
+    music4.play();
+    music1.pause();
+    music2.pause();
+    music3.pause();
+  } else {
+    console.log("동화1 끝!");
+  }
+
+  // Tts.setDefaultLanguage("ko-KR");
+  // setTimeout(() => {
+  //   Tts.speak("정원이 정말 아름답구나!");
+  // }, 1000);
+  // setTimeout(() => {
+  //   Tts.speak("우와, 예쁜 장미꽃이 피어있네?");
+  // }, 4000);
 
   return (
     <View>
-      <ImageBackground
-        source={require("../../assets/images/story/story1.png")}
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-        resizeMode="cover"
-      >
-        <View style={styles.textBox1}>
-          <Text style={styles.line1}>정원이 정말 아름답구나!</Text>
-        </View>
-        <View style={styles.textBox2}>
-          <Text style={styles.line2}>우와, 예쁜 </Text>
-          <Text
-            style={styles.word1}
-            onPress={() => navigation.navigate("Practice")}
+      {pageNum == 1 ? (
+        <View>
+          <ImageBackground
+            source={require("../../assets/images/story/Story1Page1.png")}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            resizeMode="cover"
           >
-            장미꽃
-          </Text>
-          <Text style={styles.line2}>이 피어있네?</Text>
+            <Text style={styles.pageIndex}>{pageNum}/4</Text>
+            <TouchableOpacity
+              style={{
+                width: 265,
+                height: 90,
+                top: "0%",
+                left: "32%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music1.pause();
+                navigation.navigate("Practice", {
+                  oWord: "침대",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>침대</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 290,
+                height: 120,
+                top: "40%",
+                left: "27%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music1.pause();
+                navigation.navigate("Practice", {
+                  oWord: "이불",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>이불</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 80,
+                height: 80,
+                top: "-4%",
+                left: "66%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music1.pause();
+
+                navigation.navigate("Practice", {
+                  oWord: "시계",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>시계</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 70,
+                height: 70,
+                top: "-37%",
+                left: "91%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music1.pause();
+                navigation.navigate("Practice", {
+                  oWord: "축구공",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>축구공</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 120,
+                height: 70,
+                top: "-75%",
+                left: "73%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music1.pause();
+                navigation.navigate("Practice", {
+                  oWord: "액자",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>액자</Text>
+            </TouchableOpacity>
+            <View style={styles.navBox}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("StoryLoading");
+                }}
+              >
+                <Text style={styles.navBoxText}> 이전 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(2);
+                }}
+              >
+                <Text style={styles.navBoxText}> 다음</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
         </View>
-      </ImageBackground>
+      ) : pageNum == 2 ? (
+        <View>
+          <ImageBackground
+            source={require("../../assets/images/story/Story1Page2.png")}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            resizeMode="cover"
+          >
+            <Text style={styles.pageIndex}>{pageNum}/4</Text>
+            <TouchableOpacity
+              style={{
+                width: 130,
+                height: 230,
+                top: "1%",
+                left: "0%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "냉장고",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>냉장고</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 80,
+                height: 80,
+                top: "15%",
+                left: "32%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "사과",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>사과</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 80,
+                height: 80,
+                top: "-13%",
+                left: "52%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "포도",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>포도</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 85,
+                height: 85,
+                top: "-33%",
+                left: "69%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "수박",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>수박</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 80,
+                height: 80,
+                top: "-67%",
+                left: "85%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "바나나",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>바나나</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 85,
+                height: 90,
+                top: "10%",
+                left: "10%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music2.pause();
+                navigation.navigate("Practice", {
+                  oWord: "달력",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>달력</Text>
+            </TouchableOpacity>
+            <View style={styles.navBox}>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(1);
+                }}
+              >
+                <Text style={styles.navBoxText}>이전 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(3);
+                }}
+              >
+                <Text style={styles.navBoxText}> 다음</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+      ) : pageNum == 3 ? (
+        <View>
+          <ImageBackground
+            source={require("../../assets/images/story/Story1Page3.png")}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            resizeMode="cover"
+          >
+            <Text style={styles.pageIndex}>{pageNum}/4</Text>
+            <View style={styles.navBox}>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(2);
+                }}
+              >
+                <Text style={styles.navBoxText}>이전 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(4);
+                }}
+              >
+                <Text style={styles.navBoxText}> 다음</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+      ) : pageNum == 4 ? (
+        <View>
+          <ImageBackground
+            source={require("../../assets/images/story/Story1Page4.png")}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            resizeMode="cover"
+          >
+            <Text style={styles.pageIndex}>{pageNum}/4</Text>
+            <TouchableOpacity
+              style={{
+                width: 85,
+                height: 85,
+                top: "82%",
+                left: "16%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music4.pause();
+                navigation.navigate("Practice", {
+                  oWord: "기차",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>기차</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 200,
+                height: 120,
+                top: "52%",
+                left: "32%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music4.pause();
+                navigation.navigate("Practice", {
+                  oWord: "자전거",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>자전거</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 85,
+                height: 85,
+                top: "-15%",
+                left: "61%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music4.pause();
+                navigation.navigate("Practice", {
+                  oWord: "색연필",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>색연필</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 80,
+                height: 50,
+                top: "12%",
+                left: "61%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music4.pause();
+                navigation.navigate("Practice", {
+                  oWord: "도토리",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>도토리</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 85,
+                height: 85,
+                top: "-35%",
+                left: "77%",
+                borderRadius: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                music4.pause();
+                navigation.navigate("Practice", {
+                  oWord: "장갑",
+                  LastPage: 1,
+                });
+              }}
+            >
+              <Text style={styles.word}>장갑</Text>
+            </TouchableOpacity>
+            <View style={styles.navBox}>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(3);
+                }}
+              >
+                <Text style={styles.navBoxText}>이전 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setPageNum(5);
+                  music4.pause();
+                }}
+              >
+                <Text style={styles.navBoxText}> 다음</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+      ) : pageNum == 5 ? (
+        <StoryMain />
+      ) : (
+        <View>
+          <Text>오류</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -68,41 +557,42 @@ const StoryOne = ({ navigation }) => {
 export default StoryOne;
 
 const styles = StyleSheet.create({
-  textBox1: {
-    width: 165,
-    height: 78,
-    left: "3%",
-    top: "15%",
-    backgroundColor: "#E8E8ED",
-    borderBottomLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  pageIndex: {
+    position: "absolute",
+    width: 45,
+    top: "3%",
+    left: "1.5%",
+    backgroundColor: "white",
+    textAlign: "center",
+    padding: 7,
+    borderRadius: 10,
+    fontFamily: "Cafe24Ssurround",
   },
-  textBox2: {
-    width: 180,
-    height: 78,
-    left: "165%",
-    top: "0%",
-    backgroundColor: "#E8E8ED",
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+  word: {
+    fontSize: 15,
+    color: "black",
+    backgroundColor: "white",
+    padding: 7,
+    borderRadius: 15,
+    borderWidth: 2.5,
+    borderColor: "#B16CF6",
+    textAlign: "center",
+    fontFamily: "Cafe24Ssurround",
+  },
+  navBox: {
+    position: "absolute",
+    width: 88,
+    top: "90%",
+    left: "88.5%",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    backgroundColor: "white",
+    padding: 7,
+    borderRadius: 10,
+    justifyContent: "space-between",
     alignItems: "center",
   },
-  line1: {
-    fontSize: 13,
-  },
-  word1: {
-    fontSize: 13,
-    color: "#fb5a60",
-  },
-  line2: {
-    fontSize: 13,
+  navBoxText: {
+    fontFamily: "Cafe24Ssurround",
   },
 });
