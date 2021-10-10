@@ -31,7 +31,7 @@ const renderItem = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
-        marginHorizontal: SIZES.padding,
+        height: "27.5%",
       }}
     >
       <ContnetSubCntr

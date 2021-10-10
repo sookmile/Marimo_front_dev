@@ -17,8 +17,6 @@ import StoryOne from "./src/components/Story/StoryOne";
 import Practice from "./src/components/Story/Practice";
 // Game
 import SpellingGame from "./src/components/Game/SpellingGame";
-import SpellingGameResult from "./src/components/Game/SpellingGameResult";
-import SpellingGameRanking from "./src/components/Game/SpellingGameRanking";
 import GameMain from "./src/components/Game/GameMain";
 import SpellingGameContainer from "./src/components/Game/SpellingGameContainer";
 //Tabs
@@ -108,16 +106,8 @@ const App = () => {
           component={SpellingGame}
           options={{ headerShown: true, title: "냠냠 맛있는 모음게임" }}
         />
-        <MainStack.Screen
-          name="GameResult"
-          component={SpellingGameResult}
-          options={{ headerShown: false }}
-        />
-        <MainStack.Screen
-          name="GameRank"
-          component={SpellingGameRanking}
-          options={{ headerShown: false }}
-        />
+        
+       
       </MainStack.Navigator>
     </NavigationContainer>
   );
