@@ -21,36 +21,18 @@ import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
 
-const ListItem = ({ item }) => {
-  const navigation = useNavigation();
-
-  return (
-    <ItemButton label={item.key}>
-      <ItemBox
-        background={item.background}
-        onPress={() =>
-          item.router === "null"
-            ? Alert.alert("12월 정식버전 출시 이후, 만나보실 수 있습니다.")
-            : navigation.navigate(`${item.router}`)
-        }
-      >
-        <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
-        <ItemText color={item.color}>{item.label}</ItemText>
-      </ItemBox>
-    </ItemButton>
-  );
-};
-
 const renderItem = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View
       key={item.key}
       style={{
+        width: "100%",
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
+        height: "27.5%",
       }}
     >
       <ContnetSubCntr
@@ -63,8 +45,8 @@ const renderItem = ({ item }) => {
         <ChImage
           style={{
             borderRadius: 20,
-            width: 90,
-            height: 90,
+            width: "26%",
+            height: "94%",
           }}
           source={item.src}
         />
@@ -80,7 +62,7 @@ const renderItem = ({ item }) => {
 };
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
-  height: 108px;
+  height: 100%;
   background: #fbf8ff;
   border-radius: 23;
   justify-content: space-between;
@@ -88,8 +70,8 @@ const ContnetSubCntr = styled.TouchableOpacity`
   display: flex;
   elevation: 10;
   flex-direction: row;
-  padding-horizontal: 10;
-  margin-horizontal: 10;
+  padding-vertical: 1.5%;
+  padding-horizontal: 2.5%;
 `;
 const ChImage = styled(Image)`
   width: 20%;
@@ -155,8 +137,9 @@ const GameMain = () => {
           />
           <View
             style={{
-              width: "92%",
-              height: "57%",
+              width: "94%",
+              height: "55%",
+              marginBottom: "5%",
               alignContent: "center",
               alignItems: "center",
             }}
@@ -166,6 +149,8 @@ const GameMain = () => {
                 display: "flex",
                 flex: 1,
                 marginBottom: 5,
+                height: "100%",
+                marginTop: "10%",
               }}
             >
               <View
@@ -386,31 +371,7 @@ const styles = StyleSheet.create({
     fontSize: wp(3.5),
   },
 });
-const ItemBox = styled.TouchableOpacity`
-  width: 97px;
-  height: 105px;
 
-  margin-right: 10;
-  background: ${(props) => props.background};
-  border-radius: 20px;
-  border-color: ${(props) => props.background};
-  align-items: center;
-  align-content: center;
-`;
-const ItemText = styled.Text`
-  color: ${(props) => props.color};
-  text-align: center;
-  padding-horizontal: 5;
-  margin-top: 10;
-  font-family: NanumSquareRoundB;
-  font-size: 18;
-  font-weight: bold;
-`;
-
-const ItemButton = styled.View`
-  margin-right: ${(props) => (props.label !== "탐험" ? 15 : 0)};
-  overflow: visible;
-`;
 const StudyTxt = styled.Text`
   font-family: NanumSquareRoundB;
   font-size: 22px;

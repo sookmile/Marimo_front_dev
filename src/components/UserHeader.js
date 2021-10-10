@@ -30,9 +30,6 @@ export const UserHeader = ({ userNickname, type }) => {
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 0);
 
-  useEffect(() => {
-    console.log(userNickname);
-  }, []);
   const navigation = useNavigation();
 
   return (
@@ -357,10 +354,10 @@ const BackCntr = styled.TouchableOpacity`
   text-align: left;
   display: flex;
   flex-direction: row;
-  margin-bottom: 25px;
+  margin-bottom: 7%;
 `;
 
 const BackIcon = styled.Text`
-  width: 120px;
+  width: 100%;
   font-size: 18px;
 `;

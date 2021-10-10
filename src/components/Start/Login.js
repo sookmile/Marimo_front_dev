@@ -69,7 +69,6 @@ const Login = ({ navigation }) => {
 
   useEffect(async () => {
     Alert.alert("변우진님 환영합니다");
-    console.log("변했니");
     console.log(await AsyncStorage.getItem("isLogin"));
     console.log(await AsyncStorage.getItem("userId"));
     const id = await AsyncStorage.getItem("userId");
@@ -153,11 +152,6 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Character", { name: "우진" })}
-            >
-              <Text>이동</Text>
-            </TouchableOpacity>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
@@ -257,9 +251,7 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity onPress={() => setPageNum(0)}>
-              <Text>이동</Text>
-            </TouchableOpacity>
+           
           </BackCntr>
           <Cntr style={{ flex: 1 }}>
             <Box>
@@ -334,8 +326,7 @@ const Login = ({ navigation }) => {
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
-                textAlign: "center",
-                verticalAlign: "center",
+                justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
@@ -363,11 +354,6 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Character", { name: "우진" })}
-            >
-              <Text>이동</Text>
-            </TouchableOpacity>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
@@ -476,25 +462,25 @@ justify-content:space-between;
 
 `;
 const Wrapper = Styled.View`
-  height: 70px;
+  height: 7%;
 `;
 const BackIcon = Styled.Text`
-width:120px;
+width:20%;
 font-size:18px;
 
 `;
 const Container = Styled.View`
   flex: 1;
-  margin-left:10px;
-  margin-right:10px;
-  margin-top:10px;
+  margin-left:3%;
+  margin-right:3%;
+  margin-top:1%;
   
 `;
 
 const IntroText = Styled.Text`
   font-size:22px;
   font-weight: bold;
-  margin-top:30px;
+  margin-top:4%;
   line-height: 40px;
 `;
 const VoiceText = Styled.Text`
@@ -521,8 +507,8 @@ const AppName = Styled.Text`
 `;
 
 const Box = Styled.View`
-width:290px;
-height:205px;
+width:80%;
+height:30%;
 border-radius:10;
 margin-top:30px;
 border-width:1.5;
