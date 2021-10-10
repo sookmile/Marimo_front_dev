@@ -49,7 +49,7 @@ const Character = ({ route, navigation }) => {
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#fffbf8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr onPress={() => navigation.navigate("StartMain")}>
+        <BackCntr onPress={() => navigation.navigate("Login")}>
           <Icon2
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -67,7 +67,7 @@ const Character = ({ route, navigation }) => {
           만나서 반가워, <AppName>{name}</AppName>아!{"\n"}너와 함께 모험을 떠날
           친구를 골라봐!
         </IntroText>
-        <CharacterCntr>
+        <CharacterCntr height={height}>
           <View style={{ width: 330 }}>
             <FlatList
               data={character}
@@ -92,6 +92,7 @@ const Character = ({ route, navigation }) => {
                     >
                       <Image
                         style={{ width: 110, height: 110 }}
+                        resizeMode="contain"
                         source={item.src}
                       />
                     </ImageCntr>
@@ -106,7 +107,7 @@ const Character = ({ route, navigation }) => {
           </View>
         </CharacterCntr>
         <BtnCntr>
-          <Btn onPress={onSelect}>
+          <Btn height={height} onPress={onSelect}>
             <BtnText>선택했어요!</BtnText>
           </Btn>
         </BtnCntr>
@@ -140,18 +141,19 @@ const GoodsCntr = styled.View`
 
 const ScrollView = styled.FlatList``;
 const BtnCntr = styled.View`
-  display: flex;
+  margin-top: 20;
   align-items: center;
   justify-content: center;
-  margin-top: 25px;
 `;
 const Btn = styled.TouchableOpacity`
   background-color: #b16cf6;
+  margin-bottom: 20;
   color: white;
   width: 343px;
   height: 56px;
   border-radius: 14px;
   align-items: center;
+  align-content: center;
   justify-content: center;
 `;
 const BtnText = styled.Text`
@@ -167,14 +169,14 @@ const Cntr = styled.View`
   justify-content: center;
 `;
 const CharacterCntr = styled.View`
-  height: 425px;
+  height:${(props) => props.height * 0.55}
   align-items: center;
   justify-content: center;
   margin-top: 30;
   border-color: #fa9c9c;
   border-width: 2;
   border-radius: 20;
-  margin-horizontal: 10;
+  margin-horizontal: 24;
 `;
 const BackCntr = styled.TouchableOpacity`
   width: 100%;
@@ -202,6 +204,7 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 30px;
   line-height: 40px;
+  margin-horizontal: 24px;
 `;
 const AppName = styled.Text`
   font-size: 22px;

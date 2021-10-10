@@ -35,6 +35,34 @@ const ListItem = ({ item }) => {
   );
 };
 
+const ItemButton = styled.View`
+  width: 30%;
+  align-items: center;
+  overflow: visible;
+`;
+
+const ItemBox = styled.TouchableOpacity`
+  width: 100%;
+  height: 105px;
+  elevation: 1;
+  border-width: 0.0125;
+  margin-right: 10;
+  background: ${(props) => props.background};
+  border-radius: 20;
+  border-color: ${(props) => props.background};
+  align-items: center;
+  align-content: center;
+`;
+const ItemText = styled.Text`
+  color: ${(props) => props.color};
+  text-align: center;
+  padding-horizontal: 5;
+  margin-top: 10;
+  font-family: NanumSquareRoundB;
+  font-size: 18;
+  font-weight: bold;
+`;
+
 const renderItem = ({ item }) => (
   <View
     style={{
@@ -116,11 +144,13 @@ const Home = () => {
   };
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
+    const Character = await AsyncStorage.getItem("characterNum");
+    console.log(Character);
     console.log(Nickname);
     setUserNickName(Nickname);
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
@@ -138,7 +168,7 @@ const Home = () => {
           />
           <View
             style={{
-              width: "94%",
+              width: "92%",
               height: "58%",
               alignContent: "center",
               alignItems: "center",
@@ -148,6 +178,8 @@ const Home = () => {
               style={{
                 display: "flex",
                 marginBottom: 30,
+                justifyContent: "space-between",
+                width: "100%",
                 flexDirection: "row",
                 alignContent: "center",
                 alignItems: "center",
@@ -168,7 +200,14 @@ const Home = () => {
                   display: "flex",
                 }}
               >
-                <StudyTxt>추천 학습</StudyTxt>
+                <StudyTxt
+                  style={{
+                    color: "#464D46",
+                    fontWeight: "bold",
+                  }}
+                >
+                  추천 학습
+                </StudyTxt>
               </View>
               <View
                 stlye={{
@@ -374,31 +413,7 @@ const styles = StyleSheet.create({
     fontSize: wp(3.5),
   },
 });
-const ItemBox = styled.TouchableOpacity`
-  width: 97px;
-  height: 105px;
 
-  margin-right: 10;
-  background: ${(props) => props.background};
-  border-radius: 20px;
-  border-color: ${(props) => props.background};
-  align-items: center;
-  align-content: center;
-`;
-const ItemText = styled.Text`
-  color: ${(props) => props.color};
-  text-align: center;
-  padding-horizontal: 5;
-  margin-top: 10;
-  font-family: NanumSquareRoundB;
-  font-size: 18;
-  font-weight: bold;
-`;
-
-const ItemButton = styled.View`
-  margin-right: ${(props) => (props.label !== "탐험" ? 15 : 0)};
-  overflow: visible;
-`;
 const StudyTxt = styled.Text`
   font-family: NanumSquareRoundB;
   font-size: 22px;

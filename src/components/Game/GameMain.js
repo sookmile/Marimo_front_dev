@@ -126,7 +126,7 @@ const GameMain = () => {
     setUserNickName(Nickname);
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
@@ -144,7 +144,7 @@ const GameMain = () => {
           />
           <View
             style={{
-              width: "94%",
+              width: "92%",
               height: "57%",
               alignContent: "center",
               alignItems: "center",
@@ -213,9 +213,9 @@ const SECTIONS1 = [
 const SECTIONS3 = [
   {
     key: "1",
-    text: "누가누가 잘하나 재미있는 끝말잇기",
+    text: "냠냠 맛있는 초성 게임",
     age: "6~7",
-    src: navTabIcons.ic_game1,
+    src: navTabIcons.cv_game,
     router: "SpellingGameContainer",
   },
   {

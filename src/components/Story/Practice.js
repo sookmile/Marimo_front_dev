@@ -37,10 +37,10 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = (event) => {
+  const _onSpeechResults = async(event) => {
     console.log("onSpeechResults");
     console.log(event.value[0]);
-    setText(event.value[0]);
+    await setText(event.value[0]);
     console.log(text);
     if (event.value[0] === oWord) {
       postResult();
@@ -104,6 +104,7 @@ const Practice = ({ route, navigation }) => {
       Lastpage: Lastpage,
     };
     console.log("data: ", data);
+
     axios
       .post("192.168.35.40" + "/marimo/tale/save", data)
       .then((res) => {
@@ -142,6 +143,7 @@ const Practice = ({ route, navigation }) => {
             이전
           </Text>
           <View style={styles.videoContainer}>
+
             <Video
               source={{
                 uri: URI,

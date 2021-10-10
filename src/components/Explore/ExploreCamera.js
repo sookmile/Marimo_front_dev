@@ -18,7 +18,6 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { icons } from "../../constants";
 
-
 const ExploreCamera = ({ navigation }) => {
   // for data to  send api
   const [image, setImage] = useState("");
@@ -98,7 +97,7 @@ const ExploreCamera = ({ navigation }) => {
     fd.append("image", {
       name: "picture.jpg",
       type: "image/jpeg",
-      uri: navTabIcons,
+      uri: url,
     });
     const response = await fetch(preURL.preURL + "/image/name", {
       method: "POST",
@@ -227,26 +226,6 @@ const ExploreCamera = ({ navigation }) => {
                     style={styles.innerSnapButton}
                   />
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={async () => {
-                  await getPhotos();
-                  if (url) postImage2();
-                  // post api
-                  if (description) {
-                    setprocessingImage(false);
-                    navigation.navigate("Detail", {
-                      image: url,
-                      description: description,
-                    });
-                  } else {
-                    setprocessingImage(false);
-                    alert("이미지를 받아오지 못했습니다!");
-                  }
-                  console.log("hello");
-                }}
-              >
-                <Image source={icons.userIcon} />
               </TouchableOpacity>
             </View>
           </>

@@ -11,6 +11,10 @@ import {
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
+import {
+  widthPercentageToDP as wp,
+  HeightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -51,9 +55,9 @@ const StartMain = ({ navigation }) => {
   };
 
   useEffect(async () => {
-    console.log("Hello");
-  
-  }, []);
+    console.log("token");
+    console.log(naverToken);
+  }, [naverToken]);
 
   const naverLogout = () => {
     NaverLogin.logout();
@@ -61,6 +65,7 @@ const StartMain = ({ navigation }) => {
   };
 
   useEffect(() => {
+    AsyncStorage.setItem("isLogin", "false");
     if (naverToken !== null && AsyncStorage.getItem("isLogin") !== "true") {
       getUserProfile();
     }
@@ -76,63 +81,54 @@ const StartMain = ({ navigation }) => {
     await axios
       .post(preURL.preURL + "/marimo/login", body)
       .then(async (res) => {
-        console.log(res.data);
         const response = res.data.id;
         await setUserId(response);
-        console.log("userId", response);
-        console.log("성공");
       })
       .catch((err) => {
         console.log("에러 발생 ");
         console.log(err);
       });
-    console.log(userId);
-    console.log(userId !== -1);
+
     if (userId !== -1) {
       await setLogin();
     }
   };
+
   const setLogin = async () => {
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
     await AsyncStorage.setItem("token", JSON.stringify(naverToken));
-    console.log(JSON.stringify(userId));
     await AsyncStorage.setItem("userId", JSON.stringify(userId));
   };
+
   const hanldeContinue = async () => {
     const isLogin = await AsyncStorage.getItem("isLogin");
-    if (isLogin === "true") {
+    Alert.alert("환영합니다.");
+    navigation.navigate("NavTab");
+    /*if (isLogin === "true") {
       Alert.alert("환영합니다.");
       navigation.navigate("NavTab");
     } else {
-      Alert.alert("환영합니다.");
-      navigation.navigate("NavTab");
-      /*Alert.alert(
+      Alert.alert(
         "사용자 정보가 없습니다.\n시작하기 버튼을 눌러 가입을 해주세요."
-      );*/
-    }
+      );
+    }*/
   };
 
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
+    console.log("porfile", profileResult);
     if (profileResult.resultcode === "024") {
-      console.log(profileResult);
       Alert.alert("로그인 실패", profileResult.message);
       return;
     } else {
-      const userName = profileResult.response.name.replace(" ", "");
-      const userEmail = profileResult.response.email;
-      console.log(userName);
-      console.log(userEmail);
-      console.log(userName.length);
       const id = await postUserInfo({
-        username: userName,
-        email: userEmail,
+        username: profileResult.response.name,
+        identifier: profileResult.response.id,
       });
-      console.log("성공했나요?");
+      console.log("로그인 성공");
       console.log(id);
-      console.log("profileResult", profileResult);
-      navigation.navigate("Login", { name: userName });
+      navigation.navigate("Login", { name: profileResult.response.name });
     }
   };
 
@@ -148,6 +144,7 @@ const StartMain = ({ navigation }) => {
 
   const style = StyleSheet.create({
     view: {
+      backgroundColor: "#FFFBF8",
       width: width,
       height: height,
       alignItems: "center",
@@ -208,8 +205,8 @@ const AppName = Styled.Text`
     position:relative;
     top:0;
     color: #F66C6C;
-    font-weight: bold;
     font-size: 52px;
+    font-family: "Cafe24Ssurround"
     line-height: 61px;
 `;
 const DtText = Styled.Text`
@@ -217,6 +214,7 @@ const DtText = Styled.Text`
     margin-bottom:${(props) => props.margin * 2};
     color: #191919;
     font-size: 18px;
+    font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
@@ -227,9 +225,9 @@ const Btn = Styled.TouchableOpacity`
   align-items:center;
   justify-content:center;
 
-
 `;
 const Btn2 = Styled.TouchableOpacity`
+
   background-color: #03C75A;
   color: white;
   padding:10px;
@@ -243,7 +241,7 @@ const Btn2 = Styled.TouchableOpacity`
 
 `;
 const NIMg = Styled.Image`
-  background-color: #B16CF6;
+  background-color: #03C75A;
   color: white;
   width: 270px;
   height: 50px;

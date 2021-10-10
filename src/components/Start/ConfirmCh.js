@@ -27,6 +27,8 @@ const ConfirmCh = ({ route, navigation }) => {
   useEffect(async () => {
     console.log("hello");
     await setChrNum(characterNum);
+    console.log(characterNum.toString());
+    await AsyncStorage.setItem("characterNum", characterNum.toString());
     console.log(characterNum);
     console.log(name);
     console.log(character[characterNum]);
@@ -52,66 +54,69 @@ const ConfirmCh = ({ route, navigation }) => {
   let chMargin = 0;
   Platform.OS === "ios" ? (chMargin = 60) : (chMargin = 40);
   return (
-    <Container style={{ marginTop: cntrMargin }}>
-      <BackCntr onPress={() => navigation.navigate("StartMain")}>
-        <Icon2
-          name="chevron-back"
-          style={{ marginRight: 10 }}
-          size={23}
-          color={"#555555"}
-        ></Icon2>
-        <BackIcon>뒤로 가기</BackIcon>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Character", { name: "우진" })}
-        >
-          <Text>이동</Text>
-        </TouchableOpacity>
-      </BackCntr>
+    <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
+      <Container style={{ marginTop: cntrMargin }}>
+        <BackCntr onPress={() => navigation.navigate("StartMain")}>
+          <Icon2
+            name="chevron-back"
+            style={{ marginRight: 10 }}
+            size={23}
+            color={"#555555"}
+          ></Icon2>
+          <BackIcon>뒤로 가기</BackIcon>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Character", { name: "우진" })}
+          >
+            <Text>이동</Text>
+          </TouchableOpacity>
+        </BackCntr>
 
-      <IntroText>
-        {character[chrNum].label}와 모험을 떠날 준비가 되었니?
-        {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
+        <IntroText>
+          {character[chrNum].label}와 모험을 떠날 준비가 되었니?
+          {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
-      </IntroText>
-      <Cntr>
-        <View
-          style={{
-            width: "95%",
-            alignItems: "center",
-            marginTop: chMargin,
-          }}
-        >
-          <Image
-            style={{ width: 225, height: 225 }}
-            source={character[chrNum].src}
-          />
-          <Box>
-            <BoxText>
-              "{name}아 안녕, 나는 {character[chrNum].label}야!
-              {"\n"}우리 함께 재밌는 모험을 떠나자!"
-            </BoxText>
-          </Box>
-        </View>
-        <BtnCntr style={{ marginTop: 1.2 * chMargin }}>
-          <Btn
-            onPress={async () => {
-              const userId = await AsyncStorage.getItem("userId");
-              console.log(userId);
-              const postData = {
-                userId: userId === null ? 3 : userId,
-                character: chrNum,
-              };
-              console.log(postData);
-              await postCharacter(postData);
-              await AsyncStorage.setItem("userNickname", name);
-              navigation.navigate("NavTab");
+        </IntroText>
+        <Cntr>
+          <View
+            style={{
+              width: "105%",
+              alignItems: "center",
+              marginTop: chMargin,
             }}
           >
-            <BtnText>네! 준비됐어요!</BtnText>
-          </Btn>
-        </BtnCntr>
-      </Cntr>
-    </Container>
+            <Image
+              style={{ width: 225, height: 225 }}
+              resizeMode="contain"
+              source={character[chrNum].src}
+            />
+            <Box>
+              <BoxText>
+                "{name}아 안녕, 나는 {character[chrNum].label}야!
+                {"\n"}우리 함께 재밌는 모험을 떠나자!"
+              </BoxText>
+            </Box>
+          </View>
+          <BtnCntr style={{ marginTop: 1.2 * chMargin }}>
+            <Btn
+              onPress={async () => {
+                const userId = await AsyncStorage.getItem("userId");
+                console.log(userId);
+                const postData = {
+                  userId: userId === null ? 3 : userId,
+                  character: chrNum,
+                };
+                console.log(postData);
+                await postCharacter(postData);
+                await AsyncStorage.setItem("userNickname", name);
+                navigation.navigate("NavTab");
+              }}
+            >
+              <BtnText>네! 준비됐어요!</BtnText>
+            </Btn>
+          </BtnCntr>
+        </Cntr>
+      </Container>
+    </View>
   );
 };
 
@@ -168,6 +173,7 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 30px;
   line-height: 40px;
+  margin-horizontal: 24px;
 `;
 const AppName = styled.Text`
   font-size: 22px;
@@ -177,7 +183,8 @@ const AppName = styled.Text`
 const Box = styled.View`
   width: 80%;
   height: 80px;
-  background-color: #dedede;
+  background-color: #ededed;
+  elevation: 10;
   border-radius: 20;
   margin-top: 20;
 `;

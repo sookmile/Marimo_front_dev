@@ -45,6 +45,7 @@ const renderItem = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
+        marginHorizontal: SIZES.padding,
       }}
     >
       <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
@@ -124,7 +125,7 @@ const StoryMain = () => {
     setUserNickName(Nickname);
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
         <View
           style={{
