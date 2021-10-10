@@ -56,25 +56,33 @@ const StoryOne = ({ navigation }) => {
   };
 
   if (pageNum == 1) {
-    music1.play();
     music2.pause();
     music3.pause();
     music4.pause();
+    setTimeout(() => {
+      music1.play();
+    }, 1000);
   } else if (pageNum == 2) {
-    music2.play();
     music1.pause();
     music3.pause();
     music4.pause();
+    setTimeout(() => {
+      music2.play();
+    }, 1000);
   } else if (pageNum == 3) {
-    music3.play();
     music1.pause();
     music2.pause();
     music4.pause();
+    setTimeout(() => {
+      music3.play();
+    }, 1000);
   } else if (pageNum == 4) {
-    music4.play();
     music1.pause();
     music2.pause();
     music3.pause();
+    setTimeout(() => {
+      music4.play();
+    }, 1000);
   } else {
     console.log("동화1 끝!");
   }
@@ -535,7 +543,7 @@ const StoryOne = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(5);
-                  music4.pause();
+                  music4.pause;
                 }}
               >
                 <Text style={styles.navBoxText}> 다음</Text>
