@@ -17,6 +17,8 @@ import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
+import Orientation from "react-native-orientation";
+
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
 const iosKeys = {
@@ -50,6 +52,19 @@ const StartMain = ({ navigation }) => {
       console.log("pass token");
       return token;
     });
+  };
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  });
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "PORTRAIT") {
+      Orientation.lockToPortrait();
+    }
   };
 
   const naverLogout = () => {
@@ -137,8 +152,8 @@ const StartMain = ({ navigation }) => {
   const style = StyleSheet.create({
     view: {
       backgroundColor: "#FFFBF8",
-      width: width,
-      height: height,
+      width: "100%",
+      height: "100%",
       alignItems: "center",
       justifyContent: "center",
     },

@@ -131,6 +131,7 @@ const LearnRecord = ({ navigation, route }) => {
       .then(async (res) => {
         const response = res.data;
         console.log(res.data);
+        console.log("data");
         await setRecordInfo(response);
         setData(response);
       })
@@ -173,7 +174,7 @@ const LearnRecord = ({ navigation, route }) => {
           ></Icon>
           <BackIcon>뒤로 가기</BackIcon>
         </BackCntr>
-        <Cntr >
+        <Cntr>
           <Text
             style={{
               fontFamily: "NanumSquareRoundB",
