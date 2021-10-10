@@ -258,7 +258,7 @@ const StoryOne = ({ navigation }) => {
                 music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "냉장고",
-                  LastPage: 1,
+                  LastPage: 2,
                 });
               }}
             >
@@ -279,7 +279,7 @@ const StoryOne = ({ navigation }) => {
                 music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "사과",
-                  LastPage: 1,
+                  LastPage: 2,
                 });
               }}
             >
@@ -300,7 +300,7 @@ const StoryOne = ({ navigation }) => {
                 music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "포도",
-                  LastPage: 1,
+                  LastPage: 2,
                 });
               }}
             >
@@ -321,7 +321,7 @@ const StoryOne = ({ navigation }) => {
                 music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "수박",
-                  LastPage: 1,
+                  LastPage: 2,
                 });
               }}
             >
@@ -342,7 +342,7 @@ const StoryOne = ({ navigation }) => {
                 music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "바나나",
-                  LastPage: 1,
+                  LastPage: 2,
                 });
               }}
             >
@@ -363,7 +363,7 @@ const StoryOne = ({ navigation }) => {
                 music2.pause();
                 navigation.navigate("Practice", {
                   oWord: "달력",
-                  LastPage: 1,
+                  LastPage: 2,
                 });
               }}
             >
@@ -442,7 +442,7 @@ const StoryOne = ({ navigation }) => {
                 music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "기차",
-                  LastPage: 1,
+                  LastPage: 4,
                 });
               }}
             >
@@ -463,7 +463,7 @@ const StoryOne = ({ navigation }) => {
                 music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "자전거",
-                  LastPage: 1,
+                  LastPage: 4,
                 });
               }}
             >
@@ -484,7 +484,7 @@ const StoryOne = ({ navigation }) => {
                 music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "색연필",
-                  LastPage: 1,
+                  LastPage: 4,
                 });
               }}
             >
@@ -505,7 +505,7 @@ const StoryOne = ({ navigation }) => {
                 music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "도토리",
-                  LastPage: 1,
+                  LastPage: 4,
                 });
               }}
             >
@@ -526,7 +526,7 @@ const StoryOne = ({ navigation }) => {
                 music4.pause();
                 navigation.navigate("Practice", {
                   oWord: "장갑",
-                  LastPage: 1,
+                  LastPage: 4,
                 });
               }}
             >
