@@ -79,6 +79,8 @@ const ListItem2 = ({ item }) => {
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
+  console.log("section");
+  console.log(item);
   return (
     <View
       style={{
@@ -90,7 +92,7 @@ const ListItem = ({ item }) => {
     >
       <ContnetSubCntr
         style={{ backgroundColor: "none", elevation: 0 }}
-        onPress={() => _onPressSpeech(item.word)}
+        onPress={() => _onPressSpeech(item?.word)}
       >
         <ChImage
           style={{
@@ -107,7 +109,7 @@ const ListItem = ({ item }) => {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {item.word}
+            {item?.word}
           </ContentTitle>
         </ContentTexts>
       </ContnetSubCntr>
@@ -204,6 +206,8 @@ const ExploreMain = ({ navigation }) => {
           "Content-Type": "application/json",
         },
       });
+      console.log("결과");
+      console.log(response);
       if (response.status === 200) {
         const responseJson = await response.json();
         setLoading(false);
@@ -227,12 +231,15 @@ const ExploreMain = ({ navigation }) => {
     setuserNickmame(userNickname);
     const userMemory = await getUserMemory(userIdCheck);
     if (userMemory) {
+      console.log("기록");
+      console.log(userMemory);
       setUserData(userMemory);
     }
     setLoading(false);
   };
 
   useEffect(async () => {
+    console.log(userData);
     setLoading(true);
     await getMultiData();
     const Nickname = await AsyncStorage.getItem("userNickname");
@@ -300,7 +307,7 @@ const ExploreMain = ({ navigation }) => {
                 >
                   {userData.length !== 0
                     ? userData.map((obj) => <ListItem item={obj} />)
-                    : SECTIONS.data.map((obj) => <ListItem itme={obj} />)}
+                    : SECTIONS.map((obj) => <ListItem item={obj} />)}
                 </View>
               </View>
             </View>
@@ -314,29 +321,11 @@ const ExploreMain = ({ navigation }) => {
 export default ExploreMain;
 const SECTIONS = [
   {
-    title: "Made for you",
-    horizontal: true,
-    data: [
-      {
-        id: 1,
-        word: "데이터를 불러올 수 없습니다.",
-        link: "https://picsum.photos/id/1/200",
-        route: "StoryLoading",
-      },
-      {
-        id: 2,
-        word: "데이터를 불러올 수 없습니다.",
-        link: "https://picsum.photos/id/10/200",
-        route: "StoryLoading",
-      },
-
-      {
-        id: 3,
-        text: "Item text 3",
-        link: "https://picsum.photos/id/1002/200",
-        route: "StoryLoading",
-      },
-    ],
+    date: "2021-09-16T13:27:40",
+    id: 1,
+    link: "https://picsum.photos/id/10/200",
+    success: null,
+    word: "학습기록이 없습니다.",
   },
 ];
 
