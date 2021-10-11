@@ -7,14 +7,15 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import Orientation from "react-native-orientation";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
+  const [userID, setUserID] = useState(0);
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
@@ -23,8 +24,25 @@ const Practice = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
-  const { oWord, LastPage } = route.params;
 
+  const { oWord, LastPage, taleName } = route.params;
+
+  // ID 받아오기
+  const getUserId = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    return userId;
+  };
+
+  const getId = async () => {
+    const userId = await getUserId();
+    const userIdCheck = userId ? userId : 1;
+    setUserID(userIdCheck);
+    console.log("ID:", userID);
+  };
+
+  getId();
+
+  // 음성인식
   const voiceLabel = text
     ? text
     : isRecord
@@ -40,14 +58,13 @@ const Practice = ({ route, navigation }) => {
   };
   const _onSpeechResults = (event) => {
     console.log("onSpeechResults");
-    console.log(event.value[0]);
     setText(event.value[0]);
-    console.log(text);
+    console.log("발음한 단어:", text);
     if (event.value[0] === oWord) {
       postResult();
       console.log("정답");
       setRModalVisible(!isRModalVisible);
-    } else {
+    } else if (event.value[0] != oWord) {
       postResult();
       console.log("오답");
       setWModalVisible(!isWModalVisible);
@@ -87,6 +104,7 @@ const Practice = ({ route, navigation }) => {
         console.log(err);
       });
 
+    // 음성인식 부분
     Voice.onSpeechStart = _onSpeechStart;
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
@@ -97,36 +115,39 @@ const Practice = ({ route, navigation }) => {
     };
   }, []);
 
+  // 결과 전송
   const postResult = () => {
     Voice.stop();
+    // 저장용 데이터 전송
     const data1 = {
-      userId: 1,
-      taleName: "동화이름",
+      userId: userID,
+      taleName: taleName,
       lastpage: LastPage,
     };
-    console.log("data: ", data1);
+    console.log("data1:", data1);
     axios
       .post(preURL.preURL + "/marimo/tale/save", data1)
       .then((res) => {
         setResponse(res.data);
-        console.log("성공여부: ", response);
+        console.log("저장:", response);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
         console.log(err);
       });
+    // 피드백용 데이터 전송
     const data2 = {
-      userId: 1,
+      userId: userID,
       oWord: oWord,
       rWord: text,
       lastpage: LastPage,
     };
+    console.log("data2:", data2);
     axios
       .post(preURL.preURL + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
-        console.log(res.data);
-        console.log("성공여부: ", feedback);
+        console.log("피드백: ", feedback);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
@@ -134,12 +155,14 @@ const Practice = ({ route, navigation }) => {
       });
   };
 
+  // 모달 닫는 함수
   const closeRModal = () => {
     setRModalVisible(!isRModalVisible);
   };
   const closeWModal = () => {
     setWModalVisible(!isWModalVisible);
   };
+
   return (
     <>
       <ImageBackground
@@ -237,11 +260,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingRight: "5%",
+    marginRight: "3%",
   },
   mediaPlayer: {
     width: 320,
     height: 200,
-    resizeMode: "contain",
+    marginRight: "2%",
   },
   text: {
     fontSize: 20,
@@ -264,7 +288,6 @@ const styles = StyleSheet.create({
     marginLeft: "25%",
     padding: 7,
     display: "flex",
-    justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 120,
@@ -278,6 +301,7 @@ const styles = StyleSheet.create({
   cloud: {
     width: 155,
     height: 105,
+    marginBottom: "10%",
   },
   feedback: {
     fontSize: 25,
@@ -289,5 +313,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
+    marginBottom: "3%",
   },
 });
