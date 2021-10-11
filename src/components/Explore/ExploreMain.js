@@ -244,6 +244,7 @@ const ExploreMain = ({ navigation }) => {
   };
 
   useEffect(async () => {
+    console.log(userData);
     setLoading(true);
     await getMultiData();
     const Nickname = await AsyncStorage.getItem("userNickname");

@@ -342,7 +342,9 @@ const LearnRecord = ({ navigation, route }) => {
                                 : "게임-마리모와 함께하는 모음학습"}
                             </ContentText>
                           </ContentTexts>
-                          <TouchableOpacity onPress={() => _onPressSpeech(obj)}>
+                          <TouchableOpacity
+                            onPress={() => _onPressSpeech(obj.value)}
+                          >
                             <ChImage
                               style={{
                                 borderRadius: 0,
