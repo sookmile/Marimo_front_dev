@@ -6,8 +6,6 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
-  Button,
-  Animated,
 } from "react-native";
 import Orientation from "react-native-orientation";
 import Modal from "react-native-modal";
@@ -109,7 +107,6 @@ const Practice = ({ route, navigation }) => {
     console.log("data: ", data1);
     axios
       .post(preURL.preURL + "/marimo/tale/save", data1)
-
       .then((res) => {
         setResponse(res.data);
         console.log("성공여부: ", response);
@@ -128,6 +125,7 @@ const Practice = ({ route, navigation }) => {
       .post("192.168.35.40" + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
+        console.log(res.data);
         console.log("성공여부: ", feedback);
       })
       .catch((err) => {
@@ -200,11 +198,15 @@ const Practice = ({ route, navigation }) => {
           </TouchableOpacity>
         </Modal>
         <Modal isVisible={isWModalVisible} style={styles.modal2}>
+          <Image
+            style={styles.cloud}
+            source={require("../../assets/cloud.png")}
+          />
           <View>
             <Text style={styles.feedback}>{feedback}</Text>
           </View>
           <TouchableOpacity onPress={closeWModal}>
-            <Text style={styles.feedback}>닫기</Text>
+            <Text style={styles.close}>닫기</Text>
           </TouchableOpacity>
         </Modal>
       </ImageBackground>
@@ -239,6 +241,7 @@ const styles = StyleSheet.create({
   mediaPlayer: {
     width: 320,
     height: 200,
+    resizeMode: "contain",
   },
   text: {
     fontSize: 20,
@@ -256,18 +259,35 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   modal2: {
+    flex: 1,
+    width: "50%",
+    marginLeft: "30%",
+    padding: 7,
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 120,
+    borderWidth: 7,
+    borderColor: "#C5A1F3",
   },
   sticker: {
     width: 200,
     height: 200,
   },
+  cloud: {
+    width: 150,
+    height: 100,
+  },
   feedback: {
+    fontSize: 25,
+    fontFamily: "Cafe24Ssurround",
+    color: "#B16CF6",
+    textAlign: "center",
+  },
+  close: {
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
+    color: "#B16CF6",
   },
 });
