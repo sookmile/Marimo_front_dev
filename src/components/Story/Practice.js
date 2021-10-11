@@ -122,7 +122,7 @@ const Practice = ({ route, navigation }) => {
       lastpage: LastPage,
     };
     axios
-      .post("192.168.35.40" + "/marimo/tale/feedback", data2)
+      .post(preURL.preURL + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
         console.log(res.data);
