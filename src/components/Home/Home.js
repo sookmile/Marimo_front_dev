@@ -80,8 +80,8 @@ const renderItem = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 16,
         height: hp(13),
+        marginVertical: 16,
       }}
     >
       <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
@@ -101,12 +101,12 @@ const renderItem = ({ item }) => {
           <ContentTitle
             numberOfLines={1}
             ellipsizeMode="tail"
-            style={{ fontSize: hp(2), marginBottom: hp(1.5) }}
+            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
           >
             {item.text}
           </ContentTitle>
           <ContentText style={{ fontSize: hp(1.8) }}>
-            {item.number}명이 플레이 중입니다.
+            추천 연령 : {item.age}세
           </ContentText>
         </ContentTexts>
       </ContnetSubCntr>
@@ -134,7 +134,6 @@ const ContentTexts = styled.View`
 `;
 const ContentTitle = styled.Text`
   font-family: NanumSquareRoundB;
-  line-height: 24px;
   color: #000000;
 `;
 
@@ -237,7 +236,6 @@ const Home = () => {
               <View
                 stlye={{
                   flex: 1,
-
                   marginTop: StatusBar.currentHeight || 0,
                   marginBottom: 5,
                 }}
@@ -284,16 +282,16 @@ const SECTIONS1 = [
 const SECTIONS3 = [
   {
     key: "1",
-    text: "앗, 도와줘! 우당탕탕 왕국 모험",
-    src: navTabIcons.ic_story1,
-    number: 50,
+    text: "호랑이의 생일 잔치",
+    src: require("../../assets/images/story/Story1Page1.png"),
+    age: "6~7",
     router: "StoryLoading",
   },
   {
     key: "2",
     text: "냠냠 맛있는 모음게임",
     src: navTabIcons.cv_game,
-    number: 20,
+    age: "6~7",
     router: "SpellingGameContainer",
   },
 ];
@@ -441,7 +439,6 @@ const styles = StyleSheet.create({
 });
 
 const StudyTxt = styled.Text`
-  line-height: 28px;
   color: #191919;
 `;
 

@@ -21,14 +21,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import { images, icons, SIZES, COLORS, navTabIcons } from "../constants";
-import { useEffect } from "react";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export const UserHeader = ({ userNickname, type }) => {
   const { width, height } = Dimensions.get("window");
   let cntrMargin = 0;
-  Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 0);
+  Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 10);
 
   const navigation = useNavigation();
 
@@ -50,7 +49,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <View
               style={{
                 position: "absolute",
-                left: "45%",
+                left: width * 0.38,
                 width: "100%",
                 alignItems: "flex-start",
               }}
@@ -75,7 +74,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <View
               style={{
                 position: "absolute",
-                left: "45%",
+                left: width * 0.38,
                 width: "100%",
                 alignItems: "flex-start",
               }}
@@ -101,7 +100,7 @@ export const UserHeader = ({ userNickname, type }) => {
               <View
                 style={{
                   position: "absolute",
-                  left: "45%",
+                  left: width * 0.38,
                   width: "100%",
                   alignItems: "flex-start",
                 }}
@@ -119,27 +118,27 @@ export const UserHeader = ({ userNickname, type }) => {
         {/* <Image
           style={styles.mainLogo}
           source={require("../assets/icons/MainLogo.png")}
-       />*/}
+        /> */}
       </View>
       <View style={styles.body}>
         {type === "story" ? (
           <>
             <Image
-              style={{ width: "100%", height: 179, marginTop: -20 }}
+              style={{ width: "100%", height: hp(25), marginTop: -20 }}
               source={navTabIcons.cv_story}
             />
           </>
         ) : type === "game" ? (
           <>
             <Image
-              style={{ width: "100%", height: 179, marginTop: -20 }}
+              style={{ width: "100%", height: hp(25), marginTop: -20 }}
               source={navTabIcons.cv_game}
             />
           </>
         ) : type === "explore" ? (
           <>
             <Image
-              style={{ width: "100%", height: 179, marginTop: -20 }}
+              style={{ width: "100%", height: hp(25), marginTop: -20 }}
               source={navTabIcons.cv_explore}
             />
           </>
@@ -147,10 +146,11 @@ export const UserHeader = ({ userNickname, type }) => {
           <View style={styles.box}>
             <View style={styles.mainbox}>
               <Text style={styles.boxText}>
-                "마리모,{"\n"} 말이 뭐가 어렵니?
+                "마리모,{"\n"} 말이 뭐가 어렵니?"
               </Text>
               <Image
                 style={styles.mainLogo}
+                resizeMode="cover"
                 source={require("../assets/icons/MainLogo.png")}
               />
             </View>
@@ -177,21 +177,20 @@ const styles = StyleSheet.create({
   box: {
     borderRadius: 20,
     width: "100%",
-    height: 179,
+    height: hp(25),
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
   },
   boxText: {
-    fontWeight: "bold",
-    fontSize: 20,
-    lineHeight: 40,
+    fontFamily: "NanumSquareRoundB",
+    fontSize: hp(3),
+    lineHeight: hp(5),
     color: "#F2F2F2",
   },
   btnText: {
     color: "#C5A1F3",
-    fontSize: 13,
-    lineHeight: 15,
+    fontSize: hp(1.7),
     fontWeight: "bold",
   },
   mainbox: {
@@ -244,7 +243,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: "#464D46",
     fontSize: fontPercentage(24),
-    fontWeight: "bold",
+    fontFamily: "Cafe24Ssurround",
   },
   camera: {
     width: wp(45),
