@@ -1,3 +1,6 @@
+// main 화면 배경
+const mainBackground = require("../assets/images/SplashScreen/marimo_splash.png");
+
 const sunflowers = require("../assets/images/memories/sunflowers.png");
 const deer = require("../assets/images/memories/deer.png");
 const blocks = require("../assets/images/memories/blocks.png");
@@ -20,6 +23,7 @@ const scoreFailed = require("../assets/images/GameObject/SpellingGame/scoreEggFa
 const scoreSuccess = require("../assets/images/GameObject/SpellingGame/scoreEgg.png");
 
 export default {
+  mainBackground,
   sunflowers,
   deer,
   blocks,

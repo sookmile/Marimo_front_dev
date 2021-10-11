@@ -4,7 +4,8 @@ import {
   View,
   Dimensions,
   StyleSheet,
-  Image,
+  StatusBar,
+  ImageBackground,
   Alert,
 } from "react-native";
 import Styled from "styled-components/native";
@@ -18,6 +19,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 import Orientation from "react-native-orientation";
+import { images } from "../../constants";
 
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
@@ -162,35 +164,46 @@ const StartMain = ({ navigation }) => {
   });
   return (
     <View style={style.view}>
-      <Cntr>
-        <LogoCntr
-          margin={topMargin}
-          bottom={bottomMargin}
-          width={displayHeight * 0.8}
-        >
-          <MainLogo
-            width={height * 0}
-            resizeMode="contain"
-            source={require("../../assets/icons/MainLogo.png")}
-          />
-          <AppName margin={topMargin}>마리모</AppName>
-          <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
-          <BtnCntr>
-            <Btn2 onPress={() => Login(initials)}>
-              <NIMg
-                source={require("../../assets/icons/Home/naverLogin.png")}
-              />
-            </Btn2>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
+      <ImageBackground
+        source={images.mainBackground}
+        resizeMode="cover"
+        style={{ width: "100%", height: "100%" }}
+      >
+        <Cntr>
+          <LogoCntr
+            margin={topMargin}
+            bottom={bottomMargin}
+            width={displayHeight * 0.8}
+          >
+            <MainLogo
+              width={height * 0}
+              resizeMode="contain"
+              source={require("../../assets/icons/MainLogo.png")}
+            />
+            <AppName margin={topMargin}>마리모</AppName>
+            <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+            <BtnCntr>
+              <Btn2 onPress={() => Login(initials)}>
+                <NIMg
+                  source={require("../../assets/icons/Home/naverLogin.png")}
+                />
+              </Btn2>
 
-            <Btn
-              style={{ marginTop: height * 0.025 }}
-              onPress={() => hanldeContinue()}
-            >
-              <BtnText>이어하기</BtnText>
-            </Btn>
-          </BtnCntr>
-        </LogoCntr>
-      </Cntr>
+              <Btn
+                style={{ marginTop: height * 0.025 }}
+                onPress={() => hanldeContinue()}
+              >
+                <BtnText>이어하기</BtnText>
+              </Btn>
+            </BtnCntr>
+          </LogoCntr>
+        </Cntr>
+      </ImageBackground>
     </View>
   );
 };
@@ -247,8 +260,6 @@ const Btn2 = Styled.TouchableOpacity`
   justify-content:center;
 `;
 const NIMg = Styled.Image`
-  background-color: #03C75A;
-  color: white;
   width: 70%;
   height: 90%;
   border-radius: 14px;
