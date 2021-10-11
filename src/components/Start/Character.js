@@ -97,7 +97,9 @@ const Character = ({ route, navigation }) => {
                       justifyContent: "center",
                     }}
                   >
-                    <GoodsCntr isActive={item.value === charNum}>
+                    <GoodsCntr
+                      isActive={item.value === charNum}
+                    >
                       <ImageCntr
                         onPress={() => {
                           item.value === 0 || item.value === 1
