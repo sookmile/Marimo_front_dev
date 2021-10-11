@@ -40,9 +40,8 @@ const Practice = ({ route, navigation }) => {
   };
   const _onSpeechResults = (event) => {
     console.log("onSpeechResults");
-    console.log(event.value[0]);
     setText(event.value[0]);
-    console.log(text);
+    console.log("발음한 단어:", text);
     if (event.value[0] === oWord) {
       postResult();
       console.log("정답");
@@ -104,12 +103,12 @@ const Practice = ({ route, navigation }) => {
       taleName: taleName,
       lastpage: LastPage,
     };
-    console.log("data: ", data1);
+    console.log("data1:", data1);
     axios
       .post(preURL.preURL + "/marimo/tale/save", data1)
       .then((res) => {
         setResponse(res.data);
-        console.log("성공여부: ", response);
+        console.log("저장:", response);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
@@ -121,12 +120,12 @@ const Practice = ({ route, navigation }) => {
       rWord: text,
       lastpage: LastPage,
     };
+    console.log("data2:", data2);
     axios
       .post(preURL.preURL + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
-        console.log(res.data);
-        console.log("성공여부: ", feedback);
+        console.log("피드백: ", feedback);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
