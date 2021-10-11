@@ -23,7 +23,7 @@ const Practice = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
-  const { oWord, LastPage } = route.params;
+  const { oWord, LastPage, taleName } = route.params;
 
   const voiceLabel = text
     ? text
@@ -47,7 +47,7 @@ const Practice = ({ route, navigation }) => {
       postResult();
       console.log("정답");
       setRModalVisible(!isRModalVisible);
-    } else {
+    } else if (event.value[0] != oWord) {
       postResult();
       console.log("오답");
       setWModalVisible(!isWModalVisible);
@@ -101,7 +101,7 @@ const Practice = ({ route, navigation }) => {
     Voice.stop();
     const data1 = {
       userId: 1,
-      taleName: "동화이름",
+      taleName: taleName,
       lastpage: LastPage,
     };
     console.log("data: ", data1);
@@ -237,11 +237,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingRight: "5%",
+    marginRight: "3%",
   },
   mediaPlayer: {
     width: 320,
     height: 200,
     resizeMode: "contain",
+    marginRight: "2%",
   },
   text: {
     fontSize: 20,
@@ -264,7 +266,6 @@ const styles = StyleSheet.create({
     marginLeft: "25%",
     padding: 7,
     display: "flex",
-    justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 120,
@@ -278,6 +279,7 @@ const styles = StyleSheet.create({
   cloud: {
     width: 155,
     height: 105,
+    marginBottom: "10%",
   },
   feedback: {
     fontSize: 25,
@@ -289,5 +291,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
+    marginBottom: "3%",
   },
 });
