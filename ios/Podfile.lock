@@ -81,9 +81,6 @@ PODS:
     - RCT-Folly (= 2020.01.13.00)
     - RCTRequired (= 0.64.2)
     - React-Core (= 0.64.2)
-  - RCTYouTube (2.0.2):
-    - React
-    - YoutubePlayer-in-WKWebView (~> 0.3.1)
   - React (0.64.2):
     - React-Core (= 0.64.2)
     - React-Core/DevSupport (= 0.64.2)
@@ -288,8 +285,6 @@ PODS:
     - React-Core
   - react-native-voice (1.1.9):
     - React
-  - react-native-webview (11.14.0):
-    - React-Core
   - React-perflogger (0.64.2)
   - React-RCTActionSheet (0.64.2):
     - React-Core/RCTActionSheetHeaders (= 0.64.2)
@@ -413,7 +408,6 @@ PODS:
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
-  - YoutubePlayer-in-WKWebView (0.3.8)
 
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
@@ -443,7 +437,6 @@ DEPENDENCIES:
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
-  - RCTYouTube (from `../node_modules/react-native-youtube`)
   - React (from `../node_modules/react-native/`)
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
   - React-Core (from `../node_modules/react-native/`)
@@ -462,7 +455,6 @@ DEPENDENCIES:
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-video-cache (from `../node_modules/react-native-video-cache`)
   - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
-  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -506,7 +498,6 @@ SPEC REPOS:
     - naveridlogin-sdk-ios
     - OpenSSL-Universal
     - YogaKit
-    - YoutubePlayer-in-WKWebView
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -525,8 +516,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
     :path: "../node_modules/react-native/Libraries/TypeSafety"
-  RCTYouTube:
-    :path: "../node_modules/react-native-youtube"
   React:
     :path: "../node_modules/react-native/"
   React-callinvoker:
@@ -559,8 +548,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-video-cache"
   react-native-voice:
     :path: "../node_modules/@react-native-community/voice"
-  react-native-webview:
-    :path: "../node_modules/react-native-webview"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -635,7 +622,6 @@ SPEC CHECKSUMS:
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
   RCTTypeSafety: c1f31d19349c6b53085766359caac425926fafaa
-  RCTYouTube: a8bb45705622a6fc9decf64be04128d3658ed411
   React: bda6b6d7ae912de97d7a61aa5c160db24aa2ad69
   React-callinvoker: 9840ea7e8e88ed73d438edb725574820b29b5baa
   React-Core: b5e385da7ce5f16a220fc60fd0749eae2c6120f0
@@ -652,7 +638,6 @@ SPEC CHECKSUMS:
   react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
   react-native-video-cache: 0f8b1b2195f234eabd507cfebdd91c2e82695008
   react-native-voice: eb6b7c7f752310f72a6f4d64c2fba6ee724d6604
-  react-native-webview: d70bc760daaa0e2667dec569b93014882565819c
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa
@@ -679,7 +664,6 @@ SPEC CHECKSUMS:
   TextToSpeech: b3aa777ff5585705f179c0a2436bfd0926d1716e
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
-  YoutubePlayer-in-WKWebView: 4fca3b4f6f09940077bfbae7bddb771f2b43aacd
 
 PODFILE CHECKSUM: 9ae00d0f69832bf9101628462d7b2af4c0ebe897
 

@@ -192,7 +192,7 @@ const Practice = ({ route, navigation }) => {
           >
             이전
           </Text>
-          <View style={styles.videoContainer}>
+          <View style={[styles.videoContainer, { backgroundColor: "red" }]}>
             <Video
               source={{
                 uri: URI,
