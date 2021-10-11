@@ -6,8 +6,6 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
-  Button,
-  Animated,
 } from "react-native";
 import Orientation from "react-native-orientation";
 import Modal from "react-native-modal";
@@ -92,7 +90,7 @@ const Practice = ({ route, navigation }) => {
       word: oWord,
     };
     axios
-      .post("192.168.35.40" + "/marimo/tale/speechuri", data)
+      .post("http://192.168.35.40:8080" + "/marimo/tale/speechuri", data)
       .then((res) => {
         setURI(res.data.uri);
         console.log("비디오 링크: ", URI);
@@ -113,15 +111,15 @@ const Practice = ({ route, navigation }) => {
   }, []);
 
   const postResult = () => {
-    const data = {
+    Voice.stop();
+    const data1 = {
       userId: 1,
-      oWord: oWord,
-      rWord: text,
+      taleName: "동화이름",
       lastpage: LastPage,
     };
-    console.log("data: ", data);
+    console.log("data: ", data1);
     axios
-      .post("192.168.35.40" + "/marimo/tale/save", data)
+      .post("http://192.168.35.40:8080" + "/marimo/tale/save", data1)
 
       .then((res) => {
         setResponse(res.data);
@@ -131,10 +129,17 @@ const Practice = ({ route, navigation }) => {
         console.log("전송에 실패 ");
         console.log(err);
       });
+    const data2 = {
+      userId: 1,
+      oWord: oWord,
+      rWord: text,
+      lastpage: LastPage,
+    };
     axios
-      .post("192.168.35.40" + "/marimo/tale/feedback", data)
+      .post("http://192.168.35.40:8080" + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
+        console.log(res.data);
         console.log("성공여부: ", feedback);
       })
       .catch((err) => {
@@ -207,11 +212,15 @@ const Practice = ({ route, navigation }) => {
           </TouchableOpacity>
         </Modal>
         <Modal isVisible={isWModalVisible} style={styles.modal2}>
+          <Image
+            style={styles.cloud}
+            source={require("../../assets/cloud.png")}
+          />
           <View>
             <Text style={styles.feedback}>{feedback}</Text>
           </View>
           <TouchableOpacity onPress={closeWModal}>
-            <Text style={styles.feedback}>닫기</Text>
+            <Text style={styles.close}>닫기</Text>
           </TouchableOpacity>
         </Modal>
       </ImageBackground>
@@ -246,6 +255,7 @@ const styles = StyleSheet.create({
   mediaPlayer: {
     width: 320,
     height: 200,
+    resizeMode: "contain",
   },
   text: {
     fontSize: 20,
@@ -263,18 +273,35 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   modal2: {
+    flex: 1,
+    width: "50%",
+    marginLeft: "30%",
+    padding: 7,
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 120,
+    borderWidth: 7,
+    borderColor: "#C5A1F3",
   },
   sticker: {
     width: 200,
     height: 200,
   },
+  cloud: {
+    width: 150,
+    height: 100,
+  },
   feedback: {
+    fontSize: 25,
+    fontFamily: "Cafe24Ssurround",
+    color: "#B16CF6",
+    textAlign: "center",
+  },
+  close: {
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
+    color: "#B16CF6",
   },
 });
