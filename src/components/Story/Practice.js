@@ -15,7 +15,6 @@ import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import Orientation from "react-native-orientation";
 
 const Practice = ({ route, navigation }) => {
   const [activateRecord, setActivation] = useState(false);
@@ -26,8 +25,8 @@ const Practice = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
-  const { oWord, Lastpage } = route.params;
-  
+  const { oWord, LastPage } = route.params;
+
   const voiceLabel = text
     ? text
     : isRecord
@@ -41,10 +40,10 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = async (event) => {
+  const _onSpeechResults = (event) => {
     console.log("onSpeechResults");
     console.log(event.value[0]);
-    await setText(event.value[0]);
+    setText(event.value[0]);
     console.log(text);
     if (event.value[0] === oWord) {
       postResult();
@@ -79,11 +78,8 @@ const Practice = ({ route, navigation }) => {
     const data = {
       word: oWord,
     };
-    console.log(data);
-
     axios
       .post(preURL.preURL + "/marimo/tale/speechuri", data)
-
       .then((res) => {
         setURI(res.data.uri);
         console.log("비디오 링크: ", URI);
@@ -104,16 +100,16 @@ const Practice = ({ route, navigation }) => {
   }, []);
 
   const postResult = () => {
-    const data = {
+    Voice.stop();
+    const data1 = {
       userId: 1,
-      oWord: oWord,
-      rWord: text,
+      taleName: "동화이름",
       lastpage: LastPage,
     };
-    console.log("data: ", data);
-
+    console.log("data: ", data1);
     axios
-      .post(preURL.preURL + "/marimo/tale/save", data)
+      .post(preURL.preURL + "/marimo/tale/save", data1)
+
       .then((res) => {
         setResponse(res.data);
         console.log("성공여부: ", response);
@@ -122,8 +118,14 @@ const Practice = ({ route, navigation }) => {
         console.log("전송에 실패 ");
         console.log(err);
       });
+    const data2 = {
+      userId: 1,
+      oWord: oWord,
+      rWord: text,
+      lastpage: LastPage,
+    };
     axios
-      .post("192.168.35.40" + "/marimo/tale/feedback", data)
+      .post("192.168.35.40" + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
         console.log("성공여부: ", feedback);
