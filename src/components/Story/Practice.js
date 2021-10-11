@@ -158,10 +158,10 @@ const Practice = ({ route, navigation }) => {
               fontFamily: "Cafe24Ssurround",
               backgroundColor: "white",
               textAlign: "center",
-              width: 40,
-              height: 20,
+              width: 50,
+              height: 25,
               borderRadius: 15,
-              paddingTop: 3,
+              paddingTop: 5,
             }}
             onPress={() => {
               navigation.navigate("Story1");
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   modal2: {
     flex: 1,
     width: "50%",
-    marginLeft: "30%",
+    marginLeft: "25%",
     padding: 7,
     display: "flex",
     justifyContent: "space-around",
@@ -276,8 +276,8 @@ const styles = StyleSheet.create({
     height: 200,
   },
   cloud: {
-    width: 150,
-    height: 100,
+    width: 155,
+    height: 105,
   },
   feedback: {
     fontSize: 25,
