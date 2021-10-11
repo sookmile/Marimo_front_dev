@@ -13,6 +13,8 @@ target 'Marimo' do
   )
 
 
+
+
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'react-native-video-cache', :path => '../node_modules/react-native-video-cache'
 

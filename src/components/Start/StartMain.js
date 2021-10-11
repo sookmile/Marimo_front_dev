@@ -180,13 +180,21 @@ const StartMain = ({ navigation }) => {
             bottom={bottomMargin}
             width={displayHeight * 0.8}
           >
-            <MainLogo
-              width={height * 0}
-              resizeMode="contain"
-              source={require("../../assets/icons/MainLogo.png")}
-            />
-            <AppName margin={topMargin}>마리모</AppName>
-            <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+            <View
+              style={{
+                width: "100%",
+                height: "50%",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MainLogo
+                resizeMode="contain"
+                source={require("../../assets/icons/MainLogo.png")}
+              />
+              <AppName margin={topMargin}>마리모</AppName>
+              <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+            </View>
             <BtnCntr>
               <Btn2 onPress={() => Login(initials)}>
                 <NIMg
@@ -208,8 +216,8 @@ const StartMain = ({ navigation }) => {
   );
 };
 const MainLogo = Styled.Image`
-    height: 23%;
-    width: 35%;
+    height: 170;
+    width: 170;
 `;
 const LogoCntr = Styled.View`
     align-items:center;
@@ -219,14 +227,15 @@ const LogoCntr = Styled.View`
 `;
 const BtnCntr = Styled.View`
     width:88%;
-    height:30%;
+    height:50%;
     margin-top:5%;
     justify-content:center;
     align-items:center;
 `;
 const AppName = Styled.Text`
-    margin-top:${(props) => props.margin};
-    margin-bottom:${(props) => props.margin};
+  width:100%;
+  text-align:center;
+    height:20%;
     position:relative;
     top:0;
     color: #F66C6C;
@@ -235,9 +244,10 @@ const AppName = Styled.Text`
     line-height: 61px;
 `;
 const DtText = Styled.Text`
-    margin-top:${(props) => props.margin};
-    margin-bottom:${(props) => props.margin * 2};
-    color: #191919;
+  height:10%;
+  width:100%;
+  text-align:center;
+  color: #191919;
     font-size: 18px;
     font-family: "Cafe24Ssurround"
 `;
@@ -245,7 +255,7 @@ const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
   width: 100%;
-  height: 32%;
+  height: 60;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -254,7 +264,7 @@ const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
   width: 100%;
-  height: 32%;
+  height: 60;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -269,6 +279,7 @@ const NIMg = Styled.Image`
 
 const Cntr = Styled.View`
 width:100%;
+height:100%;
 align-items:center;
 justify-content:center;
 `;
