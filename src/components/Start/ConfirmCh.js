@@ -52,9 +52,7 @@ const ConfirmCh = ({ route, navigation }) => {
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr
-          onPress={() => navigation.navigate("Login")}
-        >
+        <BackCntr onPress={() => navigation.navigate("Login")}>
           <Icon2
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -84,7 +82,7 @@ const ConfirmCh = ({ route, navigation }) => {
             }}
           >
             <Image
-              style={{ width: "65%", height: "55%",  }}
+              style={{ width: "65%", height: "55%" }}
               resizeMode="contain"
               source={bigCharacter[characterNum].src}
             />

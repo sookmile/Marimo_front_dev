@@ -539,7 +539,6 @@ const GradeText = styled.Text`
   align-items: center;
   text-align: center;
   letter-spacing: -0.3px;
-
   color: #000000;
 `;
 
