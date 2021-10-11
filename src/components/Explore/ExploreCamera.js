@@ -17,6 +17,7 @@ import { PERMISSIONS, RESULTS, request } from "react-native-permissions";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 import { icons } from "../../constants";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const ExploreCamera = ({ navigation }) => {
   // for data to  send api
@@ -32,12 +33,13 @@ const ExploreCamera = ({ navigation }) => {
     navigation.setOptions({
       headerTitleAlign: "left",
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.replace("Main");
-          }}
-        >
-          <Image source={icons.marimo_logo} style={{ paddingLeft: 10 }} />
+        <TouchableOpacity onPress={() => navigation.replace("Main")}>
+          <Icon
+            name="chevron-back"
+            style={{ marginRight: 10 }}
+            size={23}
+            color={"#FFFFFF"}
+          ></Icon>
         </TouchableOpacity>
       ),
     });

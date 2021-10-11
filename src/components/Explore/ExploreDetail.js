@@ -50,7 +50,10 @@ const ExploreDetail = ({ navigation, route }) => {
     return (
       <View style={styles.container_header}>
         {/* Images */}
-        <TouchableOpacity style={styles.container_headerIcon}>
+        <TouchableOpacity
+          style={styles.container_headerIcon}
+          onPress={() => navigation.navigate("Main")}
+        >
           <Image
             source={icons.marimo_logo}
             resizeMode="contain"

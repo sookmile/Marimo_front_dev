@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
 import {
   StyleSheet,
   Text,
@@ -14,8 +13,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
-import Loader from "../Loader/Loader";
-import { getStatusBarHeight } from "react-native-status-bar-height";
 import { COLORS, SIZES, navTabIcons } from "../../constants";
 import {
   fontPercentage,
@@ -57,7 +54,14 @@ const ListItem2 = ({ item }) => {
         marginHorizontal: SIZES.padding,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate("Detail")}>
+      <ContnetSubCntr
+        onPress={() => navigation.navigate("Camera")}
+        style={{ height: hp(13) }}
+      >
+        <Image
+          style={{ position: "absolute", top: "2%", left: "1%" }}
+          source={require("../../assets/icons/ic_ellipse.png")}
+        />
         <ChImage
           style={{
             left: -5,
@@ -67,10 +71,16 @@ const ListItem2 = ({ item }) => {
           source={item.src}
         />
         <ContentTexts>
-          <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+          <ContentTitle
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{ fontSize: hp(2), marginBottom: hp(1.5) }}
+          >
             {item.text}
           </ContentTitle>
-          <ContentText>추천 연령 : {item.age}세</ContentText>
+          <ContentText style={{ fontSize: hp(1.8) }}>
+            추천 연령 : {item.age}세
+          </ContentText>
         </ContentTexts>
       </ContnetSubCntr>
     </View>
@@ -79,18 +89,20 @@ const ListItem2 = ({ item }) => {
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
+  console.log("section");
+  console.log(item);
   return (
     <View
       style={{
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 16,
+        marginVertical: 20,
       }}
     >
       <ContnetSubCntr
-        style={{ backgroundColor: "none", elevation: 0 }}
-        onPress={() => _onPressSpeech(item.word)}
+        style={{ backgroundColor: "none", elevation: 0, heigt: hp(13) }}
+        onPress={() => _onPressSpeech(item?.word)}
       >
         <ChImage
           style={{
@@ -103,11 +115,11 @@ const ListItem = ({ item }) => {
         />
         <ContentTexts>
           <ContentTitle
-            style={{ fontSize: 20, paddingLeft: 30, fontWeigth: "bold" }}
+            style={{ fontSize: hp(2.5), paddingLeft: 30, fontWeigth: "bold" }}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {item.word}
+            {item?.word}
           </ContentTitle>
         </ContentTexts>
       </ContnetSubCntr>
@@ -116,8 +128,7 @@ const ListItem = ({ item }) => {
 };
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
-  height: 108px;
-  background: #fbf8ff;
+  background: #f5e7f8;
   border-radius: 23;
   justify-content: space-between;
   align-items: center;
@@ -144,7 +155,6 @@ const ContentTitle = styled.Text`
   margin-bottom: 15;
   font-weight: bold;
   font-size: 15px;
-  line-height: 24px;
   color: #000000;
   overflow: hidden;
 `;
@@ -204,13 +214,15 @@ const ExploreMain = ({ navigation }) => {
           "Content-Type": "application/json",
         },
       });
+      console.log("결과");
+      console.log(response);
       if (response.status === 200) {
         const responseJson = await response.json();
         setLoading(false);
         return responseJson;
       } else {
         setLoading(false);
-        alert("unable to get UserData");
+        alert("추억창고를 불러올 수 없어요!");
       }
     } catch (error) {
       console.error(error);
@@ -220,13 +232,12 @@ const ExploreMain = ({ navigation }) => {
 
   const getMultiData = async () => {
     const userId = await getUserId();
-    const userIdCheck = userId ? userId : 1;
-    setuserId(userIdCheck);
+    setuserId(userId);
     console.log(userId);
-    const userNickname = await getUserData(userIdCheck);
-    setuserNickmame(userNickname);
-    const userMemory = await getUserMemory(userIdCheck);
+    const userMemory = await getUserMemory(userId);
     if (userMemory) {
+      console.log("기록");
+      console.log(userMemory);
       setUserData(userMemory);
     }
     setLoading(false);
@@ -283,13 +294,27 @@ const ExploreMain = ({ navigation }) => {
                 style={{
                   display: "flex",
                   overflow: "visible",
-                  marginTop: "15%",
-                  marginBottom: 5,
+                  marginVertical: "15%",
                 }}
               >
-                <StudyTxt>찰칵, 카메라를 눌러서 찾아봐요!</StudyTxt>
+                <StudyTxt
+                  style={{
+                    color: "#464D46",
+                    fontSize: hp(3),
+                    fontFamily: "Cafe24Ssurround",
+                  }}
+                >
+                  찰칵, 카메라를 눌러서 찾아봐요!
+                </StudyTxt>
                 <ListItem2 item={SECTIONS3} />
-                <StudyTxt style={{ marginTop: 20 }}>
+                <StudyTxt
+                  style={{
+                    marginTop: 20,
+                    color: "#464D46",
+                    fontSize: hp(3),
+                    fontFamily: "Cafe24Ssurround",
+                  }}
+                >
                   내가 찾은 추억창고
                 </StudyTxt>
                 <View
@@ -300,7 +325,7 @@ const ExploreMain = ({ navigation }) => {
                 >
                   {userData.length !== 0
                     ? userData.map((obj) => <ListItem item={obj} />)
-                    : SECTIONS.data.map((obj) => <ListItem itme={obj} />)}
+                    : SECTIONS.map((obj) => <ListItem item={obj} />)}
                 </View>
               </View>
             </View>
@@ -314,58 +339,14 @@ const ExploreMain = ({ navigation }) => {
 export default ExploreMain;
 const SECTIONS = [
   {
-    title: "Made for you",
-    horizontal: true,
-    data: [
-      {
-        id: 1,
-        word: "데이터를 불러올 수 없습니다.",
-        link: "https://picsum.photos/id/1/200",
-        route: "StoryLoading",
-      },
-      {
-        id: 2,
-        word: "데이터를 불러올 수 없습니다.",
-        link: "https://picsum.photos/id/10/200",
-        route: "StoryLoading",
-      },
-
-      {
-        id: 3,
-        text: "Item text 3",
-        link: "https://picsum.photos/id/1002/200",
-        route: "StoryLoading",
-      },
-    ],
+    date: "2021-09-16T13:27:40",
+    id: 1,
+    link: "https://picsum.photos/id/10/200",
+    success: null,
+    word: "학습기록이 없습니다.",
   },
 ];
 
-const SECTIONS1 = [
-  {
-    key: "1",
-    label: "동화",
-    src: navTabIcons.ic_story,
-    color: "#CCAB37",
-    background: "rgba(251, 222, 120, 0.08)",
-    router: "Story",
-  },
-  {
-    key: "2",
-    label: "게임",
-    src: navTabIcons.ic_game,
-    color: "#D5A0FE",
-    background: "rgba(213, 160, 254, 0.08)",
-    router: "Game",
-  },
-  {
-    key: "3",
-    label: "탐험",
-    src: navTabIcons.ic_camera,
-    color: "#F66C6C",
-    background: "rgba(246, 108, 108, 0.08)",
-    router: "Explore",
-  },
-];
 const SECTIONS3 = {
   key: "1",
   text: "요리조리, 탐험하기",
@@ -540,10 +521,6 @@ const ItemButton = styled.View`
   overflow: visible;
 `;
 const StudyTxt = styled.Text`
-  font-family: NanumSquareRoundB;
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: bold;
   color: #191919;
 `;
 
