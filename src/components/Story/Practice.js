@@ -12,9 +12,11 @@ import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
+  const [userID, setUserID] = useState(0);
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
@@ -24,6 +26,20 @@ const Practice = ({ route, navigation }) => {
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
   const { oWord, LastPage, taleName } = route.params;
+
+  const getUserId = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    return userId;
+  };
+
+  const getId = async () => {
+    const userId = await getUserId();
+    const userIdCheck = userId ? userId : 1;
+    setUserID(userIdCheck);
+    console.log("ID:", userID);
+  };
+
+  getId();
 
   const voiceLabel = text
     ? text
@@ -241,7 +257,6 @@ const styles = StyleSheet.create({
   mediaPlayer: {
     width: 320,
     height: 200,
-    resizeMode: "contain",
     marginRight: "2%",
   },
   text: {
