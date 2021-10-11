@@ -298,7 +298,7 @@ const ExploreMain = ({ navigation }) => {
                     marginTop: StatusBar.currentHeight || 0,
                   }}
                 >
-                  {userData
+                  {userData.length !== 0
                     ? userData.map((obj) => <ListItem item={obj} />)
                     : SECTIONS.data.map((obj) => <ListItem itme={obj} />)}
                 </View>
