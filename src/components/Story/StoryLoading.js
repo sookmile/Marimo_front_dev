@@ -6,36 +6,48 @@ import styled from "styled-components";
 
 const StoryLoading = ({ navigation }) => {
   useEffect(() => {
-    Orientation.unlockAllOrientations();
-  }, []);
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  });
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "PORTRAIT") {
+      Orientation.lockToPortrait();
+    }
+  };
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 140) : (cntrMargin = 100);
   let chMargin = 0;
   Platform.OS === "ios" ? (chMargin = 130) : (chMargin = 20);
   return (
-    <Container style={{ marginTop: cntrMargin }}>
-      <Text style={[styles.title, { marginBottom: 50 }]}>
-        앗, 도와줘! 우당탕탕 왕국 모험
-      </Text>
-      <Image
-        source={require("../../assets/LoadingImg.png")}
-        style={styles.loadingImg}
-      />
-      <View style={[styles.btnContainer]}>
-        <TouchableOpacity
-          style={[styles.selectAg, { marginBottom: 20 }]}
-          onPress={() => navigation.navigate("Story1")}
-        >
-          <Text style={styles.btnText}>계속 모험을 진행할래요!</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.selectAg}
-          onPress={() => navigation.navigate("StoryMain")}
-        >
-          <Text style={styles.btnText}>아니요, 다른 모험을 선택할래요!</Text>
-        </TouchableOpacity>
-      </View>
-    </Container>
+    <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
+      <Container style={{ marginTop: cntrMargin }}>
+        <Text style={[styles.title, { marginBottom: 50 }]}>
+          앗, 도와줘! 우당탕탕 왕국 모험
+        </Text>
+        <Image
+          source={require("../../assets/LoadingImg.png")}
+          style={styles.loadingImg}
+        />
+        <View style={[styles.btnContainer]}>
+          <TouchableOpacity
+            style={[styles.selectAg, { marginBottom: 20 }]}
+            onPress={() => navigation.navigate("Story1")}
+          >
+            <Text style={styles.btnText}>계속 모험을 진행할래요!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.selectAg}
+            onPress={() => navigation.navigate("StoryMain")}
+          >
+            <Text style={styles.btnText}>아니요, 다른 모험을 선택할래요!</Text>
+          </TouchableOpacity>
+        </View>
+      </Container>
+    </View>
   );
 };
 

@@ -12,6 +12,7 @@ import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
+import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
   const [activateRecord, setActivation] = useState(false);
@@ -23,20 +24,6 @@ const Practice = ({ route, navigation }) => {
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
   const { oWord, LastPage } = route.params;
-
-  useEffect(() => {
-    Orientation.lockToLandscapeRight();
-    Orientation.addOrientationListener(onOrientaionChange);
-    return () => {
-      Orientation.unlockAllOrientations(),
-        Orientation.removeOrientationListener(onOrientaionChange);
-    };
-  }, []);
-  const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE_RIGHT") {
-      Orientation.lockToLandscape();
-    }
-  };
 
   const voiceLabel = text
     ? text
@@ -90,7 +77,7 @@ const Practice = ({ route, navigation }) => {
       word: oWord,
     };
     axios
-      .post("http://192.168.35.40:8080" + "/marimo/tale/speechuri", data)
+      .post(preURL.preURL + "/marimo/tale/speechuri", data)
       .then((res) => {
         setURI(res.data.uri);
         console.log("비디오 링크: ", URI);
@@ -119,8 +106,7 @@ const Practice = ({ route, navigation }) => {
     };
     console.log("data: ", data1);
     axios
-      .post("http://192.168.35.40:8080" + "/marimo/tale/save", data1)
-
+      .post(preURL.preURL + "/marimo/tale/save", data1)
       .then((res) => {
         setResponse(res.data);
         console.log("성공여부: ", response);
@@ -136,7 +122,7 @@ const Practice = ({ route, navigation }) => {
       lastpage: LastPage,
     };
     axios
-      .post("http://192.168.35.40:8080" + "/marimo/tale/feedback", data2)
+      .post("192.168.35.40" + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
         console.log(res.data);

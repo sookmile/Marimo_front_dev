@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Styled from "styled-components/native";
 import Voice from "@react-native-community/voice";
 import {
   Text,
+  Animated,
   Button,
   Image,
   View,
@@ -22,6 +23,7 @@ const ButtonRecord = Styled.Button``;
 import Logo from "../../assets/icons/Logo.png";
 import Icon2 from "react-native-vector-icons/Ionicons";
 import { login, logo } from "../../assets/icons/Character/Logo";
+import { icons, images } from "../../constants";
 
 const Login = ({ navigation }) => {
   let cntrMargin = 0;
@@ -33,7 +35,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(2);
 
   // for ui design
   const { width, height } = Dimensions.get("window");
@@ -44,9 +46,28 @@ const Login = ({ navigation }) => {
       : text
     : "마이크 버튼을 누르고 말해주세요!";
 
+  // animation
+  const anim = useRef(new Animated.Value(1));
+
+  // 캐릭터 애니메이션
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(anim.current, {
+          toValue: 1.1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(anim.current, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
+
   useEffect(async () => {
-    Alert.alert("변우진님 환영합니다");
-    console.log("변했니");
     console.log(await AsyncStorage.getItem("isLogin"));
     console.log(await AsyncStorage.getItem("userId"));
     const id = await AsyncStorage.getItem("userId");
@@ -119,7 +140,7 @@ const Login = ({ navigation }) => {
   }, []);
 
   return (
-    <>
+    <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       {pageNum === 0 ? (
         <Container style={{ marginTop: cntrMargin }}>
           <BackCntr onPress={() => navigation.navigate("StartMain")}>
@@ -130,78 +151,104 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Character", { name: "우진" })}
-            >
-              <Text>이동</Text>
-            </TouchableOpacity>
           </BackCntr>
-          <IntroText>
-            안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
-          </IntroText>
+          <View
+            style={{
+              width: "100%",
+              height: "15%",
+            }}
+          >
+            <IntroText>
+              안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은
+              뭐니?
+            </IntroText>
+          </View>
           <Cntr>
-            <TouchableOpacity
+            <View
               style={{
-                borderRadius: 125,
-                width: 290,
-                height: 290,
-                marginTop: -1 * cntrMargin,
+                width: "100%",
+                height: "65%",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-              onPress={_onRecordVoice}
             >
-              <Image
-                style={{ width: 290, height: 290 }}
-                source={require("../../assets/MikeIcon.png")}
-              />
-            </TouchableOpacity>
-            <View style={[styles.item, styles.itemIn]}>
-              <Image
+              <TouchableOpacity
                 style={{
-                  position: "relative",
-                  bottom: -20,
-                  marginRight: 5,
-                  width: 60,
-                  height: 45,
+                  borderRadius: 125,
+                  width: 290,
+                  height: 290,
                 }}
-                source={Logo}
-              />
-              <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
-                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
-                  {voiceLabel}
-                </Text>
-                <View
-                  style={[styles.arrowContainer, styles.arrowLeftContainer]}
-                >
-                  <Svg
-                    style={styles.arrowLeft}
-                    width={moderateScale(15.5, 0.6)}
-                    height={moderateScale(17.5, 0.6)}
-                    viewBox="32.484 17.5 15.515 17.5"
-                    enable-background="new 32.485 17.5 15.515 17.5"
+                onPress={_onRecordVoice}
+              >
+                <Image
+                  style={{ width: 290, height: 290 }}
+                  source={require("../../assets/MikeIcon.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: "20%",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <View style={[styles.item]}>
+                <Animated.Image
+                  style={{
+                    position: "relative",
+                    bottom: -20,
+                    marginLeft: 5,
+                    marginRight: 15,
+                    width: 60,
+                    height: 45,
+
+                    transform: [{ scale: anim.current }],
+                  }}
+                  source={images.marimoCharacter}
+                  resizeMode="contain"
+                />
+
+                <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
+                  <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                    {voiceLabel}
+                  </Text>
+                  <View
+                    style={[styles.arrowContainer, styles.arrowLeftContainer]}
                   >
-                    <Path
-                      d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
-                      fill="#ACDBFD"
-                      x="0"
-                      y="0"
-                    />
-                  </Svg>
+                    <Svg
+                      style={styles.arrowLeft}
+                      width={moderateScale(15.5, 0.6)}
+                      height={moderateScale(17.5, 0.6)}
+                      viewBox="32.484 17.5 15.515 17.5"
+                      enable-background="new 32.485 17.5 15.515 17.5"
+                    >
+                      <Path
+                        d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                        fill="#ACDBFD"
+                        x="0"
+                        y="0"
+                      />
+                    </Svg>
+                  </View>
                 </View>
               </View>
             </View>
             <TouchableOpacity
               style={{
                 display: "flex",
+                height: "15%",
                 flexDirection: "row",
                 width: "100%",
-
+                alignItems: "flex-start",
                 justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: 30,
+                  width: "12%",
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -221,7 +268,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum === 1 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => setPageNum(0)}>
+          <BackCntr style={{}} onPress={() => setPageNum(0)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -229,33 +276,38 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Character", { name: "우진" })}
-            >
-              <Text>이동</Text>
-            </TouchableOpacity>
           </BackCntr>
-          <Cntr style={{ flex: 1 }}>
-            <Box>
-              <ConfirmText>친구의 이름은</ConfirmText>
-              <ConfirmNameText>{text}</ConfirmNameText>
-              <ConfirmText>가 맞나요?</ConfirmText>
-            </Box>
-            <Svg
-              style={styles.arrowLeft2}
-              width={moderateScale(15.5, 0.6)}
-              height={moderateScale(17.5, 0.6)}
-              viewBox="32.484 17.5 15.515 17.5"
-              enable-background="new 32.485 17.5 15.515 17.5"
+
+          <Cntr style={{ height: "100%" }}>
+            <View
+              style={{
+                width: "100%",
+                height: "35%",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
             >
-              <Path
-                d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
-                fill="#FFEB81"
-                x="0"
-                y="0"
-              />
-            </Svg>
-            <ImageCntr>
+              <Box>
+                <ConfirmText>친구의 이름은</ConfirmText>
+                <ConfirmNameText>{text}</ConfirmNameText>
+                <ConfirmText>가 맞나요?</ConfirmText>
+              </Box>
+              <Svg
+                style={styles.arrowLeft2}
+                width={moderateScale(15.5, 0.6)}
+                height={moderateScale(17.5, 0.6)}
+                viewBox="32.484 17.5 15.515 17.5"
+                enable-background="new 32.485 17.5 15.515 17.5"
+              >
+                <Path
+                  d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                  fill="#FFEB81"
+                  x="0"
+                  y="0"
+                />
+              </Svg>
+            </View>
+            <ImageCntr style={{}}>
               <Image
                 style={{
                   position: "relative",
@@ -264,6 +316,7 @@ const Login = ({ navigation }) => {
                   width: 79,
                   height: 59,
                 }}
+                resizeMode="contain"
                 source={logo[0]}
               />
               <Image
@@ -274,11 +327,11 @@ const Login = ({ navigation }) => {
                   width: 79,
                   height: 59,
                 }}
+                resizeMode="contain"
                 source={logo[1]}
               />
             </ImageCntr>
-            <Wrapper />
-            <BtnCntr>
+            <BtnCntr style={{}}>
               <Btn
                 onPress={async () => {
                   const userId = await AsyncStorage.getItem("userId");
@@ -306,16 +359,17 @@ const Login = ({ navigation }) => {
             <TouchableOpacity
               style={{
                 display: "flex",
+                height: "15%",
                 flexDirection: "row",
                 width: "100%",
-                textAlign: "center",
-                verticalAlign: "center",
+                alignItems: "flex-start",
+                justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "15%",
+                  width: "12%",
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -329,7 +383,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum == 2 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => navigation.navigate("StartMain")}>
+          <BackCntr onPress={() => setPageNum(1)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -337,24 +391,82 @@ const Login = ({ navigation }) => {
               color={"#555555"}
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Character", { name: "우진" })}
-            >
-              <Text>이동</Text>
-            </TouchableOpacity>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
-          <Cntr>
-            <NameInput
-              placeholder="이름을 입력해주세요"
-              value={text}
-              onChangeText={setText}
-            />
-            <BtnCntr>
+          <Cntr style={{}}>
+            <View
+              style={{
+                width: "100%",
+                height: "25%",
+                marginLeft: "5%",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View style={[styles.item]}>
+                <Animated.Image
+                  style={{
+                    position: "relative",
+                    bottom: -20,
+                    marginLeft: 5,
+                    marginRight: 20,
+                    width: 65,
+                    height: 50,
+                    transform: [{ scale: anim.current }],
+                  }}
+                  source={images.marimoCharacter}
+                  resizeMode="contain"
+                />
+
+                <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
+                  <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                    친구의 이름을 입력해주세요!
+                  </Text>
+                  <View
+                    style={[styles.arrowContainer, styles.arrowLeftContainer]}
+                  >
+                    <Svg
+                      style={styles.arrowLeft}
+                      width={moderateScale(15.5, 0.6)}
+                      height={moderateScale(17.5, 0.6)}
+                      viewBox="32.484 17.5 15.515 17.5"
+                      enable-background="new 32.485 17.5 15.515 17.5"
+                    >
+                      <Path
+                        d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                        fill="#ACDBFD"
+                        x="0"
+                        y="0"
+                      />
+                    </Svg>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: "50%",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <NameInput
+                placeholder="이름을 입력해주세요"
+                value={text}
+                onChangeText={setText}
+              />
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: "25%",
+              }}
+            >
+              {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
               <Btn
-                style={{ marginTop: height * 0.025 }}
                 onPress={() =>
                   navigation.navigate("Character", {
                     name: text,
@@ -363,13 +475,13 @@ const Login = ({ navigation }) => {
               >
                 <BtnText>입력을 완료했어요</BtnText>
               </Btn>
-            </BtnCntr>
+            </View>
           </Cntr>
         </Container>
       ) : (
         <></>
       )}
-    </>
+    </View>
   );
 };
 
@@ -381,10 +493,11 @@ display:flex;
 height:80%;
 align-items:center;
 justify-content:center;
-
 `;
+
 const BackCntr = Styled.TouchableOpacity`
 width: 100%;
+height:5%;
 text-align: left;
 display: flex;
 flex-direction: row;
@@ -394,29 +507,30 @@ const ImageCntr = Styled.View`
 display:flex;
 flex-direction:row;
 width:82%;
+height:15%;
+padding-top:10%;
 justify-content:space-between;
 
 `;
 const Wrapper = Styled.View`
-  height: 70px;
+  height: 7%;
 `;
 const BackIcon = Styled.Text`
-width:120px;
-font-size:18px;
-
+  width: 25%;
+  font-size: 18px;
 `;
 const Container = Styled.View`
   flex: 1;
-  margin-left:10px;
-  margin-right:10px;
-  margin-top:10px;
+  margin-left:3%;
+  margin-right:3%;
+  margin-top:1%;
   
 `;
 
 const IntroText = Styled.Text`
   font-size:22px;
   font-weight: bold;
-  margin-top:30px;
+  margin-top:2%;
   line-height: 40px;
 `;
 const VoiceText = Styled.Text`
@@ -426,7 +540,6 @@ const VoiceText = Styled.Text`
   line-height:29.6px;
 `;
 const KeyText = Styled.Text`
-  width:180px;
   text-align:center;
   font-family: Noto Sans CJK KR;
   font-style: normal;
@@ -443,8 +556,8 @@ const AppName = Styled.Text`
 `;
 
 const Box = Styled.View`
-width:290px;
-height:205px;
+width:80%;
+height:80%;
 border-radius:10;
 margin-top:30px;
 border-width:1.5;
@@ -474,14 +587,17 @@ font-weight:700;
 `;
 
 const BtnCntr = Styled.View`
-    margin-top:20px;
-    margin-bottom:40px;
+  width:92%;
+  height:25%;
+  align-items:center;
+justify-content:center;
+  margin-top:10%;
 `;
 
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
-  width: 343px;
+  width: 100%;
   height: 56px;
   border-radius: 14px;
   align-items:center;
@@ -493,12 +609,15 @@ const BtnText = Styled.Text`
   letter-spacing: -0.408px;
 `;
 const NameInput = Styled.TextInput`
-height:55px;
-width:80%;
-font-size:16px;
-border-width:1
-padding:10px
-margin-top:-200;
+    height: 60;
+    width:80%;
+    margin-top:20;
+    font-size:16px;
+    background-color:#FFEB81;
+    border-width:1;
+    elevation:5;
+    border-radius:5;
+    padding:10px;
 `;
 
 // 분리
@@ -507,12 +626,9 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: moderateScale(7, 2),
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
-  itemIn: {
-    marginTop: 30,
-    marginBottom: 30,
-  },
+  itemIn: {},
   itemOut: {
     alignSelf: "flex-end",
     marginRight: 20,
