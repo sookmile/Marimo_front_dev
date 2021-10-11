@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import Orientation from "react-native-orientation";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
@@ -25,8 +24,10 @@ const Practice = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
+
   const { oWord, LastPage, taleName } = route.params;
 
+  // ID 받아오기
   const getUserId = async () => {
     const userId = await AsyncStorage.getItem("userId");
     return userId;
@@ -41,6 +42,7 @@ const Practice = ({ route, navigation }) => {
 
   getId();
 
+  // 음성인식
   const voiceLabel = text
     ? text
     : isRecord
@@ -102,6 +104,7 @@ const Practice = ({ route, navigation }) => {
         console.log(err);
       });
 
+    // 음성인식 부분
     Voice.onSpeechStart = _onSpeechStart;
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
@@ -112,10 +115,12 @@ const Practice = ({ route, navigation }) => {
     };
   }, []);
 
+  // 결과 전송
   const postResult = () => {
     Voice.stop();
+    // 저장용 데이터 전송
     const data1 = {
-      userId: 1,
+      userId: userID,
       taleName: taleName,
       lastpage: LastPage,
     };
@@ -130,8 +135,9 @@ const Practice = ({ route, navigation }) => {
         console.log("전송에 실패 ");
         console.log(err);
       });
+    // 피드백용 데이터 전송
     const data2 = {
-      userId: 1,
+      userId: userID,
       oWord: oWord,
       rWord: text,
       lastpage: LastPage,
@@ -149,12 +155,14 @@ const Practice = ({ route, navigation }) => {
       });
   };
 
+  // 모달 닫는 함수
   const closeRModal = () => {
     setRModalVisible(!isRModalVisible);
   };
   const closeWModal = () => {
     setWModalVisible(!isWModalVisible);
   };
+
   return (
     <>
       <ImageBackground
