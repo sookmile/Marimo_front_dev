@@ -298,7 +298,7 @@ const ExploreMain = ({ navigation }) => {
                     marginTop: StatusBar.currentHeight || 0,
                   }}
                 >
-                  {userData
+                  {userData.length !== 0
                     ? userData.map((obj) => <ListItem item={obj} />)
                     : SECTIONS.data.map((obj) => <ListItem itme={obj} />)}
                 </View>
@@ -518,7 +518,6 @@ const styles = StyleSheet.create({
 const ItemBox = styled.TouchableOpacity`
   width: 97px;
   height: 105px;
-
   margin-right: 10;
   background: ${(props) => props.background};
   border-radius: 20px;

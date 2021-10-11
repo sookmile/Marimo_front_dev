@@ -42,6 +42,7 @@ const StartMain = ({ navigation }) => {
   const [naverToken, setNaverToken] = React.useState(null);
   const [userId, setUserId] = useState(-1);
   const [refresh, setRefresh] = useState(false);
+
   const naverLogin = (props) => {
     NaverLogin.login(props, (err, token) => {
       console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
@@ -135,6 +136,7 @@ const StartMain = ({ navigation }) => {
       });
       console.log("로그인 성공");
       console.log(id);
+      Alert.alert(`${profileResult.response.name}님 환영합니다`);
       navigation.navigate("Login", { name: profileResult.response.name });
     }
   };
@@ -230,7 +232,7 @@ const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
   width: 100%;
-  height: 35%;
+  height: 32%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -239,7 +241,7 @@ const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
   width: 100%;
-  height: 35%;
+  height: 32%;
   border-radius: 14px;
   align-items:center;
   justify-content:center;

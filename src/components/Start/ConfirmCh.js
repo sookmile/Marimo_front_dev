@@ -61,22 +61,29 @@ const ConfirmCh = ({ route, navigation }) => {
           ></Icon2>
           <BackIcon>뒤로 가기</BackIcon>
         </BackCntr>
-
-        <IntroText>
-          {bigCharacter[characterNum].label}와 모험을 떠날 준비가 되었니?
-          {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
+        <View
+          style={{
+            width: "100%",
+            height: "15%",
+          }}
+        >
+          <IntroText>
+            {bigCharacter[characterNum].label}와 모험을 떠날 준비가 되었니?
+            {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
-        </IntroText>
+          </IntroText>
+        </View>
         <Cntr>
           <View
             style={{
-              width: "105%",
+              width: "100%",
+              height: "80%",
               alignItems: "center",
-              marginTop: chMargin,
             }}
           >
             <Image
-              style={{ width: 225, height: 225 }}
+              style={{ width: "65%", height: "55%" }}
+              resizeMode="contain"
               source={bigCharacter[characterNum].src}
             />
             <Box>
@@ -86,24 +93,34 @@ const ConfirmCh = ({ route, navigation }) => {
               </BoxText>
             </Box>
           </View>
-          <BtnCntr style={{ marginTop: 1.2 * chMargin }}>
-            <Btn
-              onPress={async () => {
-                const userId = await AsyncStorage.getItem("userId");
-                console.log(userId);
-                const postData = {
-                  userId: userId === null ? 3 : userId,
-                  character: characterNum,
-                };
-                console.log(postData);
-                await postCharacter(postData);
-                await AsyncStorage.setItem("userNickname", name);
-                navigation.navigate("NavTab");
-              }}
-            >
-              <BtnText>네! 준비됐어요!</BtnText>
-            </Btn>
-          </BtnCntr>
+          <View
+            style={{
+              width: "100%",
+
+              height: "20%",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <BtnCntr>
+              <Btn
+                onPress={async () => {
+                  const userId = await AsyncStorage.getItem("userId");
+                  console.log(userId);
+                  const postData = {
+                    userId: userId === null ? 3 : userId,
+                    character: characterNum,
+                  };
+                  console.log(postData);
+                  await postCharacter(postData);
+                  await AsyncStorage.setItem("userNickname", name);
+                  navigation.navigate("NavTab");
+                }}
+              >
+                <BtnText>네! 준비됐어요!</BtnText>
+              </Btn>
+            </BtnCntr>
+          </View>
         </Cntr>
       </Container>
     </View>
@@ -117,12 +134,14 @@ const GoodsList = styled.View``;
 const GoodsCntr = styled.View``;
 
 const BtnCntr = styled.View`
-  margin-top: 20px;
+  width: 92%;
+  align-items: center;
+  justify-content: center;
 `;
 const Btn = styled.TouchableOpacity`
   background-color: #b16cf6;
   color: white;
-  width: 343px;
+  width: 100%;
   height: 56px;
   border-radius: 14px;
   align-items: center;
@@ -142,6 +161,7 @@ const Cntr = styled.View`
 `;
 const BackCntr = styled.TouchableOpacity`
   width: 100%;
+  height: 5%;
   text-align: left;
   display: flex;
   flex-direction: row;
@@ -159,7 +179,7 @@ const Container = styled.View`
 const IntroText = styled.Text`
   font-size: 22px;
   font-weight: bold;
-  margin-top: 4%;
+  margin-top: 2%;
   line-height: 40px;
 `;
 const AppName = styled.Text`
@@ -169,11 +189,10 @@ const AppName = styled.Text`
 
 const Box = styled.View`
   width: 80%;
-  height: 23%;
+  height: 20%;
   background-color: #ededed;
   elevation: 10;
   border-radius: 20;
-  margin-top: 5%;
 `;
 
 const BoxText = styled.Text`
