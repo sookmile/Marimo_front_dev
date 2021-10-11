@@ -510,7 +510,6 @@ width:82%;
 height:15%;
 padding-top:10%;
 justify-content:space-between;
-
 `;
 const Wrapper = Styled.View`
   height: 7%;
@@ -548,7 +547,6 @@ const KeyText = Styled.Text`
   line-height: 27px;
   text-align: center;
   color: #191919;
-
   `;
 const AppName = Styled.Text`
   font-size:22px;
@@ -567,12 +565,10 @@ background-color:#FFEB81
 z-index:3;
 align-items:center;
 justify-content:center;
-
 `;
 
 const ConfirmText = Styled.Text`
 font-family: "NanumSquareRoundB";
-
 color:#191919;
 font-size:22px;
 line-height: 30px;

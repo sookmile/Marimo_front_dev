@@ -507,7 +507,6 @@ const styles = StyleSheet.create({
 const ItemBox = styled.TouchableOpacity`
   width: 97px;
   height: 105px;
-
   margin-right: 10;
   background: ${(props) => props.background};
   border-radius: 20px;

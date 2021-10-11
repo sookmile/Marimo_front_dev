@@ -87,14 +87,6 @@ const StoryOne = ({ navigation }) => {
     console.log("동화1 끝!");
   }
 
-  // Tts.setDefaultLanguage("ko-KR");
-  // setTimeout(() => {
-  //   Tts.speak("정원이 정말 아름답구나!");
-  // }, 1000);
-  // setTimeout(() => {
-  //   Tts.speak("우와, 예쁜 장미꽃이 피어있네?");
-  // }, 4000);
-
   return (
     <View>
       {pageNum == 1 ? (
@@ -124,6 +116,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "침대",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -145,6 +138,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "이불",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -167,6 +161,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "시계",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -188,6 +183,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "축구공",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -209,6 +205,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "액자",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -259,6 +256,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "냉장고",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -280,6 +278,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "사과",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -301,6 +300,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "포도",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -322,6 +322,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "수박",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -343,6 +344,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "바나나",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -364,6 +366,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "달력",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -443,6 +446,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "기차",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -464,6 +468,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "자전거",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -485,6 +490,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "색연필",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -506,6 +512,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "도토리",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -527,6 +534,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "장갑",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >

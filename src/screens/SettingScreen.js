@@ -355,7 +355,6 @@ const CloseText = styled.Text`
 const Contents = styled.TouchableOpacity`
   height: ${(props) => props.height * 0.065};
   margin-bottom: ${(props) => (props.isLast ? "10%" : "0%")};
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;

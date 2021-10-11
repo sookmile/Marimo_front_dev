@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-// import SplashScreen from 'react-native-splash-screen';
+import SplashScreen from "react-native-splash-screen";
 
 // Contents
 import Start from "./src/screens/StartScreen";
@@ -25,11 +25,9 @@ import NavTab from "./src/screens/NavTabs";
 const MainStack = createStackNavigator();
 
 const App = () => {
-  /*
   useEffect(() => {
     SplashScreen.hide();
   }, []);
-  */
   return (
     <NavigationContainer>
       <MainStack.Navigator
@@ -106,8 +104,6 @@ const App = () => {
           component={SpellingGame}
           options={{ headerShown: true, title: "냠냠 맛있는 모음게임" }}
         />
-        
-       
       </MainStack.Navigator>
     </NavigationContainer>
   );
