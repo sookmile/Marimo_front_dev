@@ -17,7 +17,7 @@ const Game = () => {
       <GameStack.Screen
         name="SpellingGameContainer"
         component={SpellingGameContainer}
-        options={{ headerShown: true, title: "냠냠 맛있는 모음게임임" }}
+        options={{ headerShown: true, title: "냠냠 맛있는 모음게임" }}
       />
       <GameStack.Screen
         name="SpellingGame"

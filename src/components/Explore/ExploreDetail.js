@@ -11,7 +11,7 @@ import {
 import CustomButton from "../CustomButton/CustomButton";
 import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
 import { preURL } from "../../preURL/preURL";
-import { save } from "@react-native-community/cameraroll";
+import { fontPercentage } from "../../constants/responsive";
 import Tts from "react-native-tts";
 import styled from "styled-components";
 const ExploreDetail = ({ navigation, route }) => {
@@ -50,7 +50,10 @@ const ExploreDetail = ({ navigation, route }) => {
     return (
       <View style={styles.container_header}>
         {/* Images */}
-        <TouchableOpacity style={styles.container_headerIcon}>
+        <TouchableOpacity
+          style={styles.container_headerIcon}
+          onPress={() => navigation.navigate("Main")}
+        >
           <Image
             source={icons.marimo_logo}
             resizeMode="contain"
@@ -59,7 +62,9 @@ const ExploreDetail = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <View style={styles.container_headerText}>
-          <StudyTxt style={{ marginTop: 20 }}>내가 찾은 추억창고</StudyTxt>
+          <StudyTxt style={{ marginTop: 20, fontSize: fontPercentage(24) }}>
+            내가 찾은 추억창고
+          </StudyTxt>
         </View>
 
         <View
@@ -211,9 +216,6 @@ const styles = StyleSheet.create({
   },
 });
 const StudyTxt = styled.Text`
-  font-family: NanumSquareRoundB;
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: bold;
-  color: #191919;
+  font-family: Cafe24Ssurround;
+  color: #464d46;
 `;

@@ -13,12 +13,16 @@ import {
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage } from "../../constants/responsive";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
+
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
 
@@ -28,8 +32,14 @@ const ListItem = ({ item }) => {
         background={item.background}
         onPress={() => navigation.navigate(`${item.router}`)}
       >
+        <Image
+          style={{ position: "absolute", top: "2%", left: "5%" }}
+          source={require("../../assets/icons/ic_ellipse.png")}
+        />
         <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
-        <ItemText color={item.color}>{item.label}</ItemText>
+        <ItemText style={{ fontSize: hp(2.5) }} color={item.color}>
+          {item.label}
+        </ItemText>
       </ItemBox>
     </ItemButton>
   );
@@ -45,7 +55,7 @@ const ItemButton = styled.View`
 const ItemBox = styled.TouchableOpacity`
   width: 100%;
   height: 100%;
-  elevation: 1;
+  elevation: 3;
   border-width: 0.0125;
   margin-right: 10%;
   background: ${(props) => props.background};
@@ -55,12 +65,10 @@ const ItemBox = styled.TouchableOpacity`
   align-content: center;
 `;
 const ItemText = styled.Text`
-  color: ${(props) => props.color};
+  color: #ffffff;
   text-align: center;
   margin-top: 10%;
-  font-family: NanumSquareRoundB;
-  font-size: 18;
-  font-weight: bold;
+  font-family: Cafe24Ssurround;
 `;
 
 const renderItem = ({ item }) => {
@@ -72,11 +80,15 @@ const renderItem = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
+        height: hp(13),
         marginVertical: 16,
-        height: "40%",
       }}
     >
       <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+        <Image
+          style={{ position: "absolute", top: "2%", left: "1%" }}
+          source={require("../../assets/icons/ic_ellipse.png")}
+        />
         <ChImage
           style={{
             borderRadius: 20,
@@ -86,10 +98,16 @@ const renderItem = ({ item }) => {
           source={item.src}
         />
         <ContentTexts>
-          <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+          <ContentTitle
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
+          >
             {item.text}
           </ContentTitle>
-          <ContentText>{item.number}명이 플레이 중입니다.</ContentText>
+          <ContentText style={{ fontSize: hp(1.8) }}>
+            추천 연령 : {item.age}세
+          </ContentText>
         </ContentTexts>
       </ContnetSubCntr>
     </View>
@@ -98,7 +116,7 @@ const renderItem = ({ item }) => {
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
   height: 100%;
-  background: #fbf8ff;
+  background: #f5e7f8;
   border-radius: 23;
   justify-content: space-between;
   align-items: center;
@@ -115,11 +133,7 @@ const ContentTexts = styled.View`
   width: 65%;
 `;
 const ContentTitle = styled.Text`
-  font-family: Noto Sans CJK KR;
-  margin-bottom: 15;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 24px;
+  font-family: NanumSquareRoundB;
   color: #000000;
 `;
 
@@ -212,7 +226,8 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontWeight: "bold",
+                    fontSize: hp(3),
+                    fontFamily: "Cafe24Ssurround",
                   }}
                 >
                   추천 학습
@@ -221,7 +236,6 @@ const Home = () => {
               <View
                 stlye={{
                   flex: 1,
-
                   marginTop: StatusBar.currentHeight || 0,
                   marginBottom: 5,
                 }}
@@ -245,7 +259,7 @@ const SECTIONS1 = [
     label: "동화",
     src: navTabIcons.ic_story,
     color: "#CCAB37",
-    background: "rgba(251, 222, 120, 0.08)",
+    background: "#FFD74B",
     router: "Story",
   },
   {
@@ -253,7 +267,7 @@ const SECTIONS1 = [
     label: "게임",
     src: navTabIcons.ic_game,
     color: "#D5A0FE",
-    background: "rgba(213, 160, 254, 0.08)",
+    background: "rgba(213, 160, 254, 0.8)",
     router: "Game",
   },
   {
@@ -261,7 +275,7 @@ const SECTIONS1 = [
     label: "탐험",
     src: navTabIcons.ic_camera,
     color: "#F66C6C",
-    background: "rgba(246, 108, 108, 0.08)",
+    background: "rgba(246, 108, 108, 0.8)",
     router: "Explore",
   },
 ];
@@ -269,15 +283,15 @@ const SECTIONS3 = [
   {
     key: "1",
     text: "호랑이의 생일 잔치",
-    src: navTabIcons.ic_story1,
-    number: 50,
+    src: require("../../assets/images/story/Story1Page1.png"),
+    age: "6~7",
     router: "StoryLoading",
   },
   {
     key: "2",
     text: "냠냠 맛있는 모음게임",
-    src: navTabIcons.ic_game1,
-    number: 20,
+    src: navTabIcons.cv_game,
+    age: "6~7",
     router: "SpellingGameContainer",
   },
 ];
@@ -425,10 +439,6 @@ const styles = StyleSheet.create({
 });
 
 const StudyTxt = styled.Text`
-  font-family: NanumSquareRoundB;
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: bold;
   color: #191919;
 `;
 
