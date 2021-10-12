@@ -16,11 +16,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
-import { icons, images } from "../../constants";
-import GameScore from "../CustomButton/GameScore";
-
 import hangul from "hangul-js";
+import { icons, images } from "../../constants";
 import Voice from "@react-native-community/voice";
 import { SIZES, dummyData, COLORS } from "../../constants";
 import CustomButton from "../CustomButton/CustomButton";
@@ -30,6 +27,7 @@ import { preURL } from "../../preURL/preURL";
 import Sound from "react-native-sound";
 import BouncingComponent from "../CustomButton/BouncingComponent";
 import Svg from "react-native-svg";
+import Orientation from "react-native-orientation";
 
 const correctSound = require("../../assets/sounds/mixkit-unlock-game-notification-253.wav");
 const wrongSound = require("../../assets/sounds/mixkit-small-hit-in-a-game-2072.wav");
@@ -60,7 +58,7 @@ function SpellingGame({ route, navigation }) {
   const [feedback, setFeedback] = useState("");
   // record
   const [isRecord, setisRecord] = useState(false);
-  const [text, setText] = useState("");
+  const [speakWord, setSpeakWord] = useState("");
 
   // animation
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -102,9 +100,9 @@ function SpellingGame({ route, navigation }) {
   // 백으로 피드백 받기
   const getFeedback = async (userId) => {
     const userSpeechData = {
-      userId: userId ? userId : 1,
+      userId: userId,
       word: questions[currentQuestionIndex]?.answer,
-      speakWord: text,
+      speakWord: speakWord,
     };
     await axios
       .post(preURL + "/marimo/game/feedback", userSpeechData)
@@ -119,8 +117,8 @@ function SpellingGame({ route, navigation }) {
   };
 
   const buttonLabel = isRecord ? "그만하기" : "녹음하기";
-  const voiceLabel = text
-    ? text
+  const voiceLabel = speakWord
+    ? speakWord
     : isRecord
     ? "말해주세요..."
     : "버튼을 눌러주세요!";
@@ -132,8 +130,8 @@ function SpellingGame({ route, navigation }) {
     console.log("onSpeechEnd");
   };
   const _onSpeechResults = (event) => {
-    console.log("onSpeechResults");
-    setText(event.value[0]);
+    console.log("onSpeechResults", event);
+    setSpeakWord(event.value[0]);
   };
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
@@ -157,6 +155,10 @@ function SpellingGame({ route, navigation }) {
   }, [questions]);
 
   useEffect(async () => {
+    // 세로 화면 고정
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientationDidChange);
+
     const questionFrom = await getGameData();
 
     setUserID(id);
@@ -168,8 +170,18 @@ function SpellingGame({ route, navigation }) {
 
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);
+      Tts.removeEventListeners;
+      Orientation.unlockAllOrientations();
+      Orientation.removeOrientationListener(onOrientationDidChange);
     };
   }, []);
+
+  // oreintation
+  const onOrientationDidChange = (orientation) => {
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
+    }
+  };
 
   // character animation
   const _start = () => {
@@ -196,6 +208,7 @@ function SpellingGame({ route, navigation }) {
   Tts.addEventListener("tts-finish", (event) => {
     console.log("finish", event);
   });
+
   Tts.addEventListener("tts-cancel", (event) => {
     console.log("cancel", event);
   });
@@ -214,7 +227,7 @@ function SpellingGame({ route, navigation }) {
         : {};
     }, 1000);
     return () => {
-      Tts.removeAllListeners;
+      Tts.removeEventListeners;
     };
   }, [currentQuestionIndex, questions]);
 
@@ -259,7 +272,7 @@ function SpellingGame({ route, navigation }) {
 
   // 퀴즈 다시 시작
   const restartQuiz = () => {
-    setText("");
+    setSpeakWord("");
     setShowScoreModal(false);
     setCurrentQuestionIndex(0);
     setScore(0);
@@ -283,6 +296,7 @@ function SpellingGame({ route, navigation }) {
       // Set Score
       setScore(score + 20);
       // music
+
       correctMusic.play((success) => {
         if (success) {
           console.log("successfully finished playing");
@@ -300,7 +314,6 @@ function SpellingGame({ route, navigation }) {
         }
       });
     }
-    readText(correct_answer);
     readText(fullWord);
     // Show Modal
     setModalVisible(true);
@@ -320,7 +333,7 @@ function SpellingGame({ route, navigation }) {
       });
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setText("");
+      setSpeakWord("");
       setCurrentOptionSelected(false);
       setCorrectOption(null);
       setModalVisible(false);
@@ -328,6 +341,11 @@ function SpellingGame({ route, navigation }) {
       setIsOptionsDisabled(false);
       setFeedback("");
     }
+  };
+
+  const assembleVowelForOption = (option) => {
+    let assembleWord = hangul.a(["ㅇ", option[0], "ㅇ", option[1]]);
+    return assembleWord;
   };
 
   // 옵션 렌더링
@@ -405,7 +423,7 @@ function SpellingGame({ route, navigation }) {
               {/* 발음 듣기 */}
               <View>
                 <TouchableOpacity
-                  onPress={() => readText(option)}
+                  onPress={() => readText(assembleVowelForOption(option))}
                   key={index}
                   style={{
                     borderWidth: 3,
@@ -744,8 +762,14 @@ function SpellingGame({ route, navigation }) {
                 <Text style={styles.resultModal_congratText}>
                   우와, 대단해요!
                 </Text>
-                <Text style={{ fontSize: 25, fontFamily: "NanumSquareRoundB" }}>
-                  {userNickname}이의 최종 점수는
+                <Text
+                  style={{
+                    fontSize: 25,
+                    fontFamily: "NanumSquareRoundB",
+                    textAlign: "center",
+                  }}
+                >
+                  {userNickname}(이)의{"\n"} 최종 점수는
                 </Text>
 
                 <View style={styles.resultModal_scoreContainer}>
@@ -764,7 +788,9 @@ function SpellingGame({ route, navigation }) {
                 <TouchableOpacity
                   style={styles.resultModal_goHomeBtn}
                   onPress={() =>
-                    postGameResult() && navigation.navigate("GameMain")
+                    postGameResult() &&
+                    Voice.destroy().then(Voice.removeAllListeners) &&
+                    navigation.navigate("GameMain")
                   }
                 >
                   <Text
@@ -852,7 +878,7 @@ const styles = StyleSheet.create({
   },
   voiceLabel: {
     marginTop: SIZES.radius,
-    paddingVertical: SIZES.padding,
+    paddingVertical: 12,
     paddingHorizontal: SIZES.padding,
     fontFamily: "NanumSquareRoundB",
     textAlign: "center",
