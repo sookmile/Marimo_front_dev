@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(2);
+  const [pageNum, setPageNum] = useState(0);
 
   // for ui design
   const { width, height } = Dimensions.get("window");
@@ -257,13 +257,6 @@ const Login = ({ navigation }) => {
               </View>
               <KeyText>자판으로 입력할게요</KeyText>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Character", {
-                  name: "우진",
-                })
-              }
-            ></TouchableOpacity>
           </Cntr>
         </Container>
       ) : pageNum === 1 ? (

@@ -231,13 +231,6 @@ const Login = ({ navigation }) => {
               </View>
               <KeyText>자판으로 입력할게요</KeyText>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Character", {
-                  name: "우진",
-                })
-              }
-            ></TouchableOpacity>
           </Cntr>
         </Container>
       ) : pageNum === 1 ? (
