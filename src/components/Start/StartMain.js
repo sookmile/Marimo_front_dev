@@ -102,12 +102,11 @@ const StartMain = ({ navigation }) => {
       .post(preURL.preURL + "/marimo/login", body)
       .then(async (res) => {
         const response = res.data.id;
-
         await setUserId(response);
         Alert.alert("사용자 정보 등록 성공", response);
       })
       .catch((err) => {
-        Alert.alert("에러발생", body.username);
+        Alert.alert("에러발생", err);
         console.log("에러 발생 ");
         console.log(err);
       });
@@ -118,7 +117,6 @@ const StartMain = ({ navigation }) => {
   };
 
   const setLogin = async () => {
-    Alert.alert(naverToken);
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
     await AsyncStorage.setItem("token", JSON.stringify(naverToken));
@@ -153,7 +151,9 @@ const StartMain = ({ navigation }) => {
       console.log("로그인 성공");
       console.log("id", id);
       console.log("naverToken", naverToken);
-      Alert.alert(`${profileResult.response.name}님 환영합니다`);
+      if (id === null || id === -1)
+        Alert.alert(`${profileResult.response.name}님 환영합니다}${id}`);
+
       navigation.navigate("Login", { name: profileResult.response.name });
     }
   };
