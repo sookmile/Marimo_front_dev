@@ -21,6 +21,8 @@ import preURL from "../preURL/preURL";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
 import { character } from "../assets/icons/Character/Character";
+import Orientation from "react-native-orientation";
+
 function SettingScreen({ navigation }) {
   const [userId, setUserID] = useState(-1);
   const [recordInfo, setRecordInfo] = useState([]);
@@ -30,6 +32,20 @@ function SettingScreen({ navigation }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alarm, setAlarm] = useState(true);
   const alarmToggleSwitch = () => setAlarm((previousState) => !previousState);
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  }, []);
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToLandscapeLeft();
+    }
+  };
 
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userId");
@@ -50,13 +66,12 @@ function SettingScreen({ navigation }) {
     console.log(id);
     await axios
       .post(preURL.preURL + "/marimo/user/record", {
-        userId: 1,
+        userId: id,
       })
       .then(async (res) => {
         const response = res.data;
         console.log(res.data);
         await setRecordInfo(response);
-        setData(response);
       })
       .catch((err) => {
         console.log("에러 발생 ");
@@ -123,11 +138,21 @@ function SettingScreen({ navigation }) {
         }}
       >
         <View style={styles.container}>
-          <SettingText height={height}>설정</SettingText>
           <View
             style={{
+              height: "10%",
               display: "flex",
+              marginBottom: "2%",
               justifyContent: "center",
+            }}
+          >
+            <SettingText height={height}>설정</SettingText>
+          </View>
+          <View
+            style={{
+              height: "88%",
+              display: "flex",
+              justifyContent: "flex-start",
             }}
           >
             <Cntr style={{ height: "52%" }}>
@@ -192,8 +217,9 @@ function SettingScreen({ navigation }) {
             </Cntr>
             <Cntr
               style={{
-                borderBottomWidth: 0,
                 height: "40%",
+                marginTop: "2%",
+                justifyContent: "flex-start",
               }}
             >
               <ContentText>더 보기</ContentText>
@@ -315,19 +341,18 @@ const VersionText = styled.Text`
 `;
 const SettingText = styled.Text`
   font-size: 25;
+  align-items: center;
   font-weight: bold;
-  border-bottom-width: 1;
-  padding-bottom: 10;
-  border-bottom-color: #dedede;
 `;
 const Cntr = styled.View`
   display: flex;
   justify-content: center;
-  border-bottom-width: 1;
-  border-bottom-color: #dedede;
 `;
 const ContentText = styled.Text`
   font-size: 18;
+  padding-top: 3%;
+  border-top-width: 1;
+  border-top-color: #dedede;
   color: gray;
   margin-bottom: 12;
 `;
@@ -354,7 +379,7 @@ const CloseText = styled.Text`
 
 const Contents = styled.TouchableOpacity`
   height: ${(props) => props.height * 0.065};
-  margin-bottom: ${(props) => (props.isLast ? "10%" : "0%")};
+  margin-bottom: ${(props) => (props.isLast ? "5%" : "0%")};
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -90,14 +90,22 @@ const StoryOne = ({ navigation }) => {
   return (
     <View>
       {pageNum == 1 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#EDC59E",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page1.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -229,14 +237,22 @@ const StoryOne = ({ navigation }) => {
           </ImageBackground>
         </View>
       ) : pageNum == 2 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#F2E3AC",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page2.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -390,14 +406,22 @@ const StoryOne = ({ navigation }) => {
           </ImageBackground>
         </View>
       ) : pageNum == 3 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#FDF1F4",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page3.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <View style={styles.navBox}>
@@ -419,14 +443,22 @@ const StoryOne = ({ navigation }) => {
           </ImageBackground>
         </View>
       ) : pageNum == 4 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#FDF1F4",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page4.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity

@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
 
   // for ui design
   const { width, height } = Dimensions.get("window");
@@ -88,6 +88,9 @@ const Login = ({ navigation }) => {
   };
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
+    console.log(event.error.message[0]);
+    if (event.error.message[0] === "7")
+      Alert.alert("인식에 실패했습니다.\n버튼을 누르고 다시 말해주세요");
     console.log(event.error);
   };
 
@@ -133,7 +136,6 @@ const Login = ({ navigation }) => {
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
     Voice.onSpeechError = _onSpeechError;
-
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
@@ -152,18 +154,11 @@ const Login = ({ navigation }) => {
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
-          <View
-            style={{
-              width: "100%",
-              height: "15%",
-            }}
-          >
-            <IntroText>
-              안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은
-              뭐니?
-            </IntroText>
-          </View>
-          <Cntr>
+
+          <IntroText>
+            안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
+          </IntroText>
+          <Cntr style={{ backgroundColor: "yellow" }}>
             <View
               style={{
                 width: "100%",
@@ -261,7 +256,7 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum === 1 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr style={{}} onPress={() => setPageNum(0)}>
+          <BackCntr onPress={() => setPageNum(0)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
@@ -385,9 +380,17 @@ const Login = ({ navigation }) => {
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
-          <IntroText>
-            안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
-          </IntroText>
+          <View
+            style={{
+              width: "100%",
+              height: "15%",
+            }}
+          >
+            <IntroText>
+              안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은
+              뭐니?
+            </IntroText>
+          </View>
           <Cntr style={{}}>
             <View
               style={{
@@ -483,15 +486,16 @@ export default Login;
 const Cntr = Styled.View`
 width:100%;
 display:flex;
-height:80%;
+height:79%;
 align-items:center;
 justify-content:center;
 `;
 
 const BackCntr = Styled.TouchableOpacity`
 width: 100%;
-height:5%;
+height:6%;
 text-align: left;
+align-items:flex-end;
 display: flex;
 flex-direction: row;
 `;

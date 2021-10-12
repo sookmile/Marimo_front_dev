@@ -52,7 +52,9 @@ const ConfirmCh = ({ route, navigation }) => {
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr onPress={() => navigation.navigate("Login")}>
+        <BackCntr
+          onPress={() => navigation.navigate("Login")}
+        >
           <Icon2
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -154,14 +156,15 @@ const BtnText = styled.Text`
 
 const Cntr = styled.View`
   width: 100%;
-  height: 80%;
+  height: 79%;
   align-items: center;
   justify-content: center;
 `;
 const BackCntr = styled.TouchableOpacity`
   width: 100%;
-  height: 5%;
+  height: 6%;
   text-align: left;
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
 `;

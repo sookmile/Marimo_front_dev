@@ -56,6 +56,12 @@ const StartMain = ({ navigation }) => {
       return token;
     });
   };
+
+  useEffect(async () => {
+    const token = await JSON.parse(AsyncStorage.getItem("token"));
+    console.log(token);
+    token !== null && setNaverToken(token);
+  }, []);
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -76,7 +82,11 @@ const StartMain = ({ navigation }) => {
   };
 
   useEffect(() => {
-    AsyncStorage.setItem("isLogin", "false");
+    AsyncStorage.getItem("naverToekn");
+  });
+
+  useEffect(() => {
+    console.log("naverToken", naverToken);
     if (naverToken !== null && AsyncStorage.getItem("isLogin") !== "true") {
       getUserProfile();
     }
@@ -137,7 +147,8 @@ const StartMain = ({ navigation }) => {
         identifier: profileResult.response.id,
       });
       console.log("로그인 성공");
-      console.log(id);
+      console.log("id", id);
+      console.log("naverToken", naverToken);
       Alert.alert(`${profileResult.response.name}님 환영합니다`);
       navigation.navigate("Login", { name: profileResult.response.name });
     }
