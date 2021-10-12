@@ -77,7 +77,7 @@ const ExploreCamera = ({ navigation }) => {
   const takePhoto = async () => {
     if (cameraRef) {
       const data = await cameraRef.current.takePictureAsync({
-        quality: 1,
+        quality: 0.5,
         exif: true,
       });
       console.log("data", data.uri);
@@ -113,18 +113,23 @@ const ExploreCamera = ({ navigation }) => {
         setprocessingImage(false);
         await setImageData(responseJson);
         console.log("ImageData: ", responseJson);
-        if (imageData.length !== 0) {
+        if (responseJson) {
           setprocessingImage(false);
           navigation.navigate("Detail", {
-            imageData,
+            link: responseJson.link,
+            word: responseJson.word,
           });
         } else {
           setprocessingImage(false);
           alert("이미지 설명 받아오지 못했습니다!");
+          setImageData([]);
+          seturl("");
         }
       })
       .catch((error) => {
         setprocessingImage(false);
+        setImageData([]);
+        seturl("");
         console.error(error);
       });
   };

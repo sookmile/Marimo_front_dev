@@ -13,7 +13,7 @@ import {
   FlatList,
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
-import { fontPercentage } from "../../constants/responsive";
+import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -23,6 +23,7 @@ import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
+import Voice from "@react-native-community/voice";
 
 const renderItem = ({ item }) => {
   const navigation = useNavigation();
@@ -35,7 +36,7 @@ const renderItem = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
-        height: hp(13),
+        height: "30%",
       }}
     >
       <ContnetSubCntr
@@ -111,6 +112,7 @@ const ContentText = styled.Text`
 const GameMain = () => {
   const [userNickname, setUserNickName] = useState("");
   useEffect(() => {
+    Voice.destroy().then(Voice.removeAllListeners);
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
     return () => {
