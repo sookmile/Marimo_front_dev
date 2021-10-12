@@ -14,6 +14,7 @@ import { Circle } from "react-native-svg";
 import CustomSwitch from "./CustomSwitch";
 import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
 import ToggleSwitch from "rn-toggle-switch";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   BarChart,
@@ -87,6 +88,7 @@ const LearnRecord = ({ navigation, route }) => {
         {value}
       </Text>
     ));
+
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userId");
     const chrNum = await AsyncStorage.getItem("characterNum");

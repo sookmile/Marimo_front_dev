@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
 
 
   // for ui design
@@ -159,7 +159,7 @@ const Login = ({ navigation }) => {
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
-          <Cntr style={{ backgroundColor: "yellow" }}>
+          <Cntr>
             <View
               style={{
                 width: "100%",
@@ -326,7 +326,7 @@ const Login = ({ navigation }) => {
                   const userId = await AsyncStorage.getItem("userId");
                   console.log(userId);
                   const postData = {
-                    id: userId === null ? 3 : userId,
+                    id: userId === null ? 0 : userId,
                     nickname: text,
                   };
                   console.log(postData);
@@ -384,7 +384,7 @@ const Login = ({ navigation }) => {
           <View
             style={{
               width: "100%",
-              height: "15%",
+              height: "20%",
             }}
           >
             <IntroText>
@@ -464,11 +464,19 @@ const Login = ({ navigation }) => {
             >
               {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
               <Btn
-                onPress={() =>
+                onPress={async () => {
+                  const userId = await AsyncStorage.getItem("userId");
+                  console.log(userId);
+                  const postData = {
+                    id: userId === null ? 0 : userId,
+                    nickname: text,
+                  };
+                  console.log(postData);
+                  await postSpeechUserName(postData);
                   navigation.navigate("Character", {
                     name: text,
-                  })
-                }
+                  });
+                }}
               >
                 <BtnText>입력을 완료했어요</BtnText>
               </Btn>

@@ -267,8 +267,8 @@ const styles = StyleSheet.create({
     marginRight: "3%",
   },
   mediaPlayer: {
-    width: 320,
-    height: 200,
+    width: "80%",
+    height: "50%",
     marginRight: "2%",
   },
   text: {

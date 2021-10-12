@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
+  Alert,
 } from "react-native";
 import CustomButton from "../CustomButton/CustomButton";
 import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
@@ -128,7 +129,10 @@ const ExploreDetail = ({ navigation, route }) => {
         />
         <CustomButton
           buttonText="내 추억창고에 저장하기"
-          onPress={() => saveMyMemories(userId)}
+          onPress={async () => {
+            await saveMyMemories(1);
+            Alert.alert("사진이 내 추억창고에 저장되었습니다!");
+          }}
         />
         <CustomButton
           buttonText="다른 사진 찍기"
