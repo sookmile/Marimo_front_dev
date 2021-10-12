@@ -14,7 +14,10 @@ import {
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage } from "../../constants/responsive";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
@@ -31,7 +34,7 @@ const renderItem = ({ item }) => {
         alignItems: "center",
         justifyContent: "center",
         marginVertical: 16,
-        height: "27.5%",
+        height: hp(13),
       }}
     >
       <ContnetSubCntr
@@ -41,6 +44,10 @@ const renderItem = ({ item }) => {
             : navigation.navigate(`${item.router}`)
         }
       >
+        <Image
+          style={{ position: "absolute", top: "2%", left: "1%" }}
+          source={require("../../assets/icons/ic_ellipse.png")}
+        />
         <ChImage
           style={{
             borderRadius: 20,
@@ -50,10 +57,16 @@ const renderItem = ({ item }) => {
           source={item.src}
         />
         <ContentTexts>
-          <ContentTitle numberOfLines={1} ellipsizeMode="tail">
+          <ContentTitle
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
+          >
             {item.text}
           </ContentTitle>
-          <ContentText>추천 연령 : {item.age}세</ContentText>
+          <ContentText style={{ fontSize: hp(1.8) }}>
+            추천 연령 : {item.age}세
+          </ContentText>
         </ContentTexts>
       </ContnetSubCntr>
     </View>
@@ -62,7 +75,7 @@ const renderItem = ({ item }) => {
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
   height: 100%;
-  background: #fbf8ff;
+  background: #f5e7f8;
   border-radius: 23;
   justify-content: space-between;
   align-items: center;
@@ -79,11 +92,8 @@ const ContentTexts = styled.View`
   width: 65%;
 `;
 const ContentTitle = styled.Text`
-  font-family: Noto Sans CJK KR;
+  font-family: NanumSquareRoundB;
   margin-bottom: 15;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 24px;
   color: #000000;
 `;
 
@@ -157,7 +167,15 @@ const StoryMain = () => {
                   display: "flex",
                 }}
               >
-                <StudyTxt>추천 학습</StudyTxt>
+                <StudyTxt
+                  style={{
+                    color: "#464D46",
+                    fontSize: hp(3),
+                    fontFamily: "Cafe24Ssurround",
+                  }}
+                >
+                  추천 학습
+                </StudyTxt>
               </View>
               <View
                 stlye={{
@@ -184,15 +202,15 @@ const SECTIONS3 = [
     key: "1",
     text: "호랑이의 생일 잔치",
     age: "6~7",
-    src: navTabIcons.ic_story1,
+    src: require("../../assets/images/story/Story1Page1.png"),
     number: 50,
     router: "StoryLoading",
   },
   {
     key: "2",
-    text: "이상한 나라의 앨리스",
+    text: "말랑이와 요정의 성",
     age: "7~8",
-    src: navTabIcons.ic_story2,
+    src: require("../../assets/images/story/story1.png"),
     number: 20,
     router: "null",
   },
@@ -321,10 +339,6 @@ const styles = StyleSheet.create({
 });
 
 const StudyTxt = styled.Text`
-  font-family: NanumSquareRoundB;
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: bold;
   color: #191919;
 `;
 

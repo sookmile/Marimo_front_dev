@@ -29,7 +29,7 @@ const Explore = () => {
       <ExploreStack.Screen
         name="Camera"
         component={ExploreCamera}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ headerShown: false, headerTransparent: true }}
       />
       <ExploreStack.Screen
         name="Detail"
