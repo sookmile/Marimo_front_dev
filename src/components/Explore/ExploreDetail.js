@@ -11,50 +11,63 @@ import {
 } from "react-native";
 import CustomButton from "../CustomButton/CustomButton";
 import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
+import axios from "axios";
 import { preURL } from "../../preURL/preURL";
-import { fontPercentage } from "../../constants/responsive";
 import Tts from "react-native-tts";
 import styled from "styled-components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const ExploreDetail = ({ navigation, route }) => {
+  const [userId, setuserId] = useState(-1);
+  const { link, word } = route.params;
+
   // tts 설정
   Tts.setDefaultLanguage("ko-KR");
   Tts.addEventListener("tts-start", (event) => console.log("start", event));
   Tts.addEventListener("tts-finish", (event) => console.log("finish", event));
   Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
 
-  const _onPressSpeech = (word) => {
+  const _onPressSpeech = (text) => {
     Tts.stop();
-    Tts.speak(word);
+    Tts.speak(text);
   };
 
+  const getUserId = async () => {
+    const id = await AsyncStorage.getItem("userId");
+    return id;
+  };
+
+  useEffect(async () => {
+    const userID = await getUserId();
+    console.log("유저 아이디:", userID);
+    setuserId(userID);
+  }, []);
+
   // 나의 추억창고 저장하기
-  const saveMyMemories = (userId) => {
+  const saveMyMemories = async (userId) => {
     let dataToSend = {
-      userId: 1,
-      link: route.params.imageData.link,
-      word: route.params.imageData.word,
+      userId: userId,
+      link: route.params.link,
+      word: route.params.word,
     };
     // fetch가 아니라 axios로 수정. 아니면 blobinit의 success 가져오기
-    fetch(preURL + "/image/save", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
+    axios
+      .post(preURL + "/image/save", dataToSend)
+      .then(async (res) => {
+        const response = res.data;
+        console.log("저장 여부: ", response);
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const renderHeader = () => {
     return (
       <View style={styles.container_header}>
         {/* Images */}
-        <TouchableOpacity
-          style={styles.container_headerIcon}
-          onPress={() => navigation.navigate("Main")}
-        >
+        <TouchableOpacity style={styles.container_headerIcon}>
           <Image
             source={icons.marimo_logo}
             resizeMode="contain"
@@ -63,9 +76,7 @@ const ExploreDetail = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <View style={styles.container_headerText}>
-          <StudyTxt style={{ marginTop: 20, fontSize: fontPercentage(24) }}>
-            내가 찾은 추억창고
-          </StudyTxt>
+          <StudyTxt style={{ marginTop: 20 }}>내가 찾은 추억창고</StudyTxt>
         </View>
 
         <View
@@ -88,8 +99,8 @@ const ExploreDetail = ({ navigation, route }) => {
           <View style={styles.container_imgShadow}>
             <Image
               source={{
-                uri: route?.params?.imageData?.link
-                  ? route.params.imageData.link
+                uri: route?.params?.link
+                  ? route.params.link
                   : "https://picsum.photos/id/1002/200",
               }}
               style={styles.img}
@@ -99,9 +110,7 @@ const ExploreDetail = ({ navigation, route }) => {
           {/* Text */}
           <View style={{ paddingTop: 20 }}>
             <Text style={styles.description}>
-              {route?.params?.imageData?.word
-                ? route.params.imageData.word
-                : "단어"}
+              {route?.params?.word ? route.params.word : "단어"}
             </Text>
           </View>
         </View>
@@ -115,11 +124,7 @@ const ExploreDetail = ({ navigation, route }) => {
         <CustomButton
           buttonText="이름 불러보기"
           onPress={() =>
-            _onPressSpeech(
-              route?.params?.imageData?.word
-                ? route.params.imageData.word
-                : "단어"
-            )
+            _onPressSpeech(route?.params?.word ? route.params.word : "단어")
           }
         />
         <CustomButton
@@ -220,6 +225,9 @@ const styles = StyleSheet.create({
   },
 });
 const StudyTxt = styled.Text`
-  font-family: Cafe24Ssurround;
-  color: #464d46;
+  font-family: NanumSquareRoundB;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: bold;
+  color: #191919;
 `;

@@ -37,6 +37,7 @@ const Login = ({ navigation }) => {
   // for input method
   const [pageNum, setPageNum] = useState(0);
 
+
   // for ui design
   const { width, height } = Dimensions.get("window");
   const buttonLabel = isRecord ? "Stop" : "Start";

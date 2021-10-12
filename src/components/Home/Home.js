@@ -12,7 +12,7 @@ import {
   FlatList,
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
-import { fontPercentage } from "../../constants/responsive";
+import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -22,6 +22,7 @@ import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
+import Voice from "@react-native-community/voice";
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
@@ -37,7 +38,7 @@ const ListItem = ({ item }) => {
           source={require("../../assets/icons/ic_ellipse.png")}
         />
         <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
-        <ItemText style={{ fontSize: hp(2.5) }} color={item.color}>
+        <ItemText style={{ fontSize: fontPercentage(20) }} color={item.color}>
           {item.label}
         </ItemText>
       </ItemBox>
@@ -80,7 +81,7 @@ const renderItem = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        height: hp(13),
+        height: "45%",
         marginVertical: 16,
       }}
     >
@@ -101,11 +102,14 @@ const renderItem = ({ item }) => {
           <ContentTitle
             numberOfLines={1}
             ellipsizeMode="tail"
-            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
+            style={{
+              fontSize: fontPercentage(18),
+              marginBottom: heightPercentage(10),
+            }}
           >
             {item.text}
           </ContentTitle>
-          <ContentText style={{ fontSize: hp(1.8) }}>
+          <ContentText style={{ fontSize: fontPercentage(14) }}>
             추천 연령 : {item.age}세
           </ContentText>
         </ContentTexts>
@@ -149,6 +153,7 @@ const ContentText = styled.Text`
 const Home = () => {
   const [userNickname, setUserNickName] = useState("");
   useEffect(() => {
+    Voice.destroy().then(Voice.removeAllListeners);
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
     return () => {
@@ -226,7 +231,7 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: hp(3),
+                    fontSize: fontPercentage(25),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >

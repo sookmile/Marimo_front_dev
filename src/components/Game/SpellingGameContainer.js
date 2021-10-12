@@ -16,8 +16,8 @@ export default function SpellingGameContainer({ navigation }) {
   const [characterNum, setcharacterNum] = useState(0);
 
   const getUserId = async () => {
-    const userId = await AsyncStorage.getItem("userId");
-    return userId;
+    const id = await AsyncStorage.getItem("userId");
+    return id;
   };
 
   const getUserNickname = async () => {
@@ -27,9 +27,8 @@ export default function SpellingGameContainer({ navigation }) {
 
   const getMultiData = async () => {
     const userId = await getUserId();
-    const userIdCheck = userId ? userId : 1;
-    console.log("userIdCheck", userIdCheck);
-    setUserID(userIdCheck);
+    console.log("user id", userId);
+    setUserID(userId);
     const userNickName = await getUserNickname();
     const userNickNameCheck = userNickName ? userNickName : "송이";
     setUserNickname(userNickNameCheck);
