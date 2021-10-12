@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 import { COLORS, FONTS, SIZES } from "../../constants";
 
 const CustomButton = ({ buttonText, onPress }) => {
@@ -22,8 +23,8 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "black",
-    fontSize: 22,
+    fontSize: heightPercentageToDP(2.8),
     fontWeight: "400",
-    ...FONTS.body2,
+    fontFamily: "Noto Sans CJK KR",
   },
 });
