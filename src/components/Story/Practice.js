@@ -56,18 +56,20 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = (event) => {
+  const _onSpeechResults = async (event) => {
     console.log("onSpeechResults");
-    setText(event.value[0]);
-    console.log("발음한 단어:", text);
-    if (event.value[0] === oWord) {
-      postResult();
-      console.log("정답");
-      setRModalVisible(!isRModalVisible);
-    } else if (event.value[0] != oWord) {
-      postResult();
-      console.log("오답");
-      setWModalVisible(!isWModalVisible);
+    if (event.value[0] !== undefined) {
+      await setText(event.value[0]);
+      console.log("발음한 단어:", text);
+      if (event.value[0] === oWord) {
+        postResult(event.value[0]);
+        console.log("정답");
+        setRModalVisible(!isRModalVisible);
+      } else if (event.value[0] != oWord) {
+        postResult(event.value[0]);
+        console.log("오답");
+        setWModalVisible(!isWModalVisible);
+      }
     }
   };
   const _onSpeechError = (event) => {
@@ -116,11 +118,13 @@ const Practice = ({ route, navigation }) => {
   }, []);
 
   // 결과 전송
-  const postResult = () => {
+  const postResult = async (inputText) => {
     Voice.stop();
+    console.log(inputText);
     // 저장용 데이터 전송
+    const userId = await AsyncStorage.getItem("userId");
     const data1 = {
-      userId: userID,
+      userId: userId,
       taleName: taleName,
       lastpage: LastPage,
     };
@@ -137,9 +141,9 @@ const Practice = ({ route, navigation }) => {
       });
     // 피드백용 데이터 전송
     const data2 = {
-      userId: userID,
+      userId: userId,
       oWord: oWord,
-      rWord: text,
+      rWord: inputText,
       lastpage: LastPage,
     };
     console.log("data2:", data2);
@@ -192,7 +196,7 @@ const Practice = ({ route, navigation }) => {
           >
             이전
           </Text>
-          <View style={[styles.videoContainer, {  }]}>
+          <View style={[styles.videoContainer, {}]}>
             <Video
               source={{
                 uri: URI,

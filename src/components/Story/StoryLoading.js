@@ -3,7 +3,10 @@ import { TouchableOpacity } from "react-native";
 import { Button, View, Text, StyleSheet, Image } from "react-native";
 import Orientation from "react-native-orientation";
 import styled from "styled-components";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const StoryLoading = ({ navigation }) => {
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -25,7 +28,17 @@ const StoryLoading = ({ navigation }) => {
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <Text style={[styles.title, { marginBottom: 50 }]}>
+        <Text
+          style={[
+            styles.title,
+            {
+              marginBottom: "10%",
+              color: "#464D46",
+              fontSize: hp(4),
+              fontFamily: "Cafe24Ssurround",
+            },
+          ]}
+        >
           호랑이의 생일잔치
         </Text>
         <Image
