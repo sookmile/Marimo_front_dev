@@ -103,6 +103,7 @@ const StartMain = ({ navigation }) => {
       .then(async (res) => {
         const response = res.data.id;
         await setUserId(response);
+        Alert.alert("사용자 정보 등록 성공", response);
       })
       .catch((err) => {
         console.log("에러 발생 ");
@@ -115,6 +116,7 @@ const StartMain = ({ navigation }) => {
   };
 
   const setLogin = async () => {
+    Alert.alert(naverToken);
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
     await AsyncStorage.setItem("token", JSON.stringify(naverToken));
