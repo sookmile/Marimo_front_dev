@@ -113,16 +113,16 @@ const StartMain = ({ navigation }) => {
 
   const hanldeContinue = async () => {
     const isLogin = await AsyncStorage.getItem("isLogin");
-    Alert.alert("환영합니다.");
-    navigation.navigate("NavTab");
-    /*if (isLogin === "true") {
+    //Alert.alert("환영합니다.");
+    //navigation.navigate("NavTab");
+    if (isLogin === "true") {
       Alert.alert("환영합니다.");
       navigation.navigate("NavTab");
     } else {
       Alert.alert(
         "사용자 정보가 없습니다.\n시작하기 버튼을 눌러 가입을 해주세요."
       );
-    }*/
+    }
   };
 
   const getUserProfile = async () => {
