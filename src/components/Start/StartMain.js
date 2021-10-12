@@ -113,16 +113,16 @@ const StartMain = ({ navigation }) => {
 
   const hanldeContinue = async () => {
     const isLogin = await AsyncStorage.getItem("isLogin");
-    Alert.alert("환영합니다.");
-    navigation.navigate("NavTab");
-    /*if (isLogin === "true") {
+    //Alert.alert("환영합니다.");
+    //navigation.navigate("NavTab");
+    if (isLogin === "true") {
       Alert.alert("환영합니다.");
       navigation.navigate("NavTab");
     } else {
       Alert.alert(
         "사용자 정보가 없습니다.\n시작하기 버튼을 눌러 가입을 해주세요."
       );
-    }*/
+    }
   };
 
   const getUserProfile = async () => {
@@ -178,15 +178,24 @@ const StartMain = ({ navigation }) => {
           <LogoCntr
             margin={topMargin}
             bottom={bottomMargin}
-            width={displayHeight * 0.8}
+            width={displayHeight * 0.9}
           >
-            <MainLogo
-              width={height * 0}
-              resizeMode="contain"
-              source={require("../../assets/icons/MainLogo.png")}
-            />
-            <AppName margin={topMargin}>마리모</AppName>
-            <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+            <View
+              style={{
+                width: "100%",
+                height: "50%",
+
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MainLogo
+                resizeMode="contain"
+                source={require("../../assets/icons/MainLogo.png")}
+              />
+              <AppName margin={topMargin}>마리모</AppName>
+              <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+            </View>
             <BtnCntr>
               <Btn2 onPress={() => Login(initials)}>
                 <NIMg
@@ -208,8 +217,8 @@ const StartMain = ({ navigation }) => {
   );
 };
 const MainLogo = Styled.Image`
-    height: 23%;
-    width: 35%;
+    height: 170;
+    width: 170;
 `;
 const LogoCntr = Styled.View`
     align-items:center;
@@ -218,15 +227,15 @@ const LogoCntr = Styled.View`
     height: ${(props) => props.width};
 `;
 const BtnCntr = Styled.View`
-    width:88%;
-    height:30%;
-    margin-top:5%;
+    width:100%;
+    height:50%;
     justify-content:center;
     align-items:center;
 `;
 const AppName = Styled.Text`
-    margin-top:${(props) => props.margin};
-    margin-bottom:${(props) => props.margin};
+  width:100%;
+  text-align:center;
+    height:20%;
     position:relative;
     top:0;
     color: #F66C6C;
@@ -235,17 +244,18 @@ const AppName = Styled.Text`
     line-height: 61px;
 `;
 const DtText = Styled.Text`
-    margin-top:${(props) => props.margin};
-    margin-bottom:${(props) => props.margin * 2};
-    color: #191919;
+  height:10%;
+  width:100%;
+  text-align:center;
+  color: #191919;
     font-size: 18px;
     font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
-  width: 100%;
-  height: 32%;
+  width: 88%;
+  height: 60;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -253,8 +263,8 @@ const Btn = Styled.TouchableOpacity`
 const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
-  width: 100%;
-  height: 32%;
+  width: 88%;
+  height: 60;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -269,8 +279,9 @@ const NIMg = Styled.Image`
 
 const Cntr = Styled.View`
 width:100%;
+height:100%;
 align-items:center;
-justify-content:center;
+justify-content:flex-end;
 `;
 
 const BtnText = Styled.Text`

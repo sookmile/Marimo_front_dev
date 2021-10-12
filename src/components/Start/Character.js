@@ -52,11 +52,6 @@ const Character = ({ route, navigation }) => {
             color={"#555555"}
           ></Icon2>
           <BackIcon>뒤로 가기</BackIcon>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Character", { name: "우진" })}
-          >
-            <Text>이동</Text>
-          </TouchableOpacity>
         </BackCntr>
         <View
           style={{

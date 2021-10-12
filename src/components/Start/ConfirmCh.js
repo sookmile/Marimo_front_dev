@@ -77,7 +77,7 @@ const ConfirmCh = ({ route, navigation }) => {
           <View
             style={{
               width: "100%",
-              height: "80%",
+              height: "75%",
               alignItems: "center",
             }}
           >
@@ -96,8 +96,7 @@ const ConfirmCh = ({ route, navigation }) => {
           <View
             style={{
               width: "100%",
-
-              height: "20%",
+              height: "25%",
               alignItems: "center",
               justifyContent: "flex-start",
             }}
