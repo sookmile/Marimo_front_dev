@@ -102,10 +102,12 @@ const StartMain = ({ navigation }) => {
       .post(preURL.preURL + "/marimo/login", body)
       .then(async (res) => {
         const response = res.data.id;
+
         await setUserId(response);
         Alert.alert("사용자 정보 등록 성공", response);
       })
       .catch((err) => {
+        Alert.alert("에러발생", body.username);
         console.log("에러 발생 ");
         console.log(err);
       });
