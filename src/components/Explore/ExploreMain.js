@@ -57,7 +57,7 @@ const ListItem2 = ({ item }) => {
         marginHorizontal: SIZES.padding,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate("Detail")}>
+      <ContnetSubCntr onPress={() => navigation.navigate("Camera")}>
         <ChImage
           style={{
             left: -5,
