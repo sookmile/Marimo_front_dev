@@ -61,6 +61,7 @@ const NavTabs = () => {
               />
             </View>
           ),
+          unmountOnBlur: true
         }}
       />
       <Tab.Screen
@@ -76,6 +77,7 @@ const NavTabs = () => {
               />
             </View>
           ),
+          unmountOnBlur: true
         }}
       />
       {/*<Tab.Screen

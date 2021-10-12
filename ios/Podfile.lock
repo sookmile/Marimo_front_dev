@@ -59,10 +59,6 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - glog (0.3.5)
-  - KTVCocoaHTTPServer (1.0.0):
-    - CocoaAsyncSocket
-  - KTVHTTPCache (2.0.1):
-    - KTVCocoaHTTPServer
   - libevent (2.1.12)
   - naveridlogin-sdk-ios (4.1.3)
   - OpenSSL-Universal (1.1.180)
@@ -278,7 +274,6 @@ PODS:
   - react-native-video (5.1.1):
     - React-Core
     - react-native-video/Video (= 5.1.1)
-
   - react-native-video/Video (5.1.1):
     - React-Core
   - react-native-voice (1.1.9):
@@ -489,8 +484,6 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
-    - KTVCocoaHTTPServer
-    - KTVHTTPCache
     - libevent
     - naveridlogin-sdk-ios
     - OpenSSL-Universal
@@ -609,8 +602,6 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 127954abe8b162fcaf68d2134d34dc2bd7076154
   FlipperKit: 8a20b5c5fcf9436cac58551dc049867247f64b00
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  KTVCocoaHTTPServer: df8d7b861e603ff8037e9b2138aca2563a6b768d
-  KTVHTTPCache: 588c3eb16f6bd1e6fde1e230dabfb7bd4e490a4d
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   naveridlogin-sdk-ios: b9d7c20677981177ed994ecb1c8c2b49f223277d
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
@@ -659,6 +650,6 @@ SPEC CHECKSUMS:
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 9ae00d0f69832bf9101628462d7b2af4c0ebe897
+PODFILE CHECKSUM: 273e7085b09279e8b15eef66dea87af19cb92ac1
 
 COCOAPODS: 1.11.0

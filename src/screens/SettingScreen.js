@@ -350,7 +350,7 @@ const Cntr = styled.View`
 `;
 const ContentText = styled.Text`
   font-size: 18;
-  padding-top: 3%;
+  padding-top: 10;
   border-top-width: 1;
   border-top-color: #dedede;
   color: gray;
