@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
+  Alert,
 } from "react-native";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
@@ -35,12 +36,13 @@ const Practice = ({ route, navigation }) => {
 
   const getId = async () => {
     const userId = await getUserId();
-    const userIdCheck = userId ? userId : 1;
-    setUserID(userIdCheck);
-    console.log("ID:", userID);
+    const userIdCheck = userId === null ? 1 : userId;
+    await setUserID(userIdCheck);
+    Alert.aert(userIdCheck);
   };
-
-  getId();
+  useEffect(() => {
+    await getId();
+  }, []);
 
   // 음성인식
   const voiceLabel = text
@@ -122,9 +124,8 @@ const Practice = ({ route, navigation }) => {
     Voice.stop();
     console.log(inputText);
     // 저장용 데이터 전송
-    const userId = await AsyncStorage.getItem("userId");
     const data1 = {
-      userId: userId,
+      userId: userID,
       taleName: taleName,
       lastpage: LastPage,
     };
@@ -141,7 +142,7 @@ const Practice = ({ route, navigation }) => {
       });
     // 피드백용 데이터 전송
     const data2 = {
-      userId: userId,
+      userId: userID,
       oWord: oWord,
       rWord: inputText,
       lastpage: LastPage,
