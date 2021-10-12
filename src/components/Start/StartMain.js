@@ -178,12 +178,13 @@ const StartMain = ({ navigation }) => {
           <LogoCntr
             margin={topMargin}
             bottom={bottomMargin}
-            width={displayHeight * 0.8}
+            width={displayHeight * 0.9}
           >
             <View
               style={{
                 width: "100%",
                 height: "50%",
+
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -226,9 +227,8 @@ const LogoCntr = Styled.View`
     height: ${(props) => props.width};
 `;
 const BtnCntr = Styled.View`
-    width:88%;
+    width:100%;
     height:50%;
-    margin-top:5%;
     justify-content:center;
     align-items:center;
 `;
@@ -254,7 +254,7 @@ const DtText = Styled.Text`
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
-  width: 100%;
+  width: 88%;
   height: 60;
   border-radius: 14px;
   align-items:center;
@@ -263,7 +263,7 @@ const Btn = Styled.TouchableOpacity`
 const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
-  width: 100%;
+  width: 88%;
   height: 60;
   border-radius: 14px;
   align-items:center;
@@ -281,7 +281,7 @@ const Cntr = Styled.View`
 width:100%;
 height:100%;
 align-items:center;
-justify-content:center;
+justify-content:flex-end;
 `;
 
 const BtnText = Styled.Text`

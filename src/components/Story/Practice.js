@@ -164,14 +164,14 @@ const Practice = ({ route, navigation }) => {
   };
 
   return (
-    <>
+    <View style={{ display: "flex", flex: 1, backgroundColor: "#D5CEFF" }}>
       <ImageBackground
         source={require("../../assets/images/story/practice.png")}
         style={{
           width: "100%",
           height: "100%",
         }}
-        resizeMode="cover"
+        resizeMode="contain"
       >
         <View style={styles.container}>
           <Text
@@ -192,7 +192,7 @@ const Practice = ({ route, navigation }) => {
           >
             이전
           </Text>
-          <View style={[styles.videoContainer, { backgroundColor: "red" }]}>
+          <View style={[styles.videoContainer, {  }]}>
             <Video
               source={{
                 uri: URI,
@@ -233,7 +233,7 @@ const Practice = ({ route, navigation }) => {
           </TouchableOpacity>
         </Modal>
       </ImageBackground>
-    </>
+    </View>
   );
 };
 

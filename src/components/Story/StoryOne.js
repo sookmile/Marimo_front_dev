@@ -157,7 +157,6 @@ const StoryOne = ({ navigation }) => {
               }}
               onPress={() => {
                 music1.pause();
-
                 navigation.navigate("Practice", {
                   oWord: "시계",
                   LastPage: 1,
