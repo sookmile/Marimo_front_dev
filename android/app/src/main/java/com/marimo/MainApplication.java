@@ -10,7 +10,6 @@ import com.wenkesj.voice.VoicePackage;
 import com.wenkesj.voice.VoicePackage;
 import net.no_mad.tts.TextToSpeechPackage;
 import net.no_mad.tts.TextToSpeechPackage;
-import com.reactnative.videocache.VideoCachePackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.BV.LinearGradient.LinearGradientPackage;

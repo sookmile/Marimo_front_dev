@@ -15,7 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
-  const [userId, setuserId] = useState(0);
+  const [userID, setUserID] = useState(0);
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
@@ -26,20 +26,21 @@ const Practice = ({ route, navigation }) => {
   const [URI, setURI] = useState("");
 
   const { oWord, LastPage, taleName } = route.params;
-  const taleNameSet = taleName ? taleName : "호랑이의 생일 잔치";
 
   // ID 받아오기
   const getUserId = async () => {
-    const id = await AsyncStorage.getItem("userId");
-    return id;
+    const userId = await AsyncStorage.getItem("userId");
+    return userId;
   };
 
-  // 유저  정보
-  const getData = async () => {
+  const getId = async () => {
     const userId = await getUserId();
-    setuserId(userId);
-    console.log(userId);
+    const userIdCheck = userId ? userId : 1;
+    setUserID(userIdCheck);
+    console.log("ID:", userID);
   };
+
+  getId();
 
   // 음성인식
   const voiceLabel = text
@@ -51,31 +52,26 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
     setText("");
-    setFeedback("");
   };
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = (event) => {
+  const _onSpeechResults = async (event) => {
     console.log("onSpeechResults");
-    setText(event.value[0]);
-    console.log("발음한 단어:", text);
-    if (event.value[0] === oWord) {
-      Voice.stop();
-      let rWord = event.value[0];
-      postResult(rWord);
-      console.log("정답");
-      setRModalVisible(!isRModalVisible);
-    } else if (event.value[0] != oWord) {
-      Voice.stop();
-      let rWord = event.value[0];
-      postResult(rWord);
-      console.log("오답");
-      setWModalVisible(!isWModalVisible);
+    if (event.value[0] !== undefined) {
+      await setText(event.value[0]);
+      console.log("발음한 단어:", text);
+      if (event.value[0] === oWord) {
+        postResult(event.value[0]);
+        console.log("정답");
+        setRModalVisible(!isRModalVisible);
+      } else if (event.value[0] != oWord) {
+        postResult(event.value[0]);
+        console.log("오답");
+        setWModalVisible(!isWModalVisible);
+      }
     }
-    setText("");
   };
-
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
     console.log(event.error);
@@ -95,8 +91,6 @@ const Practice = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    getData();
-    console.log("유저 아이디: ", userId);
     // 비디오 가져오기
     const data = {
       word: oWord,
@@ -124,15 +118,18 @@ const Practice = ({ route, navigation }) => {
   }, []);
 
   // 결과 전송
-  const postResult = async (word) => {
+  const postResult = async (inputText) => {
+    Voice.stop();
+    console.log(inputText);
     // 저장용 데이터 전송
+    const userId = await AsyncStorage.getItem("userId");
     const data1 = {
       userId: userId,
-      taleName: taleNameSet,
+      taleName: taleName,
       lastpage: LastPage,
     };
     console.log("data1:", data1);
-    await axios
+    axios
       .post(preURL.preURL + "/marimo/tale/save", data1)
       .then((res) => {
         setResponse(res.data);
@@ -146,11 +143,11 @@ const Practice = ({ route, navigation }) => {
     const data2 = {
       userId: userId,
       oWord: oWord,
-      rWord: word,
+      rWord: inputText,
       lastpage: LastPage,
     };
     console.log("data2:", data2);
-    await axios
+    axios
       .post(preURL.preURL + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
@@ -194,7 +191,7 @@ const Practice = ({ route, navigation }) => {
               paddingTop: 5,
             }}
             onPress={() => {
-              navigation.navigate("Story1") && setText("");
+              navigation.navigate("Story1");
             }}
           >
             이전

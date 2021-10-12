@@ -87,25 +87,25 @@ const StoryOne = ({ navigation }) => {
     console.log("동화1 끝!");
   }
 
-  // Tts.setDefaultLanguage("ko-KR");
-  // setTimeout(() => {
-  //   Tts.speak("정원이 정말 아름답구나!");
-  // }, 1000);
-  // setTimeout(() => {
-  //   Tts.speak("우와, 예쁜 장미꽃이 피어있네?");
-  // }, 4000);
-
   return (
     <View>
       {pageNum == 1 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#EDC59E",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page1.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -124,6 +124,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "침대",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -145,6 +146,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "이불",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -163,10 +165,10 @@ const StoryOne = ({ navigation }) => {
               }}
               onPress={() => {
                 music1.pause();
-
                 navigation.navigate("Practice", {
                   oWord: "시계",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -188,6 +190,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "축구공",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -209,6 +212,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "액자",
                   LastPage: 1,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -233,14 +237,22 @@ const StoryOne = ({ navigation }) => {
           </ImageBackground>
         </View>
       ) : pageNum == 2 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#F2E3AC",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page2.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -259,6 +271,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "냉장고",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -280,6 +293,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "사과",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -301,6 +315,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "포도",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -322,6 +337,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "수박",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -343,6 +359,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "바나나",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -352,8 +369,8 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 85,
                 height: 90,
-                top: "10%",
-                left: "10%",
+                top: "-123%",
+                left: "79%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -364,6 +381,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "달력",
                   LastPage: 2,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -388,14 +406,22 @@ const StoryOne = ({ navigation }) => {
           </ImageBackground>
         </View>
       ) : pageNum == 3 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#FDF1F4",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page3.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <View style={styles.navBox}>
@@ -417,14 +443,22 @@ const StoryOne = ({ navigation }) => {
           </ImageBackground>
         </View>
       ) : pageNum == 4 ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "#FDF1F4",
+          }}
+        >
           <ImageBackground
             source={require("../../assets/images/story/Story1Page4.png")}
             style={{
               width: "100%",
               height: "100%",
             }}
-            resizeMode="cover"
+            resizeMode="contain"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -443,6 +477,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "기차",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -464,6 +499,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "자전거",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -485,6 +521,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "색연필",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -506,6 +543,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "도토리",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -527,6 +565,7 @@ const StoryOne = ({ navigation }) => {
                 navigation.navigate("Practice", {
                   oWord: "장갑",
                   LastPage: 4,
+                  taleName: "호랑이의 생일 잔치",
                 });
               }}
             >
@@ -573,6 +612,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     textAlign: "center",
     padding: 7,
+    paddingTop: 9,
     borderRadius: 10,
     fontFamily: "Cafe24Ssurround",
   },
@@ -580,7 +620,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "black",
     backgroundColor: "white",
-    padding: 7,
+    paddingLeft: 7,
+    paddingRight: 7,
+    paddingTop: 10,
+    paddingBottom: 5,
     borderRadius: 15,
     borderWidth: 2.5,
     borderColor: "#B16CF6",

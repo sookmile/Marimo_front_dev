@@ -42,7 +42,7 @@ const LearnRecord = ({ navigation, route }) => {
   // achivement
   const [grade, setGrade] = useState(0);
   // difficult word
-  const [diffWord, setDiffWord] = useState(["양동이", "옷걸이", "장미꽃"]);
+  const [diffWord, setDiffWord] = useState([]);
 
   const [userId, setUserID] = useState(-1);
   const [chrImage, setChrImage] = useState("");
@@ -338,7 +338,7 @@ const LearnRecord = ({ navigation, route }) => {
                               ellipsizeMode="tail"
                             >
                               {obj?.label === "모험"
-                                ? "모험-앗, 도와줘! 우당탕탕 왕국 모험"
+                                ? "모험- 호랑이의 생일잔치"
                                 : "게임-마리모와 함께하는 모음학습"}
                             </ContentText>
                           </ContentTexts>
@@ -382,8 +382,8 @@ const LearnRecord = ({ navigation, route }) => {
                     numberOfLines={2}
                     ellipsizeMode="tail"
                   >
-                    {userNickname} (이)가 가장 많이 플레이한 동화는 '앗, 도와줘!
-                    우당탕탕 왕국 모험' 이에요
+                    {userNickname} (이)가 가장 많이 플레이한 동화는 '호랑이의
+                    생일잔치' 이에요
                   </ContentExp>
 
                   <ContnetSubCntr>

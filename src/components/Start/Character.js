@@ -204,10 +204,12 @@ const CharacterCntr = styled.View`
   border-radius: 20;
   margin-horizontal: 24;
 `;
+
 const BackCntr = styled.TouchableOpacity`
   width: 100%;
-  height: 5%;
+  height: 6%;
   text-align: left;
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
 `;

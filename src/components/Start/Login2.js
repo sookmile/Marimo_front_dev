@@ -35,8 +35,7 @@ const Login = ({ navigation }) => {
   // 삭제해야함
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
-  const [pageNum, setPageNum] = useState(1);
-
+  const [pageNum, setPageNum] = useState(0);
 
   // for ui design
   const { width, height } = Dimensions.get("window");
@@ -89,9 +88,6 @@ const Login = ({ navigation }) => {
   };
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
-    console.log(event.error.message[0]);
-    if (event.error.message[0] === "7")
-      Alert.alert("인식에 실패했습니다.\n버튼을 누르고 다시 말해주세요");
     console.log(event.error);
   };
 
@@ -137,6 +133,7 @@ const Login = ({ navigation }) => {
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
     Voice.onSpeechError = _onSpeechError;
+
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
@@ -155,96 +152,77 @@ const Login = ({ navigation }) => {
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
-
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
-          <Cntr style={{ backgroundColor: "yellow" }}>
-            <View
+          <Cntr>
+            <TouchableOpacity
               style={{
-                width: "100%",
-                height: "65%",
-                alignItems: "center",
-                justifyContent: "center",
+                borderRadius: 125,
+                width: 290,
+                height: 290,
+                marginTop: -1 * cntrMargin,
               }}
+              onPress={_onRecordVoice}
             >
-              <TouchableOpacity
+              <Image
+                style={{ width: 290, height: 290 }}
+                source={require("../../assets/MikeIcon.png")}
+              />
+            </TouchableOpacity>
+            <View style={[styles.item, styles.itemIn]}>
+              <Animated.Image
                 style={{
-                  borderRadius: 125,
-                  width: 290,
-                  height: 290,
+                  position: "relative",
+                  bottom: -20,
+                  marginLeft: 5,
+                  marginRight: 15,
+                  width: 60,
+                  height: 45,
+
+                  transform: [{ scale: anim.current }],
                 }}
-                onPress={_onRecordVoice}
-              >
-                <Image
-                  style={{ width: 290, height: 290 }}
-                  source={require("../../assets/MikeIcon.png")}
-                />
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                width: "100%",
-                height: "20%",
-                alignItems: "center",
-                justifyContent: "flex-start",
-              }}
-            >
-              <View style={[styles.item]}>
-                <Animated.Image
-                  style={{
-                    position: "relative",
-                    bottom: -20,
-                    marginLeft: 5,
-                    marginRight: 15,
-                    width: 60,
-                    height: 45,
+                source={images.marimoCharacter}
+                resizeMode="contain"
+              />
 
-                    transform: [{ scale: anim.current }],
-                  }}
-                  source={images.marimoCharacter}
-                  resizeMode="contain"
-                />
-
-                <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
-                  <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
-                    {voiceLabel}
-                  </Text>
-                  <View
-                    style={[styles.arrowContainer, styles.arrowLeftContainer]}
+              <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
+                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                  {voiceLabel}
+                </Text>
+                <View
+                  style={[styles.arrowContainer, styles.arrowLeftContainer]}
+                >
+                  <Svg
+                    style={styles.arrowLeft}
+                    width={moderateScale(15.5, 0.6)}
+                    height={moderateScale(17.5, 0.6)}
+                    viewBox="32.484 17.5 15.515 17.5"
+                    enable-background="new 32.485 17.5 15.515 17.5"
                   >
-                    <Svg
-                      style={styles.arrowLeft}
-                      width={moderateScale(15.5, 0.6)}
-                      height={moderateScale(17.5, 0.6)}
-                      viewBox="32.484 17.5 15.515 17.5"
-                      enable-background="new 32.485 17.5 15.515 17.5"
-                    >
-                      <Path
-                        d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
-                        fill="#ACDBFD"
-                        x="0"
-                        y="0"
-                      />
-                    </Svg>
-                  </View>
+                    <Path
+                      d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                      fill="#ACDBFD"
+                      x="0"
+                      y="0"
+                    />
+                  </Svg>
                 </View>
               </View>
             </View>
             <TouchableOpacity
               style={{
                 display: "flex",
-                height: "15%",
                 flexDirection: "row",
                 width: "100%",
-                alignItems: "flex-start",
+                alignItems: "center",
                 justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "12%",
+                  width: "10%",
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -266,37 +244,27 @@ const Login = ({ navigation }) => {
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
-
-          <Cntr style={{ height: "100%" }}>
-            <View
-              style={{
-                width: "100%",
-                height: "35%",
-                alignItems: "center",
-                justifyContent: "flex-start",
-              }}
+          <Cntr style={{ flex: 1 }}>
+            <Box>
+              <ConfirmText>친구의 이름은</ConfirmText>
+              <ConfirmNameText>{text}</ConfirmNameText>
+              <ConfirmText>가 맞나요?</ConfirmText>
+            </Box>
+            <Svg
+              style={styles.arrowLeft2}
+              width={moderateScale(15.5, 0.6)}
+              height={moderateScale(17.5, 0.6)}
+              viewBox="32.484 17.5 15.515 17.5"
+              enable-background="new 32.485 17.5 15.515 17.5"
             >
-              <Box>
-                <ConfirmText>친구의 이름은</ConfirmText>
-                <ConfirmNameText>{text}</ConfirmNameText>
-                <ConfirmText>가 맞나요?</ConfirmText>
-              </Box>
-              <Svg
-                style={styles.arrowLeft2}
-                width={moderateScale(15.5, 0.6)}
-                height={moderateScale(17.5, 0.6)}
-                viewBox="32.484 17.5 15.515 17.5"
-                enable-background="new 32.485 17.5 15.515 17.5"
-              >
-                <Path
-                  d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
-                  fill="#FFEB81"
-                  x="0"
-                  y="0"
-                />
-              </Svg>
-            </View>
-            <ImageCntr style={{}}>
+              <Path
+                d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                fill="#FFEB81"
+                x="0"
+                y="0"
+              />
+            </Svg>
+            <ImageCntr>
               <Image
                 style={{
                   position: "relative",
@@ -305,7 +273,6 @@ const Login = ({ navigation }) => {
                   width: 79,
                   height: 59,
                 }}
-                resizeMode="contain"
                 source={logo[0]}
               />
               <Image
@@ -316,11 +283,11 @@ const Login = ({ navigation }) => {
                   width: 79,
                   height: 59,
                 }}
-                resizeMode="contain"
                 source={logo[1]}
               />
             </ImageCntr>
-            <BtnCntr style={{}}>
+            <Wrapper />
+            <BtnCntr>
               <Btn
                 onPress={async () => {
                   const userId = await AsyncStorage.getItem("userId");
@@ -348,17 +315,17 @@ const Login = ({ navigation }) => {
             <TouchableOpacity
               style={{
                 display: "flex",
-                height: "15%",
                 flexDirection: "row",
                 width: "100%",
-                alignItems: "flex-start",
+                position: "absolute",
+                bottom: "5%",
                 justifyContent: "center",
               }}
               onPress={() => setPageNum(2)}
             >
               <View
                 style={{
-                  width: "12%",
+                  width: "10%",
                   textAlign: "center",
                   verticalAlign: "center",
                 }}
@@ -381,98 +348,79 @@ const Login = ({ navigation }) => {
             ></Icon2>
             <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
-          <View
-            style={{
-              width: "100%",
-              height: "15%",
-            }}
-          >
-            <IntroText>
-              안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은
-              뭐니?
-            </IntroText>
-          </View>
-          <Cntr style={{}}>
+          <IntroText>
+            안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
+          </IntroText>
+          <Cntr>
             <View
-              style={{
-                width: "100%",
-                height: "25%",
-                marginLeft: "5%",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              style={[
+                styles.item,
+                styles.itemIn,
+                {
+                  position: "absolute",
+                  top: height * -0.005,
+                  justifyContent: "center",
+                },
+              ]}
             >
-              <View style={[styles.item]}>
-                <Animated.Image
-                  style={{
-                    position: "relative",
-                    bottom: -20,
-                    marginLeft: 5,
-                    marginRight: 20,
-                    width: 65,
-                    height: 50,
-                    transform: [{ scale: anim.current }],
-                  }}
-                  source={images.marimoCharacter}
-                  resizeMode="contain"
-                />
+              <Animated.Image
+                style={{
+                  position: "relative",
+                  bottom: -20,
+                  marginLeft: 5,
+                  marginRight: 20,
+                  width: 65,
+                  height: 50,
+                  transform: [{ scale: anim.current }],
+                }}
+                source={images.marimoCharacter}
+                resizeMode="contain"
+              />
 
-                <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
-                  <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
-                    친구의 이름을 입력해주세요!
-                  </Text>
-                  <View
-                    style={[styles.arrowContainer, styles.arrowLeftContainer]}
+              <View style={[styles.balloon, { backgroundColor: "#ACDBFD" }]}>
+                <Text style={{ paddingTop: 5, color: "black", fontSize: 18 }}>
+                  친구의 이름을 입력해주세요!
+                </Text>
+                <View
+                  style={[styles.arrowContainer, styles.arrowLeftContainer]}
+                >
+                  <Svg
+                    style={styles.arrowLeft}
+                    width={moderateScale(15.5, 0.6)}
+                    height={moderateScale(17.5, 0.6)}
+                    viewBox="32.484 17.5 15.515 17.5"
+                    enable-background="new 32.485 17.5 15.515 17.5"
                   >
-                    <Svg
-                      style={styles.arrowLeft}
-                      width={moderateScale(15.5, 0.6)}
-                      height={moderateScale(17.5, 0.6)}
-                      viewBox="32.484 17.5 15.515 17.5"
-                      enable-background="new 32.485 17.5 15.515 17.5"
-                    >
-                      <Path
-                        d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
-                        fill="#ACDBFD"
-                        x="0"
-                        y="0"
-                      />
-                    </Svg>
-                  </View>
+                    <Path
+                      d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                      fill="#ACDBFD"
+                      x="0"
+                      y="0"
+                    />
+                  </Svg>
                 </View>
               </View>
             </View>
-            <View
+            <NameInput
               style={{
-                width: "100%",
-                height: "50%",
-                alignItems: "center",
-                justifyContent: "flex-start",
+                position: "absolute",
+                top: height * 0.5,
               }}
+              placeholder="이름을 입력해주세요"
+              value={text}
+              onChangeText={setText}
+            />
+            {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
+            <Btn
+              style={{ marginTop: "105%" }}
+              onPress={() =>
+                navigation.navigate("Character", {
+                  name: text,
+                })
+              }
             >
-              <NameInput
-                placeholder="이름을 입력해주세요"
-                value={text}
-                onChangeText={setText}
-              />
-            </View>
-            <View
-              style={{
-                width: "100%",
-                height: "25%",
-              }}
-            >
-              {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
-              <Btn
-                onPress={() =>
-                  navigation.navigate("Character", {
-                    name: text,
-                  })
-                }
-              >
-                <BtnText>입력을 완료했어요</BtnText>
-              </Btn>
-            </View>
+              <BtnText>입력을 완료했어요</BtnText>
+            </Btn>
           </Cntr>
         </Container>
       ) : (
@@ -487,16 +435,14 @@ export default Login;
 const Cntr = Styled.View`
 width:100%;
 display:flex;
-height:79%;
+height:80%;
 align-items:center;
 justify-content:center;
-`;
 
+`;
 const BackCntr = Styled.TouchableOpacity`
 width: 100%;
-height:6%;
 text-align: left;
-align-items:flex-end;
 display: flex;
 flex-direction: row;
 `;
@@ -505,9 +451,8 @@ const ImageCntr = Styled.View`
 display:flex;
 flex-direction:row;
 width:82%;
-height:15%;
-padding-top:10%;
 justify-content:space-between;
+
 `;
 const Wrapper = Styled.View`
   height: 7%;
@@ -527,7 +472,7 @@ const Container = Styled.View`
 const IntroText = Styled.Text`
   font-size:22px;
   font-weight: bold;
-  margin-top:2%;
+  margin-top:4%;
   line-height: 40px;
 `;
 const VoiceText = Styled.Text`
@@ -545,6 +490,7 @@ const KeyText = Styled.Text`
   line-height: 27px;
   text-align: center;
   color: #191919;
+
   `;
 const AppName = Styled.Text`
   font-size:22px;
@@ -553,7 +499,7 @@ const AppName = Styled.Text`
 
 const Box = Styled.View`
 width:80%;
-height:80%;
+height:30%;
 border-radius:10;
 margin-top:30px;
 border-width:1.5;
@@ -563,10 +509,12 @@ background-color:#FFEB81
 z-index:3;
 align-items:center;
 justify-content:center;
+
 `;
 
 const ConfirmText = Styled.Text`
 font-family: "NanumSquareRoundB";
+
 color:#191919;
 font-size:22px;
 line-height: 30px;
@@ -582,10 +530,10 @@ font-weight:700;
 
 const BtnCntr = Styled.View`
   width:92%;
-  height:25%;
+  height:30%;
   align-items:center;
-justify-content:center;
   margin-top:10%;
+  margin-bottom:10;
 `;
 
 const Btn = Styled.TouchableOpacity`
@@ -603,15 +551,15 @@ const BtnText = Styled.Text`
   letter-spacing: -0.408px;
 `;
 const NameInput = Styled.TextInput`
-    height: 60;
-    width:80%;
-    margin-top:20;
-    font-size:16px;
-    background-color:#FFEB81;
-    border-width:1;
-    elevation:5;
-    border-radius:5;
-    padding:10px;
+height:70px;
+width:80%;
+font-size:16px;
+background-color:#FFEB81;
+border-width:1;
+elevation:5;
+border-radius:5;
+padding:10px;
+margin-top:-200;
 `;
 
 // 분리
@@ -622,7 +570,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
   },
-  itemIn: {},
+  itemIn: {
+    marginTop: 50,
+    marginBottom: 30,
+  },
   itemOut: {
     alignSelf: "flex-end",
     marginRight: 20,
