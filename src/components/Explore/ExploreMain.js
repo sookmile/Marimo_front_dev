@@ -50,8 +50,8 @@ const ListItem2 = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 16,
         marginHorizontal: SIZES.padding,
+        marginVertical: 16,
       }}
     >
       <ContnetSubCntr
@@ -188,8 +188,8 @@ const ExploreMain = ({ navigation }) => {
   };
 
   const getUserId = async () => {
-    const userId = await AsyncStorage.getItem("userId");
-    return userId;
+    const id = await AsyncStorage.getItem("userId");
+    return id;
   };
 
   const getUserData = async (userId) => {
@@ -233,7 +233,7 @@ const ExploreMain = ({ navigation }) => {
   const getMultiData = async () => {
     const userId = await getUserId();
     setuserId(userId);
-    console.log(userId);
+    console.log("메인 화면 유저 아이디:", userId);
     const userMemory = await getUserMemory(userId);
     if (userMemory) {
       console.log("기록");
