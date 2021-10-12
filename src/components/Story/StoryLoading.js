@@ -26,7 +26,7 @@ const StoryLoading = ({ navigation }) => {
     <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
         <Text style={[styles.title, { marginBottom: 50 }]}>
-          앗, 도와줘! 우당탕탕 왕국 모험
+          호랑이의 생일잔치
         </Text>
         <Image
           source={require("../../assets/LoadingImg.png")}

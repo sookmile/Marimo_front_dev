@@ -6,17 +6,16 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
-  Button,
-  Animated,
 } from "react-native";
-import Orientation from "react-native-orientation";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
 import Voice from "@react-native-community/voice";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
+  const [userId, setuserId] = useState(0);
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
@@ -25,8 +24,24 @@ const Practice = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
-  const { oWord, LastPage } = route.params;
 
+  const { oWord, LastPage, taleName } = route.params;
+  const taleNameSet = taleName ? taleName : "호랑이의 생일 잔치";
+
+  // ID 받아오기
+  const getUserId = async () => {
+    const id = await AsyncStorage.getItem("userId");
+    return id;
+  };
+
+  // 유저  정보
+  const getData = async () => {
+    const userId = await getUserId();
+    setuserId(userId);
+    console.log(userId);
+  };
+
+  // 음성인식
   const voiceLabel = text
     ? text
     : isRecord
@@ -36,25 +51,31 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
     setText("");
+    setFeedback("");
   };
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
   const _onSpeechResults = (event) => {
     console.log("onSpeechResults");
-    console.log(event.value[0]);
     setText(event.value[0]);
-    console.log(text);
+    console.log("발음한 단어:", text);
     if (event.value[0] === oWord) {
-      postResult();
+      Voice.stop();
+      let rWord = event.value[0];
+      postResult(rWord);
       console.log("정답");
       setRModalVisible(!isRModalVisible);
-    } else {
-      postResult();
+    } else if (event.value[0] != oWord) {
+      Voice.stop();
+      let rWord = event.value[0];
+      postResult(rWord);
       console.log("오답");
       setWModalVisible(!isWModalVisible);
     }
+    setText("");
   };
+
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
     console.log(event.error);
@@ -74,6 +95,8 @@ const Practice = ({ route, navigation }) => {
   };
 
   useEffect(() => {
+    getData();
+    console.log("유저 아이디: ", userId);
     // 비디오 가져오기
     const data = {
       word: oWord,
@@ -89,6 +112,7 @@ const Practice = ({ route, navigation }) => {
         console.log(err);
       });
 
+    // 음성인식 부분
     Voice.onSpeechStart = _onSpeechStart;
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
@@ -99,36 +123,38 @@ const Practice = ({ route, navigation }) => {
     };
   }, []);
 
-  const postResult = () => {
-    Voice.stop();
+  // 결과 전송
+  const postResult = async (word) => {
+    // 저장용 데이터 전송
     const data1 = {
-      userId: 1,
-      taleName: "동화이름",
+      userId: userId,
+      taleName: taleNameSet,
       lastpage: LastPage,
     };
-    console.log("data: ", data1);
-    axios
+    console.log("data1:", data1);
+    await axios
       .post(preURL.preURL + "/marimo/tale/save", data1)
-
       .then((res) => {
         setResponse(res.data);
-        console.log("성공여부: ", response);
+        console.log("저장:", response);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
         console.log(err);
       });
+    // 피드백용 데이터 전송
     const data2 = {
-      userId: 1,
+      userId: userId,
       oWord: oWord,
-      rWord: text,
+      rWord: word,
       lastpage: LastPage,
     };
-    axios
-      .post("192.168.35.40" + "/marimo/tale/feedback", data2)
+    console.log("data2:", data2);
+    await axios
+      .post(preURL.preURL + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
-        console.log("성공여부: ", feedback);
+        console.log("피드백: ", feedback);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
@@ -136,21 +162,23 @@ const Practice = ({ route, navigation }) => {
       });
   };
 
+  // 모달 닫는 함수
   const closeRModal = () => {
     setRModalVisible(!isRModalVisible);
   };
   const closeWModal = () => {
     setWModalVisible(!isWModalVisible);
   };
+
   return (
-    <>
+    <View style={{ display: "flex", flex: 1, backgroundColor: "#D5CEFF" }}>
       <ImageBackground
         source={require("../../assets/images/story/practice.png")}
         style={{
           width: "100%",
           height: "100%",
         }}
-        resizeMode="cover"
+        resizeMode="contain"
       >
         <View style={styles.container}>
           <Text
@@ -160,18 +188,18 @@ const Practice = ({ route, navigation }) => {
               fontFamily: "Cafe24Ssurround",
               backgroundColor: "white",
               textAlign: "center",
-              width: 40,
-              height: 20,
+              width: 50,
+              height: 25,
               borderRadius: 15,
-              paddingTop: 3,
+              paddingTop: 5,
             }}
             onPress={() => {
-              navigation.navigate("Story1");
+              navigation.navigate("Story1") && setText("");
             }}
           >
             이전
           </Text>
-          <View style={styles.videoContainer}>
+          <View style={[styles.videoContainer, {}]}>
             <Video
               source={{
                 uri: URI,
@@ -200,15 +228,19 @@ const Practice = ({ route, navigation }) => {
           </TouchableOpacity>
         </Modal>
         <Modal isVisible={isWModalVisible} style={styles.modal2}>
+          <Image
+            style={styles.cloud}
+            source={require("../../assets/cloud.png")}
+          />
           <View>
             <Text style={styles.feedback}>{feedback}</Text>
           </View>
           <TouchableOpacity onPress={closeWModal}>
-            <Text style={styles.feedback}>닫기</Text>
+            <Text style={styles.close}>닫기</Text>
           </TouchableOpacity>
         </Modal>
       </ImageBackground>
-    </>
+    </View>
   );
 };
 
@@ -235,10 +267,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingRight: "5%",
+    marginRight: "3%",
   },
   mediaPlayer: {
     width: 320,
     height: 200,
+    marginRight: "2%",
   },
   text: {
     fontSize: 20,
@@ -256,18 +290,36 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   modal2: {
+    flex: 1,
+    width: "50%",
+    marginLeft: "25%",
+    padding: 7,
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 120,
+    borderWidth: 7,
+    borderColor: "#C5A1F3",
   },
   sticker: {
     width: 200,
     height: 200,
   },
+  cloud: {
+    width: 155,
+    height: 105,
+    marginBottom: "10%",
+  },
   feedback: {
+    fontSize: 25,
+    fontFamily: "Cafe24Ssurround",
+    color: "#B16CF6",
+    textAlign: "center",
+  },
+  close: {
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
+    color: "#B16CF6",
+    marginBottom: "3%",
   },
 });
