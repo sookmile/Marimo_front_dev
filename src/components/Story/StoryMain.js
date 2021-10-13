@@ -121,8 +121,12 @@ const StoryMain = () => {
       Orientation.lockToPortrait();
     }
   };
+
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
+    const id = await AsyncStorage.getItem("userId");
+
+    Alert.alert(`${id}님 안녕하세요`);
     console.log(Nickname);
     setUserNickName(Nickname);
   }, []);
