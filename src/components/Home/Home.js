@@ -231,7 +231,7 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: fontPercentage(25),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >

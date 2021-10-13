@@ -56,7 +56,7 @@ const ListItem2 = ({ item }) => {
     >
       <ContnetSubCntr
         onPress={() => navigation.navigate("Camera")}
-        style={{ height: hp(13) }}
+        style={{ height: heightPercentage(100) }}
       >
         <Image
           style={{ position: "absolute", top: "2%", left: "1%" }}
@@ -64,9 +64,9 @@ const ListItem2 = ({ item }) => {
         />
         <ChImage
           style={{
-            left: -5,
-            width: 100,
-            height: 90,
+            borderRadius: 20,
+            width: "26%",
+            height: "93%",
           }}
           source={item.src}
         />
@@ -301,8 +301,10 @@ const ExploreMain = ({ navigation }) => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: hp(3),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
+                    marginBottom: 2,
+                    marginLeft: "2%",
                   }}
                 >
                   찰칵, 카메라를 눌러서 찾아봐요!
@@ -312,8 +314,10 @@ const ExploreMain = ({ navigation }) => {
                   style={{
                     marginTop: 20,
                     color: "#464D46",
-                    fontSize: hp(3),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
+                    marginBottom: 2,
+                    marginLeft: "2%",
                   }}
                 >
                   내가 찾은 추억창고
