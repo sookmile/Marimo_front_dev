@@ -111,7 +111,7 @@ const StartMain = ({ navigation }) => {
         //Alert.alert("사용자 정보 등록 성공", response);
       })
       .catch((err) => {
-        Alert.alert("에러발생", err);
+        // Alert.alert("에러발생", err);
         console.log("에러 발생 ");
         console.log(err);
         return -1;
