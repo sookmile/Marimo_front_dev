@@ -42,7 +42,7 @@ const StoryLoading = ({ navigation }) => {
           호랑이의 생일잔치
         </Text>
         <Image
-          source={require("../../assets/LoadingImg.png")}
+          source={require("../../assets/images/story/Story1Page1.png")}
           style={styles.loadingImg}
         />
         <View style={[styles.btnContainer]}>
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: 300,
     marginBottom: 30,
+    borderRadius: 150,
   },
   btnContainer: {
     height: "50%",
