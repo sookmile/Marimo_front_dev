@@ -141,7 +141,7 @@ const StartMain = ({ navigation }) => {
 
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
-    console.log("porfile", profileResult);
+    console.log("porfileResult", profileResult);
     if (profileResult.resultcode === "024") {
       Alert.alert("로그인 실패", profileResult.message);
       return;
