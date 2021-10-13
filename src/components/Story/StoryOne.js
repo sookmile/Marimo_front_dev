@@ -607,7 +607,7 @@ const styles = StyleSheet.create({
   pageIndex: {
     position: "absolute",
     width: 45,
-    top: "3%",
+    top: "6.5%",
     left: "1.5%",
     backgroundColor: "white",
     textAlign: "center",

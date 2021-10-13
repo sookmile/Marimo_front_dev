@@ -17,6 +17,7 @@ import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
   const [userID, setUserID] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   const [text, setText] = useState("");
@@ -181,7 +182,7 @@ const Practice = ({ route, navigation }) => {
         <View style={styles.container}>
           <Text
             style={{
-              top: "1.5%",
+              top: "3.5%",
               left: "3%",
               fontFamily: "Cafe24Ssurround",
               backgroundColor: "white",
@@ -198,12 +199,19 @@ const Practice = ({ route, navigation }) => {
             이전
           </Text>
           <View style={[styles.videoContainer, {}]}>
+            {loaded == false ? (
+              <Text>비디오를 로딩중입니다...</Text>
+            ) : (
+              <Text>영상이 끝날 때까지 집중해주세요!</Text>
+            )}
+
             <Video
               source={{
                 uri: URI,
               }}
               style={styles.mediaPlayer}
               volume={10}
+              onLoad={() => setLoaded(!loaded)}
               onEnd={() => setActivation(!activateRecord)}
             />
           </View>
@@ -271,6 +279,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "50%",
     marginRight: "2%",
+    marginTop: "2%",
   },
   text: {
     fontSize: 20,
