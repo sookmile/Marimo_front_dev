@@ -117,14 +117,14 @@ const StartMain = ({ navigation }) => {
     return response;
   };
 
-  const setLogin = async (response) => {
+  const setLogin = async (userId) => {
     console.log("setLogin");
     console.log(naverToken);
-    console.log(response);
+    console.log(userId);
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
     await AsyncStorage.setItem("token", JSON.stringify(naverToken));
-    await AsyncStorage.setItem("userId", JSON.stringify(response));
+    await AsyncStorage.setItem("userId", JSON.stringify(userId));
   };
 
   const hanldeContinue = async () => {

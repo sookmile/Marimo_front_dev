@@ -86,6 +86,7 @@ function SettingScreen({ navigation }) {
   const naverLogout = async () => {
     await NaverLogin.logout();
     await AsyncStorage.setItem("token", "");
+    await AsyncStorage.setItem("isLogin", "false");
     console.log("로그아웃");
     Alert.alert("로그아웃 되셨습니다");
     navigation.dispatch(resetAction);

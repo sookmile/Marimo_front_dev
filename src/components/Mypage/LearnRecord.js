@@ -138,6 +138,7 @@ const LearnRecord = ({ navigation, route }) => {
         setData(response);
       })
       .catch((err) => {
+        console.log(id);
         console.log("에러 발생 ");
         console.log(err);
       });
