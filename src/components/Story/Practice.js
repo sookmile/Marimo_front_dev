@@ -40,7 +40,7 @@ const Practice = ({ route, navigation }) => {
     await setUserID(userIdCheck);
     Alert.aert(userIdCheck);
   };
-  useEffect(() => {
+  useEffect(async () => {
     await getId();
   }, []);
 
