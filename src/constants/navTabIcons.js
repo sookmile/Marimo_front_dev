@@ -23,6 +23,11 @@ export const ic_Mstory = require("../assets/icons/NavTab/ic_Mstory.png");
 export const ic_Mgame = require("../assets/icons/NavTab/ic_Mgame.png");
 export const ic_Mexplore = require("../assets/icons/NavTab/ic_Mexplore.png");
 
+//user header
+export const story_front = require("../assets/icons/NavTab/story_front.png");
+export const game_front = require("../assets/icons/NavTab/game_front.png");
+export const explore_front = require("../assets/icons/NavTab/explore_front.png");
+
 export default {
   ic_home,
   ic_record,
@@ -44,4 +49,7 @@ export default {
   ic_Mstory,
   ic_Mgame,
   ic_Mexplore,
+  story_front,
+  game_front,
+  explore_front,
 };
