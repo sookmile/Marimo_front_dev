@@ -8,6 +8,7 @@ import {
   StatusBar,
   Platform,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import {
   widthPercentage,
@@ -123,24 +124,70 @@ export const UserHeader = ({ userNickname, type }) => {
       <View style={styles.body}>
         {type === "story" ? (
           <>
-            <Image
-              style={{ width: "100%", height: hp(25), marginTop: -20 }}
-              source={navTabIcons.cv_story}
-            />
+            <ImageBackground
+              style={{
+                width: "100%",
+                height: hp(25),
+                marginTop: -20,
+              }}
+              source={navTabIcons.story_front}
+            >
+              <Text
+                style={{
+                  fontSize: fontPercentage(20),
+                  paddingLeft: 15,
+                  paddingVertical: "5%",
+                  fontFamily: "Cafe24Ssurround",
+                  color: "#FFFFFF",
+                }}
+              >
+                신비한 동화의 세계로!
+              </Text>
+            </ImageBackground>
           </>
         ) : type === "game" ? (
           <>
-            <Image
-              style={{ width: "100%", height: hp(25), marginTop: -20 }}
-              source={navTabIcons.cv_game}
-            />
+            <ImageBackground
+              style={{
+                width: "100%",
+                height: hp(25),
+                marginTop: -20,
+              }}
+              resizeMode="cover"
+              source={navTabIcons.game_front}
+            >
+              <Text
+                style={{
+                  fontSize: fontPercentage(20),
+                  paddingLeft: 15,
+                  paddingVertical: "5%",
+                  fontFamily: "Cafe24Ssurround",
+                  color: "#464D46",
+                }}
+              >
+                신나게 놀아볼까? 게임!
+              </Text>
+            </ImageBackground>
           </>
         ) : type === "explore" ? (
           <>
-            <Image
+            <ImageBackground
               style={{ width: "100%", height: hp(25), marginTop: -20 }}
-              source={navTabIcons.cv_explore}
-            />
+              resizeMode="cover"
+              source={navTabIcons.explore_front}
+            >
+              <Text
+                style={{
+                  fontSize: fontPercentage(20),
+                  paddingLeft: 15,
+                  paddingVertical: "5%",
+                  fontFamily: "Cafe24Ssurround",
+                  color: "#FFFFFF",
+                }}
+              >
+                호기심 천국, 탐험하기!
+              </Text>
+            </ImageBackground>
           </>
         ) : (
           <View style={styles.box}>
