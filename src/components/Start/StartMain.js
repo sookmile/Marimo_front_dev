@@ -10,16 +10,13 @@ import {
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
-import {
-  widthPercentageToDP as wp,
-  HeightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 import Orientation from "react-native-orientation";
 import { images } from "../../constants";
+import { fontPercentage } from "../../constants/responsive";
 
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
@@ -210,8 +207,18 @@ const StartMain = ({ navigation }) => {
                 resizeMode="contain"
                 source={require("../../assets/icons/MainLogo.png")}
               />
-              <AppName margin={topMargin}>마리모</AppName>
-              <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+              <AppName
+                margin={topMargin}
+                style={{ fontSize: fontPercentage(48), marginBottom: "5%" }}
+              >
+                마리모
+              </AppName>
+              <DtText
+                margin={topMargin}
+                style={{ fontSize: fontPercentage(18) }}
+              >
+                신나는 말의 세계로 출발해보자!
+              </DtText>
             </View>
             <BtnCntr>
               <Btn2 onPress={() => Login(initials)}>
@@ -234,8 +241,8 @@ const StartMain = ({ navigation }) => {
   );
 };
 const MainLogo = Styled.Image`
-    height: 170;
-    width: 170;
+    height: 150;
+    width: 150;
 `;
 const LogoCntr = Styled.View`
     align-items:center;
@@ -256,17 +263,14 @@ const AppName = Styled.Text`
     position:relative;
     top:0;
     color: #F66C6C;
-    font-size: 52px;
     font-family: "Cafe24Ssurround"
-    line-height: 61px;
 `;
 const DtText = Styled.Text`
   height:10%;
   width:100%;
   text-align:center;
   color: #191919;
-    font-size: 18px;
-    font-family: "Cafe24Ssurround"
+  font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;

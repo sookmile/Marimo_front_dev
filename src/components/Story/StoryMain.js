@@ -170,7 +170,7 @@ const StoryMain = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: hp(3),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >
