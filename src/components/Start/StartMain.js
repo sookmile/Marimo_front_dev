@@ -45,11 +45,24 @@ const StartMain = ({ navigation }) => {
   const [userId, setUserId] = useState(-1);
   const [refresh, setRefresh] = useState(false);
 
+  const naverLogin = (props) => {
+    NaverLogin.login(props, (err, token) => {
+      console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
+      setNaverToken(token);
+      if (err) {
+        return err;
+      }
+      console.log("pass token");
+      return token;
+    });
+  };
+
   useEffect(async () => {
-    const token = await JSON.parse(AsyncStorage.getItem("token"));
+    const token = await AsyncStorage.getItem("token");
     console.log(token);
-    token !== null && setNaverToken(token);
+    setNaverToken(token);
   }, []);
+
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -84,45 +97,34 @@ const StartMain = ({ navigation }) => {
     await naverLogin(props);
   };
 
-  const naverLogin = (props) => {
-    NaverLogin.login(props, (err, token) => {
-      console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
-      setNaverToken(token);
-      if (err) {
-        return err;
-      }
-      console.log("pass token");
-      return token;
-    });
-  };
-
   const postUserInfo = async (body) => {
+    let response = -1;
     console.log(body);
     await axios
       .post(preURL.preURL + "/marimo/login", body)
       .then(async (res) => {
-        const response = res.data.id;
-        console.log("사용자 정보 등록 성공");
-        console.log("반환하는 값", response);
+        response = res.data.id;
         await setUserId(response);
-        await setLogin(response);
-
-        return response;
-        //Alert.alert("사용자 정보 등록 성공", response);
+        if (response !== -1) {
+          await setLogin(response);
+          console.log("return");
+        }
       })
       .catch((err) => {
-        // Alert.alert("에러발생", err);
         console.log("에러 발생 ");
         console.log(err);
-        return -1;
       });
+    return response;
   };
 
-  const setLogin = async (userId) => {
+  const setLogin = async (response) => {
+    console.log("setLogin");
+    console.log(naverToken);
+    console.log(response);
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
     await AsyncStorage.setItem("token", JSON.stringify(naverToken));
-    await AsyncStorage.setItem("userId", JSON.stringify(userId));
+    await AsyncStorage.setItem("userId", JSON.stringify(response));
   };
 
   const hanldeContinue = async () => {
@@ -141,7 +143,7 @@ const StartMain = ({ navigation }) => {
 
   const getUserProfile = async () => {
     const profileResult = await getProfile(naverToken.accessToken);
-    console.log("porfileResult", profileResult);
+    console.log("porfile", profileResult);
     if (profileResult.resultcode === "024") {
       Alert.alert("로그인 실패", profileResult.message);
       return;
@@ -150,20 +152,11 @@ const StartMain = ({ navigation }) => {
         username: profileResult.response.name,
         identifier: profileResult.response.id,
       });
-      console.log(
-        postUserInfo({
-          username: profileResult.response.name,
-          identifier: profileResult.response.id,
-        })
-      );
-      console.log(id);
       console.log("로그인 성공");
       console.log("id", id);
       console.log("naverToken", naverToken);
-      if (id === null || id === -1)
-        //Alert.alert(`${profileResult.response.name}님 환영합니다`);
-
-        navigation.navigate("Login", { name: profileResult.response.name });
+      Alert.alert(`${profileResult.response.name}님 환영합니다`);
+      navigation.navigate("Login", { name: profileResult.response.name });
     }
   };
 
