@@ -370,7 +370,7 @@ const ExploreMain = ({ route }) => {
           />
           <View
             style={{
-              width: "94%",
+              width: "100%",
               alignContent: "center",
               alignItems: "center",
               overflow: "visible",
@@ -400,6 +400,7 @@ const ExploreMain = ({ route }) => {
                     fontSize: wp(5),
                     fontFamily: "Cafe24Ssurround",
                     marginBottom: 2,
+                    marginHorizontal: "4%",
                   }}
                 >
                   찰칵, 카메라를 눌러서 찾아봐요!
@@ -412,6 +413,7 @@ const ExploreMain = ({ route }) => {
                     fontSize: wp(5),
                     fontFamily: "Cafe24Ssurround",
                     marginBottom: 2,
+                    marginHorizontal: "4%",
                   }}
                 >
                   내가 찾은 추억창고
