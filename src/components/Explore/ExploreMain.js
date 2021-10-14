@@ -269,6 +269,7 @@ const ExploreMain = ({ route }) => {
     console.log("section");
     console.log(item);
 
+    // 삭제 핸들러
     const deleteHandler = async (photoId, userId) => {
       console.log("사진 아이디: ", photoId);
       console.log("사용자 아이디: ", userId);
@@ -277,6 +278,7 @@ const ExploreMain = ({ route }) => {
       setUserData(userMemory);
     };
 
+    // 삭제 여부 묻는 모달
     const showAlert = () => {
       Alert.alert(
         "사진 삭제",
@@ -296,6 +298,22 @@ const ExploreMain = ({ route }) => {
           cancelable: false,
         }
       );
+    };
+
+    // 삭제 버튼(학습기록 없을때는 안나타나도록)
+    const deleteButton = () => {
+      if (userData.length) {
+        return (
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => showAlert()}
+          >
+            <Icon name="x" size={wp(5)} color="white" />
+          </Pressable>
+        );
+      } else {
+        return null;
+      }
     };
 
     return (
@@ -345,12 +363,7 @@ const ExploreMain = ({ route }) => {
         <View
           style={{ flex: 0.2, alignItems: "center", justifyContent: "center" }}
         >
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => showAlert()}
-          >
-            <Icon name="x" size={wp(5)} color="white" />
-          </Pressable>
+          {deleteButton()}
         </View>
       </View>
     );
