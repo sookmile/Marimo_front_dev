@@ -59,7 +59,7 @@ export default function SpellingGameContainer({ navigation }) {
         ></CustomButton>
         <CustomButton
           buttonText="나가기"
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.pop()}
         ></CustomButton>
       </ButtonContainer>
       <AnimatedBackground />
