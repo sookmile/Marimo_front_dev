@@ -110,6 +110,7 @@ const postDeleteItem = async (photoId, userId) => {
     .then(async (res) => {
       const response = res.data;
       console.log("삭제 여부: ", response);
+      alert("사진을 삭제했습니다");
       return response;
     })
     .catch((err) => {
@@ -336,12 +337,14 @@ const ExploreMain = ({ route }) => {
             </ContentTexts>
           </ContnetSubCntr>
         </View>
-        <View style={{ flex: 0.2 }}>
+        <View
+          style={{ flex: 0.2, alignItems: "center", justifyContent: "center" }}
+        >
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => deleteHandler(item.id, userId)}
           >
-            <Icon name="x" size={wp(6)} color="white" />
+            <Icon name="x" size={wp(5)} color="white" />
           </Pressable>
         </View>
       </View>
