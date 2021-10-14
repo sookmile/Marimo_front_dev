@@ -13,6 +13,7 @@ import {
   Animated,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
@@ -276,20 +277,24 @@ const ExploreMain = ({ route }) => {
       setUserData(userMemory);
     };
 
-    const rightSwipe = () => {
-      return (
-        <TouchableOpacity
-          style={{
-            backgroundColor: "red",
-            justifyContent: "center",
-            alignItems: "center",
-            width: 100,
-          }}
-          onPress={() => deleteHandler(item.id, userId)}
-          activeOpacity={0.6}
-        >
-          <Text>삭제하기</Text>
-        </TouchableOpacity>
+    const showAlert = () => {
+      Alert.alert(
+        "사진 삭제",
+        "사진을 정말 삭제하시겠어요?",
+        [
+          {
+            text: "삭제",
+            onPress: () => deleteHandler(item.id, userId),
+          },
+          {
+            text: "취소",
+            onPress: () => console.log("삭제 취소"),
+            style: "cancel",
+          },
+        ],
+        {
+          cancelable: false,
+        }
       );
     };
 
@@ -342,7 +347,7 @@ const ExploreMain = ({ route }) => {
         >
           <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() => deleteHandler(item.id, userId)}
+            onPress={() => showAlert()}
           >
             <Icon name="x" size={wp(5)} color="white" />
           </Pressable>
