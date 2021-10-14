@@ -5,7 +5,7 @@ import { CreditPage } from "./CreditPage";
 
 const SettingStack = createStackNavigator();
 
-const Setting = () => {
+const SettingStackNavigator = () => {
   return (
     <SettingStack.Navigator>
       <SettingStack.Screen
@@ -22,4 +22,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default SettingStackNavigator;
