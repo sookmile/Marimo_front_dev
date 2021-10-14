@@ -273,7 +273,7 @@ const LearnRecord = ({ navigation, route }) => {
                   )}
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
-                    {userNickname}가 잘 발음하는 단어
+                    {userNickname} (이)가 잘 발음하는 단어
                   </ResultText>
                   {goodWord.length > 0 ? (
                     <View style={{ height: 210, padding: 20 }}>
@@ -320,7 +320,7 @@ const LearnRecord = ({ navigation, route }) => {
 
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle>
-                    {userNickname}가 잘 발음하지 못하는 단어
+                    {userNickname} (이)가 잘 발음하지 못하는 단어
                   </ResultText>
                   {diffWord.length > 0 ? (
                     diffWord.map((obj) => (
