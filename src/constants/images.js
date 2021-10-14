@@ -4,9 +4,6 @@ const mainBackground = require("../assets/images/SplashScreen/marimo_splash.png"
 //  Game Objects
 const gameBackground = require("../assets/images/GameObject/BG.png");
 
-//spellingGmae
-const spellingGameExplain = require("../assets/images/GameObject/SpellingGame/gameExplain.png");
-
 // SpellingGame Objects
 const spellingGameBackground = require("../assets/images/GameObject/SpellingGame/background.png");
 const gameWordBoard = require("../assets/images/GameObject/SpellingGame/menuBoard.png");
@@ -21,7 +18,6 @@ const scoreSuccess = require("../assets/images/GameObject/SpellingGame/scoreEgg.
 export default {
   mainBackground,
   gameBackground,
-  spellingGameExplain,
   spellingGameBackground,
   gameWordBoard,
   listenWordButton,
