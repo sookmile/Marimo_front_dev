@@ -30,7 +30,7 @@ export default function SpellingGameContainer({ navigation }) {
     console.log("user id", userId);
     setUserID(userId);
     const userNickName = await getUserNickname();
-    const userNickNameCheck = userNickName ? userNickName : "송이";
+    const userNickNameCheck = userNickName;
     setUserNickname(userNickNameCheck);
     const Character = await AsyncStorage.getItem("characterNum");
     console.log(Character);
