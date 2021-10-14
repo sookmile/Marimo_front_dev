@@ -19,7 +19,7 @@ export const cv_camera = require("../assets/icons/NavTab/cover-camera.png");
 
 export const ic_voice = require("../assets/icons/NavTab/ic-voice.png");
 
-export const ic_Mstory = require("../assets/icons/NavTab/ic_Mstory.png");
+export const ic_Mstory = require("../assets/icons/NavTab/ic_MStory.png");
 export const ic_Mgame = require("../assets/icons/NavTab/ic_Mgame.png");
 export const ic_Mexplore = require("../assets/icons/NavTab/ic_Mexplore.png");
 
