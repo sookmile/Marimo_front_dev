@@ -253,6 +253,18 @@ function SettingScreen({ navigation }) {
                   style={{ position: "absolute", right: 5, marginVertical: 10 }}
                 ></Icon>
               </Contents>
+              <Contents
+                height={height}
+                onPress={() => navigation.navigate("CreditPage")}
+              >
+                <InfoText>오픈 소스 라이브러리</InfoText>
+                <Icon
+                  name="chevron-forward"
+                  size={23}
+                  color={"#555555"}
+                  style={{ position: "absolute", right: 5, marginVertical: 10 }}
+                ></Icon>
+              </Contents>
             </Cntr>
           </View>
           <VersionText isGray={true}>마리모 0.9.7</VersionText>
