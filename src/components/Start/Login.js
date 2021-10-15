@@ -11,6 +11,7 @@ import {
   Dimensions,
   TextInput,
   StyleSheet,
+  KeyboardAvoidingView,
   Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -36,7 +37,6 @@ const Login = ({ navigation }) => {
   const [isConfirm, setIsConfirm] = useState(false);
   // for input method
   const [pageNum, setPageNum] = useState(0);
-
 
   // for ui design
   const { width, height } = Dimensions.get("window");
@@ -153,9 +153,7 @@ const Login = ({ navigation }) => {
               size={23}
               color={"#555555"}
             ></Icon2>
-            <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
-
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
           </IntroText>
@@ -264,7 +262,6 @@ const Login = ({ navigation }) => {
               size={23}
               color={"#555555"}
             ></Icon2>
-            <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
 
           <Cntr style={{ height: "100%" }}>
@@ -372,19 +369,19 @@ const Login = ({ navigation }) => {
         </Container>
       ) : pageNum == 2 ? (
         <Container style={{ marginTop: cntrMargin }}>
-          <BackCntr onPress={() => setPageNum(1)}>
+          <BackCntr onPress={() => setPageNum(0)}>
             <Icon2
               name="chevron-back"
               style={{ marginRight: 10 }}
               size={23}
               color={"#555555"}
             ></Icon2>
-            <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
           <View
             style={{
               width: "100%",
-              height: "20%",
+              height: "25%",
+              zIndex: 100,
             }}
           >
             <IntroText>
@@ -392,7 +389,7 @@ const Login = ({ navigation }) => {
               뭐니?
             </IntroText>
           </View>
-          <Cntr style={{}}>
+          <Cntr style={{ backgroundColor: "transparent" }}>
             <View
               style={{
                 width: "100%",

@@ -150,7 +150,6 @@ const Login = ({ navigation }) => {
               size={23}
               color={"#555555"}
             ></Icon2>
-            <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?
@@ -242,7 +241,6 @@ const Login = ({ navigation }) => {
               size={23}
               color={"#555555"}
             ></Icon2>
-            <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
           <Cntr style={{ flex: 1 }}>
             <Box>
@@ -346,7 +344,6 @@ const Login = ({ navigation }) => {
               size={23}
               color={"#555555"}
             ></Icon2>
-            <BackIcon>뒤로 가기</BackIcon>
           </BackCntr>
           <IntroText>
             안녕, <AppName>마리모</AppName>에 온 걸 환영해!{"\n"}네 이름은 뭐니?

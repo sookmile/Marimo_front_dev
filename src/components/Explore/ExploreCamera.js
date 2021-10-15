@@ -33,7 +33,7 @@ const ExploreCamera = ({ navigation }) => {
     navigation.setOptions({
       headerTitleAlign: "left",
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.replace("Main")}>
+        <TouchableOpacity onPress={() => navigation.push("Main")}>
           <Icon
             name="chevron-back"
             style={{ marginRight: 10 }}

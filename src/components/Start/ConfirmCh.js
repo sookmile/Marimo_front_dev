@@ -14,7 +14,15 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 import { bigCharacter } from "../../assets/icons/Character/bigCharacter";
 import Icon2 from "react-native-vector-icons/Ionicons";
-
+import {
+  widthPercentage,
+  heightPercentage,
+  fontPercentage,
+} from "../constants/responsive";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 /* 캐릭터 선택 페이지 */
 const ConfirmCh = ({ route, navigation }) => {
   const { width, height } = Dimensions.get("window");
@@ -59,7 +67,6 @@ const ConfirmCh = ({ route, navigation }) => {
             size={23}
             color={"#555555"}
           ></Icon2>
-          <BackIcon>뒤로 가기</BackIcon>
         </BackCntr>
         <View
           style={{
@@ -67,7 +74,7 @@ const ConfirmCh = ({ route, navigation }) => {
             height: "15%",
           }}
         >
-          <IntroText>
+          <IntroText style={{ fontSize: hp(2.9) }}>
             {bigCharacter[characterNum].label}와 모험을 떠날 준비가 되었니?
             {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
@@ -87,7 +94,7 @@ const ConfirmCh = ({ route, navigation }) => {
               source={bigCharacter[characterNum].src}
             />
             <Box>
-              <BoxText>
+              <BoxText style={{ fontSize: hp(2.3) }}>
                 "{name}아 안녕, 나는 {bigCharacter[characterNum].label}야!
                 {"\n"}우리 함께 재밌는 모험을 떠나자!"
               </BoxText>
@@ -172,8 +179,8 @@ const BackIcon = styled.Text`
 `;
 const Container = styled.View`
   flex: 1;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 3%;
+  margin-right: 3%;
   margin-top: 1%;
 `;
 const IntroText = styled.Text`
@@ -190,6 +197,7 @@ const AppName = styled.Text`
 const Box = styled.View`
   width: 80%;
   height: 20%;
+  margin-top: 3%;
   background-color: #ededed;
   elevation: 10;
   border-radius: 20;
