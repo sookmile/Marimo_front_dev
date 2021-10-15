@@ -148,9 +148,6 @@ const ExploreDetail = ({ navigation, route }) => {
           buttonText="내 추억창고에 저장하기"
           onPress={async () => {
             await saveMyMemories(userId);
-            Alert.alert("사진이 내 추억창고에 저장되었습니다!");
-            // 잘 동작하는지 확인 필요
-            navigation.reset({ routes: [{ name: "Main" }] });
           }}
         />
         <CustomButton
@@ -175,6 +172,7 @@ const ExploreDetail = ({ navigation, route }) => {
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
+          navigation.reset({ routes: [{ name: "Main" }] });
         }}
       >
         <View style={styles.centeredView}>
@@ -191,7 +189,10 @@ const ExploreDetail = ({ navigation, route }) => {
             </Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                navigation.reset({ routes: [{ name: "Main" }] });
+              }}
             >
               <Text style={styles.textStyle}>확인했습니다!</Text>
             </Pressable>
