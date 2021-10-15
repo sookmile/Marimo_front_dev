@@ -30,7 +30,7 @@ export const UserHeader = ({ userNickname, type }) => {
   const { width, height } = Dimensions.get("window");
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 10);
-
+  const word = "말이 뭐가 어렵니";
   const navigation = useNavigation();
 
   return (
@@ -223,9 +223,37 @@ export const UserHeader = ({ userNickname, type }) => {
         ) : (
           <View style={styles.box}>
             <View style={styles.mainbox}>
-              <Text style={styles.boxText}>
-                "마리모,{"\n"} 말이 뭐가 어렵니?"
-              </Text>
+              <View
+                style={{
+                  alignItems: "flex-start",
+                }}
+              >
+                <TextAnimator
+                  content={`마리모,`}
+                  textStyle={{
+                    textAlign: "left",
+
+                    fontSize: fontPercentage(20),
+                    fontFamily: "Cafe24Ssurround",
+                    color: "#464D46",
+                  }}
+                  style={{}}
+                  duration={600}
+                  onFinish={() => console.log("animation finished!")}
+                />
+                <TextAnimator
+                  content={`말이 뭐가 어렵니?`}
+                  textStyle={{
+                    textAlign: "left",
+                    fontSize: fontPercentage(20),
+                    fontFamily: "Cafe24Ssurround",
+                    color: "#464D46",
+                  }}
+                  style={{}}
+                  duration={600}
+                  onFinish={() => console.log("animation finished!")}
+                />
+              </View>
               <Image
                 style={styles.mainLogo}
                 resizeMode="contain"
