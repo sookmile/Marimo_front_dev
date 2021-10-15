@@ -26,7 +26,9 @@ const MainStack = createStackNavigator();
 
 const App = () => {
   useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
   }, []);
   return (
     <NavigationContainer>

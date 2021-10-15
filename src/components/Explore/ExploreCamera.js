@@ -33,7 +33,7 @@ const ExploreCamera = ({ navigation }) => {
     navigation.setOptions({
       headerTitleAlign: "left",
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.replace("Main")}>
+        <TouchableOpacity onPress={() => navigation.push("Main")}>
           <Icon
             name="chevron-back"
             style={{ marginRight: 10 }}
@@ -77,8 +77,7 @@ const ExploreCamera = ({ navigation }) => {
   const takePhoto = async () => {
     if (cameraRef) {
       const data = await cameraRef.current.takePictureAsync({
-        quality: 0.5,
-        exif: true,
+        quality: 0.3,
       });
       console.log("data", data.uri);
 

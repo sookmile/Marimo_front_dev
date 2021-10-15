@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { COLORS, navTabIcons } from "../constants/index";
 import SettingScreen from "./SettingScreen";
+import SettingStackNavigator from "./SettingStackNavigator";
 import Explore from "./ExploreScreen";
 import Game from "./GameScreen";
 import Story from "./StoryScreen";
@@ -46,6 +47,7 @@ const NavTabs = () => {
               />
             </View>
           ),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
@@ -61,12 +63,12 @@ const NavTabs = () => {
               />
             </View>
           ),
-          unmountOnBlur: true
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
-        name="SettingScreen"
-        component={SettingScreen}
+        name="SettingNab"
+        component={SettingStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.container}>
@@ -77,7 +79,7 @@ const NavTabs = () => {
               />
             </View>
           ),
-          unmountOnBlur: true
+          unmountOnBlur: true,
         }}
       />
       {/*<Tab.Screen

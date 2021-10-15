@@ -25,6 +25,7 @@ import Orientation from "react-native-orientation";
 
 function SettingScreen({ navigation }) {
   const [userId, setUserID] = useState(-1);
+  const [realName, setRealName] = useState("");
   const [recordInfo, setRecordInfo] = useState([]);
   const [chrImage, setChrImage] = useState("");
   const [userNickname, setUserNickName] = useState("");
@@ -51,14 +52,14 @@ function SettingScreen({ navigation }) {
     const id = await AsyncStorage.getItem("userId");
     const chrNum = await AsyncStorage.getItem("characterNum");
     const nickname = await AsyncStorage.getItem("userNickname");
-
+    const realname = await AsyncStorage.getItem("realName");
     console.log(id);
     console.log(chrNum);
     console.log(nickname);
     await setChrImage(character[chrNum].src);
     await setUserNickName(nickname);
     await setUserID(Number(id));
-
+    await setRealName(realname);
     await getRecord(id);
   }, []);
 
@@ -86,6 +87,7 @@ function SettingScreen({ navigation }) {
   const naverLogout = async () => {
     await NaverLogin.logout();
     await AsyncStorage.setItem("token", "");
+    await AsyncStorage.setItem("isLogin", "false");
     console.log("로그아웃");
     Alert.alert("로그아웃 되셨습니다");
     navigation.dispatch(resetAction);
@@ -253,6 +255,18 @@ function SettingScreen({ navigation }) {
                   style={{ position: "absolute", right: 5, marginVertical: 10 }}
                 ></Icon>
               </Contents>
+              <Contents
+                height={height}
+                onPress={() => navigation.navigate("CreditPage")}
+              >
+                <InfoText>오픈 소스 라이브러리</InfoText>
+                <Icon
+                  name="chevron-forward"
+                  size={23}
+                  color={"#555555"}
+                  style={{ position: "absolute", right: 5, marginVertical: 10 }}
+                ></Icon>
+              </Contents>
             </Cntr>
           </View>
           <VersionText isGray={true}>마리모 0.9.7</VersionText>
@@ -269,6 +283,7 @@ function SettingScreen({ navigation }) {
                 fontFamily: "NanumSquareRoundB",
                 lineHeight: 25,
                 fontSize: 22,
+                marginBottom: "2%",
                 fontWeight: "bold",
                 color: "#454545",
               }}
@@ -280,25 +295,30 @@ function SettingScreen({ navigation }) {
                 <ImgCntr>
                   <ChImage
                     resizeMode="contain"
-                    style={{ width: "90%", height: "90%" }}
+                    style={{ width: "70%", height: "70%" }}
                     source={chrImage}
                   />
                 </ImgCntr>
                 <Info>
-                  <UserName>{userNickname}</UserName>
+                  <UserName>사용자명 : {userNickname}</UserName>
                   <UserRegister>
-                    가입일자: {recordInfo?.registerDate}
+                    가입일자:{recordInfo?.registerDate}
                   </UserRegister>
-                  <ProgressBar
-                    style={{
-                      width: "90%",
-                      marginTop: 15,
-                      height: 10,
-                      borderRadius: 5,
-                    }}
-                    progress={0.5}
-                    color={"#A49CFA"}
+                </Info>
+              </BasicCntr>
+              <BasicCntr>
+                <ImgCntr>
+                  <ChImage
+                    resizeMode="contain"
+                    style={{ width: "60%", height: "60%" }}
+                    source={require("../assets/icons/Home/naverIcon.png")}
                   />
+                </ImgCntr>
+                <Info>
+                  <UserName>네이버 계정 : {realName}</UserName>
+                  <UserRegister>
+                    가입일자:{recordInfo?.registerDate}
+                  </UserRegister>
                 </Info>
               </BasicCntr>
             </View>
@@ -323,7 +343,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: "100%",
-    height: "40%",
+    height: "47%",
     borderRadius: 10,
     paddingTop: "10%",
     backgroundColor: "white",
@@ -392,8 +412,8 @@ const InfoText = styled.Text`
 
 const BasicCntr = styled.View`
   width: 95%;
-  height: 150px;
-  padding: 10px 20px;
+  height: 90px;
+  padding: 0px 20px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -415,7 +435,7 @@ const UserName = styled.Text`
   font-family: NanumSquareRound;
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 23px;
   margin-bottom: 8px;
   color: #000000;

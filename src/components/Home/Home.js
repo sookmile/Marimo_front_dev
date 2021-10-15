@@ -152,20 +152,23 @@ const ContentText = styled.Text`
 
 const Home = () => {
   const [userNickname, setUserNickName] = useState("");
+
   useEffect(() => {
-    Voice.destroy().then(Voice.removeAllListeners);
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
     return () => {
       Orientation.unlockAllOrientations(),
         Orientation.removeOrientationListener(onOrientaionChange);
     };
-  });
+  }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "PORTRAIT") {
-      Orientation.lockToPortrait();
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToLandscapeLeft();
     }
   };
+
+  
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     const Character = await AsyncStorage.getItem("characterNum");
@@ -231,7 +234,7 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: fontPercentage(25),
+                    fontSize: wp(5.5),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >
@@ -248,6 +251,7 @@ const Home = () => {
                 {SECTIONS3.map((item) => renderItem({ item }))}
               </View>
             </View>
+            <View style={{ height: 50 }}></View>
           </View>
         </View>
       </View>
@@ -263,16 +267,16 @@ const SECTIONS1 = [
     key: "1",
     label: "동화",
     src: navTabIcons.ic_story,
-    color: "#CCAB37",
-    background: "#FFD74B",
+    color: "#D5A0FE",
+    background: "rgba(213, 160, 254, 0.8)",
     router: "Story",
   },
   {
     key: "2",
     label: "게임",
     src: navTabIcons.ic_game,
-    color: "#D5A0FE",
-    background: "rgba(213, 160, 254, 0.8)",
+    color: "#CCAB37",
+    background: "#FFD74B",
     router: "Game",
   },
   {

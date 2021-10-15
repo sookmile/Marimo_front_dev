@@ -9,7 +9,7 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-  FlatList,
+  Alert,
 } from "react-native";
 
 import {
@@ -56,6 +56,7 @@ function SpellingGame({ route, navigation }) {
   const [showScoreModal, setShowScoreModal] = useState(false);
   const [userAnswerState, setuserAnswerState] = useState(false);
   const [feedback, setFeedback] = useState("");
+  const [saveResult, setSaveResult] = useState(false);
   // record
   const [isRecord, setisRecord] = useState(false);
   const [speakWord, setSpeakWord] = useState("");
@@ -251,21 +252,27 @@ function SpellingGame({ route, navigation }) {
 
   // post
   const postGameResult = async () => {
-    const data = {
-      userId: userID,
-      score: score,
-    };
-    console.log("data", data);
-    await axios
-      .post(preURL + "/marimo/game/save", data)
-      .then((res) => {
-        const response = res.data;
-        console.log("성공여부", response);
-      })
-      .catch((err) => {
-        console.log("전송에 실패 ");
-        console.log(err);
-      });
+    if (saveResult) {
+      const data = {
+        userId: userID,
+        score: score,
+      };
+      console.log("data", data);
+      await axios
+        .post(preURL + "/marimo/game/save", data)
+        .then((res) => {
+          const response = res.data;
+          console.log("성공여부", response);
+        })
+        .catch((err) => {
+          console.log("전송에 실패 ");
+          console.log(err);
+          Alert.alert("게임 결과 저장에 실패했습니다!");
+        });
+      setSaveResult(false);
+    } else {
+      return null;
+    }
   };
 
   // game
@@ -324,6 +331,7 @@ function SpellingGame({ route, navigation }) {
     if (currentQuestionIndex == questions?.length - 1) {
       setisFeedbackModalVisible(false);
       setShowScoreModal(true);
+      setSaveResult(true);
       resultMusic.play((success) => {
         if (success) {
           console.log("successfully finished playing");
@@ -493,7 +501,7 @@ function SpellingGame({ route, navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: hp(2.5),
+                  fontSize: wp(4.5),
                   fontFamily: "NanumSquareRoundB",
                 }}
               >
@@ -502,7 +510,7 @@ function SpellingGame({ route, navigation }) {
               <Text
                 style={{
                   marginTop: hp(1),
-                  fontSize: hp(2.5),
+                  fontSize: wp(4.5),
                   fontFamily: "NanumSquareRoundB",
                 }}
               >
@@ -546,29 +554,44 @@ function SpellingGame({ route, navigation }) {
                 justifyContent: "center",
               }}
             >
-              <Image source={images.feedbackImage} />
-              <Text
+              <View
                 style={{
-                  fontFamily: "Cafe24Ssurround",
-                  fontSize: wp(8),
-                  marginVertical: hp(2),
-                  color: COLORS.red,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
                 }}
               >
-                피드백 시간!
-              </Text>
-              <View style={{ paddingHorizontal: 6 }}>
+                <Image source={images.feedbackImage} resizeMode="contain" />
                 <Text
                   style={{
-                    fontFamily: "NanumSquareRoundB",
-                    fontSize: wp(5),
+                    fontFamily: "Cafe24Ssurround",
+                    fontSize: wp(8),
+                    marginVertical: hp(2),
+                    color: COLORS.red,
                     textAlign: "center",
                   }}
                 >
-                  {feedbackWord}
+                  피드백 시간!
                 </Text>
+                <View>
+                  <Text
+                    style={{
+                      fontFamily: "NanumSquareRoundB",
+                      fontSize: wp(4.5),
+                      textAlign: "center",
+                      marginBottom: feedbackWord.length > 30 ? -20 : 15,
+                    }}
+                  >
+                    {feedbackWord}
+                  </Text>
+                </View>
+                <View>
+                  <CustomButton
+                    buttonText="다음 문제로!"
+                    onPress={handleNext}
+                  />
+                </View>
               </View>
-              <CustomButton buttonText="다음 문제로!" onPress={handleNext} />
             </ImageBackground>
           </View>
         </Modal>
@@ -682,7 +705,7 @@ function SpellingGame({ route, navigation }) {
             >
               <Text
                 style={{
-                  fontSize: hp(3),
+                  fontSize: wp(5),
                   color: "#fff",
                   fontFamily: "Cafe24Ssurround",
                 }}
@@ -750,7 +773,7 @@ function SpellingGame({ route, navigation }) {
                   <Text
                     style={{
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: hp(2.5),
+                      fontSize: wp(5),
                       color: COLORS.white,
                     }}
                   >
@@ -760,7 +783,9 @@ function SpellingGame({ route, navigation }) {
               </View>
               <View style={styles.resultModal_innerContainer}>
                 <Text style={styles.resultModal_congratText}>
-                  우와, 대단해요!
+                  {score / 20 > questions?.length / 2
+                    ? "우와 대단해요!"
+                    : "충분히 잘했어요!"}
                 </Text>
                 <Text
                   style={{
@@ -798,7 +823,7 @@ function SpellingGame({ route, navigation }) {
                       color: COLORS.white,
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: hp(2.5),
+                      fontSize: wp(4.5),
                     }}
                   >
                     메인화면으로
@@ -806,13 +831,13 @@ function SpellingGame({ route, navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.resultModal_restartGameBtn}
-                  onPress={restartQuiz}
+                  onPress={postGameResult() && restartQuiz}
                 >
                   <Text
                     style={{
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: hp(2.5),
+                      fontSize: wp(4.5),
                     }}
                   >
                     다시 하기
@@ -882,7 +907,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.padding,
     fontFamily: "NanumSquareRoundB",
     textAlign: "center",
-    fontSize: hp(2),
+    fontSize: wp(3.5),
   },
   modal_background: {
     flex: 1,

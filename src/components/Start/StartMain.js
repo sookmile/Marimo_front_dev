@@ -10,16 +10,13 @@ import {
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
-import {
-  widthPercentageToDP as wp,
-  HeightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 import Orientation from "react-native-orientation";
 import { images } from "../../constants";
+import { fontPercentage } from "../../constants/responsive";
 
 // user id로 캐릭터, userName get 한 후에, asyncStorage에 저장
 
@@ -117,14 +114,14 @@ const StartMain = ({ navigation }) => {
     return response;
   };
 
-  const setLogin = async (response) => {
+  const setLogin = async (userId) => {
     console.log("setLogin");
     console.log(naverToken);
-    console.log(response);
+    console.log(userId);
     AsyncStorage.removeItem("userId");
     await AsyncStorage.setItem("isLogin", "true");
     await AsyncStorage.setItem("token", JSON.stringify(naverToken));
-    await AsyncStorage.setItem("userId", JSON.stringify(response));
+    await AsyncStorage.setItem("userId", JSON.stringify(userId));
   };
 
   const hanldeContinue = async () => {
@@ -136,7 +133,7 @@ const StartMain = ({ navigation }) => {
       navigation.navigate("NavTab");
     } else {
       Alert.alert(
-        "사용자 정보가 없습니다.\n시작하기 버튼을 눌러 가입을 해주세요."
+        "사용자 정보가 없습니다. 시작하기 버튼을 눌러 가입을 해주세요."
       );
     }
   };
@@ -145,7 +142,6 @@ const StartMain = ({ navigation }) => {
     const profileResult = await getProfile(naverToken.accessToken);
     console.log("porfile", profileResult);
     if (profileResult.resultcode === "024") {
-      Alert.alert("로그인 실패", profileResult.message);
       return;
     } else {
       const id = await postUserInfo({
@@ -155,6 +151,7 @@ const StartMain = ({ navigation }) => {
       console.log("로그인 성공");
       console.log("id", id);
       console.log("naverToken", naverToken);
+      AsyncStorage.setItem("realName", profileResult.response.name);
       Alert.alert(`${profileResult.response.name}님 환영합니다`);
       navigation.navigate("Login", { name: profileResult.response.name });
     }
@@ -200,18 +197,27 @@ const StartMain = ({ navigation }) => {
             <View
               style={{
                 width: "100%",
-                height: "50%",
-
+                height: "60%",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "flex-end",
               }}
             >
               <MainLogo
                 resizeMode="contain"
                 source={require("../../assets/icons/MainLogo.png")}
               />
-              <AppName margin={topMargin}>마리모</AppName>
-              <DtText margin={topMargin}>신나는 말의 세계로 출발해보자!</DtText>
+              <AppName
+                margin={topMargin}
+                style={{ fontSize: fontPercentage(48), marginBottom: "5%" }}
+              >
+                마리모
+              </AppName>
+              <DtText
+                margin={topMargin}
+                style={{ fontSize: fontPercentage(18) }}
+              >
+                신나는 말의 세계로 출발해보자!
+              </DtText>
             </View>
             <BtnCntr>
               <Btn2 onPress={() => Login(initials)}>
@@ -234,8 +240,8 @@ const StartMain = ({ navigation }) => {
   );
 };
 const MainLogo = Styled.Image`
-    height: 170;
-    width: 170;
+    height: 150;
+    width: 150;
 `;
 const LogoCntr = Styled.View`
     align-items:center;
@@ -256,23 +262,20 @@ const AppName = Styled.Text`
     position:relative;
     top:0;
     color: #F66C6C;
-    font-size: 52px;
     font-family: "Cafe24Ssurround"
-    line-height: 61px;
 `;
 const DtText = Styled.Text`
   height:10%;
   width:100%;
   text-align:center;
   color: #191919;
-    font-size: 18px;
-    font-family: "Cafe24Ssurround"
+  font-family: "Cafe24Ssurround"
 `;
 const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
   width: 88%;
-  height: 60;
+  height: 55;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -281,7 +284,7 @@ const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
   width: 88%;
-  height: 60;
+  height: 55;
   border-radius: 14px;
   align-items:center;
   justify-content:center;

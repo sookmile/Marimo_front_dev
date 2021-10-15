@@ -30,7 +30,10 @@ import { character } from "../../assets/icons/Character/Character";
 
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Icon from "react-native-vector-icons/Ionicons";
-
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -138,6 +141,7 @@ const LearnRecord = ({ navigation, route }) => {
         setData(response);
       })
       .catch((err) => {
+        console.log(id);
         console.log("에러 발생 ");
         console.log(err);
       });
@@ -167,15 +171,7 @@ const LearnRecord = ({ navigation, route }) => {
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <Container style={{ marginTop: cntrMargin }}>
-        <BackCntr onPress={() => navigation.navigate("Home")}>
-          <Icon
-            name="chevron-back"
-            style={{ marginRight: 10 }}
-            size={23}
-            color={"#555555"}
-          ></Icon>
-          <BackIcon>뒤로 가기</BackIcon>
-        </BackCntr>
+        <BackCntr></BackCntr>
         <Cntr>
           <Text
             style={{
@@ -200,12 +196,12 @@ const LearnRecord = ({ navigation, route }) => {
               <UserRegister>가입일자: {recordInfo?.registerDate}</UserRegister>
               <ProgressBar
                 style={{
-                  width: 200,
+                  width: "80%",
                   marginTop: 15,
                   height: 10,
                   borderRadius: 5,
                 }}
-                progress={0.5}
+                progress={grade * 0.01}
                 color={"#A49CFA"}
               />
             </Info>
@@ -273,7 +269,7 @@ const LearnRecord = ({ navigation, route }) => {
                   )}
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
-                    {userNickname}가 잘 발음하는 단어
+                    {userNickname} (이)가 잘 발음하는 단어
                   </ResultText>
                   {goodWord.length > 0 ? (
                     <View style={{ height: 210, padding: 20 }}>
@@ -320,7 +316,7 @@ const LearnRecord = ({ navigation, route }) => {
 
                   <Wrapper style={{ height: 35 }} />
                   <ResultText isMiddle>
-                    {userNickname}가 잘 발음하지 못하는 단어
+                    {userNickname} (이)가 잘 발음하지 못하는 단어
                   </ResultText>
                   {diffWord.length > 0 ? (
                     diffWord.map((obj) => (
@@ -339,8 +335,8 @@ const LearnRecord = ({ navigation, route }) => {
                               numberOfLines={1}
                               ellipsizeMode="tail"
                             >
-                              {obj?.label === "모험"
-                                ? "모험- 호랑이의 생일잔치"
+                              {obj?.label === "TALE"
+                                ? "동화- 호랑이의 생일잔치"
                                 : "게임-마리모와 함께하는 모음학습"}
                             </ContentText>
                           </ContentTexts>
@@ -412,7 +408,7 @@ const LearnRecord = ({ navigation, route }) => {
                         최고점 단어 :{" "}
                         {recordInfo?.taleBestWord !== ""
                           ? `'${recordInfo?.taleBestWord}'`
-                          : "기록 없음"}{" "}
+                          : "기록 없음"}
                       </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>
@@ -446,15 +442,14 @@ const LearnRecord = ({ navigation, route }) => {
                         <ContentText>
                           {recordInfo?.gamePlayCount !== 0
                             ? `${recordInfo?.gamePlayCount}회 플레이`
-                            : "미참여"}{" "}
+                            : "미참여"}
                         </ContentText>
                       </ContentText>
                       <ContentText>
-                        최고점 단어 : '
+                        최고점 단어 :
                         {recordInfo?.gameBestWord !== ""
-                          ? `'${recordInfo?.gameBestWord}'`
-                          : "기록 없음"}{" "}
-                        '
+                          ? ` '${recordInfo?.gameBestWord}'`
+                          : "기록 없음"}
                       </ContentText>
                     </ContentTexts>
                   </ContnetSubCntr>

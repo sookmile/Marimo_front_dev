@@ -38,7 +38,6 @@ const Practice = ({ route, navigation }) => {
     const userId = await getUserId();
     const userIdCheck = userId === null ? 1 : userId;
     await setUserID(userIdCheck);
-    Alert.aert(userIdCheck);
   };
   useEffect(async () => {
     await getId();
@@ -126,7 +125,7 @@ const Practice = ({ route, navigation }) => {
 
     // 피드백용 데이터 전송
     const data2 = {
-      userId: userID,
+      userId: id,
       oWord: oWord,
       rWord: inputText,
       lastpage: LastPage,
@@ -137,7 +136,7 @@ const Practice = ({ route, navigation }) => {
       .post(preURL.preURL + "/marimo/tale/feedback", data2)
       .then((res) => {
         setFeedback(res.data);
-        console.log("피드백: ", feedback);
+        console.log("피드백: ", res.data);
       })
       .catch((err) => {
         console.log("전송에 실패 ");
