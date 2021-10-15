@@ -41,7 +41,10 @@ const renderItem = ({ item }) => {
         onPress={() =>
           item.router === "null"
             ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
-            : navigation.navigate(`${item.router}`)
+            : navigation.navigate(`${item.router}`, {
+                taleName: "호랑이의 생일잔치",
+                userID: item.userID,
+              })
         }
       >
         <Image
@@ -108,6 +111,8 @@ const ContentText = styled.Text`
 
 const StoryMain = () => {
   const [userNickname, setUserNickName] = useState("");
+  const [userID, setUserID] = useState(0);
+
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -126,6 +131,51 @@ const StoryMain = () => {
     console.log(Nickname);
     setUserNickName(Nickname);
   }, []);
+
+  // ID 받아오기
+  const getUserId = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    return userId;
+  };
+
+  const getId = async () => {
+    const userId = await getUserId();
+    const userIdCheck = userId === null ? 1 : userId;
+    await setUserID(userIdCheck);
+    Alert.aert(userIdCheck);
+  };
+  useEffect(async () => {
+    await getId();
+  }, []);
+
+  const SECTIONS3 = [
+    {
+      key: "1",
+      text: "호랑이의 생일 잔치",
+      age: "6~7",
+      src: require("../../assets/images/story/Story1Page1.png"),
+      number: 50,
+      router: "StoryLoading",
+      userID: userID,
+    },
+    {
+      key: "2",
+      text: "말랑이와 요정의 성",
+      age: "7~8",
+      src: require("../../assets/images/story/story1.png"),
+      number: 20,
+      router: "null",
+    },
+    {
+      key: "3",
+      text: "호두까기 인형",
+      src: navTabIcons.ic_story3,
+      age: "7~8",
+      number: 20,
+      router: "null",
+    },
+  ];
+
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
@@ -196,33 +246,6 @@ const StoryMain = () => {
 };
 
 export default StoryMain;
-
-const SECTIONS3 = [
-  {
-    key: "1",
-    text: "호랑이의 생일 잔치",
-    age: "6~7",
-    src: require("../../assets/images/story/Story1Page1.png"),
-    number: 50,
-    router: "StoryLoading",
-  },
-  {
-    key: "2",
-    text: "말랑이와 요정의 성",
-    age: "7~8",
-    src: require("../../assets/images/story/story1.png"),
-    number: 20,
-    router: "null",
-  },
-  {
-    key: "3",
-    text: "호두까기 인형",
-    src: navTabIcons.ic_story3,
-    age: "7~8",
-    number: 20,
-    router: "null",
-  },
-];
 
 const styles = StyleSheet.create({
   container: {
