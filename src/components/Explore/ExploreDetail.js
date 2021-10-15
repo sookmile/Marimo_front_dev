@@ -132,6 +132,8 @@ const ExploreDetail = ({ navigation, route }) => {
           onPress={async () => {
             await saveMyMemories(userId);
             Alert.alert("사진이 내 추억창고에 저장되었습니다!");
+            // 잘 동작하는지 확인 필요
+            navigation.reset({ routes: [{ name: "Main" }] });
           }}
         />
         <CustomButton
@@ -140,7 +142,7 @@ const ExploreDetail = ({ navigation, route }) => {
         />
         <CustomButton
           buttonText="홈으로 가기"
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigation.reset({ routes: [{ name: "Main" }] })}
         />
       </View>
     );
