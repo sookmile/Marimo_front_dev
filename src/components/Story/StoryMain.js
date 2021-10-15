@@ -115,10 +115,11 @@ const StoryMain = () => {
       Orientation.unlockAllOrientations(),
         Orientation.removeOrientationListener(onOrientaionChange);
     };
-  });
+  }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "PORTRAIT") {
-      Orientation.lockToPortrait();
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToLandscapeLeft();
     }
   };
 

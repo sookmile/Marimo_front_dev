@@ -152,20 +152,23 @@ const ContentText = styled.Text`
 
 const Home = () => {
   const [userNickname, setUserNickName] = useState("");
+
   useEffect(() => {
-    Voice.destroy().then(Voice.removeAllListeners);
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
     return () => {
       Orientation.unlockAllOrientations(),
         Orientation.removeOrientationListener(onOrientaionChange);
     };
-  });
+  }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "PORTRAIT") {
-      Orientation.lockToPortrait();
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToLandscapeLeft();
     }
   };
+
+  
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     const Character = await AsyncStorage.getItem("characterNum");
