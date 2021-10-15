@@ -11,8 +11,10 @@ import {
   ScrollView,
   Alert,
   FlatList,
+  Modal,
+  Pressable,
 } from "react-native";
-import { SIZES, COLORS, navTabIcons } from "../../constants";
+import { SIZES, COLORS, navTabIcons, images } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
   widthPercentageToDP as wp,
@@ -25,55 +27,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
 import Voice from "@react-native-community/voice";
 
-const renderItem = ({ item }) => {
-  const navigation = useNavigation();
-  return (
-    <View
-      key={item.key}
-      style={{
-        width: "100%",
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        marginVertical: 16,
-        height: "30%",
-      }}
-    >
-      <ContnetSubCntr
-        onPress={() =>
-          item.router === "null"
-            ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
-            : navigation.navigate(`${item.router}`)
-        }
-      >
-        <Image
-          style={{ position: "absolute", top: "2%", left: "1%" }}
-          source={require("../../assets/icons/ic_ellipse.png")}
-        />
-        <ChImage
-          style={{
-            borderRadius: 20,
-            width: "26%",
-            height: "94%",
-          }}
-          source={item.src}
-        />
-        <ContentTexts>
-          <ContentTitle
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
-          >
-            {item.text}
-          </ContentTitle>
-          <ContentText style={{ fontSize: hp(1.8) }}>
-            추천 연령 : {item.age}세
-          </ContentText>
-        </ContentTexts>
-      </ContnetSubCntr>
-    </View>
-  );
-};
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
   height: 100%;
@@ -111,6 +64,8 @@ const ContentText = styled.Text`
 
 const GameMain = () => {
   const [userNickname, setUserNickName] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -132,9 +87,97 @@ const GameMain = () => {
     setUserNickName(Nickname);
   }, []);
 
+  //아이템 렌더링
+  const renderItem = ({ item }) => {
+    const navigation = useNavigation();
+    return (
+      <View
+        key={item.key}
+        style={{
+          width: "100%",
+          alignContent: "center",
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 16,
+          height: "30%",
+        }}
+      >
+        <ContnetSubCntr
+          onPress={() =>
+            item.router === "null"
+              ? setModalVisible(true)
+              : navigation.navigate(`${item.router}`)
+          }
+        >
+          <Image
+            style={{ position: "absolute", top: "2%", left: "1%" }}
+            source={require("../../assets/icons/ic_ellipse.png")}
+          />
+          <ChImage
+            style={{
+              borderRadius: 20,
+              width: "26%",
+              height: "94%",
+            }}
+            source={item.src}
+          />
+          <ContentTexts>
+            <ContentTitle
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{ fontSize: wp(4.5), marginBottom: hp(1.5) }}
+            >
+              {item.text}
+            </ContentTitle>
+            <ContentText style={{ fontSize: wp(3.5) }}>
+              추천 연령 : {item.age}세
+            </ContentText>
+          </ContentTexts>
+        </ContnetSubCntr>
+      </View>
+    );
+  };
+
+  // 모달
+  const AlarmModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View>
+              <Image
+                source={navTabIcons.ic_Mgame}
+                style={{ height: 110, width: 110 }}
+                resizeMode="center"
+              />
+            </View>
+            <Text style={styles.modalText}>
+              12월 정식출시 이후로 사용할 수 있어요!
+            </Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>확인했습니다!</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
+        {AlarmModal()}
         <View
           style={{
             display: "flex",
@@ -175,7 +218,7 @@ const GameMain = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: hp(3),
+                    fontSize: wp(5.5),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >
@@ -192,6 +235,7 @@ const GameMain = () => {
                 {SECTIONS3.map((item) => renderItem({ item }))}
               </View>
             </View>
+            <View style={{ height: 50 }}></View>
           </View>
         </View>
       </View>
@@ -391,6 +435,47 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: "NanumSquareRoundB",
     fontSize: wp(3.5),
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "#FFD74B",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontFamily: "Cafe24Ssurround",
+    fontSize: 18,
+    color: "#464D46",
   },
 });
 

@@ -8,6 +8,7 @@ import {
   StatusBar,
   Platform,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import {
   widthPercentage,
@@ -23,6 +24,7 @@ import { useNavigation } from "@react-navigation/native";
 import { images, icons, SIZES, COLORS, navTabIcons } from "../constants";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/Ionicons";
+import TextAnimator from "./CustomButton/TextAnimator";
 
 export const UserHeader = ({ userNickname, type }) => {
   const { width, height } = Dimensions.get("window");
@@ -124,23 +126,99 @@ export const UserHeader = ({ userNickname, type }) => {
         {type === "story" ? (
           <>
             <Image
-              style={{ width: "100%", height: hp(25), marginTop: -20 }}
-              source={navTabIcons.cv_story}
+              style={{
+                width: "100%",
+                height: hp(25),
+                marginTop: -20,
+                borderRadius: 20,
+              }}
+              source={navTabIcons.story_front}
             />
+            <View
+              style={{
+                position: "absolute",
+                top: "2%",
+                left: "1%",
+                paddingLeft: 15,
+              }}
+            >
+              <TextAnimator
+                content="️️️신비한 동화의 세계로!"
+                textStyle={{
+                  fontSize: fontPercentage(20),
+                  fontFamily: "Cafe24Ssurround",
+                  color: "#FFFFFF",
+                }}
+                style={{}}
+                duration={600}
+                onFinish={() => console.log("animation finished!")}
+              />
+            </View>
           </>
         ) : type === "game" ? (
           <>
             <Image
-              style={{ width: "100%", height: hp(25), marginTop: -20 }}
-              source={navTabIcons.cv_game}
+              style={{
+                width: "100%",
+                height: hp(25),
+                marginTop: -20,
+                borderRadius: 20,
+              }}
+              source={navTabIcons.game_front}
             />
+            <View
+              style={{
+                position: "absolute",
+                top: "2%",
+                left: "1%",
+                paddingLeft: 15,
+              }}
+            >
+              <TextAnimator
+                content="신나게 놀아볼까? 게임!"
+                textStyle={{
+                  fontSize: fontPercentage(20),
+                  fontFamily: "Cafe24Ssurround",
+                  color: "#464D46",
+                }}
+                style={{}}
+                duration={600}
+                onFinish={() => console.log("animation finished!")}
+              />
+            </View>
           </>
         ) : type === "explore" ? (
           <>
             <Image
-              style={{ width: "100%", height: hp(25), marginTop: -20 }}
-              source={navTabIcons.cv_explore}
+              style={{
+                width: "100%",
+                height: hp(25),
+                marginTop: -20,
+                borderRadius: 20,
+              }}
+              resizeMode="cover"
+              source={navTabIcons.explore_front}
             />
+            <View
+              style={{
+                position: "absolute",
+                top: "2%",
+                left: "1%",
+                paddingLeft: 15,
+              }}
+            >
+              <TextAnimator
+                content="호기심 천국, 탐험하기!"
+                textStyle={{
+                  fontSize: fontPercentage(20),
+                  fontFamily: "Cafe24Ssurround",
+                  color: "#FFFFFF",
+                }}
+                style={{}}
+                duration={600}
+                onFinish={() => console.log("animation finished!")}
+              />
+            </View>
           </>
         ) : (
           <View style={styles.box}>
@@ -150,7 +228,7 @@ export const UserHeader = ({ userNickname, type }) => {
               </Text>
               <Image
                 style={styles.mainLogo}
-                resizeMode="cover"
+                resizeMode="contain"
                 source={require("../assets/icons/MainLogo.png")}
               />
             </View>
@@ -184,7 +262,7 @@ const styles = StyleSheet.create({
   },
   boxText: {
     fontFamily: "NanumSquareRoundB",
-    fontSize: hp(3),
+    fontSize: wp(5),
     lineHeight: hp(5),
     color: "#F2F2F2",
   },
@@ -230,7 +308,6 @@ const styles = StyleSheet.create({
   mainLogo: {
     width: widthPercentage(90),
     height: heightPercentage(87),
-    marginLeft: 5,
     marginTop: 30,
     marginRight: 10,
   },
