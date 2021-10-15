@@ -47,6 +47,7 @@ const NavTabs = () => {
               />
             </View>
           ),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

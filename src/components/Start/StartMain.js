@@ -197,10 +197,9 @@ const StartMain = ({ navigation }) => {
             <View
               style={{
                 width: "100%",
-                height: "50%",
-
+                height: "60%",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "flex-end",
               }}
             >
               <MainLogo
@@ -276,7 +275,7 @@ const Btn = Styled.TouchableOpacity`
   background-color: #B16CF6;
   color: white;
   width: 88%;
-  height: 60;
+  height: 55;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
@@ -285,7 +284,7 @@ const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
   color: white;
   width: 88%;
-  height: 60;
+  height: 55;
   border-radius: 14px;
   align-items:center;
   justify-content:center;
