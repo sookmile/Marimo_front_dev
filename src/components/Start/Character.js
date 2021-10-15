@@ -51,7 +51,6 @@ const Character = ({ route, navigation }) => {
             size={23}
             color={"#555555"}
           ></Icon2>
-          <BackIcon>뒤로 가기</BackIcon>
         </BackCntr>
         <View
           style={{
