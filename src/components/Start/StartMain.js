@@ -136,7 +136,7 @@ const StartMain = ({ navigation }) => {
       navigation.navigate("NavTab");
     } else {
       Alert.alert(
-        "사용자 정보가 없습니다.\n시작하기 버튼을 눌러 가입을 해주세요."
+        "사용자 정보가 없습니다. 시작하기 버튼을 눌러 가입을 해주세요."
       );
     }
   };
@@ -145,7 +145,6 @@ const StartMain = ({ navigation }) => {
     const profileResult = await getProfile(naverToken.accessToken);
     console.log("porfile", profileResult);
     if (profileResult.resultcode === "024") {
-      Alert.alert("로그인 실패", profileResult.message);
       return;
     } else {
       const id = await postUserInfo({
@@ -155,6 +154,7 @@ const StartMain = ({ navigation }) => {
       console.log("로그인 성공");
       console.log("id", id);
       console.log("naverToken", naverToken);
+      AsyncStorage.setItem("realName", profileResult.response.name);
       Alert.alert(`${profileResult.response.name}님 환영합니다`);
       navigation.navigate("Login", { name: profileResult.response.name });
     }
