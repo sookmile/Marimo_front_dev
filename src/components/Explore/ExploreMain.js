@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   Pressable,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
@@ -46,6 +47,8 @@ Tts.addEventListener("tts-start", (event) => console.log("start", event));
 Tts.addEventListener("tts-finish", (event) => console.log("finish", event));
 Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
 
+const LIMIT = 5;
+
 const _onPressSpeech = (word) => {
   Tts.stop();
   Tts.speak(word);
@@ -65,7 +68,7 @@ const ListItem2 = ({ item }) => {
     >
       <ContnetSubCntr
         onPress={() => navigation.navigate("Camera")}
-        style={{ height: heightPercentage(120) }}
+        style={{ height: heightPercentage(110) }}
       >
         <Image
           style={{ position: "absolute", top: "2%", left: "1%" }}
@@ -129,8 +132,6 @@ const ContnetSubCntr = styled.TouchableOpacity`
   display: flex;
   elevation: 10;
   flex-direction: row;
-  padding-horizontal: 10;
-  margin-horizontal: 10;
 `;
 const ChImage = styled(Image)`
   width: 20%;
@@ -162,10 +163,11 @@ const ContentText = styled.Text`
   color: #434141;
 `;
 
-const ExploreMain = ({ route }) => {
+const ExploreMain = ({ navigation }) => {
   const [userId, setuserId] = useState(0);
   const [userNickname, setuserNickmame] = useState("");
   const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -186,16 +188,29 @@ const ExploreMain = ({ route }) => {
     return id;
   };
 
-  const getUserData = async (userId) => {
-    await axios
-      .post(preURL + "marimo/getNickName", { userId: userId })
+  const getData = async (userId) => {
+    setLoading(true);
+    await fetch(preURL + "/image/show", {
+      method: "POST",
+      body: JSON.stringify({ userId: userId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
       .then((res) => {
-        const response = res.data;
-        console.log("성공:", response);
-        return response;
+        console.log("setUserData 실행됨");
+        if (res.length == 0) setUserData(res);
+        setUserData(userData.concat(res.slice(offset, offset + LIMIT)));
       })
-      .catch((err) => {
-        console.log(err);
+      .then(() => {
+        setOffset(offset + LIMIT);
+        setLoading(false);
+        console.log("끝났습니다!");
+      })
+      .catch((error) => {
+        setLoading(false);
+        Alert.alert("에러가 났습니다");
       });
   };
 
@@ -229,7 +244,7 @@ const ExploreMain = ({ route }) => {
     const userId = await getUserId();
     setuserId(userId);
     console.log("메인 화면 유저 아이디:", userId);
-    const userMemory = await getUserMemory(userId);
+    const userMemory = await getData(userId);
     if (userMemory) {
       console.log("기록");
       console.log(userMemory);
@@ -242,7 +257,7 @@ const ExploreMain = ({ route }) => {
 
   useEffect(async () => {
     if (isFocused) {
-      const userMemory = await getUserMemory(userId);
+      const userMemory = await getData(userId);
       if (userMemory) {
         console.log("기록");
         console.log(userMemory);
@@ -266,8 +281,6 @@ const ExploreMain = ({ route }) => {
 
   const ListItem = ({ item, userId }) => {
     const navigation = useNavigation();
-    console.log("section");
-    console.log(item);
 
     // 삭제 핸들러
     const deleteHandler = async (photoId, userId) => {
@@ -300,22 +313,6 @@ const ExploreMain = ({ route }) => {
       );
     };
 
-    // 삭제 버튼(학습기록 없을때는 안나타나도록)
-    const deleteButton = () => {
-      if (userData.length) {
-        return (
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => showAlert()}
-          >
-            <Icon name="x" size={wp(5)} color="white" />
-          </Pressable>
-        );
-      } else {
-        return null;
-      }
-    };
-
     return (
       <View
         style={{
@@ -339,7 +336,6 @@ const ExploreMain = ({ route }) => {
             <ChImage
               style={{
                 borderRadius: 20,
-                paddingLeft: -30,
                 width: 120,
                 height: 95,
               }}
@@ -348,9 +344,9 @@ const ExploreMain = ({ route }) => {
             <ContentTexts>
               <ContentTitle
                 style={{
-                  fontSize: hp(2.5),
+                  fontSize: wp(4.5),
                   paddingLeft: 30,
-                  fontWeigth: "bold",
+                  fontFamily: "Noto Sans CJK KR",
                 }}
                 numberOfLines={1}
                 ellipsizeMode="tail"
@@ -363,99 +359,199 @@ const ExploreMain = ({ route }) => {
         <View
           style={{ flex: 0.2, alignItems: "center", justifyContent: "center" }}
         >
-          {deleteButton()}
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => showAlert()}
+          >
+            <Icon name="x" size={wp(4)} color="white" />
+          </Pressable>
         </View>
       </View>
     );
   };
 
-  return (
-    <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
-      <View style={styles.container}>
-        <View
+  const deletePage = () => {
+    return (
+      <View style={{ height: hp(35), justifyContent: "center" }}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Image
+            source={navTabIcons.ic_Mexplore}
+            resizeMode="center"
+            style={{ width: wp(12), height: wp(12) }}
+          />
+        </View>
+        <Text
           style={{
-            display: "flex",
-            flex: 1,
-            width: "92%",
-            alignContent: "center",
-            alignItems: "center",
+            textAlign: "center",
+            fontFamily: "NanumSquareRoundB",
+            marginTop: "2%",
           }}
         >
-          <UserHeader
-            style={{ height: "40%" }}
-            type={"explore"}
-            userNickname={userNickname}
-          />
+          나의 추억창고가 비있어요
+        </Text>
+      </View>
+    );
+  };
+
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
+  const onEndReached = () => {
+    if (userData.length < offset) {
+      return;
+    } else if (loading) {
+      return;
+    } else {
+      console.log("getData 실행됨");
+      getData(userId);
+    }
+  };
+
+  return (
+    <View>
+      <ScrollView
+        style={{ backgroundColor: "#FFFBF8" }}
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent)) {
+            onEndReached();
+          }
+        }}
+        onEndReachedThreshold={0.8}
+      >
+        <View style={styles.container}>
           <View
             style={{
-              width: "100%",
+              display: "flex",
+              flex: 1,
+              width: "92%",
               alignContent: "center",
               alignItems: "center",
-              overflow: "visible",
             }}
           >
+            <UserHeader
+              style={{ height: "40%" }}
+              type={"explore"}
+              userNickname={userNickname}
+            />
+          </View>
+        </View>
+        <View style={{ flex: 1, marginHorizontal: "6%" }}>
+          <View
+            style={{
+              flex: 1,
+              marginTop: "7%",
+            }}
+          >
+            <View>
+              <Text style={styles.titleText}>
+                찰칵, 카메라를 눌러서 찾아봐요!
+              </Text>
+            </View>
             <View
               style={{
-                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 16,
               }}
-            ></View>
+            >
+              <TouchableOpacity
+                style={{ width: "100%" }}
+                onPress={() => navigation.navigate("Camera")}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#F5E7F8",
+                    height: wp(28),
+                    borderRadius: 20,
+                    flexDirection: "row",
+                    elevation: 3,
+                    // marginHorizontal: SIZES.padding,
+                  }}
+                >
+                  <Image
+                    style={{ position: "absolute", top: "2%", left: "1%" }}
+                    source={require("../../assets/icons/ic_ellipse.png")}
+                  />
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      height: "100%",
+                      width: "35%",
+                      marginLeft: "2%",
+                    }}
+                  >
+                    <Image
+                      style={{
+                        borderRadius: 10,
+                        width: widthPercentage(75),
+                        height: widthPercentage(75),
+                      }}
+                      resizeMode="cover"
+                      source={navTabIcons.cv_camera}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: "100%",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={{
+                        fontSize: wp(4.5),
+                        marginBottom: hp(1.5),
+                        fontFamily: "NanumSquareRoundB",
+                      }}
+                    >
+                      요리조리, 탐험하기
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: wp(3.5),
+                        fontFamily: "Noto Sans CJK KR",
+                      }}
+                    >
+                      추천 연령: 3~7세
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{ flex: 1, marginVertical: "2.5%" }}>
+            <View>
+              <Text style={styles.titleText}>나의 추억창고</Text>
+            </View>
             <View
               style={{
-                display: "flex",
+                flex: 0.8,
+                // marginTop: StatusBar.currentHeight || 0,
                 marginBottom: 5,
               }}
             >
-              <View
-                style={{
-                  display: "flex",
-                  overflow: "visible",
-                  marginVertical: "15%",
-                }}
-              >
-                <StudyTxt
-                  style={{
-                    color: "#464D46",
-                    fontSize: wp(5),
-                    fontFamily: "Cafe24Ssurround",
-                    marginBottom: 2,
-                    marginHorizontal: "4%",
-                  }}
-                >
-                  찰칵, 카메라를 눌러서 찾아봐요!
-                </StudyTxt>
-                <ListItem2 item={SECTIONS3} />
-                <StudyTxt
-                  style={{
-                    marginTop: 20,
-                    color: "#464D46",
-                    fontSize: wp(5),
-                    fontFamily: "Cafe24Ssurround",
-                    marginBottom: 2,
-                    marginHorizontal: "4%",
-                  }}
-                >
-                  내가 찾은 추억창고
-                </StudyTxt>
-                <View
-                  stlye={{
-                    flex: 1,
-                    marginTop: StatusBar.currentHeight || 0,
-                  }}
-                >
-                  {userData.length !== 0
-                    ? userData.map((obj) => (
-                        <ListItem item={obj} userId={userId} />
-                      ))
-                    : SECTIONS.map((obj) => (
-                        <ListItem item={obj} userId={userId} />
-                      ))}
-                </View>
-              </View>
+              {userData.length !== 0
+                ? userData.map((obj) => <ListItem item={obj} userId={userId} />)
+                : deletePage()}
             </View>
           </View>
+          {loading && (
+            <ActivityIndicator animating={true} color="black" size="large" />
+          )}
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -582,7 +678,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: COLORS.darkGray,
     fontFamily: "Cafe24Ssurround",
-    fontSize: fontPercentage(20),
+    fontSize: fontPercentage(22),
   },
   storyBlock: {
     width: 370,
