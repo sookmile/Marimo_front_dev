@@ -194,17 +194,16 @@ const LearnRecord = ({ navigation, route }) => {
             <Info>
               <UserName>{userNickname}</UserName>
               <UserRegister>가입일자: {recordInfo?.registerDate}</UserRegister>
-            </Info>
-            <ImgCntr>
-              <ChImage
-                resizeMode="contain"
-                style={{ width: "90%", height: "90%" }}
-                source={require("../../assets/icons/Home/naverIcon.png")}
+              <ProgressBar
+                style={{
+                  width: "80%",
+                  marginTop: 15,
+                  height: 10,
+                  borderRadius: 5,
+                }}
+                progress={grade * 0.01}
+                color={"#A49CFA"}
               />
-            </ImgCntr>
-            <Info>
-              <UserName>{userNickname}</UserName>
-              <UserRegister>가입일자: {recordInfo?.registerDate}</UserRegister>
             </Info>
           </BasicCntr>
           <RecordCntr>

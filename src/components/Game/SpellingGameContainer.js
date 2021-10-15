@@ -3,12 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import CustomButton from "../CustomButton/CustomButton";
-import LinearGradient from "react-native-linear-gradient";
 import AnimatedBackground from "./AnimatedBackground";
-import { COLORS } from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { preURL } from "../../preURL/preURL";
+import { CommonActions } from "@react-navigation/native";
 
 export default function SpellingGameContainer({ navigation }) {
   const [userID, setUserID] = useState(0);
@@ -30,7 +27,7 @@ export default function SpellingGameContainer({ navigation }) {
     console.log("user id", userId);
     setUserID(userId);
     const userNickName = await getUserNickname();
-    const userNickNameCheck = userNickName ? userNickName : "송이";
+    const userNickNameCheck = userNickName;
     setUserNickname(userNickNameCheck);
     const Character = await AsyncStorage.getItem("characterNum");
     console.log(Character);
