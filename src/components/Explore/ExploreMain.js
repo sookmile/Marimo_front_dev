@@ -207,7 +207,6 @@ const ExploreMain = ({ navigation }) => {
         },
       });
       console.log("결과");
-      console.log(response);
       if (response.status === 200) {
         const responseJson = await response.json();
         setLoading(false);
@@ -228,8 +227,6 @@ const ExploreMain = ({ navigation }) => {
     console.log("메인 화면 유저 아이디:", userId);
     const userMemory = await getUserMemory(userId);
     if (userMemory) {
-      console.log("기록");
-      console.log(userMemory);
       setUserData(userMemory);
     }
     setLoading(false);
@@ -241,15 +238,12 @@ const ExploreMain = ({ navigation }) => {
     if (isFocused) {
       const userMemory = await getUserMemory(userId);
       if (userMemory) {
-        console.log("기록");
-        console.log(userMemory);
         setUserData(userMemory);
       }
     }
   }, [isFocused]);
 
   useEffect(async () => {
-    console.log(userData);
     setLoading(true);
     getMultiData();
     const Nickname = await AsyncStorage.getItem("userNickname");
@@ -263,8 +257,6 @@ const ExploreMain = ({ navigation }) => {
 
   const ListItem = ({ item, userId }) => {
     const navigation = useNavigation();
-    console.log("section");
-    console.log(item);
 
     // 삭제 핸들러
     const deleteHandler = async (photoId, userId) => {
