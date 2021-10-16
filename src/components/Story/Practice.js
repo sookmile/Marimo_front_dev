@@ -23,7 +23,6 @@ const Practice = ({ route, navigation }) => {
   const [text, setText] = useState("");
   const [isRModalVisible, setRModalVisible] = useState(false);
   const [isWModalVisible, setWModalVisible] = useState(false);
-  const [response, setResponse] = useState("");
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
 
@@ -123,32 +122,14 @@ const Practice = ({ route, navigation }) => {
   const postResult = async (inputText) => {
     Voice.stop();
     console.log(inputText);
-    const id = await AsyncStorage.getItem("userId");
-    console.log(id);
-    // 저장용 데이터 전송
-    const data1 = {
-      userId: id,
-      taleName: taleName,
-      lastpage: LastPage,
-    };
-    console.log("data1:", data1);
-    axios
-      .post(preURL.preURL + "/marimo/tale/save", data1)
-      .then((res) => {
-        setResponse(res.data);
-        console.log(res.data);
-        console.log("저장:", res.data);
-      })
-      .catch((err) => {
-        console.log("전송에 실패 ");
-        console.log(err);
-      });
+
     // 피드백용 데이터 전송
     const data2 = {
       userId: id,
       oWord: oWord,
       rWord: inputText,
       lastpage: LastPage,
+      taleName: taleName,
     };
     console.log("data2:", data2);
     axios

@@ -26,6 +26,58 @@ import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
 
+const renderItem = ({ item }) => {
+  const navigation = useNavigation();
+  return (
+    <View
+      style={{
+        width: "100%",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        marginVertical: 16,
+        height: "30%",
+      }}
+    >
+      <ContnetSubCntr
+        onPress={() =>
+          item.router === "null"
+            ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
+            : navigation.navigate(`${item.router}`, {
+                taleName: "호랑이의 생일잔치",
+                userID: item.userID,
+              })
+        }
+      >
+        <Image
+          style={{ position: "absolute", top: "2%", left: "1%" }}
+          source={require("../../assets/icons/ic_ellipse.png")}
+        />
+        <ChImage
+          style={{
+            borderRadius: 20,
+            width: "26%",
+            height: "94%",
+          }}
+          source={item.src}
+        />
+        <ContentTexts>
+          <ContentTitle
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
+          >
+            {item.text}
+          </ContentTitle>
+          <ContentText style={{ fontSize: hp(1.8) }}>
+            추천 연령 : {item.age}세
+          </ContentText>
+        </ContentTexts>
+      </ContnetSubCntr>
+    </View>
+  );
+};
+
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
   height: 100%;
@@ -62,6 +114,7 @@ const ContentText = styled.Text`
 
 const StoryMain = () => {
   const [userNickname, setUserNickName] = useState("");
+  const [userID, setUserID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -85,6 +138,50 @@ const StoryMain = () => {
     console.log(Nickname);
     setUserNickName(Nickname);
   }, []);
+
+  // ID 받아오기
+  const getUserId = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    return userId;
+  };
+
+  const getId = async () => {
+    const userId = await getUserId();
+    const userIdCheck = userId === null ? 1 : userId;
+    await setUserID(userIdCheck);
+    Alert.aert(userIdCheck);
+  };
+  useEffect(async () => {
+    await getId();
+  }, []);
+
+  const SECTIONS3 = [
+    {
+      key: "1",
+      text: "호랑이의 생일 잔치",
+      age: "6~7",
+      src: require("../../assets/images/story/Story1Page1.png"),
+      number: 50,
+      router: "StoryLoading",
+      userID: userID,
+    },
+    {
+      key: "2",
+      text: "말랑이와 요정의 성",
+      age: "7~8",
+      src: require("../../assets/images/story/story1.png"),
+      number: 20,
+      router: "null",
+    },
+    {
+      key: "3",
+      text: "호두까기 인형",
+      src: navTabIcons.ic_story3,
+      age: "7~8",
+      number: 20,
+      router: "null",
+    },
+  ];
 
   //이야기 렌더링
   const renderItem = ({ item }) => {
@@ -244,33 +341,6 @@ const StoryMain = () => {
 };
 
 export default StoryMain;
-
-const SECTIONS3 = [
-  {
-    key: "1",
-    text: "호랑이의 생일 잔치",
-    age: "6~7",
-    src: require("../../assets/images/story/Story1Page1.png"),
-    number: 50,
-    router: "StoryLoading",
-  },
-  {
-    key: "2",
-    text: "말랑이와 요정의 성",
-    age: "7~8",
-    src: require("../../assets/images/story/story1.png"),
-    number: 20,
-    router: "null",
-  },
-  {
-    key: "3",
-    text: "호두까기 인형",
-    src: navTabIcons.ic_story3,
-    age: "7~8",
-    number: 20,
-    router: "null",
-  },
-];
 
 const styles = StyleSheet.create({
   container: {
