@@ -289,7 +289,7 @@ const StoryMain = () => {
           />
           <View
             style={{
-              width: "94%",
+              width: "92%",
               height: "55%",
               marginBottom: "5%",
 

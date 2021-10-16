@@ -194,7 +194,7 @@ const GameMain = () => {
           />
           <View
             style={{
-              width: "94%",
+              width: "92%",
               height: "55%",
               marginBottom: "5%",
               alignContent: "center",

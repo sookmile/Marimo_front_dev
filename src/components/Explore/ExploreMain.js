@@ -65,7 +65,7 @@ const ListItem2 = ({ item }) => {
     >
       <ContnetSubCntr
         onPress={() => navigation.navigate("Camera")}
-        style={{ height: heightPercentage(120) }}
+        style={{ height: heightPercentage(110) }}
       >
         <Image
           style={{ position: "absolute", top: "2%", left: "1%" }}
@@ -129,8 +129,6 @@ const ContnetSubCntr = styled.TouchableOpacity`
   display: flex;
   elevation: 10;
   flex-direction: row;
-  padding-horizontal: 10;
-  margin-horizontal: 10;
 `;
 const ChImage = styled(Image)`
   width: 20%;
@@ -147,7 +145,6 @@ const ContentTexts = styled.View`
 const ContentTitle = styled.Text`
   font-family: Noto Sans CJK KR;
   margin-bottom: 15;
-  font-weight: bold;
   font-size: 15px;
   color: #000000;
   overflow: hidden;
@@ -162,7 +159,7 @@ const ContentText = styled.Text`
   color: #434141;
 `;
 
-const ExploreMain = ({ route }) => {
+const ExploreMain = ({ navigation }) => {
   const [userId, setuserId] = useState(0);
   const [userNickname, setuserNickmame] = useState("");
   const [loading, setLoading] = useState(false);
@@ -210,7 +207,6 @@ const ExploreMain = ({ route }) => {
         },
       });
       console.log("결과");
-      console.log(response);
       if (response.status === 200) {
         const responseJson = await response.json();
         setLoading(false);
@@ -231,8 +227,6 @@ const ExploreMain = ({ route }) => {
     console.log("메인 화면 유저 아이디:", userId);
     const userMemory = await getUserMemory(userId);
     if (userMemory) {
-      console.log("기록");
-      console.log(userMemory);
       setUserData(userMemory);
     }
     setLoading(false);
@@ -244,15 +238,12 @@ const ExploreMain = ({ route }) => {
     if (isFocused) {
       const userMemory = await getUserMemory(userId);
       if (userMemory) {
-        console.log("기록");
-        console.log(userMemory);
         setUserData(userMemory);
       }
     }
   }, [isFocused]);
 
   useEffect(async () => {
-    console.log(userData);
     setLoading(true);
     getMultiData();
     const Nickname = await AsyncStorage.getItem("userNickname");
@@ -266,8 +257,6 @@ const ExploreMain = ({ route }) => {
 
   const ListItem = ({ item, userId }) => {
     const navigation = useNavigation();
-    console.log("section");
-    console.log(item);
 
     // 삭제 핸들러
     const deleteHandler = async (photoId, userId) => {
@@ -300,22 +289,6 @@ const ExploreMain = ({ route }) => {
       );
     };
 
-    // 삭제 버튼(학습기록 없을때는 안나타나도록)
-    const deleteButton = () => {
-      if (userData.length) {
-        return (
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => showAlert()}
-          >
-            <Icon name="x" size={wp(5)} color="white" />
-          </Pressable>
-        );
-      } else {
-        return null;
-      }
-    };
-
     return (
       <View
         style={{
@@ -339,7 +312,6 @@ const ExploreMain = ({ route }) => {
             <ChImage
               style={{
                 borderRadius: 20,
-                paddingLeft: -30,
                 width: 120,
                 height: 95,
               }}
@@ -348,9 +320,9 @@ const ExploreMain = ({ route }) => {
             <ContentTexts>
               <ContentTitle
                 style={{
-                  fontSize: hp(2.5),
+                  fontSize: wp(4.5),
                   paddingLeft: 30,
-                  fontWeigth: "bold",
+                  fontFamily: "Noto Sans CJK KR",
                 }}
                 numberOfLines={1}
                 ellipsizeMode="tail"
@@ -361,10 +333,49 @@ const ExploreMain = ({ route }) => {
           </ContnetSubCntr>
         </View>
         <View
-          style={{ flex: 0.2, alignItems: "center", justifyContent: "center" }}
+          style={{
+            flex: 0.2,
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: -11,
+          }}
         >
-          {deleteButton()}
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => showAlert()}
+          >
+            <Icon name="x" size={wp(3.8)} color="white" />
+          </Pressable>
         </View>
+      </View>
+    );
+  };
+
+  const renderVacantExploreMemory = () => {
+    return (
+      <View
+        style={{
+          height: hp(25),
+          justifyContent: "center",
+          flex: 1,
+        }}
+      >
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Image
+            source={navTabIcons.ic_Mexplore}
+            resizeMode="center"
+            style={{ width: wp(12), height: wp(12) }}
+          />
+        </View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontFamily: "NanumSquareRoundB",
+            marginTop: "2%",
+          }}
+        >
+          나의 추억창고가 비었어요
+        </Text>
       </View>
     );
   };
@@ -386,72 +397,96 @@ const ExploreMain = ({ route }) => {
             type={"explore"}
             userNickname={userNickname}
           />
+        </View>
+      </View>
+      <View style={{ flex: 1, marginHorizontal: "6%" }}>
+        <View style={{ flex: 1, marginTop: "7%" }}>
+          <View>
+            <Text style={styles.titleText}>
+              찰칵, 카메라를 눌러서 찾아봐요!
+            </Text>
+          </View>
           <View
             style={{
-              width: "100%",
-              alignContent: "center",
+              justifyContent: "center",
               alignItems: "center",
-              overflow: "visible",
+              marginVertical: "5%",
             }}
           >
-            <View
-              style={{
-                display: "flex",
-              }}
-            ></View>
-            <View
-              style={{
-                display: "flex",
-                marginBottom: 5,
-              }}
+            <TouchableOpacity
+              style={{ width: "100%" }}
+              onPress={() => navigation.navigate("Camera")}
             >
               <View
                 style={{
-                  display: "flex",
-                  overflow: "visible",
-                  marginVertical: "15%",
+                  backgroundColor: "#F5E7F8",
+                  height: wp(28),
+                  borderRadius: 20,
+                  flexDirection: "row",
+                  elevation: 3,
                 }}
               >
-                <StudyTxt
-                  style={{
-                    color: "#464D46",
-                    fontSize: wp(5),
-                    fontFamily: "Cafe24Ssurround",
-                    marginBottom: 2,
-                    marginHorizontal: "4%",
-                  }}
-                >
-                  찰칵, 카메라를 눌러서 찾아봐요!
-                </StudyTxt>
-                <ListItem2 item={SECTIONS3} />
-                <StudyTxt
-                  style={{
-                    marginTop: 20,
-                    color: "#464D46",
-                    fontSize: wp(5),
-                    fontFamily: "Cafe24Ssurround",
-                    marginBottom: 2,
-                    marginHorizontal: "4%",
-                  }}
-                >
-                  내가 찾은 추억창고
-                </StudyTxt>
+                <Image
+                  style={{ position: "absolute", top: "2%", left: "1%" }}
+                  source={require("../../assets/icons/ic_ellipse.png")}
+                />
                 <View
-                  stlye={{
-                    flex: 1,
-                    marginTop: StatusBar.currentHeight || 0,
+                  style={{
+                    justifyContent: "center",
+                    height: "100%",
+                    width: "30%",
+                    marginLeft: "3%",
                   }}
                 >
-                  {userData.length !== 0
-                    ? userData.map((obj) => (
-                        <ListItem item={obj} userId={userId} />
-                      ))
-                    : SECTIONS.map((obj) => (
-                        <ListItem item={obj} userId={userId} />
-                      ))}
+                  <Image
+                    style={{
+                      borderRadius: 20,
+                      width: widthPercentage(75),
+                      height: widthPercentage(75),
+                    }}
+                    resizeMode="cover"
+                    source={navTabIcons.cv_camera}
+                  />
+                </View>
+                <View
+                  style={{
+                    height: "100%",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={{
+                      fontSize: wp(4.5),
+                      marginBottom: hp(1.5),
+                      fontFamily: "NanumSquareRoundB",
+                    }}
+                  >
+                    요리조리, 탐험하기
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: wp(3.5),
+                      fontFamily: "Noto Sans CJK KR",
+                    }}
+                  >
+                    추천 연령: 3~7세
+                  </Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flex: 1, marginVertical: "2.5%" }}>
+          <View>
+            <Text style={styles.titleText}>나의 추억창고</Text>
+          </View>
+          <View style={{ flex: 0.8, marginBottom: 5 }}>
+            {userData.length !== 0
+              ? userData.map((obj) => <ListItem item={obj} userId={userId} />)
+              : renderVacantExploreMemory()}
           </View>
         </View>
       </View>
@@ -582,7 +617,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: COLORS.darkGray,
     fontFamily: "Cafe24Ssurround",
-    fontSize: fontPercentage(20),
+    fontSize: wp(5.5),
   },
   storyBlock: {
     width: 370,
@@ -624,8 +659,8 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignItems: "center",
     justifyContent: "center",
-    width: wp(10),
-    height: wp(10),
+    width: wp(9),
+    height: wp(9),
   },
   buttonClose: {
     backgroundColor: "#F66C6C",
