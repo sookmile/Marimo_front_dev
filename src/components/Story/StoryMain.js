@@ -44,8 +44,8 @@ const renderItem = ({ item }) => {
           item.router === "null"
             ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
             : navigation.navigate(`${item.router}`, {
-                taleName: "호랑이의 생일잔치",
                 userID: item.userID,
+                taleName: "호랑이의 생일잔치",
               })
         }
       >
@@ -201,7 +201,10 @@ const StoryMain = () => {
           onPress={() =>
             item.router === "null"
               ? setModalVisible(true)
-              : navigation.navigate(`${item.router}`)
+              : navigation.navigate(`${item.router}`, {
+                userID: item.userID,
+                taleName: "호랑이의 생일잔치",
+              })
           }
         >
           <Image
