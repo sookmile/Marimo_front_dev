@@ -31,14 +31,7 @@ const ListItem = ({ item }) => {
     <ItemButton label={item.label}>
       <ItemBox
         background={item.background}
-        onPress={() =>
-          item.router === "동화"
-            ? navigation.navigate(`${item.router}`, {
-                userID: item.userID,
-                taleName: "호랑이의 생일 잔치",
-              })
-            : navigation.navigate(`${item.router}`)
-        }
+        onPress={() => navigation.navigate(`${item.router}`)}
       >
         <Image
           style={{ position: "absolute", top: "2%", left: "5%" }}
@@ -81,13 +74,6 @@ const ItemText = styled.Text`
 
 const renderItem = ({ item }) => {
   const navigation = useNavigation();
-  const [userId, setUserId] = useState(0);
-  useEffect(async () => {
-    const id = await AsyncStorage.getItem("userId");
-    setUserId(id);
-    console.log(id);
-  }, []);
-
   return (
     <View
       style={{
@@ -101,12 +87,10 @@ const renderItem = ({ item }) => {
     >
       <ContnetSubCntr
         onPress={() =>
-          item.router === "StoryLoading"
-            ? navigation.navigate(`${item.router}`, {
-                userID: userId,
-                taleName: "호랑이의 생일 잔치",
-              })
-            : navigation.navigate(`${item.router}`)
+          navigation.navigate(`${item.router}`, {
+            userID: item.userID,
+            taleName: item.text,
+          })
         }
       >
         <Image
@@ -175,6 +159,8 @@ const ContentText = styled.Text`
 
 const Home = () => {
   const [userNickname, setUserNickName] = useState("");
+  const [userID, setUserID] = useState("");
+
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -193,11 +179,32 @@ const Home = () => {
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     const Character = await AsyncStorage.getItem("characterNum");
+    const UserID = await AsyncStorage.getItem("userId");
     console.log(Character);
     console.log(Nickname);
+    console.log(UserID);
     setUserNickName(Nickname);
-    setUserId(id);
+    setUserID(UserID);
   }, []);
+
+  const SECTIONS3 = [
+    {
+      key: "1",
+      text: "호랑이의 생일 잔치",
+      src: require("../../assets/images/story/Story1Page1.png"),
+      age: "6~7",
+      router: "StoryLoading",
+      userID: userID,
+    },
+    {
+      key: "2",
+      text: "냠냠 맛있는 모음게임",
+      src: navTabIcons.cv_game,
+      age: "6~7",
+      router: "SpellingGameContainer",
+    },
+  ];
+
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
@@ -308,22 +315,6 @@ const SECTIONS1 = [
     color: "#F66C6C",
     background: "rgba(246, 108, 108, 0.8)",
     router: "Explore",
-  },
-];
-const SECTIONS3 = [
-  {
-    key: "1",
-    text: "호랑이의 생일 잔치",
-    src: require("../../assets/images/story/Story1Page1.png"),
-    age: "6~7",
-    router: "StoryLoading",
-  },
-  {
-    key: "2",
-    text: "냠냠 맛있는 모음게임",
-    src: navTabIcons.cv_game,
-    age: "6~7",
-    router: "SpellingGameContainer",
   },
 ];
 

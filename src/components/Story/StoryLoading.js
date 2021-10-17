@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Button, View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import Orientation from "react-native-orientation";
 import styled from "styled-components";
 import {
