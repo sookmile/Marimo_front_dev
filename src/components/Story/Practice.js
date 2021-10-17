@@ -48,7 +48,7 @@ const Practice = ({ route, navigation }) => {
     ? text
     : isRecord
     ? "단어를 발음해주세요"
-    : "마이크 버튼을 눌러주세요";
+    : "영상이 끝나면 마이크 버튼을 눌러주세요";
 
   const constructor = activateRecord ? "" : "영상이 끝나면";
 
@@ -128,6 +128,8 @@ const Practice = ({ route, navigation }) => {
   const postResult = async (inputText) => {
     Voice.stop();
     console.log(inputText);
+    const userId = await AsyncStorage.getItem("userId");
+
 
     // 피드백용 데이터 전송
     const data2 = {
@@ -155,11 +157,13 @@ const Practice = ({ route, navigation }) => {
   const closeRModal = () => {
     setRModalVisible(!isRModalVisible);
     setIsRecord(false);
+
     setText("");
   };
   const closeWModal = () => {
     setWModalVisible(!isWModalVisible);
     setIsRecord(false);
+
     setText("");
   };
 
