@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
 
 const Practice = ({ route, navigation }) => {
-  const [userID, setUserID] = useState(0);
+  // const [userID, setUserID] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [activateRecord, setActivation] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
@@ -26,22 +26,22 @@ const Practice = ({ route, navigation }) => {
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
 
-  const { oWord, LastPage, taleName } = route.params;
+  const { userID, oWord, LastPage, taleName } = route.params;
 
   // ID 받아오기
-  const getUserId = async () => {
-    const userId = await AsyncStorage.getItem("userId");
-    return userId;
-  };
+  // const getUserId = () => {
+  //   const userId = AsyncStorage.getItem("userId");
+  //   return userId;
+  // };
 
-  const getId = async () => {
-    const userId = await getUserId();
-    const userIdCheck = userId === null ? 1 : userId;
-    await setUserID(userIdCheck);
-  };
-  useEffect(async () => {
-    await getId();
-  }, []);
+  // const getId = () => {
+  //   const userId = getUserId();
+  //   const userIdCheck = userId === null ? 1 : userId;
+  //   setUserID(userIdCheck);
+  // };
+  // useEffect(() => {
+  //   getId();
+  // }, []);
 
   // 음성인식
   const voiceLabel = text
@@ -49,6 +49,8 @@ const Practice = ({ route, navigation }) => {
     : isRecord
     ? "단어를 발음해주세요"
     : "영상이 끝나면 마이크 버튼을 눌러주세요";
+
+  const constructor = activateRecord ? "" : "영상이 끝나면";
 
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
@@ -66,7 +68,7 @@ const Practice = ({ route, navigation }) => {
         postResult(event.value[0]);
         console.log("정답");
         setRModalVisible(!isRModalVisible);
-      } else if (event.value[0] != oWord) {
+      } else {
         postResult(event.value[0]);
         console.log("오답");
         setWModalVisible(!isWModalVisible);
@@ -127,7 +129,7 @@ const Practice = ({ route, navigation }) => {
 
     // 피드백용 데이터 전송
     const data2 = {
-      userId: userId,
+      userId: userID,
       oWord: oWord,
       rWord: inputText,
       lastpage: LastPage,
@@ -143,16 +145,21 @@ const Practice = ({ route, navigation }) => {
       .catch((err) => {
         console.log("전송에 실패 ");
         console.log(err);
+        setFeedback("다시 발음해보세요");
       });
   };
 
   // 모달 닫는 함수
   const closeRModal = () => {
     setRModalVisible(!isRModalVisible);
+    setIsRecord(false);
+
     setText("");
   };
   const closeWModal = () => {
     setWModalVisible(!isWModalVisible);
+    setIsRecord(false);
+
     setText("");
   };
 
@@ -203,7 +210,10 @@ const Practice = ({ route, navigation }) => {
             />
           </View>
           <View style={styles.recordContainer}>
-            <Text style={styles.text}>{voiceLabel}</Text>
+            <View style={{ marginTop: "20%", marginBottom: "10%" }}>
+              <Text style={styles.text}>{constructor}</Text>
+              <Text style={styles.text}>{voiceLabel}</Text>
+            </View>
             <TouchableOpacity onPress={_onRecordVoice}>
               <Image
                 style={styles.button}
@@ -244,7 +254,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   videoContainer: {
     flex: 0.5,
@@ -270,8 +280,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    marginTop: "20%",
-    marginBottom: "10%",
     fontFamily: "Cafe24Ssurround",
   },
   button: {
@@ -290,6 +298,7 @@ const styles = StyleSheet.create({
     padding: 7,
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "white",
     borderRadius: 120,
     borderWidth: 7,
@@ -302,18 +311,20 @@ const styles = StyleSheet.create({
   cloud: {
     width: 155,
     height: 105,
-    marginBottom: "10%",
+    marginBottom: "7%",
   },
   feedback: {
     fontSize: 25,
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
     textAlign: "center",
+    marginBottom: "0%",
   },
   close: {
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
-    marginBottom: "3%",
+    marginBottom: "2%",
+    marginTop: "0%",
   },
 });

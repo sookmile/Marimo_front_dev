@@ -77,7 +77,7 @@ const StoryLoading = ({ route, navigation }) => {
           <TouchableOpacity
             style={[styles.selectAg, { marginBottom: 20 }]}
             onPress={() => {
-              navigation.navigate("Story1"), postResult();
+              navigation.navigate("Story1", { userID: userID }), postResult();
             }}
           >
             <Text style={styles.btnText}>계속 모험을 진행할래요!</Text>
