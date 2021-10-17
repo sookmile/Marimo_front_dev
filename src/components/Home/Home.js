@@ -31,7 +31,14 @@ const ListItem = ({ item }) => {
     <ItemButton label={item.label}>
       <ItemBox
         background={item.background}
-        onPress={() => navigation.navigate(`${item.router}`)}
+        onPress={() =>
+          item.router === "동화"
+            ? navigation.navigate(`${item.router}`, {
+                userID: item.userID,
+                taleName: "호랑이의 생일 잔치",
+              })
+            : navigation.navigate(`${item.router}`)
+        }
       >
         <Image
           style={{ position: "absolute", top: "2%", left: "5%" }}
@@ -74,6 +81,13 @@ const ItemText = styled.Text`
 
 const renderItem = ({ item }) => {
   const navigation = useNavigation();
+  const [userId, setUserId] = useState(0);
+  useEffect(async () => {
+    const id = await AsyncStorage.getItem("userId");
+    setUserId(id);
+    console.log(id);
+  }, []);
+
   return (
     <View
       style={{
@@ -85,7 +99,16 @@ const renderItem = ({ item }) => {
         marginVertical: 16,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+      <ContnetSubCntr
+        onPress={() =>
+          item.router === "StoryLoading"
+            ? navigation.navigate(`${item.router}`, {
+                userID: userId,
+                taleName: "호랑이의 생일 잔치",
+              })
+            : navigation.navigate(`${item.router}`)
+        }
+      >
         <Image
           style={{ position: "absolute", top: "2%", left: "1%" }}
           source={require("../../assets/icons/ic_ellipse.png")}
@@ -152,7 +175,6 @@ const ContentText = styled.Text`
 
 const Home = () => {
   const [userNickname, setUserNickName] = useState("");
-
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -168,13 +190,13 @@ const Home = () => {
     }
   };
 
-  
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     const Character = await AsyncStorage.getItem("characterNum");
     console.log(Character);
     console.log(Nickname);
     setUserNickName(Nickname);
+    setUserId(id);
   }, []);
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>

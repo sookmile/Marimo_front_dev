@@ -13,8 +13,7 @@ import {
 import { Circle } from "react-native-svg";
 import CustomSwitch from "./CustomSwitch";
 import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
-import ToggleSwitch from "rn-toggle-switch";
-import { useNavigation } from "@react-navigation/native";
+import Orientation from "react-native-orientation";
 
 import {
   BarChart,
@@ -106,6 +105,21 @@ const LearnRecord = ({ navigation, route }) => {
 
     await getRecord(id);
   }, []);
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  }, []);
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToLandscapeLeft();
+    }
+  };
 
   const setData = (response) => {
     if (response.length !== 0) {
@@ -392,12 +406,12 @@ const LearnRecord = ({ navigation, route }) => {
                           width: 85,
                           height: 90,
                         }}
-                        source={navTabIcons.ic_story1}
-                      />
+                        source={require("../../assets/images/story/Story1Page1.png")}
+                        />
                     </View>
                     <ContentTexts style={{ width: "64%" }}>
                       <ContentTitle numberOfLines={1} ellipsizeMode="tail">
-                        마리모 친구들의 얼음성 탐험
+                        호랑이의 생일잔치
                       </ContentTitle>
                       <ContentText>
                         {recordInfo?.talePlayCount !== 0
@@ -431,7 +445,7 @@ const LearnRecord = ({ navigation, route }) => {
                           width: 85,
                           height: 90,
                         }}
-                        source={navTabIcons.ic_game1}
+                        source={navTabIcons.cv_game}
                       />
                     </View>
                     <ContentTexts style={{ width: "64%" }}>

@@ -21,12 +21,14 @@ const StoryLoading = ({ route, navigation }) => {
       Orientation.unlockAllOrientations(),
         Orientation.removeOrientationListener(onOrientaionChange);
     };
-  });
+  }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "PORTRAIT") {
-      Orientation.lockToPortrait();
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToLandscapeLeft();
     }
   };
+  
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 140) : (cntrMargin = 100);
   let chMargin = 0;

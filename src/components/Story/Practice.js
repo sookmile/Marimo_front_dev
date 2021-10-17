@@ -122,10 +122,12 @@ const Practice = ({ route, navigation }) => {
   const postResult = async (inputText) => {
     Voice.stop();
     console.log(inputText);
+    const userId = await AsyncStorage.getItem("userId");
+
 
     // 피드백용 데이터 전송
     const data2 = {
-      userId: id,
+      userId: userId,
       oWord: oWord,
       rWord: inputText,
       lastpage: LastPage,
