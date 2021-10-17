@@ -39,9 +39,12 @@ let music4 = new Sound(path4, null, (error) => {
   }
 });
 
-const StoryOne = ({ navigation }) => {
+const StoryOne = ({ navigation, route }) => {
+  const { userID } = route.params;
+
   const [pageNum, setPageNum] = useState(1);
   useEffect(() => {
+    console.log("ID:", userID);
     Orientation.lockToLandscapeRight();
     Orientation.addOrientationListener(onOrientaionChange);
     return () => {
@@ -122,6 +125,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music1.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "침대",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -144,6 +148,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music1.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "이불",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -166,6 +171,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music1.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "시계",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -188,6 +194,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music1.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "축구공",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -200,7 +207,7 @@ const StoryOne = ({ navigation }) => {
               style={{
                 width: 120,
                 height: 70,
-                top: "-75%",
+                top: "-67%",
                 left: "73%",
                 borderRadius: 25,
                 display: "flex",
@@ -210,6 +217,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music1.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "액자",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -222,6 +230,7 @@ const StoryOne = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("StoryLoading");
+                  music1.pause();
                 }}
               >
                 <Text style={styles.navBoxText}> 이전 </Text>
@@ -269,6 +278,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music2.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "냉장고",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -291,6 +301,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music2.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "사과",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -313,6 +324,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music2.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "포도",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -335,6 +347,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music2.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "수박",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -357,6 +370,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music2.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "바나나",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -379,6 +393,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music2.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "달력",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -475,6 +490,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music4.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "기차",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -497,6 +513,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music4.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "자전거",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -519,6 +536,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music4.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "색연필",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -541,6 +559,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music4.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "도토리",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -563,6 +582,7 @@ const StoryOne = ({ navigation }) => {
               onPress={() => {
                 music4.pause();
                 navigation.navigate("Practice", {
+                  userID: userID,
                   oWord: "장갑",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
