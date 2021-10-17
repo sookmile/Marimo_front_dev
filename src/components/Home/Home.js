@@ -87,7 +87,10 @@ const renderItem = ({ item }) => {
     >
       <ContnetSubCntr
         onPress={() =>
-          navigation.navigate(`${item.router}`, { userID: item.userID })
+          navigation.navigate(`${item.router}`, {
+            userID: item.userID,
+            taleName: item.text,
+          })
         }
       >
         <Image

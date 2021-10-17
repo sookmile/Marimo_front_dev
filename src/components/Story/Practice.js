@@ -67,11 +67,15 @@ const Practice = ({ route, navigation }) => {
       if (event.value[0] === oWord) {
         postResult(event.value[0]);
         console.log("정답");
-        setRModalVisible(!isRModalVisible);
+        setRModalVisible((isRModalVisible) => {
+          return !isRModalVisible;
+        });
       } else {
         postResult(event.value[0]);
         console.log("오답");
-        setWModalVisible(!isWModalVisible);
+        setWModalVisible((isWModalVisible) => {
+          return !isWModalVisible;
+        });
       }
     }
   };
