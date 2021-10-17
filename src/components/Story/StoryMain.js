@@ -45,7 +45,7 @@ const renderItem = ({ item }) => {
             ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
             : navigation.navigate(`${item.router}`, {
                 userID: item.userID,
-                taleName: "호랑이의 생일잔치",
+                taleName: "호랑이의 생일 잔치",
               })
         }
       >
@@ -117,20 +117,7 @@ const StoryMain = () => {
   const [userID, setUserID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    Orientation.lockToPortrait();
-    Orientation.addOrientationListener(onOrientaionChange);
-    return () => {
-      Orientation.unlockAllOrientations(),
-        Orientation.removeOrientationListener(onOrientaionChange);
-    };
-  }, []);
-  const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE-RIGHT") {
-      console.log(orientation);
-      Orientation.lockToLandscapeLeft();
-    }
-  };
+
 
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
@@ -202,9 +189,9 @@ const StoryMain = () => {
             item.router === "null"
               ? setModalVisible(true)
               : navigation.navigate(`${item.router}`, {
-                userID: item.userID,
-                taleName: "호랑이의 생일잔치",
-              })
+                  userID: item.userID,
+                  taleName: "호랑이의 생일 잔치",
+                })
           }
         >
           <Image

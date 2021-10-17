@@ -380,8 +380,7 @@ const Login = ({ navigation }) => {
           <View
             style={{
               width: "100%",
-              height: "25%",
-              zIndex: 100,
+              height: "15%",
             }}
           >
             <IntroText>
@@ -389,7 +388,7 @@ const Login = ({ navigation }) => {
               뭐니?
             </IntroText>
           </View>
-          <Cntr style={{ backgroundColor: "transparent" }}>
+          <Cntr >
             <View
               style={{
                 width: "100%",
