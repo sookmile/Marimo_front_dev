@@ -48,7 +48,7 @@ const Practice = ({ route, navigation }) => {
     ? text
     : isRecord
     ? "단어를 발음해주세요"
-    : "마이크 버튼을 눌러주세요";
+    : "영상이 끝나면 마이크 버튼을 눌러주세요";
 
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
@@ -147,9 +147,11 @@ const Practice = ({ route, navigation }) => {
   // 모달 닫는 함수
   const closeRModal = () => {
     setRModalVisible(!isRModalVisible);
+    setText("");
   };
   const closeWModal = () => {
     setWModalVisible(!isWModalVisible);
+    setText("");
   };
 
   return (
