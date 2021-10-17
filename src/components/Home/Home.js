@@ -85,7 +85,11 @@ const renderItem = ({ item }) => {
         marginVertical: 16,
       }}
     >
-      <ContnetSubCntr onPress={() => navigation.navigate(`${item.router}`)}>
+      <ContnetSubCntr
+        onPress={() =>
+          navigation.navigate(`${item.router}`, { userID: item.userID })
+        }
+      >
         <Image
           style={{ position: "absolute", top: "2%", left: "1%" }}
           source={require("../../assets/icons/ic_ellipse.png")}
@@ -152,6 +156,7 @@ const ContentText = styled.Text`
 
 const Home = () => {
   const [userNickname, setUserNickName] = useState("");
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -168,14 +173,35 @@ const Home = () => {
     }
   };
 
-  
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     const Character = await AsyncStorage.getItem("characterNum");
+    const UserID = await AsyncStorage.getItem("userId");
     console.log(Character);
     console.log(Nickname);
+    console.log(UserID);
     setUserNickName(Nickname);
+    setUserID(UserID);
   }, []);
+
+  const SECTIONS3 = [
+    {
+      key: "1",
+      text: "호랑이의 생일 잔치",
+      src: require("../../assets/images/story/Story1Page1.png"),
+      age: "6~7",
+      router: "StoryLoading",
+      userID: userID,
+    },
+    {
+      key: "2",
+      text: "냠냠 맛있는 모음게임",
+      src: navTabIcons.cv_game,
+      age: "6~7",
+      router: "SpellingGameContainer",
+    },
+  ];
+
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
       <View style={styles.container}>
@@ -286,22 +312,6 @@ const SECTIONS1 = [
     color: "#F66C6C",
     background: "rgba(246, 108, 108, 0.8)",
     router: "Explore",
-  },
-];
-const SECTIONS3 = [
-  {
-    key: "1",
-    text: "호랑이의 생일 잔치",
-    src: require("../../assets/images/story/Story1Page1.png"),
-    age: "6~7",
-    router: "StoryLoading",
-  },
-  {
-    key: "2",
-    text: "냠냠 맛있는 모음게임",
-    src: navTabIcons.cv_game,
-    age: "6~7",
-    router: "SpellingGameContainer",
   },
 ];
 

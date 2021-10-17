@@ -183,7 +183,7 @@ const Practice = ({ route, navigation }) => {
               paddingTop: 5,
             }}
             onPress={() => {
-              navigation.navigate("Story1");
+              navigation.navigate("Story1", { userID: userID });
             }}
           >
             이전

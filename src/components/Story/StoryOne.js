@@ -229,7 +229,7 @@ const StoryOne = ({ navigation, route }) => {
             <View style={styles.navBox}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("StoryLoading");
+                  navigation.navigate("StoryLoading", { userID: userID });
                   music1.pause();
                 }}
               >
