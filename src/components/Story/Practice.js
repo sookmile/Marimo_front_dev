@@ -6,7 +6,6 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
-  Alert,
 } from "react-native";
 import Modal from "react-native-modal";
 import Video from "react-native-video";
@@ -53,7 +52,7 @@ const Practice = ({ route, navigation }) => {
   const constructor = activateRecord ? "" : "영상이 끝나면";
 
   const _onSpeechStart = () => {
-    console.log("onSpeechStart");
+    console.log("onSpeechStart====================================");
     setText("");
   };
   const _onSpeechEnd = () => {
@@ -63,20 +62,24 @@ const Practice = ({ route, navigation }) => {
     console.log("onSpeechResults");
     if (event.value[0] !== undefined) {
       await setText(event.value[0]);
-      console.log("발음한 단어:", text);
-      if (event.value[0] === oWord) {
-        postResult(event.value[0]);
-        console.log("정답");
-        setRModalVisible((isRModalVisible) => {
-          return !isRModalVisible;
-        });
-      } else {
-        postResult(event.value[0]);
-        console.log("오답");
-        setWModalVisible((isWModalVisible) => {
-          return !isWModalVisible;
-        });
-      }
+      console.log("isRModalVisible before:", isRModalVisible);
+      console.log("isWModalVisible before:", isWModalVisible);
+      postResult(event.value[0]);
+      // if (event.value[0] === oWord) {
+      //   console.log("isRModalVisible:", isRModalVisible);
+      //   setRModalVisible((isRModalVisible) => {
+      //     return !isRModalVisible;
+      //   });
+      //   console.log("정답");
+      //   console.log("isRModalVisible:", isRModalVisible);
+      // } else {
+      //   console.log("isWModalVisible:", isWModalVisible);
+      //   setWModalVisible((isWModalVisible) => {
+      //     return !isWModalVisible;
+      //   });
+      //   console.log("오답");
+      //   console.log("isWModalVisible:", isWModalVisible);
+      // }
     }
   };
   const _onSpeechError = (event) => {
@@ -127,7 +130,7 @@ const Practice = ({ route, navigation }) => {
   // 결과 전송
   const postResult = async (inputText) => {
     Voice.stop();
-    console.log(inputText);
+    console.log("발음한 단어:", inputText);
     const userId = await AsyncStorage.getItem("userId");
 
     // 피드백용 데이터 전송
@@ -150,19 +153,38 @@ const Practice = ({ route, navigation }) => {
         console.log(err);
         setFeedback("다시 발음해보세요");
       });
+
+    // 답 확인 후 모달 띄우기
+    if (inputText === oWord) {
+      console.log("isRModalVisible:", isRModalVisible);
+      setRModalVisible((isRModalVisible) => {
+        return !isRModalVisible;
+      });
+      console.log("정답✅");
+      console.log("isRModalVisible:", isRModalVisible);
+    } else {
+      console.log("isWModalVisible:", isWModalVisible);
+      setWModalVisible((isWModalVisible) => {
+        return !isWModalVisible;
+      });
+      console.log("오답❎");
+      console.log("isWModalVisible:", isWModalVisible);
+    }
   };
 
   // 모달 닫는 함수
   const closeRModal = () => {
-    setRModalVisible(!isRModalVisible);
+    setText("");
+    setRModalVisible(false);
+    console.log("isRModalVisible after:", isRModalVisible);
     setIsRecord(false);
-
     setText("");
   };
   const closeWModal = () => {
-    setWModalVisible(!isWModalVisible);
+    setText("");
+    setWModalVisible(false);
+    console.log("isWModalVisible after:", isWModalVisible);
     setIsRecord(false);
-
     setText("");
   };
 

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
 import {
   StyleSheet,
   Text,
   View,
-  SectionList,
-  SafeAreaView,
   Image,
   StatusBar,
   Alert,
   ScrollView,
-  FlatList,
   Modal,
   Pressable,
 } from "react-native";
@@ -116,8 +112,6 @@ const StoryMain = () => {
   const [userNickname, setUserNickName] = useState("");
   const [userID, setUserID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-
-
 
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
