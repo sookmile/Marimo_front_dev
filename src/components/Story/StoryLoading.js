@@ -3,10 +3,6 @@ import { TouchableOpacity } from "react-native";
 import { Button, View, Text, StyleSheet, Image } from "react-native";
 import Orientation from "react-native-orientation";
 import styled from "styled-components";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import { fontPercentage } from "../../constants/responsive";
