@@ -49,6 +49,10 @@ const ExploreDetail = ({ navigation, route }) => {
     if (!route.params.word) {
       Alert.alert("사진을 인식하지 못했습니다!");
     }
+
+    return () => {
+      Tts.removeEventListeners;
+    };
   }, []);
 
   // 나의 추억창고 저장하기

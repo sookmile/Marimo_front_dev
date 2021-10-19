@@ -8,6 +8,7 @@ import {
   StatusBar,
   Platform,
   Dimensions,
+  useWindowDimensions,
   ImageBackground,
 } from "react-native";
 import {
@@ -25,9 +26,13 @@ import { images, icons, SIZES, COLORS, navTabIcons } from "../constants";
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/Ionicons";
 import TextAnimator from "./CustomButton/TextAnimator";
+import { pink100 } from "react-native-paper/lib/typescript/styles/colors";
+
+const { height, width } = Dimensions.get("window");
 
 export const UserHeader = ({ userNickname, type }) => {
-  const { width, height } = Dimensions.get("window");
+  const window = useWindowDimensions();
+
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 40) : (cntrMargin = 10);
   const word = "말이 뭐가 어렵니";
@@ -128,7 +133,6 @@ export const UserHeader = ({ userNickname, type }) => {
             <Image
               style={{
                 width: "100%",
-                height: hp(25),
                 marginTop: -20,
                 borderRadius: 20,
               }}
@@ -160,7 +164,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <Image
               style={{
                 width: "100%",
-                height: hp(25),
+                // height: heightPercentage(200),
                 marginTop: -20,
                 borderRadius: 20,
               }}
@@ -192,7 +196,7 @@ export const UserHeader = ({ userNickname, type }) => {
             <Image
               style={{
                 width: "100%",
-                height: hp(25),
+                // height: heightPercentage(200),
                 marginTop: -20,
                 borderRadius: 20,
               }}
@@ -273,20 +277,20 @@ export const UserHeader = ({ userNickname, type }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     zIndex: 1,
     width: "100%",
     backgroundColor: "#FFFBF8",
+    height: "40%",
     // display: "flex",
     // padding: 10,
   },
   box: {
     borderRadius: 20,
     width: "100%",
-    height: hp(25),
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
+    height: "70%",
   },
   boxText: {
     fontFamily: "NanumSquareRoundB",
@@ -296,7 +300,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "#C5A1F3",
-    fontSize: hp(1.7),
+    fontSize: fontPercentage(13),
     fontWeight: "bold",
   },
   mainbox: {
@@ -312,8 +316,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   btn: {
-    width: widthPercentage(72),
-    height: heightPercentage(27),
+    width: "30%",
+    height: "35%",
     borderRadius: 20,
     backgroundColor: "#F2F2F2",
     justifyContent: "center",
@@ -325,7 +329,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    marginVertical: Platform.OS === "android" ? StatusBar.currentHeight : hp(2),
+    marginVertical: Platform.OS === "android" ? StatusBar.currentHeight : "2%",
   },
   body: {
     flex: 1,
@@ -334,8 +338,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   mainLogo: {
-    width: widthPercentage(90),
-    height: heightPercentage(87),
+    width: 80,
     marginTop: 30,
     marginRight: 10,
   },
