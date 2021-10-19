@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   Modal,
   Alert,
+  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 
 import {
@@ -28,12 +30,19 @@ import Sound from "react-native-sound";
 import BouncingComponent from "../CustomButton/BouncingComponent";
 import Svg from "react-native-svg";
 import Orientation from "react-native-orientation";
+import {
+  fontPercentage,
+  heightPercentage,
+  widthPercentage,
+} from "../../constants/responsive";
 
 const correctSound = require("../../assets/sounds/mixkit-unlock-game-notification-253.wav");
 const wrongSound = require("../../assets/sounds/mixkit-small-hit-in-a-game-2072.wav");
 const resultSound = require("../../assets/sounds/mixkit-game-experience-level-increased-2062.wav");
 
 function SpellingGame({ route, navigation }) {
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   const { userId, userNickname, characterNum } = route.params;
   //user Id
   const [userID, setUserID] = useState(0);
@@ -131,7 +140,7 @@ function SpellingGame({ route, navigation }) {
     console.log("onSpeechEnd");
   };
   const _onSpeechResults = (event) => {
-    console.log("onSpeechResults", event);
+    console.log("onSpeechResults");
     setSpeakWord(event.value[0]);
   };
   const _onSpeechError = (event) => {
@@ -186,6 +195,11 @@ function SpellingGame({ route, navigation }) {
 
   // character animation
   const _start = () => {
+    if (currentQuestionIndex > 0) {
+      animatedValue.setValue(0);
+      slideInLeft.setValue(0);
+    }
+
     return Animated.parallel([
       Animated.timing(slideInLeft, {
         toValue: 1,
@@ -229,6 +243,7 @@ function SpellingGame({ route, navigation }) {
     }, 1000);
     return () => {
       Tts.removeEventListeners;
+      Voice.destroy().then(Voice.removeAllListeners);
     };
   }, [currentQuestionIndex, questions]);
 
@@ -393,11 +408,20 @@ function SpellingGame({ route, navigation }) {
                         : option == currentOptionSelected
                         ? COLORS.wrong + "50"
                         : COLORS.plateColor,
-                    height: hp(20),
-                    borderRadius: hp(20) / 2,
+                    height:
+                      windowWidth < windowHeight
+                        ? heightPercentage(160)
+                        : hp(20),
+                    borderRadius:
+                      windowWidth < windowHeight
+                        ? heightPercentage(160) / 2
+                        : wp(20) / 2,
                     justifyContent: "center",
                     alignItems: "center",
-                    width: hp(20),
+                    width:
+                      windowWidth < windowHeight
+                        ? heightPercentage(160)
+                        : wp(20),
                   }}
                 >
                   <View
@@ -409,15 +433,16 @@ function SpellingGame({ route, navigation }) {
                           : option == currentOptionSelected
                           ? COLORS.red
                           : COLORS.black,
-                      width: hp(15),
-                      height: hp(15),
-                      borderRadius: hp(15) / 2,
+                      width: heightPercentage(120),
+                      height: heightPercentage(120),
+
+                      borderRadius: heightPercentage(120) / 2,
                       justifyContent: "center",
                     }}
                   >
                     <Text
                       style={{
-                        fontSize: hp(3.5),
+                        fontSize: fontPercentage(28),
                         color: COLORS.black,
                         textAlign: "center",
                         fontFamily: "Cafe24Ssurround",
@@ -436,7 +461,7 @@ function SpellingGame({ route, navigation }) {
                   style={{
                     borderWidth: 3,
                     backgroundColor: COLORS.bgPurple,
-                    height: hp(6),
+                    // height: heightPercentage(50),
                     borderRadius: 20,
                     justifyContent: "center",
                     alignItems: "center",
@@ -446,10 +471,11 @@ function SpellingGame({ route, navigation }) {
                 >
                   <Text
                     style={{
-                      fontSize: hp(3),
+                      fontSize: fontPercentage(24),
                       color: COLORS.black,
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
+                      marginVertical: "5%",
                     }}
                   >
                     소리 듣기
@@ -481,8 +507,10 @@ function SpellingGame({ route, navigation }) {
               source={images.gameResultModal}
               resizeMode="contain"
               style={{
-                height: hp(70),
-                width: wp(80),
+                width:
+                  windowWidth < windowHeight ? widthPercentage(300) : hp(80),
+                height:
+                  windowWidth < windowHeight ? heightPercentage(450) : wp(70),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -491,8 +519,8 @@ function SpellingGame({ route, navigation }) {
               <BouncingComponent characterNum={characterNum} />
               <Text
                 style={{
-                  marginVertical: hp(1),
-                  fontSize: wp(7),
+                  marginVertical: "4%",
+                  fontSize: fontPercentage(24),
                   fontFamily: "Cafe24Ssurround",
                   color: COLORS.primary,
                 }}
@@ -501,7 +529,7 @@ function SpellingGame({ route, navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: wp(4.5),
+                  fontSize: fontPercentage(18),
                   fontFamily: "NanumSquareRoundB",
                 }}
               >
@@ -509,8 +537,8 @@ function SpellingGame({ route, navigation }) {
               </Text>
               <Text
                 style={{
-                  marginTop: hp(1),
-                  fontSize: wp(4.5),
+                  marginTop: "2%",
+                  fontSize: fontPercentage(18),
                   fontFamily: "NanumSquareRoundB",
                 }}
               >
@@ -547,8 +575,8 @@ function SpellingGame({ route, navigation }) {
               source={images.gameResultModal}
               resizeMode="contain"
               style={{
-                height: hp(70),
-                width: wp(80),
+                width: widthPercentage(300),
+                height: heightPercentage(450),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -561,12 +589,20 @@ function SpellingGame({ route, navigation }) {
                   width: "100%",
                 }}
               >
-                <Image source={images.feedbackImage} resizeMode="contain" />
+                <Image
+                  source={images.feedbackImage}
+                  resizeMode="contain"
+                  style={{
+                    // width: widthPercentage(230),
+                    height: heightPercentage(175),
+                  }}
+                />
                 <Text
                   style={{
+                    marginTop: "5%",
                     fontFamily: "Cafe24Ssurround",
-                    fontSize: wp(8),
-                    marginVertical: hp(2),
+                    fontSize: fontPercentage(30),
+                    marginVertical: "1%",
                     color: COLORS.red,
                     textAlign: "center",
                   }}
@@ -577,8 +613,10 @@ function SpellingGame({ route, navigation }) {
                   <Text
                     style={{
                       fontFamily: "NanumSquareRoundB",
-                      fontSize: wp(4.5),
+                      fontSize: fontPercentage(18),
                       textAlign: "center",
+                      marginTop: "3%",
+                      marginHorizontal: "5%",
                       marginBottom: feedbackWord.length > 30 ? -20 : 15,
                     }}
                   >
@@ -671,8 +709,9 @@ function SpellingGame({ route, navigation }) {
                   resizeMode="contain"
                   style={{
                     justifyContent: "center",
-                    width: wp(40),
-                    height: hp(15),
+                    width: widthPercentage(140),
+
+                    height: heightPercentage(100),
                   }}
                 >
                   <View
@@ -705,7 +744,7 @@ function SpellingGame({ route, navigation }) {
             >
               <Text
                 style={{
-                  fontSize: wp(5),
+                  fontSize: fontPercentage(22),
                   color: "#fff",
                   fontFamily: "Cafe24Ssurround",
                 }}
@@ -727,7 +766,13 @@ function SpellingGame({ route, navigation }) {
               alignItems: "center",
             }}
           >
-            <Svg style={{ width: 150, height: 560 / 449.75 }}>
+            <Svg
+              style={{
+                width:
+                  windowWidth < windowHeight ? widthPercentage(145) : hp(45),
+                height: windowWidth < windowHeight ? hp(20) : wp(20),
+              }}
+            >
               <Image width="100%" height="100%" source={characterImg} />
             </Svg>
             {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
@@ -762,7 +807,7 @@ function SpellingGame({ route, navigation }) {
               >
                 <View
                   style={{
-                    width: wp(30),
+                    width: widthPercentage(130),
                     backgroundColor: "#B29262",
                     alignItems: "center",
                     justifyContent: "center",
@@ -773,7 +818,8 @@ function SpellingGame({ route, navigation }) {
                   <Text
                     style={{
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: wp(5),
+                      fontSize:
+                        windowWidth < windowHeight ? fontPercentage(26) : hp(5),
                       color: COLORS.white,
                     }}
                   >
@@ -823,7 +869,7 @@ function SpellingGame({ route, navigation }) {
                       color: COLORS.white,
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: wp(4.5),
+                      fontSize: fontPercentage(22),
                     }}
                   >
                     메인화면으로
@@ -837,7 +883,7 @@ function SpellingGame({ route, navigation }) {
                     style={{
                       textAlign: "center",
                       fontFamily: "Cafe24Ssurround",
-                      fontSize: wp(4.5),
+                      fontSize: fontPercentage(22),
                     }}
                   >
                     다시 하기
@@ -892,22 +938,22 @@ const styles = StyleSheet.create({
   },
   game_question: {
     color: COLORS.black,
-    fontSize: hp(4),
+    fontSize: fontPercentage(28),
     textAlign: "center",
     fontFamily: "NanumSquareRoundB",
   },
   scoreText: {
     color: "#464D46",
-    fontSize: hp(2),
+    fontSize: fontPercentage(15),
     fontFamily: "Cafe24Ssurround",
   },
   voiceLabel: {
     marginTop: SIZES.radius,
-    paddingVertical: 12,
+    paddingTop: 12,
     paddingHorizontal: SIZES.padding,
     fontFamily: "NanumSquareRoundB",
     textAlign: "center",
-    fontSize: wp(3.5),
+    fontSize: fontPercentage(14),
   },
   modal_background: {
     flex: 1,
@@ -937,10 +983,10 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   resultModal_congratText: {
-    fontSize: hp(2),
+    fontSize: 18,
     fontFamily: "NanumSquareRoundB",
     color: "#E86565",
-    marginBottom: hp(1),
+    marginBottom: "3%",
   },
   resultModal_innerContainer: {
     backgroundColor: COLORS.bgPurple,
