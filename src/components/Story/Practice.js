@@ -50,8 +50,6 @@ const Practice = ({ route, navigation }) => {
     ? "단어를 발음해주세요"
     : "영상이 끝나면 마이크 버튼을 눌러주세요";
 
-  const constructor = activateRecord ? "" : "영상이 끝나면";
-
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
     setText("");
@@ -59,11 +57,11 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechEnd = () => {
     console.log("onSpeechEnd");
   };
-  const _onSpeechResults = async (event) => {
+  const _onSpeechResults = (event) => {
     console.log("onSpeechResults");
     if (event.value[0] !== undefined) {
-      await setText(event.value[0]);
-      console.log("발음한 단어:", text);
+      setText(event.value[0]);
+      console.log("발음한 단어:", event.value[0]);
       if (event.value[0] === oWord) {
         postResult(event.value[0]);
         console.log("정답");
@@ -126,7 +124,6 @@ const Practice = ({ route, navigation }) => {
     console.log(inputText);
     const userId = await AsyncStorage.getItem("userId");
 
-
     // 피드백용 데이터 전송
     const data2 = {
       userId: userID,
@@ -187,7 +184,8 @@ const Practice = ({ route, navigation }) => {
               paddingTop: 5,
             }}
             onPress={() => {
-              navigation.navigate("Story1");
+              console.log("유저 아이디", userID);
+              navigation.navigate("Story1", { userID: userID });
             }}
           >
             이전

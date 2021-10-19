@@ -14,11 +14,7 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 import { bigCharacter } from "../../assets/icons/Character/bigCharacter";
 import Icon2 from "react-native-vector-icons/Ionicons";
-import {
-  widthPercentage,
-  heightPercentage,
-  fontPercentage,
-} from "../constants/responsive";
+import { fontPercentage } from "../../constants/responsive";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -74,7 +70,7 @@ const ConfirmCh = ({ route, navigation }) => {
             height: "15%",
           }}
         >
-          <IntroText style={{ fontSize: hp(2.9) }}>
+          <IntroText style={{ fontSize: fontPercentage(22) }}>
             {bigCharacter[characterNum].label}와 모험을 떠날 준비가 되었니?
             {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
@@ -94,7 +90,9 @@ const ConfirmCh = ({ route, navigation }) => {
               source={bigCharacter[characterNum].src}
             />
             <Box>
-              <BoxText style={{ fontSize: hp(2.3) }}>
+              <BoxText
+                style={{ fontSize: fontPercentage(16), textAlign: "center" }}
+              >
                 "{name}아 안녕, 나는 {bigCharacter[characterNum].label}야!
                 {"\n"}우리 함께 재밌는 모험을 떠나자!"
               </BoxText>
@@ -201,6 +199,7 @@ const Box = styled.View`
   background-color: #ededed;
   elevation: 10;
   border-radius: 20;
+  justify-content: center;
 `;
 
 const BoxText = styled.Text`
