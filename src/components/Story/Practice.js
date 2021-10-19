@@ -85,6 +85,12 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
     console.log(event.error);
+    if (event.error.message == "7/No match") {
+      setFeedback("다시 발음해보세요!");
+      setWModalVisible((isWModalVisible) => {
+        return !isWModalVisible;
+      });
+    }
   };
 
   const _onRecordVoice = () => {
