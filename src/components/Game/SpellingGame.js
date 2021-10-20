@@ -69,6 +69,7 @@ function SpellingGame({ route, navigation }) {
   // record
   const [isRecord, setisRecord] = useState(false);
   const [speakWord, setSpeakWord] = useState("");
+  const [voiceLabel, setVoiceLabel] = useState("버튼을 눌러주세요!");
 
   // animation
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -127,11 +128,6 @@ function SpellingGame({ route, navigation }) {
   };
 
   const buttonLabel = isRecord ? "그만하기" : "녹음하기";
-  const voiceLabel = speakWord
-    ? speakWord
-    : isRecord
-    ? "말해주세요..."
-    : "버튼을 눌러주세요!";
 
   const _onSpeechStart = () => {
     console.log("onSpeechStart");
@@ -142,23 +138,30 @@ function SpellingGame({ route, navigation }) {
   const _onSpeechResults = (event) => {
     console.log("onSpeechResults");
     setSpeakWord(event.value[0]);
+    setVoiceLabel(event.value[0]);
   };
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
+    setVoiceLabel("잘 알아듣지 못했어요! 다시 말해줄래요?");
     console.log(event.error);
   };
 
   const _onRecordVoice = () => {
-    if (isRecord) {
+    if (isRecord && speakWord) {
       Voice.stop();
       getFeedback(userId);
       setModalVisible(false);
       setisFeedbackModalVisible(true);
+    } else if (isRecord && !speakWord) {
+      Voice.stop();
     } else {
+      Voice.stop();
+      setVoiceLabel("말해주세요...");
       Voice.start("ko-KR");
     }
     setisRecord(!isRecord);
   };
+
   useEffect(() => {
     console.log("퀴즈");
     console.log(questions);
@@ -303,6 +306,7 @@ function SpellingGame({ route, navigation }) {
     setCurrentOptionSelected(false);
     setCorrectOption(null);
     setFeedback("");
+    setVoiceLabel("버튼을 눌러주세요!");
   };
 
   // 정답 체크
@@ -363,6 +367,7 @@ function SpellingGame({ route, navigation }) {
       setisFeedbackModalVisible(false);
       setIsOptionsDisabled(false);
       setFeedback("");
+      setVoiceLabel("버튼을 눌러주세요!");
     }
   };
 
