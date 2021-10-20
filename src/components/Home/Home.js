@@ -48,7 +48,7 @@ const ListItem = ({ item }) => {
 
 const ItemButton = styled.View`
   width: 30%;
-  height: 100%;
+  height: 90%;
   align-items: center;
   overflow: visible;
 `;
@@ -263,7 +263,7 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: wp(5.5),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >
@@ -315,6 +315,22 @@ const SECTIONS1 = [
     color: "#F66C6C",
     background: "rgba(246, 108, 108, 0.8)",
     router: "Explore",
+  },
+];
+const SECTIONS3 = [
+  {
+    key: "1",
+    text: "호랑이의 생일잔치",
+    src: require("../../assets/images/story/Story1Page1.png"),
+    age: "6~7",
+    router: "StoryLoading",
+  },
+  {
+    key: "2",
+    text: "냠냠 맛있는 모음게임",
+    src: navTabIcons.cv_game,
+    age: "6~7",
+    router: "SpellingGameContainer",
   },
 ];
 
