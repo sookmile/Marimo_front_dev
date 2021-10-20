@@ -11,7 +11,7 @@ import {
   Pressable,
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
-import { fontPercentage } from "../../constants/responsive";
+import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -139,7 +139,7 @@ const StoryMain = () => {
   const SECTIONS3 = [
     {
       key: "1",
-      text: "호랑이의 생일 잔치",
+      text: "호랑이의 생일잔치",
       age: "6~7",
       src: require("../../assets/images/story/Story1Page1.png"),
       number: 50,
@@ -204,11 +204,14 @@ const StoryMain = () => {
             <ContentTitle
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{ fontSize: wp(4.5), marginBottom: hp(1.5) }}
+              style={{
+                fontSize: fontPercentage(18),
+                marginBottom: heightPercentage(10),
+              }}
             >
               {item.text}
             </ContentTitle>
-            <ContentText style={{ fontSize: wp(3.5) }}>
+            <ContentText style={{ fontSize: fontPercentage(14) }}>
               추천 연령 : {item.age}세
             </ContentText>
           </ContentTexts>
@@ -298,7 +301,7 @@ const StoryMain = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: wp(5.5),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >

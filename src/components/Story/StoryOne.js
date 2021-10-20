@@ -42,6 +42,9 @@ let music4 = new Sound(path4, null, (error) => {
 
 const StoryOne = ({ navigation, route }) => {
   const { userID } = route.params;
+
+  console.log("ID:", userID);
+
   const [pageNum, setPageNum] = useState(1);
 
   const handleBackButtonClick = () => {
