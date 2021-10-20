@@ -230,7 +230,11 @@ const StoryOne = ({ navigation, route }) => {
             <View style={styles.navBox}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("StoryLoading", { userID: userID });
+                  navigation.reset({
+                    routes: [
+                      { name: "StoryLoading", params: { userID: userID } },
+                    ],
+                  });
                   music1.pause();
                 }}
               >
