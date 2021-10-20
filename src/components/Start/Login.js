@@ -4,14 +4,12 @@ import Voice from "@react-native-community/voice";
 import {
   Text,
   Animated,
-  Button,
   Image,
   View,
   TouchableOpacity,
   Dimensions,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
   Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";

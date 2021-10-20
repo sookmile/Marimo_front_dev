@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import {
   StyleSheet,
-  Text,
   View,
-  SectionList,
-  SafeAreaView,
   Image,
   StatusBar,
   ScrollView,
-  FlatList,
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
@@ -22,7 +18,6 @@ import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
-import Voice from "@react-native-community/voice";
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
@@ -64,6 +59,7 @@ const ItemBox = styled.TouchableOpacity`
   border-color: ${(props) => props.background};
   align-items: center;
   align-content: center;
+  justify-content: center;
 `;
 const ItemText = styled.Text`
   color: #ffffff;
@@ -315,22 +311,6 @@ const SECTIONS1 = [
     color: "#F66C6C",
     background: "rgba(246, 108, 108, 0.8)",
     router: "Explore",
-  },
-];
-const SECTIONS3 = [
-  {
-    key: "1",
-    text: "호랑이의 생일잔치",
-    src: require("../../assets/images/story/Story1Page1.png"),
-    age: "6~7",
-    router: "StoryLoading",
-  },
-  {
-    key: "2",
-    text: "냠냠 맛있는 모음게임",
-    src: navTabIcons.cv_game,
-    age: "6~7",
-    router: "SpellingGameContainer",
   },
 ];
 
