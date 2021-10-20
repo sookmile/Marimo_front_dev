@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import {
   StyleSheet,
-  Text,
   View,
-  SectionList,
-  SafeAreaView,
   Image,
   StatusBar,
   ScrollView,
-  FlatList,
 } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
@@ -22,7 +18,6 @@ import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
-import Voice from "@react-native-community/voice";
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
@@ -48,7 +43,7 @@ const ListItem = ({ item }) => {
 
 const ItemButton = styled.View`
   width: 30%;
-  height: 100%;
+  height: 90%;
   align-items: center;
   overflow: visible;
 `;
@@ -64,6 +59,7 @@ const ItemBox = styled.TouchableOpacity`
   border-color: ${(props) => props.background};
   align-items: center;
   align-content: center;
+  justify-content: center;
 `;
 const ItemText = styled.Text`
   color: #ffffff;
@@ -263,7 +259,7 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: wp(5.5),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >

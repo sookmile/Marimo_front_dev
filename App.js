@@ -9,7 +9,7 @@ import Story from "./src/screens/StoryScreen";
 import Game from "./src/screens/GameScreen";
 // Screens
 import Explore from "./src/screens/ExploreScreen";
-import SettingScreen from "./src/screens/SettingScreen";
+import SettingScreen from "./src/screens/Settings/SettingScreen";
 // Story
 import StoryLoading from "./src/components/Story/StoryLoading";
 import StoryMain from "./src/components/Story/StoryMain";

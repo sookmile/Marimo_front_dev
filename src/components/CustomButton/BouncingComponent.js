@@ -43,7 +43,7 @@ const style = StyleSheet.create({
     width: 130,
     height: 130,
     position: "relative",
-    left: wp(2),
+    left: "1%",
     marginBottom: 10,
   },
 });

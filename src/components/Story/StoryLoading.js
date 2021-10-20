@@ -3,12 +3,9 @@ import { TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image } from "react-native";
 import Orientation from "react-native-orientation";
 import styled from "styled-components";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import { fontPercentage } from "../../constants/responsive";
 
 const StoryLoading = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
@@ -28,7 +25,7 @@ const StoryLoading = ({ route, navigation }) => {
       Orientation.lockToLandscapeLeft();
     }
   };
-  
+
   let cntrMargin = 0;
   Platform.OS === "ios" ? (cntrMargin = 140) : (cntrMargin = 100);
   let chMargin = 0;
@@ -62,7 +59,7 @@ const StoryLoading = ({ route, navigation }) => {
             {
               marginBottom: "10%",
               color: "#464D46",
-              fontSize: hp(4),
+              fontSize: fontPercentage(30),
               fontFamily: "Cafe24Ssurround",
             },
           ]}
