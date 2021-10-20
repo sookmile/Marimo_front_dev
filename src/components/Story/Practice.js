@@ -64,7 +64,9 @@ const Practice = ({ route, navigation }) => {
       await setText(event.value[0]);
       console.log("isRModalVisible before:", isRModalVisible);
       console.log("isWModalVisible before:", isWModalVisible);
-      postResult(event.value[0]);
+      await postResult(event.value[0]);
+      Voice.stop();
+
       // if (event.value[0] === oWord) {
       //   console.log("isRModalVisible:", isRModalVisible);
       //   setRModalVisible((isRModalVisible) => {
