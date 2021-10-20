@@ -277,10 +277,12 @@ export const UserHeader = ({ userNickname, type }) => {
 };
 const styles = StyleSheet.create({
   container: {
+    // flex: 1,
     zIndex: 1,
     width: "100%",
     backgroundColor: "#FFFBF8",
     height: "40%",
+    marginBottom: "-2%",
     // display: "flex",
     // padding: 10,
   },
@@ -290,7 +292,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
-    height: "70%",
+    height: "75%",
   },
   boxText: {
     fontFamily: "NanumSquareRoundB",
