@@ -16,11 +16,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import styled from "styled-components";
 import axios from "axios";
-import preURL from "../preURL/preURL";
+import preURL from "../../preURL/preURL";
 
 import Icon from "react-native-vector-icons/Ionicons";
 import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
-import { character } from "../assets/icons/Character/Character";
+import { character } from "../../assets/icons/Character/Character";
 import Orientation from "react-native-orientation";
 
 function SettingScreen({ navigation }) {
@@ -311,7 +311,7 @@ function SettingScreen({ navigation }) {
                   <ChImage
                     resizeMode="contain"
                     style={{ width: "60%", height: "60%" }}
-                    source={require("../assets/icons/Home/naverIcon.png")}
+                    source={require("../../assets/icons/Home/naverIcon.png")}
                   />
                 </ImgCntr>
                 <Info>
