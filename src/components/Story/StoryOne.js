@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 import Orientation from "react-native-orientation";
 import StoryMain from "./StoryMain";
@@ -41,15 +42,29 @@ let music4 = new Sound(path4, null, (error) => {
 
 const StoryOne = ({ navigation, route }) => {
   const { userID } = route.params;
-
   const [pageNum, setPageNum] = useState(1);
+
+  const handleBackButtonClick = () => {
+    music1.stop(() => console.log("music stop"));
+    music2.stop(() => console.log("music stop"));
+    music3.stop(() => console.log("music stop"));
+    music4.stop(() => console.log("music stop"));
+    navigation.goBack();
+    return true;
+  };
+
   useEffect(() => {
     console.log("ID:", userID);
     Orientation.lockToLandscapeRight();
     Orientation.addOrientationListener(onOrientaionChange);
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
     return () => {
       Orientation.unlockAllOrientations(),
         Orientation.removeOrientationListener(onOrientaionChange);
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick
+      );
     };
   }, []);
   const onOrientaionChange = (orientation) => {
@@ -59,33 +74,29 @@ const StoryOne = ({ navigation, route }) => {
   };
 
   if (pageNum == 1) {
-    music2.pause();
-    music3.pause();
-    music4.pause();
-    setTimeout(() => {
-      music1.play();
-    }, 1000);
+    music2.stop(() => console.log("music stop"));
+    music3.stop(() => console.log("music stop"));
+    music4.stop(() => console.log("music stop"));
+    console.log("====================== page 1 ======================");
+    music1.play();
   } else if (pageNum == 2) {
-    music1.pause();
-    music3.pause();
-    music4.pause();
-    setTimeout(() => {
-      music2.play();
-    }, 1000);
+    music1.stop(() => console.log("music stop"));
+    music3.stop(() => console.log("music stop"));
+    music4.stop(() => console.log("music stop"));
+    console.log("====================== page 2 ======================");
+    music2.play();
   } else if (pageNum == 3) {
-    music1.pause();
-    music2.pause();
-    music4.pause();
-    setTimeout(() => {
-      music3.play();
-    }, 1000);
+    music1.stop(() => console.log("music stop"));
+    music2.stop(() => console.log("music stop"));
+    music4.stop(() => console.log("music stop"));
+    console.log("====================== page 3 ======================");
+    music3.play();
   } else if (pageNum == 4) {
-    music1.pause();
-    music2.pause();
-    music3.pause();
-    setTimeout(() => {
-      music4.play();
-    }, 1000);
+    music1.stop(() => console.log("music stop"));
+    music2.stop(() => console.log("music stop"));
+    music3.stop(() => console.log("music stop"));
+    console.log("====================== page 4 ======================");
+    music4.play();
   } else {
     console.log("동화1 끝!");
   }
@@ -123,7 +134,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music1.pause();
+                music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "침대",
@@ -146,7 +157,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music1.pause();
+                music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "이불",
@@ -169,7 +180,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music1.pause();
+                music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "시계",
@@ -192,7 +203,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music1.pause();
+                music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "축구공",
@@ -215,7 +226,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music1.pause();
+                music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "액자",
@@ -229,8 +240,8 @@ const StoryOne = ({ navigation, route }) => {
             <View style={styles.navBox}>
               <TouchableOpacity
                 onPress={() => {
+                  music1.stop(() => console.log("music stop"));
                   navigation.navigate("StoryLoading", { userID: userID });
-                  music1.pause();
                 }}
               >
                 <Text style={styles.navBoxText}> 이전 </Text>
@@ -276,7 +287,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music2.pause();
+                music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "냉장고",
@@ -299,7 +310,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music2.pause();
+                music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "사과",
@@ -322,7 +333,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music2.pause();
+                music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "포도",
@@ -345,7 +356,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music2.pause();
+                music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "수박",
@@ -368,7 +379,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music2.pause();
+                music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "바나나",
@@ -391,7 +402,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music2.pause();
+                music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "달력",
@@ -442,6 +453,7 @@ const StoryOne = ({ navigation, route }) => {
             <View style={styles.navBox}>
               <TouchableOpacity
                 onPress={() => {
+                  music3.stop(() => console.log("music stop"));
                   setPageNum(2);
                 }}
               >
@@ -449,6 +461,7 @@ const StoryOne = ({ navigation, route }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
+                  music3.stop(() => console.log("music stop"));
                   setPageNum(4);
                 }}
               >
@@ -488,7 +501,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music4.pause();
+                music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "기차",
@@ -511,7 +524,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music4.pause();
+                music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "자전거",
@@ -534,7 +547,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music4.pause();
+                music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "색연필",
@@ -557,7 +570,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music4.pause();
+                music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "도토리",
@@ -580,7 +593,7 @@ const StoryOne = ({ navigation, route }) => {
                 alignItems: "center",
               }}
               onPress={() => {
-                music4.pause();
+                music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
                   oWord: "장갑",
@@ -594,6 +607,7 @@ const StoryOne = ({ navigation, route }) => {
             <View style={styles.navBox}>
               <TouchableOpacity
                 onPress={() => {
+                  music4.stop(() => console.log("music stop"));
                   setPageNum(3);
                 }}
               >
@@ -601,8 +615,8 @@ const StoryOne = ({ navigation, route }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
+                  music4.stop(() => console.log("music stop"));
                   setPageNum(5);
-                  music4.pause;
                 }}
               >
                 <Text style={styles.navBoxText}> 다음</Text>
