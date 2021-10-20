@@ -251,7 +251,7 @@ const LogoCntr = Styled.View`
 `;
 const BtnCntr = Styled.View`
     width:100%;
-    height:50%;
+    height:40%;
     justify-content:center;
     align-items:center;
 `;
