@@ -44,6 +44,7 @@ const ListItem = ({ item }) => {
           style={{ position: "absolute", top: "2%", left: "5%" }}
           source={require("../../assets/icons/ic_ellipse.png")}
         />
+
         <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
         <ItemText style={{ fontSize: fontPercentage(20) }} color={item.color}>
           {item.label}
@@ -55,7 +56,7 @@ const ListItem = ({ item }) => {
 
 const ItemButton = styled.View`
   width: 30%;
-  height: 90%;
+  height: 100%;
   align-items: center;
   overflow: visible;
 `;
@@ -71,6 +72,7 @@ const ItemBox = styled.TouchableOpacity`
   border-color: ${(props) => props.background};
   align-items: center;
   align-content: center;
+  justify-content: center;
 `;
 const ItemText = styled.Text`
   color: #ffffff;
