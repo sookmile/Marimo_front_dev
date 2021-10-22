@@ -72,7 +72,7 @@ const renderItem = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        height: "45%",
+        height: "44%",
         marginVertical: 16,
       }}
     >

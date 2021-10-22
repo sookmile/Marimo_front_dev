@@ -289,6 +289,7 @@ const styles = StyleSheet.create({
   box: {
     borderRadius: 20,
     width: "100%",
+    marginTop: "2%",
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
@@ -340,9 +341,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   mainLogo: {
-    width: 80,
-    marginTop: 30,
-    marginRight: 10,
+    width: "35%",
   },
   logo: {
     width: widthPercentage(45),
