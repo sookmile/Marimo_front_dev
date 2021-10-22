@@ -85,7 +85,7 @@ const ConfirmCh = ({ route, navigation }) => {
             }}
           >
             <Image
-              style={{ width: "65%", height: "55%" }}
+              style={{ width: "65%", height: "55%" ,marginTop:'5%'}}
               resizeMode="contain"
               source={bigCharacter[characterNum].src}
             />

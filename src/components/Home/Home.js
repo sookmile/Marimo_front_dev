@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import {
-  StyleSheet,
-  View,
-  Image,
-  StatusBar,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Image, StatusBar, ScrollView } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
@@ -32,6 +26,7 @@ const ListItem = ({ item }) => {
           style={{ position: "absolute", top: "2%", left: "5%" }}
           source={require("../../assets/icons/ic_ellipse.png")}
         />
+
         <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
         <ItemText style={{ fontSize: fontPercentage(20) }} color={item.color}>
           {item.label}
@@ -43,7 +38,7 @@ const ListItem = ({ item }) => {
 
 const ItemButton = styled.View`
   width: 30%;
-  height: 90%;
+  height: 100%;
   align-items: center;
   overflow: visible;
 `;
@@ -77,7 +72,7 @@ const renderItem = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        height: "45%",
+        height: "44%",
         marginVertical: 16,
       }}
     >
