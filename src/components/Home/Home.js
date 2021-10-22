@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import {
-  StyleSheet,
-  View,
-  Image,
-  StatusBar,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Image, StatusBar, ScrollView } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
