@@ -317,6 +317,7 @@ const ExploreMain = ({ navigation }) => {
                 height: 95,
               }}
               source={{ uri: item.link }}
+              resizeMethod="resize"
             />
             <ContentTexts>
               <ContentTitle
