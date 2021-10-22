@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
-    height: "75%",
+    height: "70%",
   },
   boxText: {
     fontFamily: "NanumSquareRoundB",
