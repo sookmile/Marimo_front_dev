@@ -25,7 +25,8 @@ const Practice = ({ route, navigation }) => {
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
 
-  const { userID, oWord, LastPage, taleName } = route.params;
+  const { userID, oWord, LastPage, taleName, statusBar, screenHeight } =
+    route.params;
 
   // ID 받아오기
   // const getUserId = () => {
@@ -218,7 +219,11 @@ const Practice = ({ route, navigation }) => {
               paddingTop: 5,
             }}
             onPress={() => {
-              navigation.navigate("Story1", { userID: userID });
+              navigation.navigate("Story1", {
+                userID: userID,
+                statusBar: statusBar,
+                screenHeight: screenHeight,
+              });
             }}
           >
             이전
