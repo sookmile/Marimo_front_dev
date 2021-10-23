@@ -210,7 +210,7 @@ const LearnRecord = ({ navigation, route }) => {
               <UserRegister>가입일자: {recordInfo?.registerDate}</UserRegister>
               <ProgressBar
                 style={{
-                  width: "80%",
+                  width: "90%",
                   marginTop: 15,
                   height: 10,
                   borderRadius: 5,
@@ -480,7 +480,7 @@ const LearnRecord = ({ navigation, route }) => {
 
 export default LearnRecord;
 const Info = styled.View`
-  width: 65%;
+  width: 60%;
 `;
 const ImgCntr = styled.View`
   width: 30%;

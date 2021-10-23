@@ -3,17 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  SectionList,
-  SafeAreaView,
   Image,
-  StatusBar,
-  Platform,
   ScrollView,
-  FlatList,
-  Animated,
   TouchableOpacity,
   Pressable,
   Alert,
+  Dimensions,
 } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
@@ -28,7 +23,6 @@ import {
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-  widthPercentageToDP,
 } from "react-native-responsive-screen";
 import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
@@ -38,6 +32,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import styled, { css } from "styled-components";
 import { Swipeable } from "react-native-gesture-handler";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 // tts 설정
 Tts.setDefaultLanguage("ko-KR");
@@ -249,6 +246,10 @@ const ExploreMain = ({ navigation }) => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     console.log(Nickname);
     setuserNickmame(Nickname);
+
+    return () => {
+      Tts.removeEventListeners;
+    };
   }, []);
 
   useEffect(() => {
@@ -305,7 +306,7 @@ const ExploreMain = ({ navigation }) => {
             style={{
               backgroundColor: "none",
               elevation: 0,
-              heigt: hp(13),
+              heigt: "100%",
             }}
             onPress={() => _onPressSpeech(item?.word)}
           >
@@ -316,11 +317,12 @@ const ExploreMain = ({ navigation }) => {
                 height: 95,
               }}
               source={{ uri: item.link }}
+              resizeMethod="resize"
             />
             <ContentTexts>
               <ContentTitle
                 style={{
-                  fontSize: wp(4.5),
+                  fontSize: fontPercentage(18),
                   paddingLeft: 30,
                   fontFamily: "Noto Sans CJK KR",
                 }}
@@ -344,7 +346,11 @@ const ExploreMain = ({ navigation }) => {
             style={[styles.button, styles.buttonClose]}
             onPress={() => showAlert()}
           >
-            <Icon name="x" size={wp(3.8)} color="white" />
+            <Icon
+              name="x"
+              size={windowWidth < windowHeight ? wp(3.5) : hp(3.5)}
+              color="white"
+            />
           </Pressable>
         </View>
       </View>
@@ -355,7 +361,7 @@ const ExploreMain = ({ navigation }) => {
     return (
       <View
         style={{
-          height: hp(25),
+          height: windowWidth < windowHeight ? hp(25) : wp(25),
           justifyContent: "center",
           flex: 1,
         }}
@@ -364,7 +370,10 @@ const ExploreMain = ({ navigation }) => {
           <Image
             source={navTabIcons.ic_Mexplore}
             resizeMode="center"
-            style={{ width: wp(12), height: wp(12) }}
+            style={{
+              width: windowWidth < windowHeight ? wp(12) : hp(12),
+              height: windowWidth < windowHeight ? wp(12) : hp(12),
+            }}
           />
         </View>
         <Text
@@ -420,7 +429,8 @@ const ExploreMain = ({ navigation }) => {
               <View
                 style={{
                   backgroundColor: "#F5E7F8",
-                  height: wp(28),
+                  width: "100%",
+                  height: windowWidth < windowHeight ? hp(15) : wp(15),
                   borderRadius: 20,
                   flexDirection: "row",
                   elevation: 3,
@@ -441,10 +451,10 @@ const ExploreMain = ({ navigation }) => {
                   <Image
                     style={{
                       borderRadius: 20,
-                      width: widthPercentage(75),
-                      height: widthPercentage(75),
+                      width: "80%",
+                      height: "80%",
                     }}
-                    resizeMode="cover"
+                    resizeMode="contain"
                     source={navTabIcons.cv_camera}
                   />
                 </View>
@@ -459,8 +469,8 @@ const ExploreMain = ({ navigation }) => {
                     numberOfLines={1}
                     ellipsizeMode="tail"
                     style={{
-                      fontSize: wp(4.5),
-                      marginBottom: hp(1.5),
+                      fontSize: fontPercentage(18),
+                      marginBottom: heightPercentage(10),
                       fontFamily: "NanumSquareRoundB",
                     }}
                   >
@@ -468,7 +478,7 @@ const ExploreMain = ({ navigation }) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: wp(3.5),
+                      fontSize: fontPercentage(14),
                       fontFamily: "Noto Sans CJK KR",
                     }}
                   >
@@ -617,7 +627,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: COLORS.darkGray,
     fontFamily: "Cafe24Ssurround",
-    fontSize: wp(5.5),
+    fontSize: fontPercentage(22),
   },
   storyBlock: {
     width: 370,
@@ -659,8 +669,8 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignItems: "center",
     justifyContent: "center",
-    width: wp(9),
-    height: wp(9),
+    width: windowWidth < windowHeight ? wp(9) : hp(9),
+    height: windowWidth < windowHeight ? wp(9) : hp(9),
   },
   buttonClose: {
     backgroundColor: "#F66C6C",

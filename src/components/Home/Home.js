@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SectionList,
-  SafeAreaView,
-  Image,
-  StatusBar,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, Image, StatusBar, ScrollView } from "react-native";
 import { SIZES, COLORS, navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
@@ -22,7 +12,6 @@ import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
-import Voice from "@react-native-community/voice";
 
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
@@ -37,6 +26,7 @@ const ListItem = ({ item }) => {
           style={{ position: "absolute", top: "2%", left: "5%" }}
           source={require("../../assets/icons/ic_ellipse.png")}
         />
+
         <Image source={item.src} style={styles.itemPhoto} resizeMode="cover" />
         <ItemText style={{ fontSize: fontPercentage(20) }} color={item.color}>
           {item.label}
@@ -64,6 +54,7 @@ const ItemBox = styled.TouchableOpacity`
   border-color: ${(props) => props.background};
   align-items: center;
   align-content: center;
+  justify-content: center;
 `;
 const ItemText = styled.Text`
   color: #ffffff;
@@ -81,7 +72,7 @@ const renderItem = ({ item }) => {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-        height: "45%",
+        height: "44%",
         marginVertical: 16,
       }}
     >
@@ -263,7 +254,7 @@ const Home = () => {
                 <StudyTxt
                   style={{
                     color: "#464D46",
-                    fontSize: wp(5.5),
+                    fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
                   }}
                 >

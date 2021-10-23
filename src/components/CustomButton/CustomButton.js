@@ -5,6 +5,7 @@ import {
   widthPercentageToDP,
 } from "react-native-responsive-screen";
 import { COLORS, FONTS, SIZES } from "../../constants";
+import { fontPercentage } from "../../constants/responsive";
 
 const CustomButton = ({ buttonText, onPress }) => {
   return (
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "black",
-    fontSize: widthPercentageToDP(5),
+    fontSize: fontPercentage(20),
     fontWeight: "400",
     fontFamily: "Noto Sans CJK KR",
   },

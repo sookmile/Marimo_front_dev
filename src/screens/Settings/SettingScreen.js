@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   View,
   Switch,
   Text,
@@ -16,11 +15,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import styled from "styled-components";
 import axios from "axios";
-import preURL from "../preURL/preURL";
+import preURL from "../../preURL/preURL";
 
 import Icon from "react-native-vector-icons/Ionicons";
-import { ProgressBar, Colors, ActivityIndicator } from "react-native-paper";
-import { character } from "../assets/icons/Character/Character";
+import { character } from "../../assets/icons/Character/Character";
 import Orientation from "react-native-orientation";
 
 function SettingScreen({ navigation }) {
@@ -32,7 +30,11 @@ function SettingScreen({ navigation }) {
   const { width, height } = Dimensions.get("window");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alarm, setAlarm] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
+
   const alarmToggleSwitch = () => setAlarm((previousState) => !previousState);
+  const darkModeToggleSwitch = () => setDarkMode((previousState) => !previousState);
+
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
@@ -144,8 +146,7 @@ function SettingScreen({ navigation }) {
             style={{
               height: "10%",
               display: "flex",
-              marginBottom: "2%",
-              justifyContent: "center",
+              justifyContent: "center",              
             }}
           >
             <SettingText height={height}>설정</SettingText>
@@ -186,7 +187,7 @@ function SettingScreen({ navigation }) {
                   style={{ position: "absolute", right: 5, marginVertical: 10 }}
                 ></Icon>
               </Contents>
-              <Contents height={height}>
+              <ContentsView height={height}>
                 <InfoText>Push 알림받기</InfoText>
                 <Switch
                   trackColor={{ false: "#E5E5E5", true: "#4E5CF6" }}
@@ -200,14 +201,14 @@ function SettingScreen({ navigation }) {
                     transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
                   }}
                 />
-              </Contents>
-              <Contents height={height} isLast>
+              </ContentsView>
+              <ContentsView height={height} isLast>
                 <InfoText>다크 모드</InfoText>
                 <Switch
                   trackColor={{ false: "#E5E5E5", true: "#4E5CF6" }}
-                  thumbColor={alarm ? "white" : "#white"}
-                  onValueChange={alarmToggleSwitch}
-                  value={alarm}
+                  thumbColor={darkMode ? "white" : "#white"}
+                  onValueChange={darkModeToggleSwitch}
+                  value={darkMode}
                   style={{
                     position: "absolute",
                     right: 0,
@@ -215,7 +216,7 @@ function SettingScreen({ navigation }) {
                     transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
                   }}
                 />
-              </Contents>
+              </ContentsView>
             </Cntr>
             <Cntr
               style={{
@@ -311,7 +312,7 @@ function SettingScreen({ navigation }) {
                   <ChImage
                     resizeMode="contain"
                     style={{ width: "60%", height: "60%" }}
-                    source={require("../assets/icons/Home/naverIcon.png")}
+                    source={require("../../assets/icons/Home/naverIcon.png")}
                   />
                 </ImgCntr>
                 <Info>
@@ -399,7 +400,14 @@ const CloseText = styled.Text`
 
 const Contents = styled.TouchableOpacity`
   height: ${(props) => props.height * 0.065};
-  margin-bottom: ${(props) => (props.isLast ? "5%" : "0%")};
+  margin-bottom: ${(props) => (props.isLast ? "0%" : "0%")};
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const ContentsView = styled.View`
+  height: ${(props) => props.height * 0.065};
+  margin-bottom: ${(props) => (props.isLast ? "0%" : "0%")};
   display: flex;
   flex-direction: row;
   justify-content: space-between;

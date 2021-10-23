@@ -64,7 +64,8 @@ const Practice = ({ route, navigation }) => {
       await setText(event.value[0]);
       console.log("isRModalVisible before:", isRModalVisible);
       console.log("isWModalVisible before:", isWModalVisible);
-      postResult(event.value[0]);
+      await postResult(event.value[0]);
+
       // if (event.value[0] === oWord) {
       //   console.log("isRModalVisible:", isRModalVisible);
       //   setRModalVisible((isRModalVisible) => {
@@ -85,7 +86,7 @@ const Practice = ({ route, navigation }) => {
   const _onSpeechError = (event) => {
     console.log("_onSpeechError");
     console.log(event.error);
-    if (event.error.message == "7/No match") {
+    if (event.error.message === "7/No match") {
       setFeedback("다시 발음해보세요!");
       setWModalVisible((isWModalVisible) => {
         return !isWModalVisible;
