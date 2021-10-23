@@ -319,8 +319,8 @@ const styles = StyleSheet.create({
     fontFamily: "Cafe24Ssurround",
   },
   button: {
-    width: 200,
-    height: 200,
+    width: 160,
+    height: 160,
   },
   modal1: {
     display: "flex",
