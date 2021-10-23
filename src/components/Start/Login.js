@@ -18,11 +18,11 @@ import preURL from "../../preURL/preURL";
 import Icon from "react-native-vector-icons/Entypo";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { Svg, Path } from "react-native-svg";
-const ButtonRecord = Styled.Button``;
 import Logo from "../../assets/icons/Logo.png";
 import Icon2 from "react-native-vector-icons/Ionicons";
 import { login, logo } from "../../assets/icons/Character/Logo";
 import { icons, images } from "../../constants";
+import Orientation from "react-native-orientation";
 
 const Login = ({ navigation }) => {
   let cntrMargin = 0;
