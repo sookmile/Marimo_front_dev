@@ -113,6 +113,21 @@ const StoryMain = () => {
   const [userID, setUserID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  }, []);
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToPortrait();
+    }
+  };
+
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");
     const id = await AsyncStorage.getItem("userId");

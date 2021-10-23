@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import Orientation from "react-native-orientation";
 import styled from "styled-components";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 import { fontPercentage } from "../../constants/responsive";
 
 const StoryLoading = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const { userID, taleName } = route.params;
+  const statusBar = getStatusBarHeight();
+  const { width, height } = Dimensions.get("screen");
+  const screenHeight = width - statusBar;
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -22,7 +26,10 @@ const StoryLoading = ({ route, navigation }) => {
   const onOrientaionChange = (orientation) => {
     if (orientation === "LANDSCAPE-RIGHT") {
       console.log(orientation);
-      Orientation.lockToLandscapeLeft();
+      Orientation.lockToPortrait();
+    } else if (orientation === "LANDSCAPE") {
+      console.log(orientation);
+      Orientation.lockToPortrait();
     }
   };
 
@@ -74,7 +81,12 @@ const StoryLoading = ({ route, navigation }) => {
           <TouchableOpacity
             style={[styles.selectAg, { marginBottom: 20 }]}
             onPress={() => {
-              navigation.navigate("Story1", { userID: userID }), postResult();
+              navigation.navigate("Story1", {
+                userID: userID,
+                statusBar: statusBar,
+                screenHeight: screenHeight,
+              }),
+                postResult();
             }}
           >
             <Text style={styles.btnText}>계속 모험을 진행할래요!</Text>
