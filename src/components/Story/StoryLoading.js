@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 import Orientation from "react-native-orientation";
 import styled from "styled-components";
 import axios from "axios";
@@ -12,7 +19,7 @@ const StoryLoading = ({ route, navigation }) => {
   const [response, setResponse] = useState("");
   const { userID, taleName } = route.params;
   const statusBar = getStatusBarHeight();
-  const { width, height } = Dimensions.get("screen");
+  const { height, width } = useWindowDimensions();
   const screenHeight = width - statusBar;
 
   useEffect(() => {
