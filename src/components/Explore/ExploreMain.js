@@ -13,7 +13,7 @@ import {
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
 import { COLORS, SIZES, navTabIcons } from "../../constants";
-import Icon from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import {
   fontPercentage,
@@ -342,15 +342,8 @@ const ExploreMain = ({ navigation }) => {
             marginTop: -11,
           }}
         >
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => showAlert()}
-          >
-            <Icon
-              name="x"
-              size={windowWidth < windowHeight ? wp(3.5) : hp(3.5)}
-              color="white"
-            />
+          <Pressable onPress={() => showAlert()}>
+            <Icon name="close-circle" size={33} color={"#F66C6C"} />
           </Pressable>
         </View>
       </View>
@@ -409,7 +402,7 @@ const ExploreMain = ({ navigation }) => {
         </View>
       </View>
       <View style={{ flex: 1, marginHorizontal: "6%" }}>
-        <View style={{ flex: 1, marginTop: "7%" }}>
+        <View style={{ marginTop: "7%" }}>
           <View>
             <Text style={styles.titleText}>
               찰칵, 카메라를 눌러서 찾아봐요!

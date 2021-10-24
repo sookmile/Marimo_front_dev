@@ -161,9 +161,8 @@ const Home = () => {
     };
   }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE-RIGHT") {
-      console.log(orientation);
-      Orientation.lockToLandscapeLeft();
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
     }
   };
 
@@ -224,6 +223,7 @@ const Home = () => {
           >
             <View
               style={{
+                flex: 1,
                 display: "flex",
                 marginBottom: "10%",
                 justifyContent: "space-between",
