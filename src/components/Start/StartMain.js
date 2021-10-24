@@ -62,14 +62,14 @@ const StartMain = ({ navigation }) => {
 
   useEffect(() => {
     Orientation.lockToPortrait();
-    Orientation.addOrientationListener(onOrientaionChange);
+    Orientation.addOrientationListener(onOrientationDidChange);
     return () => {
       Orientation.unlockAllOrientations(),
-        Orientation.removeOrientationListener(onOrientaionChange);
+        Orientation.removeOrientationListener(onOrientationDidChange);
     };
-  });
-  const onOrientaionChange = (orientation) => {
-    if (orientation === "PORTRAIT") {
+  }, []);
+  const onOrientationDidChange = (orientation) => {
+    if (orientation === "LANDSCAPE") {
       Orientation.lockToPortrait();
     }
   };
