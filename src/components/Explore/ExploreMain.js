@@ -97,26 +97,6 @@ const ListItem2 = ({ item }) => {
   );
 };
 
-const postDeleteItem = async (photoId, userId) => {
-  let dataToSend = {
-    userId: userId,
-    photoId,
-    photoId,
-  };
-  axios
-    .post(preURL + "/image/delete", dataToSend)
-    .then(async (res) => {
-      const response = res.data;
-      console.log("삭제 여부: ", response);
-      alert("사진을 삭제했습니다");
-      return response;
-    })
-    .catch((err) => {
-      alert("삭제과정에서 오류가 발생했습니다!");
-      console.log(err);
-    });
-};
-
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
   background: #f5e7f8;
@@ -259,13 +239,36 @@ const ExploreMain = ({ navigation }) => {
   const ListItem = ({ item, userId }) => {
     const navigation = useNavigation();
 
+    const postDeleteItem = async (photoId, userId) => {
+      let dataToSend = {
+        userId: userId,
+        photoId,
+        photoId,
+      };
+      axios
+        .post(preURL + "/image/delete", dataToSend)
+        .then(async (res) => {
+          const response = res.data;
+          console.log("삭제 여부: ", response);
+          alert("사진을 삭제했습니다");
+          return response;
+        })
+        .catch((err) => {
+          alert("삭제과정에서 오류가 발생했습니다!");
+          console.log(err);
+        });
+    };
+
     // 삭제 핸들러
     const deleteHandler = async (photoId, userId) => {
       console.log("사진 아이디: ", photoId);
       console.log("사용자 아이디: ", userId);
       postDeleteItem(photoId, userId);
       const userMemory = await getUserMemory(userId);
-      setUserData(userMemory);
+      if (userMemory) {
+        setUserData(userMemory);
+      }
+      setLoading(false);
     };
 
     // 삭제 여부 묻는 모달
