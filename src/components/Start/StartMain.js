@@ -68,12 +68,14 @@ const StartMain = ({ navigation }) => {
         Orientation.removeOrientationListener(onOrientationDidChange);
     };
   }, []);
+
   const onOrientationDidChange = (orientation) => {
     if (orientation === "LANDSCAPE") {
       Orientation.lockToPortrait();
+
     }
   };
-
+  
   const naverLogout = () => {
     NaverLogin.logout();
     setNaverToken("");
