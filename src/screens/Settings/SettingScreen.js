@@ -33,20 +33,20 @@ function SettingScreen({ navigation }) {
   const [darkMode, setDarkMode] = useState(true);
 
   const alarmToggleSwitch = () => setAlarm((previousState) => !previousState);
-  const darkModeToggleSwitch = () => setDarkMode((previousState) => !previousState);
+  const darkModeToggleSwitch = () =>
+    setDarkMode((previousState) => !previousState);
 
   useEffect(() => {
     Orientation.lockToPortrait();
-    Orientation.addOrientationListener(onOrientaionChange);
+    Orientation.addOrientationListener(onOrientationDidChange);
     return () => {
-      Orientation.unlockAllOrientations(),
-        Orientation.removeOrientationListener(onOrientaionChange);
+      Orientation.unlockAllOrientations();
+      Orientation.removeOrientationListener(onOrientationDidChange);
     };
   }, []);
-  const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE-RIGHT") {
-      console.log(orientation);
-      Orientation.lockToLandscapeLeft();
+  const onOrientationDidChange = (orientation) => {
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
     }
   };
 
@@ -146,7 +146,7 @@ function SettingScreen({ navigation }) {
             style={{
               height: "10%",
               display: "flex",
-              justifyContent: "center",              
+              justifyContent: "center",
             }}
           >
             <SettingText height={height}>설정</SettingText>

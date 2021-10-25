@@ -386,7 +386,7 @@ const Login = ({ navigation }) => {
               뭐니?
             </IntroText>
           </View>
-          <Cntr >
+          <Cntr>
             <View
               style={{
                 width: "100%",

@@ -45,7 +45,7 @@ const ItemButton = styled.View`
 
 const ItemBox = styled.TouchableOpacity`
   width: 100%;
-  height: 100%;
+  height: 90%;
   elevation: 3;
   border-width: 0.0125;
   margin-right: 10%;
@@ -161,9 +161,8 @@ const Home = () => {
     };
   }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE-RIGHT") {
-      console.log(orientation);
-      Orientation.lockToLandscapeLeft();
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
     }
   };
 

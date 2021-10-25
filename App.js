@@ -99,7 +99,7 @@ const App = () => {
         <MainStack.Screen
           name="SpellingGameContainer"
           component={SpellingGameContainer}
-          options={{ headerShown: true, title: "냠냠 맛있는 모음게임임" }}
+          options={{ headerShown: true, title: "냠냠 맛있는 모음게임" }}
         />
         <MainStack.Screen
           name="SpellingGame"
