@@ -265,7 +265,10 @@ const ExploreMain = ({ navigation }) => {
       console.log("사용자 아이디: ", userId);
       postDeleteItem(photoId, userId);
       const userMemory = await getUserMemory(userId);
-      setUserData(userMemory);
+      if (userMemory) {
+        setUserData(userMemory);
+      }
+      setLoading(false);
     };
 
     // 삭제 여부 묻는 모달
