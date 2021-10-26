@@ -123,7 +123,7 @@ const StoryOne = ({ navigation, route }) => {
               height: screenHeight,
               marginTop: statusBar,
             }}
-            resizeMode="cover"
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -290,7 +290,9 @@ const StoryOne = ({ navigation, route }) => {
             style={{
               width: "100%",
               height: screenHeight,
+              marginTop: statusBar,
             }}
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
@@ -482,7 +484,9 @@ const StoryOne = ({ navigation, route }) => {
             style={{
               width: "100%",
               height: screenHeight,
+              marginTop: statusBar,
             }}
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <View style={styles.navBox}>
@@ -520,7 +524,9 @@ const StoryOne = ({ navigation, route }) => {
             style={{
               width: "100%",
               height: screenHeight,
+              marginTop: statusBar,
             }}
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
