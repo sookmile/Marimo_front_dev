@@ -267,17 +267,27 @@ const Practice = ({ route, navigation }) => {
             />
           </TouchableOpacity>
         </Modal>
-        <Modal isVisible={isWModalVisible} style={styles.modal2}>
-          <Image
-            style={styles.cloud}
-            source={require("../../assets/cloud.png")}
-          />
-          <View>
-            <Text style={styles.feedback}>{feedback}</Text>
+        <Modal
+          isVisible={isWModalVisible}
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View style={styles.modal2}>
+            <Image
+              style={styles.cloud}
+              source={require("../../assets/cloud.png")}
+            />
+            <View>
+              <Text style={styles.feedback}>{feedback}</Text>
+            </View>
+            <TouchableOpacity onPress={closeWModal}>
+              <Text style={styles.close}>닫기</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={closeWModal}>
-            <Text style={styles.close}>닫기</Text>
-          </TouchableOpacity>
         </Modal>
       </ImageBackground>
     </View>
@@ -330,9 +340,8 @@ const styles = StyleSheet.create({
   },
   modal2: {
     flex: 1,
-    width: "50%",
-    marginLeft: "25%",
-    padding: 7,
+    width: "70%",
+    padding: 5,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -348,7 +357,7 @@ const styles = StyleSheet.create({
   cloud: {
     width: 155,
     height: 105,
-    marginBottom: "7%",
+    marginBottom: "5%",
   },
   feedback: {
     fontSize: 25,
@@ -361,7 +370,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
-    marginBottom: "2%",
-    marginTop: "0%",
+    marginTop: "5%",
   },
 });
