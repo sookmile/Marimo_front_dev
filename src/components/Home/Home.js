@@ -140,12 +140,11 @@ const ContentTitle = styled.Text`
 `;
 
 const ContentText = styled.Text`
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
   font-weight: ${(props) => (props.isTitle ? "700" : "400")};
   margin-bottom: ${(props) => (props.isTitle ? 15 : 0)};
-  font-size: 14px;
-  line-height: 23px;
   color: #434141;
+  line-height: 23px;
 `;
 
 const Home = () => {

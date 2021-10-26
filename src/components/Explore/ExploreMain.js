@@ -327,7 +327,7 @@ const ExploreMain = ({ navigation }) => {
                 style={{
                   fontSize: fontPercentage(18),
                   paddingLeft: 30,
-                  fontFamily: "Noto Sans CJK KR",
+                  fontFamily: "NotoSansCJKkr-Regular",
                 }}
                 numberOfLines={1}
                 ellipsizeMode="tail"
@@ -475,7 +475,9 @@ const ExploreMain = ({ navigation }) => {
                   <Text
                     style={{
                       fontSize: fontPercentage(14),
-                      fontFamily: "Noto Sans CJK KR",
+                      fontFamily: "NotoSansCJKkr-Regular",
+                      marginBottom: 0,
+                      lineHeight: 23,
                     }}
                   >
                     추천 연령: 3~7세
@@ -621,7 +623,7 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.padding,
   },
   titleText: {
-    color: COLORS.darkGray,
+    color: "#464D46",
     fontFamily: "Cafe24Ssurround",
     fontSize: fontPercentage(22),
   },

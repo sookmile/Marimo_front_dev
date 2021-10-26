@@ -6,12 +6,26 @@ function Details({ route }) {
   const { licenseUrl, licenses, parents, repository, name } = route.params;
   return (
     <Card>
-      <Card.Title>LICENSE</Card.Title>
+      <Card.Title
+        style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
+      >
+        LICENSE
+      </Card.Title>
       <Card.Divider />
-      <Text>{licenseUrl}</Text>
-      {licenses && <Text>{licenses}</Text>}
-      <Text>{parents}</Text>
-      <Text>{repository}</Text>
+      <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
+        {licenseUrl}
+      </Text>
+      {licenses && (
+        <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
+          {licenses}
+        </Text>
+      )}
+      <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
+        {parents}
+      </Text>
+      <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
+        {repository}
+      </Text>
     </Card>
   );
 }
