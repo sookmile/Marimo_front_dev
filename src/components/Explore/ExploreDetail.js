@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: 34,
     lineHeight: 38,
-    fontWeight: "700",
+    fontFamily: "NanumSquareRoundB",
   },
   container_button: {
     flex: 1,
@@ -317,6 +317,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "NotoSansCJKkr-Regular",
   },
   modalText: {
     marginBottom: 15,

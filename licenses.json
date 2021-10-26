@@ -113,6 +113,12 @@
     "licenseUrl": "https://github.com/bgryszko/react-native-circular-progress/raw/master/LICENSE",
     "parents": "Marimo"
   },
+  "react-native-elements@3.4.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/react-native-elements/react-native-elements",
+    "licenseUrl": "https://github.com/react-native-elements/react-native-elements/raw/master/LICENSE",
+    "parents": "Marimo"
+  },
   "react-native-gesture-handler@1.10.3": {
     "licenses": "MIT",
     "repository": "https://github.com/software-mansion/react-native-gesture-handler",
@@ -197,6 +203,12 @@
     "licenseUrl": "https://github.com/crazycodeboy/react-native-splash-screen/raw/master/LICENSE",
     "parents": "Marimo"
   },
+  "react-native-status-bar-height@2.6.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ovr/react-native-status-bar-height",
+    "licenseUrl": "https://github.com/ovr/react-native-status-bar-height/raw/master/LICENSE",
+    "parents": "Marimo"
+  },
   "react-native-svg-charts@5.4.0": {
     "licenses": "MIT",
     "repository": "https://github.com/JesperLekland/react-native-svg-charts",
@@ -261,6 +273,54 @@
     "licenses": "MIT",
     "repository": "https://github.com/styled-components/styled-components",
     "licenseUrl": "https://github.com/styled-components/styled-components",
+    "parents": "Marimo"
+  },
+  "Wormies": {
+    "license": "Icons by Ayesha Rana",
+    "repository": "https://ayesharana.com",
+    "licenseUrl": "https://blush.design/license",
+    "parents": "Marimo"
+  },
+  "Cloud": {
+    "license": "Icons made by Freepik from www.flaticon.com",
+    "repository": "https://www.freepik.com",
+    "licenseUrl": "https://www.freepik.com",
+    "parents": "Marimo"
+  },
+  "Puzzle": {
+    "license": "Icons made by Freepik from www.flaticon.com",
+    "repository": "https://www.freepik.com",
+    "licenseUrl": "https://www.freepik.com",
+    "parents": "Marimo"
+  },
+  "Book Stack": {
+    "license": "Icons made by Smashicons from www.flaticon.com",
+    "repository": "https://www.flaticon.com/authors/smashicons",
+    "licenseUrl": "https://www.freepik.com",
+    "parents": "Marimo"
+  },
+  "Camera": {
+    "license": "Icons made by Freepik from www.flaticon.com",
+    "repository": "https://www.freepik.com",
+    "licenseUrl": "https://www.freepik.com",
+    "parents": "Marimo"
+  },
+  "Game experience level increased": {
+    "license": "Sound effect made by mixkit",
+    "repository": "https://mixkit.co/free-sound-effects/",
+    "licenseUrl": "https://mixkit.co/license/#sfxFree",
+    "parents": "Marimo"
+  },
+  "Unlock game notification": {
+    "license": "Sound effect made by mixkit",
+    "repository": "https://mixkit.co/free-sound-effects/",
+    "licenseUrl": "https://mixkit.co/license/#sfxFree",
+    "parents": "Marimo"
+  },
+  "Small hit in a game": {
+    "license": "Sound effect made by mixkit",
+    "repository": "https://mixkit.co/free-sound-effects/",
+    "licenseUrl": "https://mixkit.co/license/#sfxFree",
     "parents": "Marimo"
   }
 }

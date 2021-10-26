@@ -5,6 +5,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { widthPercentage } from "../../constants/responsive";
 
 export default class BouncingComponent extends Component {
   state = {
@@ -40,8 +41,8 @@ export default class BouncingComponent extends Component {
 
 const style = StyleSheet.create({
   icons: {
-    width: 130,
-    height: 130,
+    width: widthPercentage(110),
+    height: widthPercentage(110),
     position: "relative",
     left: "1%",
     marginBottom: 10,

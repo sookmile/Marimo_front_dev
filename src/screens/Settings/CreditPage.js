@@ -9,16 +9,28 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
+import { ListItem } from "react-native-elements";
 
 export default class CreditPage extends Component {
   renderItem(item) {
-    console.log(item);
     return (
-      <View style={styles.item}>
-        <TouchableOpacity onPress={item.onPress}>
-          <Text style={styles.title}>{item.name}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={item.onPress}>
+        <ListItem key={item.title} bottomDivider>
+          <ListItem.Content>
+            <ListItem.Title
+              style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
+            >
+              {item.name}
+            </ListItem.Title>
+            <ListItem.Subtitle
+              style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
+            >
+              {item.version}
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </TouchableOpacity>
     );
   }
   render() {
@@ -48,6 +60,7 @@ export default class CreditPage extends Component {
             return this.renderItem(item);
           }}
           keyExtractor={(item, index) => index.toString()}
+          // ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     );
@@ -56,15 +69,19 @@ export default class CreditPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   item: {
-    backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
+    fontFamily: "NanumSquareRoundB",
+  },
+  seperator: {
+    height: 1,
+    width: "100%",
+    backgroundColor: "#000",
   },
 });

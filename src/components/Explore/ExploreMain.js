@@ -13,7 +13,7 @@ import {
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
 import { COLORS, SIZES, navTabIcons } from "../../constants";
-import Icon from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import {
   fontPercentage,
@@ -95,26 +95,6 @@ const ListItem2 = ({ item }) => {
       </ContnetSubCntr>
     </View>
   );
-};
-
-const postDeleteItem = async (photoId, userId) => {
-  let dataToSend = {
-    userId: userId,
-    photoId,
-    photoId,
-  };
-  axios
-    .post(preURL + "/image/delete", dataToSend)
-    .then(async (res) => {
-      const response = res.data;
-      console.log("삭제 여부: ", response);
-      alert("사진을 삭제했습니다");
-      return response;
-    })
-    .catch((err) => {
-      alert("삭제과정에서 오류가 발생했습니다!");
-      console.log(err);
-    });
 };
 
 const ContnetSubCntr = styled.TouchableOpacity`
@@ -259,13 +239,36 @@ const ExploreMain = ({ navigation }) => {
   const ListItem = ({ item, userId }) => {
     const navigation = useNavigation();
 
+    const postDeleteItem = async (photoId, userId) => {
+      let dataToSend = {
+        userId: userId,
+        photoId,
+        photoId,
+      };
+      axios
+        .post(preURL + "/image/delete", dataToSend)
+        .then(async (res) => {
+          const response = res.data;
+          console.log("삭제 여부: ", response);
+          alert("사진을 삭제했습니다");
+          return response;
+        })
+        .catch((err) => {
+          alert("삭제과정에서 오류가 발생했습니다!");
+          console.log(err);
+        });
+    };
+
     // 삭제 핸들러
     const deleteHandler = async (photoId, userId) => {
       console.log("사진 아이디: ", photoId);
       console.log("사용자 아이디: ", userId);
       postDeleteItem(photoId, userId);
       const userMemory = await getUserMemory(userId);
-      setUserData(userMemory);
+      if (userMemory) {
+        setUserData(userMemory);
+      }
+      setLoading(false);
     };
 
     // 삭제 여부 묻는 모달
@@ -342,15 +345,8 @@ const ExploreMain = ({ navigation }) => {
             marginTop: -11,
           }}
         >
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => showAlert()}
-          >
-            <Icon
-              name="x"
-              size={windowWidth < windowHeight ? wp(3.5) : hp(3.5)}
-              color="white"
-            />
+          <Pressable onPress={() => showAlert()}>
+            <Icon name="close-circle" size={33} color={"#F66C6C"} />
           </Pressable>
         </View>
       </View>
@@ -409,7 +405,7 @@ const ExploreMain = ({ navigation }) => {
         </View>
       </View>
       <View style={{ flex: 1, marginHorizontal: "6%" }}>
-        <View style={{ flex: 1, marginTop: "7%" }}>
+        <View style={{ marginTop: "7%" }}>
           <View>
             <Text style={styles.titleText}>
               찰칵, 카메라를 눌러서 찾아봐요!
@@ -480,6 +476,9 @@ const ExploreMain = ({ navigation }) => {
                     style={{
                       fontSize: fontPercentage(14),
                       fontFamily: "NotoSansCJKkr-Regular",
+                      marginBottom: 0,
+                      lineHeight: 23,
+
                     }}
                   >
                     추천 연령: 3~7세
@@ -625,7 +624,7 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.padding,
   },
   titleText: {
-    color: COLORS.darkGray,
+    color: "#464D46",
     fontFamily: "Cafe24Ssurround",
     fontSize: fontPercentage(22),
   },

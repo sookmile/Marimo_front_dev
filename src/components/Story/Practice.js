@@ -25,7 +25,8 @@ const Practice = ({ route, navigation }) => {
   const [feedback, setFeedback] = useState("");
   const [URI, setURI] = useState("");
 
-  const { userID, oWord, LastPage, taleName } = route.params;
+  const { userID, oWord, LastPage, taleName, statusBar, screenHeight } =
+    route.params;
 
   // ID 받아오기
   // const getUserId = () => {
@@ -219,7 +220,11 @@ const Practice = ({ route, navigation }) => {
               paddingTop: 5,
             }}
             onPress={() => {
-              navigation.navigate("Story1", { userID: userID });
+              navigation.navigate("Story1", {
+                userID: userID,
+                statusBar: statusBar,
+                screenHeight: screenHeight,
+              });
             }}
           >
             이전
@@ -315,8 +320,8 @@ const styles = StyleSheet.create({
     fontFamily: "Cafe24Ssurround",
   },
   button: {
-    width: 200,
-    height: 200,
+    width: 160,
+    height: 160,
   },
   modal1: {
     display: "flex",
