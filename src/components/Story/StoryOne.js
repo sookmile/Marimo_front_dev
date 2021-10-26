@@ -113,7 +113,6 @@ const StoryOne = ({ navigation, route }) => {
             width: "100%",
             height: "100%",
             justifyContent: "flex-end",
-            backgroundColor: "#EDC59E",
           }}
         >
           <ImageBackground
@@ -270,7 +269,6 @@ const StoryOne = ({ navigation, route }) => {
             width: "100%",
             height: "100%",
             justifyContent: "flex-end",
-            backgroundColor: "#F2E3AC",
           }}
         >
           <ImageBackground
@@ -445,7 +443,6 @@ const StoryOne = ({ navigation, route }) => {
             width: "100%",
             height: "100%",
             justifyContent: "flex-end",
-            backgroundColor: "#FDF1F4",
           }}
         >
           <ImageBackground
@@ -484,7 +481,6 @@ const StoryOne = ({ navigation, route }) => {
             width: "100%",
             height: "100%",
             justifyContent: "flex-end",
-            backgroundColor: "#FDF1F4",
           }}
         >
           <ImageBackground
