@@ -154,7 +154,7 @@ const StoryMain = () => {
   const SECTIONS3 = [
     {
       key: "1",
-      text: "호랑이의 생일잔치",
+      text: "호랑이의 생일 잔치",
       age: "6~7",
       src: require("../../assets/images/story/Story1Page1.png"),
       number: 50,
