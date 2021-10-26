@@ -140,7 +140,7 @@ const ContentTexts = styled.View`
   width: 65%;
 `;
 const ContentTitle = styled.Text`
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
   margin-bottom: 15;
   font-size: 15px;
   color: #000000;
@@ -148,7 +148,7 @@ const ContentTitle = styled.Text`
 `;
 
 const ContentText = styled.Text`
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
   font-weight: ${(props) => (props.isTitle ? "700" : "400")};
   margin-bottom: ${(props) => (props.isTitle ? 15 : 0)};
   font-size: 14px;
@@ -324,7 +324,7 @@ const ExploreMain = ({ navigation }) => {
                 style={{
                   fontSize: fontPercentage(18),
                   paddingLeft: 30,
-                  fontFamily: "Noto Sans CJK KR",
+                  fontFamily: "NotoSansCJKkr-Regular",
                 }}
                 numberOfLines={1}
                 ellipsizeMode="tail"
@@ -479,7 +479,7 @@ const ExploreMain = ({ navigation }) => {
                   <Text
                     style={{
                       fontSize: fontPercentage(14),
-                      fontFamily: "Noto Sans CJK KR",
+                      fontFamily: "NotoSansCJKkr-Regular",
                     }}
                   >
                     추천 연령: 3~7세
