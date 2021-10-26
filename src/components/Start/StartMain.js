@@ -74,7 +74,7 @@ const StartMain = ({ navigation }) => {
       Orientation.lockToLandscapeLeft();
     }
   };
-  
+
   const naverLogout = () => {
     NaverLogin.logout();
     setNaverToken("");
@@ -309,5 +309,7 @@ const BtnText = Styled.Text`
   color:white;
   font-size: 18px;
   letter-spacing: -0.408px;
+  font-family: Noto Sans CJK KR;
+
 `;
 export default StartMain;

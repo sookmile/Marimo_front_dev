@@ -33,7 +33,8 @@ function SettingScreen({ navigation }) {
   const [darkMode, setDarkMode] = useState(true);
 
   const alarmToggleSwitch = () => setAlarm((previousState) => !previousState);
-  const darkModeToggleSwitch = () => setDarkMode((previousState) => !previousState);
+  const darkModeToggleSwitch = () =>
+    setDarkMode((previousState) => !previousState);
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -146,7 +147,7 @@ function SettingScreen({ navigation }) {
             style={{
               height: "10%",
               display: "flex",
-              justifyContent: "center",              
+              justifyContent: "center",
             }}
           >
             <SettingText height={height}>설정</SettingText>
@@ -359,15 +360,18 @@ const VersionText = styled.Text`
   left: 20;
   font-size: 14;
   color: #555555;
+  font-family: Noto Sans CJK KR;
 `;
 const SettingText = styled.Text`
   font-size: 25;
   align-items: center;
   font-weight: bold;
+  font-family: Noto Sans CJK KR;
 `;
 const Cntr = styled.View`
   display: flex;
   justify-content: center;
+  font-family: Noto Sans CJK KR;
 `;
 const ContentText = styled.Text`
   font-size: 18;
@@ -376,6 +380,7 @@ const ContentText = styled.Text`
   border-top-color: #dedede;
   color: gray;
   margin-bottom: 12;
+  font-family: Noto Sans CJK KR;
 `;
 const CloseBtn = styled.TouchableOpacity`
   position: absolute;
@@ -390,7 +395,7 @@ const CloseBtn = styled.TouchableOpacity`
 `;
 
 const CloseText = styled.Text`
-  font-family: NanumSquareRound;
+  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: bold;
   font-size: 17px;
@@ -440,7 +445,7 @@ const ChImage = styled(Image)`
 `;
 
 const UserName = styled.Text`
-  font-family: NanumSquareRound;
+  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -450,7 +455,7 @@ const UserName = styled.Text`
 `;
 
 const UserRegister = styled.Text`
-  font-family: NanumSquareRound;
+  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;

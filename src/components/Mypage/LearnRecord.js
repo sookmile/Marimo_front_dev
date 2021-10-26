@@ -664,11 +664,6 @@ const Btn = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
-const BtnText = styled.Text`
-  color: white;
-  font-size: 18px;
-  letter-spacing: -0.408px;
-`;
 
 const Cntr = styled.View`
   width: 100%;
@@ -683,10 +678,6 @@ const BackCntr = styled.TouchableOpacity`
   margin-bottom: 25px;
 `;
 
-const BackIcon = styled.Text`
-  width: 120px;
-  font-size: 18px;
-`;
 
 const Container = styled.View`
   flex: 1;

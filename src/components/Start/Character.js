@@ -149,7 +149,6 @@ const ImageCntr = styled.TouchableOpacity`
   height: 100;
   border-radius: 63;
 `;
-const GoodsList = styled.View``;
 
 const GoodsCntr = styled.View`
   width: 97%;
@@ -164,7 +163,6 @@ const GoodsCntr = styled.View`
   border-color: #d67e7e;
 `;
 
-const ScrollView = styled.FlatList``;
 const BtnCntr = styled.View`
   width: 92%;
   height: 25%;
@@ -185,6 +183,7 @@ const BtnText = styled.Text`
   color: white;
   font-size: 18px;
   letter-spacing: -0.408px;
+  font-family: Noto Sans CJK KR;
 `;
 
 const Cntr = styled.View`
@@ -213,10 +212,6 @@ const BackCntr = styled.TouchableOpacity`
   flex-direction: row;
 `;
 
-const BackIcon = styled.Text`
-  width: 25%;
-  font-size: 18px;
-`;
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -229,10 +224,12 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 2%;
   line-height: 40px;
+  font-family: Noto Sans CJK KR;
 `;
 const AppName = styled.Text`
   font-size: 22px;
   color: #f66c6c;
+  font-family: Noto Sans CJK KR;
 `;
 
 const CharacterName = styled.Text`
@@ -240,4 +237,6 @@ font-size: 16px;
 line-height: 23.5
 color: #191919;
 margin-top: 10;
+font-family: Noto Sans CJK KR;
+
 `;
