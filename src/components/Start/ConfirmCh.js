@@ -151,7 +151,6 @@ const BtnText = styled.Text`
   color: white;
   font-size: 18px;
   letter-spacing: -0.408px;
-  font-family: NotoSansCJKkr-Regular;
 `;
 
 const Cntr = styled.View`
@@ -179,7 +178,6 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 2%;
   line-height: 40px;
-  font-family: NotoSansCJKkr-Regular;
 `;
 const AppName = styled.Text`
   font-size: 22px;
