@@ -541,7 +541,6 @@ const ContentTexts = styled.View`
   padding-horizontal: 3.5%;
 `;
 const GradeText = styled.Text`
-font-family: NotoSansCJKkr-Regular;
 font-style: normal;
   font-weight: bold;
   font-size: 28px;
@@ -575,7 +574,6 @@ const UserRegister = styled.Text`
 
 const ContentText = styled.Text`
   width: 100%;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: ${(props) => (props.isTitle ? "700" : "400")};
   margin-bottom: ${(props) => (props.isTitle ? 15 : 0)};
   font-size: 14px;
@@ -583,7 +581,6 @@ const ContentText = styled.Text`
   color: #434141;
 `;
 const ContentDiffWord = styled.Text`
-font-family: NotoSansCJKkr-Regular;
 font-weight: bold;
   margin-bottom: 3;
   font-size: 20px;
@@ -593,7 +590,6 @@ font-weight: bold;
 
 const ContentTitle = styled.Text`
   width: 100%;
-  font-family: NotoSansCJKkr-Regular;
   margin-bottom: 15;
   font-weight: bold;
   font-size: 15px;
@@ -603,7 +599,6 @@ const ContentTitle = styled.Text`
 `;
 
 const ResultText = styled.Text`
-  font-family: NotoSansCJKkr-Regular;
   font-weight: ${(props) => (props.isSmall ? "400" : "bold")};
   font-size: ${(props) =>
     props.isSmall ? "14px" : props.isMiddle ? "20px" : "24px"};
@@ -614,7 +609,6 @@ const ResultText = styled.Text`
 const ContentExp = styled.Text`
   width: 100%;
   color: #f2f2f2;
-  font-family: NotoSansCJKkr-Regular;
   font-style: normal;
   font-weight: 700;
   font-size: 18px;

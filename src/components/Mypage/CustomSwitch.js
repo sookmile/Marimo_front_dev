@@ -47,7 +47,7 @@ const CustomSwitch = ({
           <Text
             style={{
               color: getSelectionMode == 1 ? "black" : "#E9E9E9",
-              fontFamily: "NotoSansCJKkr-Regular",
+              fontFamily: "Noto Sans CJK KR",
               fontWeight: "700",
               fontSize: 15,
               lineHeight: 22,
@@ -72,7 +72,7 @@ const CustomSwitch = ({
           <Text
             style={{
               color: getSelectionMode == 2 ? "black" : "#E9E9E9",
-              fontFamily: "NotoSansCJKkr-Regular",
+              fontFamily: "Noto Sans CJK KR",
               fontWeight: "700",
               fontSize: 15,
               lineHeight: 22,

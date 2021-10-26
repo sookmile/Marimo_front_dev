@@ -51,28 +51,27 @@ export const FONTS = {
   h3: { fontFamily: "Cafe24Ssurround", fontSize: SIZES.h3, lineHeight: 22 },
   h4: { fontFamily: "Cafe24Ssurround", fontSize: SIZES.h4, lineHeight: 22 },
   body1: {
-    fontFamily: "NotoSansCJKkr-Regular",
+    fontFamily: "Noto Sans CJK KR",
     fontSize: SIZES.body1,
     lineHeight: 36,
   },
   body2: {
-    fontFamily: "NotoSansCJKkr-Regular",
+    fontFamily: "Noto Sans CJK KR",
     fontSize: SIZES.body2,
     lineHeight: 30,
   },
   body3: {
-    fontFamily: "NotoSansCJKkr-Regular",
+    fontFamily: "Noto Sans CJK KR",
     fontSize: SIZES.body3,
     lineHeight: 22,
   },
   body4: {
-    fontFamily: "NotoSansCJKkr-Regular",
+    fontFamily: "Noto Sans CJK KR",
     fontSize: SIZES.body4,
     lineHeight: 22,
   },
   body5: {
-    fontFamily: "NotoSansCJKkr-Regular",
-
+    fontFamily: "Noto Sans CJK KR",
     fontSize: SIZES.body5,
     lineHeight: 22,
   },
