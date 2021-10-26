@@ -798,7 +798,11 @@ function SpellingGame({ route, navigation }) {
                 height: windowWidth < windowHeight ? hp(20) : wp(20),
               }}
             >
-              <Image width="100%" height="100%" source={characterImg} />
+              <Image
+                style={{ width: "100%", height: "100%" }}
+                source={characterImg}
+                resizeMode="contain"
+              />
             </Svg>
             {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
           </Animated.View>

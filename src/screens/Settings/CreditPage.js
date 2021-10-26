@@ -17,8 +17,16 @@ export default class CreditPage extends Component {
       <TouchableOpacity onPress={item.onPress}>
         <ListItem key={item.title} bottomDivider>
           <ListItem.Content>
-            <ListItem.Title>{item.name}</ListItem.Title>
-            <ListItem.Subtitle>{item.version}</ListItem.Subtitle>
+            <ListItem.Title
+              style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
+            >
+              {item.name}
+            </ListItem.Title>
+            <ListItem.Subtitle
+              style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
+            >
+              {item.version}
+            </ListItem.Subtitle>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -69,6 +77,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
+    fontFamily: "NanumSquareRoundB",
   },
   seperator: {
     height: 1,
