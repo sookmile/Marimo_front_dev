@@ -41,7 +41,7 @@ let music4 = new Sound(path4, null, (error) => {
 });
 
 const StoryOne = ({ navigation, route }) => {
-  const { userID } = route.params;
+  const { userID, statusBar, screenHeight } = route.params;
 
   console.log("ID:", userID);
 
@@ -119,16 +119,18 @@ const StoryOne = ({ navigation, route }) => {
             source={require("../../assets/images/story/Story1Page1.png")}
             style={{
               width: "100%",
-              height: "100%",
+              height: screenHeight,
+              marginTop: statusBar,
             }}
-            resizeMode="contain"
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
               style={{
                 width: 265,
                 height: 90,
-                top: "0%",
+                position: "absolute",
+                top: "-2%",
                 left: "32%",
                 borderRadius: 25,
                 display: "flex",
@@ -139,6 +141,8 @@ const StoryOne = ({ navigation, route }) => {
                 music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "침대",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -151,7 +155,8 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 290,
                 height: 120,
-                top: "40%",
+                position: "absolute",
+                top: "65%",
                 left: "27%",
                 borderRadius: 25,
                 display: "flex",
@@ -162,6 +167,8 @@ const StoryOne = ({ navigation, route }) => {
                 music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "이불",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -174,8 +181,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 80,
                 height: 80,
-                top: "0%",
-                left: "67%",
+                position: "absolute",
+                top: "50%",
+                left: "66%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -185,6 +193,8 @@ const StoryOne = ({ navigation, route }) => {
                 music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "시계",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -197,7 +207,8 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 70,
                 height: 70,
-                top: "-33%",
+                position: "absolute",
+                top: "55%",
                 left: "90%",
                 borderRadius: 25,
                 display: "flex",
@@ -208,6 +219,8 @@ const StoryOne = ({ navigation, route }) => {
                 music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "축구공",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -220,8 +233,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 120,
                 height: 70,
-                top: "-67%",
-                left: "73%",
+                position: "absolute",
+                top: "17%",
+                left: "72.5%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -231,6 +245,8 @@ const StoryOne = ({ navigation, route }) => {
                 music1.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "액자",
                   LastPage: 1,
                   taleName: "호랑이의 생일 잔치",
@@ -243,21 +259,17 @@ const StoryOne = ({ navigation, route }) => {
               <TouchableOpacity
                 onPress={() => {
                   music1.stop(() => console.log("music stop"));
-                  navigation.reset({
-                    routes: [
-                      { name: "StoryLoading", params: { userID: userID } },
-                    ],
-                  });
+                  navigation.navigate("StoryMain", { userID: userID });
                 }}
               >
-                <Text style={styles.navBoxText}> 이전 </Text>
+                <Text style={styles.navBoxText}> 이전</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(2);
                 }}
               >
-                <Text style={styles.navBoxText}> 다음</Text>
+                <Text style={styles.navBoxText}>다음 </Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -275,15 +287,17 @@ const StoryOne = ({ navigation, route }) => {
             source={require("../../assets/images/story/Story1Page2.png")}
             style={{
               width: "100%",
-              height: "100%",
+              height: screenHeight,
+              marginTop: statusBar,
             }}
-            resizeMode="contain"
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
               style={{
                 width: 130,
                 height: 230,
+                position: "absolute",
                 top: "1%",
                 left: "0%",
                 borderRadius: 25,
@@ -295,6 +309,8 @@ const StoryOne = ({ navigation, route }) => {
                 music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "냉장고",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -307,8 +323,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 80,
                 height: 80,
-                top: "20%",
-                left: "32.5%",
+                position: "absolute",
+                top: "75%",
+                left: "32%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -318,6 +335,8 @@ const StoryOne = ({ navigation, route }) => {
                 music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "사과",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -330,8 +349,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 80,
                 height: 80,
-                top: "-9%",
-                left: "52%",
+                position: "absolute",
+                top: "67%",
+                left: "51.5%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -341,6 +361,8 @@ const StoryOne = ({ navigation, route }) => {
                 music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "포도",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -353,8 +375,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 85,
                 height: 85,
-                top: "-27%",
-                left: "69%",
+                position: "absolute",
+                top: "70%",
+                left: "68.5%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -364,6 +387,8 @@ const StoryOne = ({ navigation, route }) => {
                 music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "수박",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -376,7 +401,8 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 80,
                 height: 80,
-                top: "-62%",
+                position: "absolute",
+                top: "54%",
                 left: "85%",
                 borderRadius: 25,
                 display: "flex",
@@ -387,6 +413,8 @@ const StoryOne = ({ navigation, route }) => {
                 music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "바나나",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -399,7 +427,8 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 85,
                 height: 90,
-                top: "-110%",
+                position: "absolute",
+                top: "20%",
                 left: "78.5%",
                 borderRadius: 25,
                 display: "flex",
@@ -410,6 +439,8 @@ const StoryOne = ({ navigation, route }) => {
                 music2.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "달력",
                   LastPage: 2,
                   taleName: "호랑이의 생일 잔치",
@@ -424,14 +455,14 @@ const StoryOne = ({ navigation, route }) => {
                   setPageNum(1);
                 }}
               >
-                <Text style={styles.navBoxText}>이전 </Text>
+                <Text style={styles.navBoxText}> 이전</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   setPageNum(3);
                 }}
               >
-                <Text style={styles.navBoxText}> 다음</Text>
+                <Text style={styles.navBoxText}>다음 </Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -449,9 +480,10 @@ const StoryOne = ({ navigation, route }) => {
             source={require("../../assets/images/story/Story1Page3.png")}
             style={{
               width: "100%",
-              height: "100%",
+              height: screenHeight,
+              marginTop: statusBar,
             }}
-            resizeMode="contain"
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <View style={styles.navBox}>
@@ -461,7 +493,7 @@ const StoryOne = ({ navigation, route }) => {
                   setPageNum(2);
                 }}
               >
-                <Text style={styles.navBoxText}>이전 </Text>
+                <Text style={styles.navBoxText}> 이전</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -469,7 +501,7 @@ const StoryOne = ({ navigation, route }) => {
                   setPageNum(4);
                 }}
               >
-                <Text style={styles.navBoxText}> 다음</Text>
+                <Text style={styles.navBoxText}>다음 </Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -487,15 +519,17 @@ const StoryOne = ({ navigation, route }) => {
             source={require("../../assets/images/story/Story1Page4.png")}
             style={{
               width: "100%",
-              height: "100%",
+              height: screenHeight,
+              marginTop: statusBar,
             }}
-            resizeMode="contain"
+            resizeMode="stretch"
           >
             <Text style={styles.pageIndex}>{pageNum}/4</Text>
             <TouchableOpacity
               style={{
                 width: 85,
                 height: 85,
+                position: "absolute",
                 top: "82%",
                 left: "16%",
                 borderRadius: 25,
@@ -507,6 +541,8 @@ const StoryOne = ({ navigation, route }) => {
                 music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "기차",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -519,8 +555,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 200,
                 height: 120,
-                top: "52%",
-                left: "31%",
+                position: "absolute",
+                top: "73%",
+                left: "30.7%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -530,6 +567,8 @@ const StoryOne = ({ navigation, route }) => {
                 music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "자전거",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -542,8 +581,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 85,
                 height: 85,
-                top: "-11%",
-                left: "61%",
+                position: "absolute",
+                top: "40%",
+                left: "60.5%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -553,6 +593,8 @@ const StoryOne = ({ navigation, route }) => {
                 music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "색연필",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -565,8 +607,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 80,
                 height: 50,
-                top: "12%",
-                left: "61%",
+                position: "absolute",
+                top: "86.5%",
+                left: "60.5%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -576,6 +619,8 @@ const StoryOne = ({ navigation, route }) => {
                 music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "도토리",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -588,8 +633,9 @@ const StoryOne = ({ navigation, route }) => {
               style={{
                 width: 85,
                 height: 85,
-                top: "-30%",
-                left: "75%",
+                position: "absolute",
+                top: "53%",
+                left: "73.5%",
                 borderRadius: 25,
                 display: "flex",
                 justifyContent: "center",
@@ -599,6 +645,8 @@ const StoryOne = ({ navigation, route }) => {
                 music4.stop(() => console.log("music stop"));
                 navigation.navigate("Practice", {
                   userID: userID,
+                  statusBar: statusBar,
+                  screenHeight: screenHeight,
                   oWord: "장갑",
                   LastPage: 4,
                   taleName: "호랑이의 생일 잔치",
@@ -614,7 +662,7 @@ const StoryOne = ({ navigation, route }) => {
                   setPageNum(3);
                 }}
               >
-                <Text style={styles.navBoxText}>이전 </Text>
+                <Text style={styles.navBoxText}> 이전</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -622,7 +670,7 @@ const StoryOne = ({ navigation, route }) => {
                   setPageNum(5);
                 }}
               >
-                <Text style={styles.navBoxText}> 다음</Text>
+                <Text style={styles.navBoxText}>다음 </Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -644,8 +692,8 @@ const styles = StyleSheet.create({
   pageIndex: {
     position: "absolute",
     width: 45,
-    top: "6.5%",
-    left: "1.5%",
+    top: "3%",
+    left: "1.%",
     backgroundColor: "white",
     textAlign: "center",
     padding: 7,

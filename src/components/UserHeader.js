@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
-    height: "70%",
+    height: "65%",
   },
   boxText: {
     fontFamily: "NanumSquareRoundB",
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   mainLogo: {
-    width: "35%",
+    width: 80,
   },
   logo: {
     width: widthPercentage(45),

@@ -100,7 +100,7 @@ const ContentTitle = styled.Text`
 `;
 
 const ContentText = styled.Text`
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
   font-weight: ${(props) => (props.isTitle ? "700" : "400")};
   margin-bottom: ${(props) => (props.isTitle ? 15 : 0)};
   font-size: 14px;
@@ -112,6 +112,21 @@ const StoryMain = () => {
   const [userNickname, setUserNickName] = useState("");
   const [userID, setUserID] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    Orientation.addOrientationListener(onOrientaionChange);
+    return () => {
+      Orientation.unlockAllOrientations(),
+        Orientation.removeOrientationListener(onOrientaionChange);
+    };
+  }, []);
+  const onOrientaionChange = (orientation) => {
+    if (orientation === "LANDSCAPE-RIGHT") {
+      console.log(orientation);
+      Orientation.lockToPortrait();
+    }
+  };
 
   useEffect(async () => {
     const Nickname = await AsyncStorage.getItem("userNickname");

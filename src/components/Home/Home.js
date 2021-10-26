@@ -45,7 +45,7 @@ const ItemButton = styled.View`
 
 const ItemBox = styled.TouchableOpacity`
   width: 100%;
-  height: 100%;
+  height: 90%;
   elevation: 3;
   border-width: 0.0125;
   margin-right: 10%;
@@ -140,11 +140,11 @@ const ContentTitle = styled.Text`
 `;
 
 const ContentText = styled.Text`
+  font-family: NotoSansCJKkr-Regular;
   font-weight: ${(props) => (props.isTitle ? "700" : "400")};
   margin-bottom: ${(props) => (props.isTitle ? 15 : 0)};
-  font-size: 14px;
-  line-height: 23px;
   color: #434141;
+  line-height: 23px;
 `;
 
 const Home = () => {
@@ -160,9 +160,8 @@ const Home = () => {
     };
   }, []);
   const onOrientaionChange = (orientation) => {
-    if (orientation === "LANDSCAPE-RIGHT") {
-      console.log(orientation);
-      Orientation.lockToLandscapeLeft();
+    if (orientation === "LANDSCAPE") {
+      Orientation.lockToPortrait();
     }
   };
 

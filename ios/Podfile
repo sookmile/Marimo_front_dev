@@ -15,10 +15,8 @@ target 'Marimo' do
 
 
 
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
 
-  pod 'RNSound', :path => '../node_modules/react-native-sound'
 
   target 'MarimoTests' do
     inherit! :complete

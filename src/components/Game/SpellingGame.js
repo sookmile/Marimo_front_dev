@@ -416,17 +416,17 @@ function SpellingGame({ route, navigation }) {
                     height:
                       windowWidth < windowHeight
                         ? heightPercentage(160)
-                        : hp(20),
+                        : widthPercentage(80),
                     borderRadius:
                       windowWidth < windowHeight
                         ? heightPercentage(160) / 2
-                        : wp(20) / 2,
+                        : widthPercentage(80) / 2,
                     justifyContent: "center",
                     alignItems: "center",
                     width:
                       windowWidth < windowHeight
                         ? heightPercentage(160)
-                        : wp(20),
+                        : widthPercentage(80),
                   }}
                 >
                   <View
@@ -438,10 +438,19 @@ function SpellingGame({ route, navigation }) {
                           : option == currentOptionSelected
                           ? COLORS.red
                           : COLORS.black,
-                      width: heightPercentage(120),
-                      height: heightPercentage(120),
+                      width:
+                        windowWidth < windowHeight
+                          ? heightPercentage(120)
+                          : widthPercentage(60),
+                      height:
+                        windowWidth < windowHeight
+                          ? heightPercentage(120)
+                          : widthPercentage(60),
 
-                      borderRadius: heightPercentage(120) / 2,
+                      borderRadius:
+                        windowWidth < windowHeight
+                          ? heightPercentage(120) / 2
+                          : widthPercentage(60) / 2,
                       justifyContent: "center",
                     }}
                   >
@@ -580,8 +589,10 @@ function SpellingGame({ route, navigation }) {
               source={images.gameResultModal}
               resizeMode="contain"
               style={{
-                width: widthPercentage(300),
-                height: heightPercentage(450),
+                width:
+                  windowWidth < windowHeight ? widthPercentage(300) : hp(80),
+                height:
+                  windowWidth < windowHeight ? heightPercentage(450) : wp(70),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -599,7 +610,10 @@ function SpellingGame({ route, navigation }) {
                   resizeMode="contain"
                   style={{
                     // width: widthPercentage(230),
-                    height: heightPercentage(175),
+                    height:
+                      windowWidth < windowHeight
+                        ? heightPercentage(175)
+                        : widthPercentage(90),
                   }}
                 />
                 <Text
@@ -714,9 +728,15 @@ function SpellingGame({ route, navigation }) {
                   resizeMode="contain"
                   style={{
                     justifyContent: "center",
-                    width: widthPercentage(140),
+                    width:
+                      windowWidth < windowHeight
+                        ? widthPercentage(140)
+                        : widthPercentage(70),
 
-                    height: heightPercentage(100),
+                    height:
+                      windowWidth < windowHeight
+                        ? heightPercentage(100)
+                        : heightPercentage(180),
                   }}
                 >
                   <View
@@ -774,11 +794,15 @@ function SpellingGame({ route, navigation }) {
             <Svg
               style={{
                 width:
-                  windowWidth < windowHeight ? widthPercentage(145) : hp(45),
+                  windowWidth < windowHeight ? widthPercentage(165) : hp(45),
                 height: windowWidth < windowHeight ? hp(20) : wp(20),
               }}
             >
-              <Image width="100%" height="100%" source={characterImg} />
+              <Image
+                style={{ width: "100%", height: "100%" }}
+                source={characterImg}
+                resizeMode="contain"
+              />
             </Svg>
             {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
           </Animated.View>
@@ -812,7 +836,10 @@ function SpellingGame({ route, navigation }) {
               >
                 <View
                   style={{
-                    width: widthPercentage(130),
+                    width:
+                      windowWidth < windowHeight
+                        ? widthPercentage(130)
+                        : widthPercentage(70),
                     backgroundColor: "#B29262",
                     alignItems: "center",
                     justifyContent: "center",
@@ -823,8 +850,7 @@ function SpellingGame({ route, navigation }) {
                   <Text
                     style={{
                       fontFamily: "Cafe24Ssurround",
-                      fontSize:
-                        windowWidth < windowHeight ? fontPercentage(26) : hp(5),
+                      fontSize: fontPercentage(26),
                       color: COLORS.white,
                     }}
                   >

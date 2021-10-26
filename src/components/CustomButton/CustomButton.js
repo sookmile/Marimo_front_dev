@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "black",
     fontSize: fontPercentage(20),
-    fontWeight: "400",
-    fontFamily: "Noto Sans CJK KR",
+    fontFamily: "NotoSansCJKkr-Regular",
+    lineHeight: 23,
   },
 });
