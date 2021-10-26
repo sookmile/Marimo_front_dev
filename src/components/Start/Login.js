@@ -531,18 +531,18 @@ const IntroText = Styled.Text`
   font-weight: bold;
   margin-top:2%;
   line-height: 40px;
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
 `;
 const VoiceText = Styled.Text`
   margin: 32px;
   color:#999999;
   font-size:20px;
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
   line-height:29.6px;
 `;
 const KeyText = Styled.Text`
   text-align:center;
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -553,7 +553,7 @@ const KeyText = Styled.Text`
 const AppName = Styled.Text`
   font-size:22px;
   color: #F66C6C;
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
 `;
 
 const Box = Styled.View`
@@ -606,7 +606,7 @@ const BtnText = Styled.Text`
   color:white;
   font-size: 18px;
   letter-spacing: -0.408px;
-  font-family: Noto Sans CJK KR;
+  font-family: NotoSansCJKkr-Regular;
 
 `;
 const NameInput = Styled.TextInput`
