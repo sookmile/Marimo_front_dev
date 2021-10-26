@@ -85,7 +85,7 @@ const ConfirmCh = ({ route, navigation }) => {
             }}
           >
             <Image
-              style={{ width: "65%", height: "55%" ,marginTop:'5%'}}
+              style={{ width: "65%", height: "55%", marginTop: "5%" }}
               resizeMode="contain"
               source={bigCharacter[characterNum].src}
             />
@@ -133,10 +133,6 @@ const ConfirmCh = ({ route, navigation }) => {
 
 export default ConfirmCh;
 
-const GoodsList = styled.View``;
-
-const GoodsCntr = styled.View``;
-
 const BtnCntr = styled.View`
   width: 92%;
   align-items: center;
@@ -155,6 +151,7 @@ const BtnText = styled.Text`
   color: white;
   font-size: 18px;
   letter-spacing: -0.408px;
+  font-family: Noto Sans CJK KR;
 `;
 
 const Cntr = styled.View`
@@ -171,10 +168,6 @@ const BackCntr = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
 `;
-const BackIcon = styled.Text`
-  width: 25%;
-  font-size: 18px;
-`;
 const Container = styled.View`
   flex: 1;
   margin-left: 3%;
@@ -186,6 +179,7 @@ const IntroText = styled.Text`
   font-weight: bold;
   margin-top: 2%;
   line-height: 40px;
+  font-family: Noto Sans CJK KR;
 `;
 const AppName = styled.Text`
   font-size: 22px;
