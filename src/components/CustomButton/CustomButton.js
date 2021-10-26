@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: fontPercentage(20),
     fontFamily: "NotoSansCJKkr-Regular",
-    lineHeight: 23,
+    lineHeight: 25,
   },
 });

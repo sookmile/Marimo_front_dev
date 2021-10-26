@@ -1,11 +1,17 @@
 import React, { Component } from "react";
-import { Animated, PanResponder, View, StyleSheet } from "react-native";
+import {
+  Animated,
+  PanResponder,
+  View,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 import { icons, images } from "../../constants";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { widthPercentage } from "../../constants/responsive";
+import { widthPercentage, heightPercentage } from "../../constants/responsive";
 
 export default class BouncingComponent extends Component {
   state = {
@@ -41,8 +47,8 @@ export default class BouncingComponent extends Component {
 
 const style = StyleSheet.create({
   icons: {
-    width: widthPercentage(110),
-    height: widthPercentage(110),
+    width: 110,
+    height: 110,
     position: "relative",
     left: "1%",
     marginBottom: 10,
