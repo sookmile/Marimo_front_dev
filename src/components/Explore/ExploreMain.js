@@ -478,7 +478,6 @@ const ExploreMain = ({ navigation }) => {
                       fontFamily: "NotoSansCJKkr-Regular",
                       marginBottom: 0,
                       lineHeight: 23,
-
                     }}
                   >
                     추천 연령: 3~7세

@@ -318,6 +318,7 @@ const StoryMain = () => {
                     color: "#464D46",
                     fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
+                    marginTop: "3%",
                   }}
                 >
                   추천 학습
