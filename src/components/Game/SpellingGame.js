@@ -13,7 +13,7 @@ import {
   Dimensions,
   useWindowDimensions,
 } from "react-native";
-
+import { CommonActions } from "@react-navigation/native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -180,6 +180,9 @@ function SpellingGame({ route, navigation }) {
     Voice.onSpeechEnd = _onSpeechEnd;
     Voice.onSpeechResults = _onSpeechResults;
     Voice.onSpeechError = _onSpeechError;
+
+    console.log("windowHeight: ", windowHeight);
+    console.log("windowWidth: ", windowWidth);
 
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);
@@ -512,8 +515,24 @@ function SpellingGame({ route, navigation }) {
           animationType={"slide"}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
+            Alert.alert(
+              "피드백 종료",
+              "피드백 창을 끄면 게임을 계속할 수 없어요!",
+              [
+                {
+                  text: "종료",
+                  onPress: () => navigation.goBack(),
+                },
+                {
+                  text: "취소",
+                  onPress: () => console.log("종료 취소"),
+                  style: "cancel",
+                },
+              ],
+              {
+                cancelable: false,
+              }
+            );
           }}
         >
           <View style={styles.modal_background}>
@@ -580,8 +599,7 @@ function SpellingGame({ route, navigation }) {
           animationType={"slide"}
           visible={isFeedbackModalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setisFeedbackModalVisible(!isFeedbackModalVisible);
+            Alert.alert("피드백 도중에는 뒤로 갈 수 없어요!");
           }}
         >
           <View style={styles.modal_background}>
@@ -794,8 +812,9 @@ function SpellingGame({ route, navigation }) {
             <Svg
               style={{
                 width:
-                  windowWidth < windowHeight ? widthPercentage(165) : hp(45),
-                height: windowWidth < windowHeight ? hp(20) : wp(20),
+                  windowWidth < windowHeight ? widthPercentage(165) : wp(25),
+                height:
+                  windowWidth < windowHeight ? heightPercentage(140) : wp(20),
               }}
             >
               <Image
