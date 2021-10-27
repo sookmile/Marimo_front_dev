@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  FlatList,
-  StatusBar,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
+import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 
 export default class CreditPage extends Component {
@@ -17,14 +8,8 @@ export default class CreditPage extends Component {
       <TouchableOpacity onPress={item.onPress}>
         <ListItem key={item.title} bottomDivider>
           <ListItem.Content>
-            <ListItem.Title
-              style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
-            >
-              {item.name}
-            </ListItem.Title>
-            <ListItem.Subtitle
-              style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
-            >
+            <ListItem.Title style={styles.title}>{item.name}</ListItem.Title>
+            <ListItem.Subtitle style={styles.title}>
               {item.version}
             </ListItem.Subtitle>
           </ListItem.Content>
@@ -76,8 +61,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 18,
-    fontFamily: "NanumSquareRoundB",
+    fontFamily: "NotoSansCJKkr-Regular",
+    lineHeight: 23,
   },
   seperator: {
     height: 1,
