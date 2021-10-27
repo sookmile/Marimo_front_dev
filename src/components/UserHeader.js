@@ -236,7 +236,7 @@ export const UserHeader = ({ userNickname, type }) => {
                   content={`마리모,`}
                   textStyle={{
                     textAlign: "left",
-
+                    marginBottom: fontPercentage(15),
                     fontSize: fontPercentage(20),
                     fontFamily: "Cafe24Ssurround",
                     color: "#464D46",
@@ -264,7 +264,6 @@ export const UserHeader = ({ userNickname, type }) => {
                 source={require("../assets/icons/MainLogo.png")}
               />
             </View>
-            <View style={styles.btnCntr}></View>
           </View>
         )}
       </View>
@@ -304,7 +303,7 @@ const styles = StyleSheet.create({
   },
   mainbox: {
     width: "87%",
-    height: "75%",
+    height: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
