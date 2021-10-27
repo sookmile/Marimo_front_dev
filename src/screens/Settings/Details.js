@@ -20,7 +20,6 @@ export default Details;
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "NotoSansCJKkr-Regular",
-    lineHeight: 23,
+    fontSize: 14,
   },
 });

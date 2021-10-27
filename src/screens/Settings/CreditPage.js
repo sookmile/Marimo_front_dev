@@ -61,8 +61,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontFamily: "NotoSansCJKkr-Regular",
-    lineHeight: 23,
+    fontSize: 16,
   },
   seperator: {
     height: 1,
