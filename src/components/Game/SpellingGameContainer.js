@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, BackHandler } from "react-native";
 import styled from "styled-components/native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import CustomButton from "../CustomButton/CustomButton";
@@ -11,6 +11,17 @@ export default function SpellingGameContainer({ navigation }) {
   const [userID, setUserID] = useState(0);
   const [userNickname, setUserNickname] = useState("");
   const [characterNum, setcharacterNum] = useState(0);
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }, []);
 
   const getUserId = async () => {
     const id = await AsyncStorage.getItem("userId");

@@ -1,5 +1,12 @@
-import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import React, { useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  BackHandler,
+  Alert,
+} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { COLORS, navTabIcons } from "../constants/index";
 import SettingStackNavigator from "./SettingStackNavigator";

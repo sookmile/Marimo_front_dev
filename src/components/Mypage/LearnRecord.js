@@ -184,6 +184,11 @@ const LearnRecord = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
       <Container style={{ marginTop: cntrMargin }}>
         <BackCntr></BackCntr>
         <Cntr>

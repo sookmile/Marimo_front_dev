@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   Alert,
+  StatusBar,
   TouchableOpacity,
 } from "react-native";
 import Modal from "react-native-modal";
@@ -84,16 +85,20 @@ function SettingScreen({ navigation }) {
 
   const resetAction = CommonActions.reset({
     index: 1,
-    routes: [{ name: "StartMain" }],
+    routes: [{ name: "Start" }],
   });
   const naverLogout = async () => {
     await NaverLogin.logout();
     await AsyncStorage.setItem("token", "");
     await AsyncStorage.setItem("isLogin", "false");
     console.log("로그아웃");
-    Alert.alert("로그아웃 되셨습니다");
+    Alert.alert("마리모", "로그아웃 되셨습니다", [
+      {
+        text: "확인",
+      },
+    ]);
     navigation.dispatch(resetAction);
-    navigation.navigate("StartMain");
+    navigation.navigate("Start");
   };
 
   // 선택 버튼 1: 아침형, 2: 점심형, 3: 저녁형, 4: 새벽형
@@ -133,6 +138,11 @@ function SettingScreen({ navigation }) {
   Platform.OS === "ios" ? (chMargin = 40) : (chMargin = 0);
   return (
     <View style={{ display: "flex", flex: 1, backgroundColor: "#FFFBF8" }}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
       <View
         style={{
           display: "flex",

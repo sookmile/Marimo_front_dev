@@ -1,12 +1,27 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import SpellingGame from "../components/Game/SpellingGame";
 import GameMain from "../components/Game/GameMain";
 import LearnRecord from "../components/Mypage/LearnRecord";
 import SpellingGameContainer from "../components/Game/SpellingGameContainer";
+import { BackHandler } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 const GameStack = createStackNavigator();
 
 const Game = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <GameStack.Navigator>
       <GameStack.Screen
