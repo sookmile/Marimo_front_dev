@@ -1,23 +1,3 @@
-import images from "./images";
-
-const myMemories = [
-  {
-    id: 1,
-    name: "해바라기",
-    image: images.sunflowers,
-  },
-  {
-    id: 2,
-    name: "사슴",
-    image: images.deer,
-  },
-  {
-    id: 3,
-    name: "블록",
-    image: images.blocks,
-  },
-];
-
 const wordList = [
   {
     initial: "ㅇㅇ",
@@ -56,26 +36,6 @@ const wordList = [
   },
 ];
 
-const score = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 5,
-  },
-];
-
 export default {
-  myMemories,
   wordList,
-  score,
 };

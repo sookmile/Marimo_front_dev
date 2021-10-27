@@ -10,9 +10,7 @@ export const ic_story3 = require("../assets/icons/NavTab/ic-story3.png");
 export const ic_game2 = require("../assets/icons/NavTab/ic-game2.png");
 export const ic_game3 = require("../assets/icons/NavTab/ic-game3.png");
 
-export const cv_story = require("../assets/icons/NavTab/cover-story.png");
 export const cv_game = require("../assets/icons/NavTab/cover-game.png");
-export const cv_explore = require("../assets/icons/NavTab/cover-explore.png");
 export const cv_camera = require("../assets/icons/NavTab/cover-camera.png");
 
 export const ic_voice = require("../assets/icons/NavTab/ic-voice.png");
@@ -37,9 +35,7 @@ export default {
   ic_story3,
   ic_game2,
   ic_game3,
-  cv_story,
   cv_game,
-  cv_explore,
   cv_camera,
   ic_voice,
   ic_Mstory,
