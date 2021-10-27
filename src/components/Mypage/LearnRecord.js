@@ -350,8 +350,8 @@ const LearnRecord = ({ navigation, route }) => {
                               ellipsizeMode="tail"
                             >
                               {obj?.label === "TALE"
-                                ? "동화- 호랑이의 생일잔치"
-                                : "게임-마리모와 함께하는 모음학습"}
+                                ? "동화-호랑이의 생일잔치"
+                                : "게임-냠냠 맛있는 모음게임"}
                             </ContentText>
                           </ContentTexts>
                           <TouchableOpacity
@@ -434,8 +434,8 @@ const LearnRecord = ({ navigation, route }) => {
                     numberOfLines={2}
                     ellipsizeMode="tail"
                   >
-                    {userNickname} (이)가 가장 많이 플레이한 게임은 ' 냠냠
-                    맛있는 모음게임' 이에요
+                    {userNickname} (이)가 가장 많이 플레이한 게임은 '냠냠 맛있는
+                    모음게임' 이에요
                   </ContentExp>
                   <ContnetSubCntr>
                     <View style={{ width: "30%" }}>
@@ -541,7 +541,7 @@ const ContentTexts = styled.View`
   padding-horizontal: 3.5%;
 `;
 const GradeText = styled.Text`
-font-style: normal;
+  font-style: normal;
   font-weight: bold;
   font-size: 28px;
   line-height: 41px;
@@ -581,7 +581,7 @@ const ContentText = styled.Text`
   color: #434141;
 `;
 const ContentDiffWord = styled.Text`
-font-weight: bold;
+  font-weight: bold;
   margin-bottom: 3;
   font-size: 20px;
   line-height: 25px;
