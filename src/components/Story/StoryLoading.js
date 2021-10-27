@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { BackHandler, TouchableOpacity } from "react-native";
 import {
   View,
   Text,
@@ -21,7 +21,19 @@ const StoryLoading = ({ route, navigation }) => {
   const statusBar = getStatusBarHeight();
   const { height, width } = useWindowDimensions();
   const screenHeight = width - statusBar;
-
+  // 뒤로가기 
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }, []);
+  
   useEffect(() => {
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientaionChange);
