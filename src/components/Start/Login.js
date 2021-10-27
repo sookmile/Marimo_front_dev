@@ -459,17 +459,21 @@ const Login = ({ navigation }) => {
               {/* <Image source={images.marimoCharacter} resizeMode="contain" /> */}
               <Btn
                 onPress={async () => {
-                  const userId = await AsyncStorage.getItem("userId");
-                  console.log(userId);
-                  const postData = {
-                    id: userId === null ? 0 : userId,
-                    nickname: text,
-                  };
-                  console.log(postData);
-                  await postSpeechUserName(postData);
-                  navigation.navigate("Character", {
-                    name: text,
-                  });
+                  if (text.length === 0)
+                    Alert.alert("마리모", "이름을 입력해주세요");
+                  else {
+                    const userId = await AsyncStorage.getItem("userId");
+                    console.log(userId);
+                    const postData = {
+                      id: userId === null ? 0 : userId,
+                      nickname: text,
+                    };
+                    console.log(postData);
+                    await postSpeechUserName(postData);
+                    navigation.navigate("Character", {
+                      name: text,
+                    });
+                  }
                 }}
               >
                 <BtnText>입력을 완료했어요</BtnText>
