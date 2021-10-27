@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: "100%",
-    height: "47%",
+    height: "50%",
     borderRadius: 10,
     paddingTop: "10%",
     backgroundColor: "white",
@@ -382,15 +382,14 @@ const ContentText = styled.Text`
   font-family: Noto Sans CJK KR;
 `;
 const CloseBtn = styled.TouchableOpacity`
-  position: absolute;
-  bottom: 5%;
+  margin-top: 4%;
   height: 14%;
   padding: 2%;
   width: 30%;
   border-radius: 5;
   align-items: center;
   justify-content: center;
-  background-color: #a49cfa;
+  background-color: #dedede;
 `;
 
 const CloseText = styled.Text`
@@ -399,7 +398,7 @@ const CloseText = styled.Text`
   font-weight: bold;
   font-size: 17px;
   line-height: 25px;
-  color: #454545;
+  color: #191919;
 `;
 
 const Contents = styled.TouchableOpacity`

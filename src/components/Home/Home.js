@@ -151,6 +151,8 @@ const ContentText = styled.Text`
 `;
 
 const Home = () => {
+  const navigation = useNavigation();
+
   const [userNickname, setUserNickName] = useState("");
   const [userID, setUserID] = useState("");
 
@@ -200,6 +202,11 @@ const Home = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "#FFFBF8" }}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
       <View style={styles.container}>
         <View
           style={{
