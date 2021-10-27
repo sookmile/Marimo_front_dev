@@ -174,7 +174,6 @@ const ExploreDetail = ({ navigation, route }) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
           navigation.reset({ routes: [{ name: "Main" }] });
         }}
@@ -189,7 +188,7 @@ const ExploreDetail = ({ navigation, route }) => {
               />
             </View>
             <Text style={styles.modalText}>
-              사진이 내 추억창고에 저장되었습니다!
+              사진이 내 추억창고에{"\n"} 저장되었습니다!
             </Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}

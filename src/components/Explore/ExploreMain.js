@@ -12,14 +12,10 @@ import {
 } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { preURL } from "../../preURL/preURL";
-import { COLORS, SIZES, navTabIcons } from "../../constants";
+import { SIZES, navTabIcons } from "../../constants";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import {
-  fontPercentage,
-  heightPercentage,
-  widthPercentage,
-} from "../../constants/responsive";
+import { fontPercentage, heightPercentage } from "../../constants/responsive";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -31,7 +27,6 @@ import Tts from "react-native-tts";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import styled, { css } from "styled-components";
-import { Swipeable } from "react-native-gesture-handler";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -46,55 +41,6 @@ Tts.addEventListener("tts-cancel", (event) => console.log("cancel", event));
 const _onPressSpeech = (word) => {
   Tts.stop();
   Tts.speak(word);
-};
-
-const ListItem2 = ({ item }) => {
-  const navigation = useNavigation();
-  return (
-    <View
-      style={{
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        marginHorizontal: SIZES.padding,
-        marginVertical: 16,
-      }}
-    >
-      <ContnetSubCntr
-        onPress={() => navigation.navigate("Camera")}
-        style={{ height: heightPercentage(110) }}
-      >
-        <Image
-          style={{ position: "absolute", top: "2%", left: "1%" }}
-          source={require("../../assets/icons/ic_ellipse.png")}
-        />
-        <View style={{ borderRadius: 20 }}>
-          <ChImage
-            style={{
-              borderRadius: 20,
-              paddingLeft: -30,
-              width: widthPercentage(80),
-              height: heightPercentage(80),
-            }}
-            resizeMode="cover"
-            source={item.src}
-          />
-        </View>
-        <ContentTexts>
-          <ContentTitle
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{ fontSize: wp(4.5), marginBottom: hp(1.5) }}
-          >
-            {item.text}
-          </ContentTitle>
-          <ContentText style={{ fontSize: wp(3.5) }}>
-            추천 연령 : {item.age}세
-          </ContentText>
-        </ContentTexts>
-      </ContnetSubCntr>
-    </View>
-  );
 };
 
 const ContnetSubCntr = styled.TouchableOpacity`
@@ -158,19 +104,6 @@ const ExploreMain = ({ navigation }) => {
   const getUserId = async () => {
     const id = await AsyncStorage.getItem("userId");
     return id;
-  };
-
-  const getUserData = async (userId) => {
-    await axios
-      .post(preURL + "marimo/getNickName", { userId: userId })
-      .then((res) => {
-        const response = res.data;
-        console.log("성공:", response);
-        return response;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const getUserMemory = async (userId) => {
@@ -247,7 +180,7 @@ const ExploreMain = ({ navigation }) => {
       };
       axios
         .post(preURL + "/image/delete", dataToSend)
-        .then(async (res) => {
+        .then((res) => {
           const response = res.data;
           console.log("삭제 여부: ", response);
           alert("사진을 삭제했습니다");
@@ -263,12 +196,14 @@ const ExploreMain = ({ navigation }) => {
     const deleteHandler = async (photoId, userId) => {
       console.log("사진 아이디: ", photoId);
       console.log("사용자 아이디: ", userId);
-      postDeleteItem(photoId, userId);
-      const userMemory = await getUserMemory(userId);
-      if (userMemory) {
-        setUserData(userMemory);
+      const result = postDeleteItem(photoId, userId);
+      if (result) {
+        const userMemory = await getUserMemory(userId);
+        console.log("삭제 후 유저 데이터: ", userMemory);
+        if (userMemory) {
+          setUserData(userMemory);
+        }
       }
-      setLoading(false);
     };
 
     // 삭제 여부 묻는 모달
@@ -404,8 +339,15 @@ const ExploreMain = ({ navigation }) => {
           />
         </View>
       </View>
-      <View style={{ flex: 1, marginHorizontal: "6%" }}>
-        <View style={{ marginTop: "7%" }}>
+      <View
+        style={{
+          flex: 1,
+          marginHorizontal: "6%",
+          marginTop: "5%",
+          marginBottom: "5%",
+        }}
+      >
+        <View style={{ marginTop: "5%", marginVertical: 15, marginBottom: 5 }}>
           <View>
             <Text style={styles.titleText}>
               찰칵, 카메라를 눌러서 찾아봐요!
@@ -427,7 +369,7 @@ const ExploreMain = ({ navigation }) => {
                   backgroundColor: "#F5E7F8",
                   width: "100%",
                   height: windowWidth < windowHeight ? hp(15) : wp(15),
-                  borderRadius: 20,
+                  borderRadius: 23,
                   flexDirection: "row",
                   elevation: 3,
                 }}
@@ -487,7 +429,7 @@ const ExploreMain = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ flex: 1, marginVertical: "2.5%" }}>
+        <View style={{ flex: 1, marginVertical: "5%" }}>
           <View>
             <Text style={styles.titleText}>나의 추억창고</Text>
           </View>
@@ -503,49 +445,14 @@ const ExploreMain = ({ navigation }) => {
 };
 
 export default ExploreMain;
-const SECTIONS = [
+
+const SECTIONS3 = [
   {
-    date: "2021-09-16T13:27:40",
-    id: 1,
-    link: "https://picsum.photos/id/10/200",
-    success: null,
-    word: "학습기록이 없습니다.",
-  },
-];
-
-const SECTIONS3 = {
-  key: "1",
-  text: "요리조리, 탐험하기",
-  age: "3~7",
-  src: navTabIcons.cv_camera,
-  router: "Camera",
-};
-
-const SECTIONS2 = [
-  {
-    title: "Made for you",
-    horizontal: true,
-    data: [
-      {
-        key: "1",
-        text: "이상한 나라의 앨리스",
-        src: "https://picsum.photos/id/1/200",
-        route: "StoryLoading",
-      },
-      {
-        key: "2",
-        text: "호두까기 인형",
-        uri: "https://picsum.photos/id/10/200",
-        route: "StoryLoading",
-      },
-
-      {
-        key: "3",
-        text: "Item text 3",
-        uri: "https://picsum.photos/id/1002/200",
-        route: "StoryLoading",
-      },
-    ],
+    key: "1",
+    text: "요리조리, 탐험하기",
+    age: "3~7",
+    src: navTabIcons.cv_camera,
+    router: "Camera",
   },
 ];
 
@@ -556,158 +463,9 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
   },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 5,
-    height: 50,
-  },
-  mainLogo: {
-    width: 35,
-    height: 35,
-    marginLeft: 5,
-    marginRight: 10,
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#A098FD",
-    borderRadius: 45,
-    marginLeft: 5,
-  },
-  name: {
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#F1DFFF",
-    borderRadius: 45,
-    borderWidth: 3,
-    borderColor: "#C5A1F3",
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  userName: {
-    textAlign: "center",
-    textAlignVertical: "center",
-    width: 300,
-  },
-  records: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 5,
-  },
-  rButton1: {
-    width: 114,
-    height: 36,
-    borderRadius: 40,
-    backgroundColor: "#FF8C73",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  rButton2: {
-    width: 114,
-    height: 36,
-    borderRadius: 40,
-    backgroundColor: "#FEBB61",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: SIZES.padding,
-    marginVertical: SIZES.padding,
-  },
   titleText: {
     color: "#464D46",
     fontFamily: "Cafe24Ssurround",
     fontSize: fontPercentage(22),
   },
-  storyBlock: {
-    width: 370,
-    height: "40%",
-    display: "flex",
-    justifyContent: "space-around",
-    marginLeft: 10,
-  },
-  studyBlock: {
-    width: "92%",
-    height: "40%",
-    display: "flex",
-    justifyContent: "space-around",
-    marginLeft: 10,
-  },
-  item: {
-    width: "100%",
-    height: 145,
-    backgroundColor: "#FAEBFF",
-    display: "flex",
-    alignItems: "center",
-  },
-  itemPhoto: {
-    width: 64,
-    height: 63,
-    borderRadius: 23.5,
-  },
-  itemText: {
-    textAlign: "center",
-    paddingHorizontal: 5,
-    color: "gray",
-    marginTop: 10,
-    fontFamily: "NanumSquareRoundB",
-    fontSize: wp(3.5),
-  },
-  button: {
-    borderRadius: 50,
-    padding: 10,
-    elevation: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    width: windowWidth < windowHeight ? wp(9) : hp(9),
-    height: windowWidth < windowHeight ? wp(9) : hp(9),
-  },
-  buttonClose: {
-    backgroundColor: "#F66C6C",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
 });
-const ItemBox = styled.TouchableOpacity`
-  width: 97px;
-  height: 105px;
-  margin-right: 10;
-  background: ${(props) => props.background};
-  border-radius: 20px;
-  border-color: ${(props) => props.background};
-  align-items: center;
-  align-content: center;
-`;
-const ItemText = styled.Text`
-  color: ${(props) => props.color};
-  text-align: center;
-  padding-horizontal: 5;
-  margin-top: 10;
-  font-family: NanumSquareRoundB;
-  font-size: 18;
-  font-weight: bold;
-`;
-
-const ItemButton = styled.View`
-  margin-right: ${(props) => (props.label !== "탐험" ? 15 : 0)};
-  overflow: visible;
-`;
-const StudyTxt = styled.Text`
-  color: #191919;
-`;
-
-const Wrapper = styled.View`
-  width: 100%;
-  height: 140;
-`;
