@@ -5,74 +5,17 @@ import {
   View,
   Image,
   StatusBar,
-  Alert,
   ScrollView,
   Modal,
   Pressable,
 } from "react-native";
-import { SIZES, COLORS, navTabIcons } from "../../constants";
+import { navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import Orientation from "react-native-orientation";
 import { UserHeader } from "../UserHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styled, { css } from "styled-components";
-
-const renderItem = ({ item }) => {
-  const navigation = useNavigation();
-  return (
-    <View
-      style={{
-        width: "100%",
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        marginVertical: 16,
-        height: "30%",
-      }}
-    >
-      <ContnetSubCntr
-        onPress={() =>
-          item.router === "null"
-            ? Alert.alert("12월 정식버전 출시 이후 사용 가능합니다.")
-            : navigation.navigate(`${item.router}`, {
-                userID: item.userID,
-                taleName: "호랑이의 생일 잔치",
-              })
-        }
-      >
-        <Image
-          style={{ position: "absolute", top: "2%", left: "1%" }}
-          source={require("../../assets/icons/ic_ellipse.png")}
-        />
-        <ChImage
-          style={{
-            borderRadius: 20,
-            width: "26%",
-            height: "94%",
-          }}
-          source={item.src}
-        />
-        <ContentTexts>
-          <ContentTitle
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{ fontSize: hp(2.3), marginBottom: hp(1.5) }}
-          >
-            {item.text}
-          </ContentTitle>
-          <ContentText style={{ fontSize: hp(1.8) }}>
-            추천 연령 : {item.age}세
-          </ContentText>
-        </ContentTexts>
-      </ContnetSubCntr>
-    </View>
-  );
-};
 
 const ContnetSubCntr = styled.TouchableOpacity`
   width: 100%;
@@ -145,7 +88,6 @@ const StoryMain = () => {
     const userId = await getUserId();
     const userIdCheck = userId === null ? 1 : userId;
     await setUserID(userIdCheck);
-    Alert.aert(userIdCheck);
   };
   useEffect(async () => {
     await getId();
@@ -243,7 +185,6 @@ const StoryMain = () => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -294,7 +235,6 @@ const StoryMain = () => {
               width: "92%",
               height: "55%",
               marginBottom: "5%",
-
               alignContent: "center",
               alignItems: "center",
             }}
@@ -318,6 +258,7 @@ const StoryMain = () => {
                     color: "#464D46",
                     fontSize: fontPercentage(22),
                     fontFamily: "Cafe24Ssurround",
+                    marginTop: "3%",
                   }}
                 >
                   추천 학습
@@ -350,111 +291,6 @@ const styles = StyleSheet.create({
     display: "flex",
     padding: 10,
     alignItems: "center",
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 5,
-    height: 50,
-  },
-  mainLogo: {
-    width: 35,
-    height: 35,
-    marginLeft: 5,
-    marginRight: 10,
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#A098FD",
-    borderRadius: 45,
-    marginLeft: 5,
-  },
-  name: {
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#F1DFFF",
-    borderRadius: 45,
-    borderWidth: 3,
-    borderColor: "#C5A1F3",
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  userName: {
-    textAlign: "center",
-    textAlignVertical: "center",
-    width: 300,
-  },
-  records: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 5,
-  },
-  rButton1: {
-    width: 114,
-    height: 36,
-    borderRadius: 40,
-    backgroundColor: "#FF8C73",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  rButton2: {
-    width: 114,
-    height: 36,
-    borderRadius: 40,
-    backgroundColor: "#FEBB61",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: SIZES.padding,
-    marginVertical: SIZES.padding,
-  },
-  titleText: {
-    color: COLORS.darkGray,
-    fontFamily: "Cafe24Ssurround",
-    fontSize: fontPercentage(20),
-  },
-  storyBlock: {
-    width: 370,
-    height: "40%",
-    display: "flex",
-    justifyContent: "space-around",
-    marginLeft: 10,
-  },
-  studyBlock: {
-    width: "92%",
-    height: "40%",
-    display: "flex",
-    justifyContent: "space-around",
-    marginLeft: 10,
-  },
-  item: {
-    width: "100%",
-    height: 145,
-    backgroundColor: "#FAEBFF",
-    display: "flex",
-    alignItems: "center",
-  },
-  itemPhoto: {
-    width: 64,
-    height: 63,
-    borderRadius: 23.5,
-  },
-  itemText: {
-    textAlign: "center",
-    paddingHorizontal: 5,
-    color: "gray",
-    marginTop: 10,
-    fontFamily: "NanumSquareRoundB",
-    fontSize: wp(3.5),
   },
   centeredView: {
     flex: 1,

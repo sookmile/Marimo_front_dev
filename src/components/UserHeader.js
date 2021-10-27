@@ -264,11 +264,7 @@ export const UserHeader = ({ userNickname, type }) => {
                 source={require("../assets/icons/MainLogo.png")}
               />
             </View>
-            <View style={styles.btnCntr}>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.btnText}>See More</Text>
-              </TouchableOpacity>
-            </View>
+            <View style={styles.btnCntr}></View>
           </View>
         )}
       </View>
@@ -293,7 +289,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     backgroundColor: "#C5A1F3",
-    height: "65%",
+    height: "70%",
   },
   boxText: {
     fontFamily: "NanumSquareRoundB",
