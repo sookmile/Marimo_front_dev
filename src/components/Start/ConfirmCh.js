@@ -70,7 +70,7 @@ const ConfirmCh = ({ route, navigation }) => {
             height: "15%",
           }}
         >
-          <IntroText style={{ fontSize: fontPercentage(22) }}>
+          <IntroText>
             {bigCharacter[characterNum].label}와 모험을 떠날 준비가 되었니?
             {/*<AppName>송이</AppName>야!{"\n"}너와 함께 모험을 떠날
         친구를 골라봐!*/}
