@@ -1,33 +1,25 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 
 function Details({ route }) {
   const { licenseUrl, licenses, parents, repository, name } = route.params;
   return (
     <Card>
-      <Card.Title
-        style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}
-      >
-        LICENSE
-      </Card.Title>
+      <Card.Title style={styles.text}>LICENSE</Card.Title>
       <Card.Divider />
-      <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
-        {licenseUrl}
-      </Text>
-      {licenses && (
-        <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
-          {licenses}
-        </Text>
-      )}
-      <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
-        {parents}
-      </Text>
-      <Text style={{ fontFamily: "NotoSansCJKkr-Regular", lineHeight: 23 }}>
-        {repository}
-      </Text>
+      <Text style={styles.text}>{licenseUrl}</Text>
+      {licenses && <Text style={styles.text}>{licenses}</Text>}
+      <Text style={styles.text}>{parents}</Text>
+      <Text style={styles.text}>{repository}</Text>
     </Card>
   );
 }
 
 export default Details;
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 14,
+  },
+});

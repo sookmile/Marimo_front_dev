@@ -53,10 +53,14 @@ export default function SpellingGameContainer({ navigation }) {
               characterNum: characterNum,
             })
           }
+          backgroundColor={"#B16CF7"}
+          color={"#FFFFFF"}
         ></CustomButton>
         <CustomButton
           buttonText="나가기"
           onPress={() => navigation.goBack()}
+          backgroundColor={"#B16CF7"}
+          color={"#FFFFFF"}
         ></CustomButton>
       </ButtonContainer>
       <AnimatedBackground />

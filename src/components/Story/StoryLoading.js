@@ -78,7 +78,7 @@ const StoryLoading = ({ route, navigation }) => {
             },
           ]}
         >
-          호랑이의 생일잔치
+          호랑이의 생일 잔치
         </Text>
         <Image
           source={require("../../assets/images/story/Story1Page1.png")}

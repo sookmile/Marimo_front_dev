@@ -578,7 +578,13 @@ function SpellingGame({ route, navigation }) {
                 그럼 함께 따라읽어 볼까요?
               </Text>
               <Text style={styles.voiceLabel}>{voiceLabel}</Text>
-              <CustomButton buttonText={buttonLabel} onPress={_onRecordVoice} />
+              <View style={{ width: "35%" }}>
+                <CustomButton
+                  buttonText={buttonLabel}
+                  onPress={_onRecordVoice}
+                  backgroundColor={"#D4AEF9"}
+                />
+              </View>
             </ImageBackground>
           </View>
         </Modal>
@@ -660,10 +666,11 @@ function SpellingGame({ route, navigation }) {
                     {feedbackWord}
                   </Text>
                 </View>
-                <View>
+                <View style={{ width: "45%" }}>
                   <CustomButton
                     buttonText="다음 문제로!"
                     onPress={handleNext}
+                    backgroundColor={"#D4AEF9"}
                   />
                 </View>
               </View>

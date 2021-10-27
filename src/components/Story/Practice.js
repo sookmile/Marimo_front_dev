@@ -13,6 +13,7 @@ import Voice from "@react-native-community/voice";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import preURL from "../../preURL/preURL";
+import { fontPercentage } from "../../constants/responsive";
 
 const Practice = ({ route, navigation }) => {
   // const [userID, setUserID] = useState(0);
@@ -360,16 +361,16 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   feedback: {
-    fontSize: 25,
+    fontSize: fontPercentage(25),
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
     textAlign: "center",
     marginBottom: "0%",
   },
   close: {
-    fontSize: 20,
+    fontSize: fontPercentage(20),
     fontFamily: "Cafe24Ssurround",
     color: "#B16CF6",
-    marginTop: "5%",
+    // marginTop: "5%",
   },
 });

@@ -1,22 +1,16 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import {
   View,
-  Image,
   TouchableOpacity,
-  StatusBar,
   StyleSheet,
   Platform,
   SafeAreaView,
   PermissionsAndroid,
 } from "react-native";
 import { RNCamera } from "react-native-camera";
-import CameraRoll from "@react-native-community/cameraroll";
 import LinearGradient from "react-native-linear-gradient";
 import preURL from "../../preURL/preURL";
-import { PERMISSIONS, RESULTS, request } from "react-native-permissions";
-import axios from "axios";
 import Loader from "../Loader/Loader";
-import { icons } from "../../constants";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const ExploreCamera = ({ navigation }) => {
@@ -91,7 +85,7 @@ const ExploreCamera = ({ navigation }) => {
     }
   };
 
-  const postImage2 = async (url) => {
+  const postImage = async (url) => {
     console.log("post시작");
     console.log(url);
     const fd = new FormData();
@@ -133,55 +127,6 @@ const ExploreCamera = ({ navigation }) => {
       });
   };
 
-  const postImage = async () => {
-    const fd = new FormData();
-    fd.append("image", {
-      name: "picture.jpg",
-      type: "image/jpeg",
-      uri: url,
-    });
-    await axios
-      .post(preURL.preURL + "/image/name", fd, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        const response = res.data;
-        console.log(response);
-        setdescription(response);
-        console.log("설명", description);
-      })
-      .catch((err) => {
-        console.log("에러  발생 ");
-        console.log(err);
-      });
-    if (description) {
-      setprocessingImage(false);
-      navigation.navigate("Detail", {
-        image: url,
-        description: description,
-      });
-    } else {
-      setprocessingImage(false);
-      alert("이미지 설명 받아오지 못했습니다!");
-    }
-  };
-
-  const getPhotos = async () => {
-    console.log("...");
-    try {
-      const { edges } = await CameraRoll.getPhotos({
-        first: 1,
-        assetType: "Photos",
-      });
-      await seturl(edges[0].node.image.uri);
-      console.log("url", url);
-    } catch (error) {
-      console.log("getPhoto", error);
-    }
-  };
-
   /* 카메라 페이지 */
 
   return (
@@ -216,7 +161,7 @@ const ExploreCamera = ({ navigation }) => {
                   console.log(newURL);
                   console.log("post전");
                   await seturl(newURL);
-                  if (newURL) await postImage2(newURL);
+                  if (newURL) await postImage(newURL);
                   // post api
                   console.log("hello");
                 }}
