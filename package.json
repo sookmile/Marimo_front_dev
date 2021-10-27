@@ -26,7 +26,6 @@
     "fbjs": "^3.0.0",
     "hangul-js": "^0.2.6",
     "install": "^0.13.0",
-    "matter-js": "^0.17.1",
     "npm": "^7.24.0",
     "react": "17.0.1",
     "react-native": "0.64.2",

@@ -83,12 +83,6 @@
     "licenseUrl": "https://github.com/benjamn/install/raw/master/LICENSE",
     "parents": "Marimo"
   },
-  "matter-js@0.17.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/liabru/matter-js",
-    "licenseUrl": "https://github.com/liabru/matter-js/raw/master/LICENSE",
-    "parents": "Marimo"
-  },
   "npm@7.24.0": {
     "licenses": "Artistic-2.0",
     "repository": "https://github.com/npm/cli",
