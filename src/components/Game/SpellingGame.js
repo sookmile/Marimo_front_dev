@@ -127,7 +127,7 @@ function SpellingGame({ route, navigation }) {
       });
   };
 
-  const buttonLabel = isRecord ? "그만하기" : "녹음하기";
+  const buttonLabel = isRecord ? "그만하기" : "따라하기";
 
   const _onSpeechStart = () => {
     console.log("onSpeechStart");

@@ -156,7 +156,7 @@ const ExploreDetail = ({ navigation, route }) => {
         />
         <CustomButton
           buttonText="다른 사진 찍기"
-          onPress={() => navigation.replace("Camera")}
+          onPress={() => navigation.navigate("Camera")}
         />
         <CustomButton
           buttonText="홈으로 가기"

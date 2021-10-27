@@ -5878,11 +5878,6 @@
   dependencies:
     "object-visit" "^1.0.0"
 
-"matter-js@^0.17.1":
-  "integrity" "sha512-pSquoENJgvSAlQGcA0s5UkmEohGXZaUww2g3B6qG87x0iEcVf+aigMXn5UkFPdnh6w3B+C4vXSLaYqhHwKrOLA=="
-  "resolved" "https://registry.npmjs.org/matter-js/-/matter-js-0.17.1.tgz"
-  "version" "0.17.1"
-
 "mdn-data@2.0.14":
   "integrity" "sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
   "resolved" "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.14.tgz"
