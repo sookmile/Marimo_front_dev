@@ -89,11 +89,21 @@ const Login = ({ navigation }) => {
     console.log("_onSpeechError");
     console.log(event.error.message[0]);
     if (event.error.message[0] === "7")
-      Alert.alert("인식에 실패했습니다.\n버튼을 누르고 다시 말해주세요");
+      Alert.alert(
+        "마리모",
+        "인식에 실패했습니다.\n버튼을 누르고 다시 말해주세요",
+        [
+          {
+            text: "확인",
+            onPress: () => null,
+          },
+        ]
+      );
     console.log(event.error);
   };
 
   const _onRecordVoice = () => {
+    
     if (isRecord) {
       Voice.stop();
     } else {
@@ -460,7 +470,12 @@ const Login = ({ navigation }) => {
               <Btn
                 onPress={async () => {
                   if (text.length === 0)
-                    Alert.alert("마리모", "이름을 입력해주세요");
+                    Alert.alert("마리모", "이름을 입력해주세요", [
+                      {
+                        text: "확인",
+                        onPress: () => null,
+                      },
+                    ]);
                   else {
                     const userId = await AsyncStorage.getItem("userId");
                     console.log(userId);

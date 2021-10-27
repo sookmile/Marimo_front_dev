@@ -127,13 +127,22 @@ const StartMain = ({ navigation }) => {
 
   const hanldeContinue = async () => {
     const isLogin = await AsyncStorage.getItem("isLogin");
-    //Alert.alert("환영합니다.");
-    //navigation.navigate("NavTab");
+
     if (isLogin === "true") {
-      Alert.alert("마리모", " 말의 세계, 마리모로 오신 것을 환영합니다.");
+      Alert.alert("마리모", " 말의 세계, 마리모로 오신 것을 환영합니다.", [
+        {
+          text: "확인",
+          onPress: () => null,
+        },
+      ]);
       navigation.navigate("NavTab");
     } else {
-      Alert.alert("마리모", "사용자 정보가 없습니다.");
+      Alert.alert("마리모", "사용자 정보가 없습니다.", [
+        {
+          text: "확인",
+          onPress: () => null,
+        },
+      ]);
     }
   };
 
@@ -151,7 +160,12 @@ const StartMain = ({ navigation }) => {
       console.log("id", id);
       console.log("naverToken", naverToken);
       AsyncStorage.setItem("realName", profileResult.response.name);
-      Alert.alert("마리모", `${profileResult.response.name}님 환영합니다`);
+      Alert.alert("마리모", `${profileResult.response.name}님 환영합니다`, [
+        {
+          text: "확인",
+          onPress: () => null,
+        },
+      ]);
       navigation.navigate("Login", { name: profileResult.response.name });
     }
   };

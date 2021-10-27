@@ -32,7 +32,12 @@ const Character = ({ route, navigation }) => {
 
   const onSelect = () => {
     if (charNum === -1) {
-      Alert.alert("캐릭터를 선택해주세요");
+      Alert.alert("마리모", "캐릭터를 선택해주세요", [
+        {
+          text: "확인",
+          onPress: () => null,
+        },
+      ]);
     } else {
       navigation.navigate("ConfirmCh", {
         name: name,
@@ -96,7 +101,15 @@ const Character = ({ route, navigation }) => {
                         onPress={() => {
                           item.value === 0 || item.value === 1
                             ? selectCharacter(item.value)
-                            : Alert.alert("선택 불가능한 캐릭터입니다.");
+                            : Alert.alert(
+                                "마리모",
+                                "12월 정식 출시 이후로 사용할 수 있어요!",
+                                [
+                                  {
+                                    text: "확인",
+                                  },
+                                ]
+                              );
                         }}
                       >
                         <Image
