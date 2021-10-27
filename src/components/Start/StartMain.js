@@ -72,7 +72,6 @@ const StartMain = ({ navigation }) => {
   const onOrientationDidChange = (orientation) => {
     if (orientation === "LANDSCAPE") {
       Orientation.lockToPortrait();
-
     }
   };
 
@@ -134,9 +133,7 @@ const StartMain = ({ navigation }) => {
       Alert.alert("환영합니다.");
       navigation.navigate("NavTab");
     } else {
-      Alert.alert(
-        "사용자 정보가 없습니다. 시작하기 버튼을 눌러 가입을 해주세요."
-      );
+      Alert.alert("마리모", "사용자 정보가 없습니다.");
     }
   };
 

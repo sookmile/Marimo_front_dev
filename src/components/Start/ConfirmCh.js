@@ -118,7 +118,7 @@ const ConfirmCh = ({ route, navigation }) => {
                   console.log(postData);
                   await postCharacter(postData);
                   await AsyncStorage.setItem("userNickname", name);
-                  navigation.navigate("NavTab");
+                  navigation.reset({ routes: [{ name: "NavTab" }] });
                 }}
               >
                 <BtnText>네! 준비됐어요!</BtnText>

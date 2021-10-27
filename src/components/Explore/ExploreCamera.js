@@ -71,7 +71,7 @@ const ExploreCamera = ({ navigation }) => {
   const takePhoto = async () => {
     if (cameraRef) {
       const data = await cameraRef.current.takePictureAsync({
-        quality: 0.2,
+        quality: 0.5,
       });
       console.log("data", data.uri);
 
