@@ -4,8 +4,10 @@ import {
   View,
   Image,
   StatusBar,
+  Alert,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 import { navTabIcons } from "../../constants";
 import { fontPercentage, heightPercentage } from "../../constants/responsive";
@@ -152,7 +154,25 @@ const ContentText = styled.Text`
 
 const Home = () => {
   const navigation = useNavigation();
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("잠시만요!", "마리모 앱을 정말 종료하시겠습니까?", [
+        {
+          text: "아니오",
+          onPress: () => null,
+        },
+        { text: "예", onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const [userNickname, setUserNickName] = useState("");
   const [userID, setUserID] = useState("");
 
