@@ -47,15 +47,18 @@ const ExploreCamera = ({ navigation }) => {
           const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.CAMERA,
             {
-              title: "Camera Permission",
-              message: "App needs permission for camera access",
+              title: "'마리모'이(가) 카메라에 접근하려고 합니다.",
+              message:
+                "마리모에서 사용자의 카메라에 접근하려고 합니다. 자신이 찍은 사진을 추억 창고에 저장할 수 있습니다. 촬영된 사진은 다른 기기로 전송되지 않습니다.",
             }
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             // if Camera permission is granted
             setshowCameraView(true);
           } else {
-            alert("Camera permission denied");
+            alert(
+              "카메라 권한이 허용되지 않았습니다. 기능을 사용하기 위해서는 카메라 기능을 승인하셔야 합니다."
+            );
           }
         } catch (err) {
           alert("Camera Permission err", err);
@@ -142,10 +145,11 @@ const ExploreCamera = ({ navigation }) => {
               type={RNCamera.Constants.Type.back}
               flashMode={RNCamera.Constants.FlashMode.off}
               androidCameraPermissionOptions={{
-                title: "Permission to use camera",
-                message: "We need your permission to use your camera",
-                buttonPositive: "Ok",
-                buttonNegative: "Cancel",
+                title: "카메라 사용 권한",
+                message:
+                  "마리모에서 사용자의 카메라에 접근하려고 합니다. 자신이 찍은 사진을 추억 창고에 저장할 수 있습니다. 촬영된 사진은 다른 기기로 전송되지 않습니다.",
+                buttonPositive: "승인",
+                buttonNegative: "허용 안 함",
               }}
               androidRecordAudioPermissionOptions={{
                 title: "Permission to use audio recording",

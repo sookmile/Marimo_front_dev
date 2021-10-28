@@ -142,17 +142,6 @@ const ExploreMain = ({ navigation }) => {
     setLoading(false);
   };
 
-  const isFocused = useIsFocused();
-
-  useEffect(async () => {
-    if (isFocused) {
-      const userMemory = await getUserMemory(userId);
-      if (userMemory) {
-        setUserData(userMemory);
-      }
-    }
-  }, [isFocused]);
-
   useEffect(async () => {
     setLoading(true);
     getMultiData();
@@ -178,16 +167,26 @@ const ExploreMain = ({ navigation }) => {
         photoId,
         photoId,
       };
-      axios
+      await axios
         .post(preURL + "/image/delete", dataToSend)
         .then((res) => {
           const response = res.data;
           console.log("삭제 여부: ", response);
-          alert("사진을 삭제했습니다");
+          Alert.alert("삭제 완료", "사진을 삭제했습니다!", [
+            {
+              text: "확인",
+              onPress: () => null,
+            },
+          ]);
           return response;
         })
         .catch((err) => {
-          alert("삭제과정에서 오류가 발생했습니다!");
+          Alert.alert("오류", "삭제 과정에서 오류가 발생했습니다!", [
+            {
+              text: "확인",
+              onPress: () => null,
+            },
+          ]);
           console.log(err);
         });
     };
@@ -196,13 +195,11 @@ const ExploreMain = ({ navigation }) => {
     const deleteHandler = async (photoId, userId) => {
       console.log("사진 아이디: ", photoId);
       console.log("사용자 아이디: ", userId);
-      const result = postDeleteItem(photoId, userId);
-      if (result) {
-        const userMemory = await getUserMemory(userId);
-        console.log("삭제 후 유저 데이터: ", userMemory);
-        if (userMemory) {
-          setUserData(userMemory);
-        }
+      await postDeleteItem(photoId, userId);
+      const userMemory = await getUserMemory(userId);
+      console.log("삭제 후 유저 데이터: ", userMemory);
+      if (userMemory) {
+        setUserData(userMemory);
       }
     };
 
