@@ -145,7 +145,9 @@ const ExploreDetail = ({ navigation, route }) => {
         <CustomButton
           buttonText="이름 불러보기"
           onPress={() =>
-            _onPressSpeech(route?.params?.word ? route.params.word : "단어")
+            route.params.word
+              ? _onPressSpeech(route.params.word)
+              : Alert.alert("읽을 단어가 존재하지 않아요!")
           }
         />
         <CustomButton
