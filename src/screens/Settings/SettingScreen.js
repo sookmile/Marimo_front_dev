@@ -392,7 +392,7 @@ const ContentText = styled.Text`
   font-family: Noto Sans CJK KR;
 `;
 const CloseBtn = styled.TouchableOpacity`
-  margin-top: 4%;
+  margin-top: 5%;
   height: 14%;
   padding: 2%;
   width: 30%;
