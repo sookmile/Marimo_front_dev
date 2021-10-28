@@ -129,7 +129,7 @@ const StartMain = ({ navigation }) => {
     const isLogin = await AsyncStorage.getItem("isLogin");
 
     if (isLogin === "true") {
-      Alert.alert("마리모", " 말의 세계, 마리모로 오신 것을 환영합니다.", [
+      Alert.alert("마리모", "말의 세계, 마리모로 오신 것을 환영합니다.", [
         {
           text: "확인",
           onPress: () => null,
