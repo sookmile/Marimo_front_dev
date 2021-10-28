@@ -257,8 +257,11 @@ function SettingScreen({ navigation }) {
                   style={{ position: "absolute", right: 5, marginVertical: 10 }}
                 ></Icon>
               </Contents>
-              <Contents height={height}>
-                <InfoText>버전 정보</InfoText>
+              <Contents
+                height={height}
+                onPress={() => navigation.navigate("Privacy")}
+              >
+                <InfoText>개인정보 처리방침</InfoText>
                 <Icon
                   name="chevron-forward"
                   size={23}
