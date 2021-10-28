@@ -277,9 +277,8 @@ const LearnRecord = ({ navigation, route }) => {
                     </AnimatedCircularProgress>
                   </ProgressCntr>
                   {recordInfo?.analysis !== "" ? (
-                    <ResultText isSmall>
-                      {userNickname} 은(는)
-                      {recordInfo?.analysis}
+                    <ResultText isSmall style={{ whiteSpace: "pre-line" }}>
+                      {userNickname} 은(는) {recordInfo?.analysis}
                     </ResultText>
                   ) : (
                     <ResultText isSmall style={{ color: "#555555" }}>
@@ -394,13 +393,9 @@ const LearnRecord = ({ navigation, route }) => {
             ) : (
               <MainCntr>
                 <ContentCntr>
-                  <ContentExp
-                    style={{ textAlign: "left" }}
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                  >
-                    {userNickname} (이)가 가장 많이 플레이한 동화는 '호랑이의
-                    생일잔치' 이에요
+                  <ContentExp style={{ textAlign: "left" }}>
+                    {userNickname} (이)가 가장 많이 플레이한 동화는{"\n"}
+                    '호랑이의 생일잔치' 이에요
                   </ContentExp>
 
                   <ContnetSubCntr>
@@ -434,13 +429,9 @@ const LearnRecord = ({ navigation, route }) => {
                 </ContentCntr>
                 <Wrapper />
                 <ContentCntr>
-                  <ContentExp
-                    style={{ textAlign: "right" }}
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                  >
-                    {userNickname} (이)가 가장 많이 플레이한 게임은 '냠냠 맛있는
-                    모음게임' 이에요
+                  <ContentExp style={{ textAlign: "right" }}>
+                    {userNickname} (이)가 가장 많이 플레이한 게임은{"\n"}'냠냠
+                    맛있는 모음게임' 이에요
                   </ContentExp>
                   <ContnetSubCntr>
                     <View style={{ width: "30%" }}>
@@ -612,7 +603,8 @@ const ResultText = styled.Text`
 `;
 
 const ContentExp = styled.Text`
-  width: 100%;
+  width: 105%;
+  margin-left: -2.5%;
   color: #f2f2f2;
   font-style: normal;
   font-weight: 700;
