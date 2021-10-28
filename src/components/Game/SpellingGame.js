@@ -171,7 +171,6 @@ function SpellingGame({ route, navigation }) {
     // 세로 화면 고정
     Orientation.lockToPortrait();
     Orientation.addOrientationListener(onOrientationDidChange);
-
     const questionFrom = await getGameData();
 
     setUserID(id);
