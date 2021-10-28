@@ -289,11 +289,11 @@ const LearnRecord = ({ navigation, route }) => {
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
                     {userNickname} (이)가 잘 발음하는 단어
                   </ResultText>
-                  {goodWord.length > 0 ? (
+                  {goodWord?.length > 0 ? (
                     <View style={{ height: 210, padding: 20 }}>
                       <BarChart
                         style={{ flex: 1 }}
-                        data={goodWord.map((obj) => obj.value)}
+                        data={goodWord?.map((obj) => obj.value)}
                         gridMin={0}
                         svg={{ fill: "rgb(134, 65, 244)" }}
                       >
@@ -336,8 +336,8 @@ const LearnRecord = ({ navigation, route }) => {
                   <ResultText isMiddle>
                     {userNickname} (이)가 잘 발음하지 못하는 단어
                   </ResultText>
-                  {diffWord.length > 0 ? (
-                    diffWord.map((obj) => (
+                  {diffWord?.length > 0 ? (
+                    diffWord?.map((obj) => (
                       <>
                         <Wrapper />
                         <ContnetWordCntr>
