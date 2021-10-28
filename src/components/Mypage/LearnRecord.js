@@ -96,9 +96,6 @@ const LearnRecord = ({ navigation, route }) => {
     const chrNum = await AsyncStorage.getItem("characterNum");
     const nickname = await AsyncStorage.getItem("userNickname");
 
-    console.log(id);
-    console.log(chrNum);
-    console.log(nickname);
     await setChrImage(character[chrNum].src);
     await setUserNickName(nickname);
     await setUserID(Number(id));
@@ -162,8 +159,6 @@ const LearnRecord = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    console.log(getSelectionMode);
-  }, [getSelectionMode]);
   const item = character[0];
   const [alarm, setAlarm] = useState(false);
   let cntrMargin = 0;
