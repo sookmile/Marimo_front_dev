@@ -96,9 +96,6 @@ const LearnRecord = ({ navigation, route }) => {
     const chrNum = await AsyncStorage.getItem("characterNum");
     const nickname = await AsyncStorage.getItem("userNickname");
 
-    console.log(id);
-    console.log(chrNum);
-    console.log(nickname);
     await setChrImage(character[chrNum].src);
     await setUserNickName(nickname);
     await setUserID(Number(id));
@@ -162,8 +159,6 @@ const LearnRecord = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    console.log(getSelectionMode);
-  }, [getSelectionMode]);
   const item = character[0];
   const [alarm, setAlarm] = useState(false);
   let cntrMargin = 0;
@@ -289,11 +284,11 @@ const LearnRecord = ({ navigation, route }) => {
                   <ResultText isMiddle style={{ marginBottom: 5 }}>
                     {userNickname} (이)가 잘 발음하는 단어
                   </ResultText>
-                  {goodWord.length > 0 ? (
+                  {goodWord?.length > 0 ? (
                     <View style={{ height: 210, padding: 20 }}>
                       <BarChart
                         style={{ flex: 1 }}
-                        data={goodWord.map((obj) => obj.value)}
+                        data={goodWord?.map((obj) => obj.value)}
                         gridMin={0}
                         svg={{ fill: "rgb(134, 65, 244)" }}
                       >
@@ -336,8 +331,8 @@ const LearnRecord = ({ navigation, route }) => {
                   <ResultText isMiddle>
                     {userNickname} (이)가 잘 발음하지 못하는 단어
                   </ResultText>
-                  {diffWord.length > 0 ? (
-                    diffWord.map((obj) => (
+                  {diffWord?.length > 0 ? (
+                    diffWord?.map((obj) => (
                       <>
                         <Wrapper />
                         <ContnetWordCntr>
