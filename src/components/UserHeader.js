@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   mainLogo: {
-    width: 80,
+    width: 90,
   },
   logo: {
     width: widthPercentage(45),

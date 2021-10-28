@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SettingScreen from "./Settings/SettingScreen";
 import CreditPage from "./Settings/CreditPage";
 import Details from "./Settings/Details";
+import PrivacyPolicy from "./Settings/PrivacyPolicy";
 
 const SettingStack = createStackNavigator();
 
@@ -13,6 +14,11 @@ const SettingStackNavigator = () => {
         name="SettingScreen"
         component={SettingScreen}
         options={{ headerShown: false }}
+      />
+      <SettingStack.Screen
+        name="Privacy"
+        component={PrivacyPolicy}
+        options={{ headerShown: true, title: "개인정보 처리방침" }}
       />
       <SettingStack.Screen
         name="CreditPage"
