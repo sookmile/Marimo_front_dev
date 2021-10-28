@@ -47,7 +47,12 @@ const ExploreDetail = ({ navigation, route }) => {
     console.log("유저 아이디:", userID);
     setuserId(userID);
     if (!route.params.word) {
-      Alert.alert("사진을 인식하지 못했습니다!");
+      Alert.alert("오류", "사진을 인식하지 못했어요!", [
+        {
+          text: "확인",
+          onPress: () => null,
+        },
+      ]);
     }
 
     return () => {
@@ -77,7 +82,12 @@ const ExploreDetail = ({ navigation, route }) => {
           console.log(err);
         });
     } else {
-      Alert.alert("단어가 없어 저장할 수 없어요!");
+      Alert.alert("오류", "단어가 없어 저장할 수 없어요!", [
+        {
+          text: "확인",
+          onPress: () => null,
+        },
+      ]);
       return null;
     }
   };
@@ -147,7 +157,12 @@ const ExploreDetail = ({ navigation, route }) => {
           onPress={() =>
             route.params.word
               ? _onPressSpeech(route.params.word)
-              : Alert.alert("읽을 단어가 존재하지 않아요!")
+              : Alert.alert("오류", "읽을 단어가 존재하지 않아요!", [
+                  {
+                    text: "확인",
+                    onPress: () => null,
+                  },
+                ])
           }
         />
         <CustomButton
