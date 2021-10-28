@@ -158,7 +158,6 @@ const LearnRecord = ({ navigation, route }) => {
       });
   };
 
-  useEffect(() => {
   const item = character[0];
   const [alarm, setAlarm] = useState(false);
   let cntrMargin = 0;
