@@ -22,17 +22,12 @@ import {
   LineChart,
   YAxis,
 } from "react-native-svg-charts";
-import * as scale from "d3-scale";
 import { FONTS, COLORS, SIZES, icons, navTabIcons } from "../../constants";
 import styled from "styled-components";
 import { character } from "../../assets/icons/Character/Character";
 
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import Icon from "react-native-vector-icons/Ionicons";
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
+
 import axios from "axios";
 // post 성공시 User id 저장
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -287,7 +282,7 @@ const LearnRecord = ({ navigation, route }) => {
                     <View style={{ height: 210, padding: 20 }}>
                       <BarChart
                         style={{ flex: 1 }}
-                        data={goodWord?.map((obj) => obj.value)}
+                        data={goodWord?.map((obj) => obj?.value)}
                         gridMin={0}
                         svg={{ fill: "rgb(134, 65, 244)" }}
                       >
@@ -296,19 +291,33 @@ const LearnRecord = ({ navigation, route }) => {
                       <XAxis
                         style={{ marginTop: 10 }}
                         data={goodWord}
-                        scale={scale.scaleBand}
-                        formatLabel={(value, index) => goodWord[index].label}
-                        contentInset={{ left: 0 }}
+                        formatLabel={(value, index) => goodWord[index]?.label}
+                        contentInset={
+                          goodWord?.length === 4
+                            ? { left: 30, right: 30 }
+                            : goodWord?.length === 3
+                            ? { left: 40, right: 40 }
+                            : goodWord?.length === 2
+                            ? { left: 60, right: 60 }
+                            : { left: 120, right: 120 }
+                        }
                         svg={{ fontSize: 13, fill: "black" }}
                       />
                       <XAxis
                         style={{ marginTop: 10 }}
                         data={goodWord}
-                        scale={scale.scaleBand}
                         formatLabel={(value, index) =>
-                          `${goodWord[index].value}회`
+                          `${goodWord[index]?.value}회`
                         }
-                        contentInset={{ left: 0 }}
+                        contentInset={
+                          goodWord?.length === 4
+                            ? { left: 30, right: 30 }
+                            : goodWord?.length === 3
+                            ? { left: 40, right: 40 }
+                            : goodWord?.length === 2
+                            ? { left: 60, right: 60 }
+                            : { left: 120, right: 120 }
+                        }
                         svg={{ fontSize: 13, fill: "black" }}
                       />
                     </View>
