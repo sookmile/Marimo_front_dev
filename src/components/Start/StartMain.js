@@ -7,6 +7,7 @@ import {
   StatusBar,
   ImageBackground,
   Alert,
+  Image,
 } from "react-native";
 import Styled from "styled-components/native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
@@ -234,9 +235,12 @@ const StartMain = ({ navigation }) => {
             </View>
             <BtnCntr>
               <Btn2 onPress={() => Login(initials)}>
-                <NIMg
-                  source={require("../../assets/icons/Home/naverLogin.png")}
+                <ChImage
+                  resizeMode="contain"
+                  style={{ width: "60%", height: "60%" }}
+                  source={require("../../assets/icons/Home/naverIcon.png")}
                 />
+                <BtnText>네이버로 로그인하기</BtnText>
               </Btn2>
 
               <Btn
@@ -295,6 +299,8 @@ const Btn = Styled.TouchableOpacity`
 `;
 const Btn2 = Styled.TouchableOpacity`
   background-color: #03C75A;
+  display:flex;
+  flex-direction:row;
   color: white;
   width: 88%;
   height: 55;
@@ -322,5 +328,11 @@ const BtnText = Styled.Text`
   font-size: 18px;
   letter-spacing: -0.408px;
 
+`;
+
+const ChImage = Styled(Image)`
+  width: 5%;
+  position:absolute;
+  left:-10%;
 `;
 export default StartMain;
