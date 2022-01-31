@@ -1,2 +1,2 @@
 # marimo_front
-[![마리모 시연영상](스크린샷 이미지)](https://drive.google.com/file/d/14xF53QIsNEd_2VkURvH3lyLppvAEixTb/preview)
+[![마리모 시연영상](https://drive.google.com/file/d/1XOGzzARVQe_1n5z7c-d5iYfTUwOBWhC0/preview)](https://drive.google.com/file/d/14xF53QIsNEd_2VkURvH3lyLppvAEixTb/preview)
