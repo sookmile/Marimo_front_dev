@@ -1,5 +1,5 @@
 # Marimo
-| Marimo is a language learning platform for toddlers who are experiencing language development delays due to COVID-19.
+### | Marimo is a language learning platform for toddlers who are experiencing language development delays due to COVID-19.
 
 
 #### 기능
