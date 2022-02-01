@@ -9,5 +9,5 @@
 * 나의 기록들 : 학습결과에 대한 피드백과 학습 참여 현황을 확인
 
 
-#### 마리모 시연영상
+#### 서비스 소개 영상
 https://drive.google.com/file/d/14xF53QIsNEd_2VkURvH3lyLppvAEixTb/preview
