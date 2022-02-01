@@ -1,5 +1,7 @@
 # Marimo
 ### 마스크 착용 장기화로 인해 언어발달 지연 문제를 겪고 있는 5-7세의 유아를 대상으로 한 언어 학습 플랫폼
+| Marimo is a language learning platform for toddlers who are experiencing language development delays due to COVID-19.
+
 
 #### 기능
 * 동화 : 영상을 통한 입모양 가이드와 사용자가 발음한 단어에 대한 구체적인 피드백을 제시하여 발음교정 지원
